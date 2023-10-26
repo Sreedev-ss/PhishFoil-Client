@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import Table from "examples/Tables/Table";
-import { Box, Button, ButtonGroup, ClickAwayListener, Dialog, FormControl, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, Typography } from '@mui/material'
 
 
 import Table from '@mui/material/Table';
@@ -34,7 +34,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AiOutlineArrowDown, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload } from 'react-icons/ai';
 
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
@@ -117,23 +117,33 @@ function Tables() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" flexDirection="row" justifyContent="space-between" alignItems="flex-end" p={3}>
-              <div style={{ display: 'flex', alignItems: 'end', gap: 5 }}>
-                <Typography sx={{ fontSize: 'medium' }}>Status:</Typography>
-                <FormControl sx={{ minWidth: 150 }}>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={status}
-                    label="Status"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={'Active'}>Active</MenuItem>
-                    <MenuItem value={'Inactive'}>Inactive</MenuItem>
-                    <MenuItem value={'Managers'}>Managers</MenuItem>
-                    <MenuItem value={'Group Managers'}>Group Managers</MenuItem>
-                    <MenuItem value={'All Users'}>All Users</MenuItem>
-                  </Select>
-                </FormControl>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+                <div style={{ display:'flex', gap:'5px', alignItems:'center'}}><Typography sx={{ fontSize: 'medium' }}>Your Groups</Typography><AiFillPlusCircle/></div>
+                <FormGroup sx={{ display: 'flex', marginLeft: '10px',marginTop:'8px', flexDirection: 'row' }}>
+                  <FormControlLabel control={<Checkbox />} label="No Group" />
+                  <FormControlLabel control={<Checkbox />} label="Administration" />
+                  <FormControlLabel control={<Checkbox />} label="Sample" />
+                  <FormControlLabel control={<Checkbox />} label="Technical" />
+                </FormGroup>
+                <Divider />
+                <div style={{ display: 'flex', alignItems: 'end', gap: 5 }}>
+                  <Typography sx={{ fontSize: 'medium' }}>Status:</Typography>
+                  <FormControl sx={{ minWidth: 150 }}>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={status}
+                      label="Status"
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={'Active'}>Active</MenuItem>
+                      <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                      <MenuItem value={'Managers'}>Managers</MenuItem>
+                      <MenuItem value={'Group Managers'}>Group Managers</MenuItem>
+                      <MenuItem value={'All Users'}>All Users</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </div>
               <Stack>
                 <Stack spacing={2} direction="row" justifyContent="flex-end">
@@ -212,7 +222,6 @@ function Tables() {
                 </Stack>
               </Stack>
             </SoftBox>
-
             <SoftBox
               sx={{
                 "& .MuiTableRow-root:not(:last-child)": {
