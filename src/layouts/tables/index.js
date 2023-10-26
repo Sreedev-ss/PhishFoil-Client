@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import Table from "examples/Tables/Table";
-import { Button, ButtonGroup, ClickAwayListener, Dialog, Grow, IconButton, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Stack } from '@mui/material'
+import { Box, Button, ButtonGroup, ClickAwayListener, Dialog, FormControl, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, Typography } from '@mui/material'
 
 
 import Table from '@mui/material/Table';
@@ -41,7 +41,7 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-const options = ['Download Group Managers Reports','Download Reports', 'Download Users Reports'];
+const options = ['Download Group Managers Reports', 'Download Reports', 'Download Users Reports'];
 
 function Tables() {
   const { columns, rows } = authorsTableData;
@@ -50,6 +50,11 @@ function Tables() {
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('Active');
+
+  const handleChange = (event) => {
+    setStatus(event.target.value);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,6 +63,8 @@ function Tables() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
 
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
@@ -109,10 +116,29 @@ function Tables() {
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
-            <SoftBox display="flex" flexDirection="column" justifyContent="flex-end" alignItems="flex-end" p={3}>
+            <SoftBox display="flex" flexDirection="row" justifyContent="space-between" alignItems="flex-end" p={3}>
+            <div style={{display:'flex', alignItems:'end', gap:5}}>
+              <Typography sx={{ fontSize:'medium'}}>Status:</Typography>
+              <FormControl sx={{ minWidth:150 }}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={status}
+                  label="Status" 
+                  onChange={handleChange}
+                >
+                  <MenuItem value={'Active'}>Active</MenuItem>
+                  <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                  <MenuItem value={'Managers'}>Managers</MenuItem>
+                  <MenuItem value={'Group Managers'}>Group Managers</MenuItem>
+                  <MenuItem value={'All Users'}>All Users</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+              <Stack>
               <Stack spacing={2} direction="row">
-                <Button variant="outline" style={{border:'0.5px solid #1C7AE4', color:'white', backgroundColor:'#1b7ae4'}} size="small" ><AiOutlineReload/></Button>
-                <Button variant="outline" style={{border:'0.5px solid grey', color:'#585958', color:'#585958'}} size="small" onClick={openUserForm}>
+                <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" ><AiOutlineReload /></Button>
+                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958', color: '#585958' }} size="small" onClick={openUserForm}>
                   Restore Users
                 </Button>
                 <Dialog
@@ -121,7 +147,7 @@ function Tables() {
                 >
                   {/* User form content here */}
                 </Dialog>
-                <ButtonGroup variant="outline" style={{border:'0.5px solid #1C7AE4', color:'white', backgroundColor:'#1b7ae4'}} ref={anchorRef} aria-label="split button">
+                <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
                   <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
                   <Button
                     size="small"
@@ -172,10 +198,10 @@ function Tables() {
                 </Popper>
               </Stack>
               <Stack spacing={2} margin={2} direction="row">
-                <Button variant="outline" style={{border:'0.5px solid grey', color:'#585958'}} size="small" disabled>Action</Button>
-                <Button variant="outline" style={{border:'0.5px solid grey', color:'#585958'}} size="small"><AiOutlineArrowDown /> Import Users</Button>
-                <Button variant="outline" style={{border:'0.5px solid #1C7AE4', color:'white', backgroundColor:'#1b7ae4'}} size="small" onClick={openGroupForm}>
-                  <AiOutlinePlus/> Add
+                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small" disabled>Action</Button>
+                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small"><AiOutlineArrowDown /> Import Users</Button>
+                <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" onClick={openGroupForm}>
+                  <AiOutlinePlus /> Add
                 </Button>
                 <Dialog
                   open={isGroupFormOpen}
@@ -184,7 +210,9 @@ function Tables() {
                   {/* Group form content here */}
                 </Dialog>
               </Stack>
+              </Stack>
             </SoftBox>
+            
             <SoftBox
               sx={{
                 "& .MuiTableRow-root:not(:last-child)": {
