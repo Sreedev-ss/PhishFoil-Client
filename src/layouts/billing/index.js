@@ -33,6 +33,9 @@ import PaymentMethod from "layouts/billing/components/PaymentMethod";
 import Invoices from "layouts/billing/components/Invoices";
 import BillingInformation from "layouts/billing/components/BillingInformation";
 import Transactions from "layouts/billing/components/Transactions";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
+import dialog from "assets/theme/components/dialog";
+import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
 
 function Billing() {
   return (
