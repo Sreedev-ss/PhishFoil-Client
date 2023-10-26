@@ -117,102 +117,102 @@ function Tables() {
         <SoftBox mb={3}>
           <Card>
             <SoftBox display="flex" flexDirection="row" justifyContent="space-between" alignItems="flex-end" p={3}>
-            <div style={{display:'flex', alignItems:'end', gap:5}}>
-              <Typography sx={{ fontSize:'medium'}}>Status:</Typography>
-              <FormControl sx={{ minWidth:150 }}>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  label="Status" 
-                  onChange={handleChange}
-                >
-                  <MenuItem value={'Active'}>Active</MenuItem>
-                  <MenuItem value={'Inactive'}>Inactive</MenuItem>
-                  <MenuItem value={'Managers'}>Managers</MenuItem>
-                  <MenuItem value={'Group Managers'}>Group Managers</MenuItem>
-                  <MenuItem value={'All Users'}>All Users</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-              <Stack>
-              <Stack spacing={2} direction="row">
-                <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" ><AiOutlineReload /></Button>
-                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958', color: '#585958' }} size="small" onClick={openUserForm}>
-                  Restore Users
-                </Button>
-                <Dialog
-                  open={isUserFormOpen}
-                  onClose={closeUserForm}
-                >
-                  {/* User form content here */}
-                </Dialog>
-                <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
-                  <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
-                  <Button
-                    size="small"
-                    aria-controls={open ? 'split-button-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-label="select merge strategy"
-                    aria-haspopup="menu"
-                    onClick={handleToggle}
+              <div style={{ display: 'flex', alignItems: 'end', gap: 5 }}>
+                <Typography sx={{ fontSize: 'medium' }}>Status:</Typography>
+                <FormControl sx={{ minWidth: 150 }}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={status}
+                    label="Status"
+                    onChange={handleChange}
                   >
-                    <AiOutlineArrowDown />
+                    <MenuItem value={'Active'}>Active</MenuItem>
+                    <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                    <MenuItem value={'Managers'}>Managers</MenuItem>
+                    <MenuItem value={'Group Managers'}>Group Managers</MenuItem>
+                    <MenuItem value={'All Users'}>All Users</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+              <Stack>
+                <Stack spacing={2} direction="row" justifyContent="flex-end">
+                  <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" ><AiOutlineReload /></Button>
+                  <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958', color: '#585958' }} size="small" onClick={openUserForm}>
+                    Restore Users
                   </Button>
-                </ButtonGroup>
-                <Popper
-                  sx={{
-                    zIndex: 1,
-                  }}
-                  open={open}
-                  anchorEl={anchorRef.current}
-                  role={undefined}
-                  transition
-                  disablePortal
-                >
-                  {({ TransitionProps, placement }) => (
-                    <Grow
-                      {...TransitionProps}
-                      style={{
-                        transformOrigin:
-                          placement === 'bottom' ? 'center top' : 'center bottom',
-                      }}
+                  <Dialog
+                    open={isUserFormOpen}
+                    onClose={closeUserForm}
+                  >
+                    {/* User form content here */}
+                  </Dialog>
+                  <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
+                    <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
+                    <Button
+                      size="small"
+                      aria-controls={open ? 'split-button-menu' : undefined}
+                      aria-expanded={open ? 'true' : undefined}
+                      aria-label="select merge strategy"
+                      aria-haspopup="menu"
+                      onClick={handleToggle}
                     >
-                      <Paper>
-                        <ClickAwayListener onClickAway={handleClosebtn}>
-                          <MenuList id="split-button-menu" autoFocusItem>
-                            {options.map((option, index) => (
-                              <MenuItem
-                                key={option}
-                                selected={index === selectedIndex}
-                                onClick={(event) => handleMenuItemClick(event, index)}
-                              >
-                                {option}
-                              </MenuItem>
-                            ))}
-                          </MenuList>
-                        </ClickAwayListener>
-                      </Paper>
-                    </Grow>
-                  )}
-                </Popper>
-              </Stack>
-              <Stack spacing={2} margin={2} direction="row">
-                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small" disabled>Action</Button>
-                <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small"><AiOutlineArrowDown /> Import Users</Button>
-                <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" onClick={openGroupForm}>
-                  <AiOutlinePlus /> Add
-                </Button>
-                <Dialog
-                  open={isGroupFormOpen}
-                  onClose={closeGroupForm}
-                >
-                  {/* Group form content here */}
-                </Dialog>
-              </Stack>
+                      <AiOutlineArrowDown />
+                    </Button>
+                  </ButtonGroup>
+                  <Popper
+                    sx={{
+                      zIndex: 1,
+                    }}
+                    open={open}
+                    anchorEl={anchorRef.current}
+                    role={undefined}
+                    transition
+                    disablePortal
+                  >
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        style={{
+                          transformOrigin:
+                            placement === 'bottom' ? 'center top' : 'center bottom',
+                        }}
+                      >
+                        <Paper>
+                          <ClickAwayListener onClickAway={handleClosebtn}>
+                            <MenuList id="split-button-menu" autoFocusItem>
+                              {options.map((option, index) => (
+                                <MenuItem
+                                  key={option}
+                                  selected={index === selectedIndex}
+                                  onClick={(event) => handleMenuItemClick(event, index)}
+                                >
+                                  {option}
+                                </MenuItem>
+                              ))}
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </Stack>
+                <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
+                  <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small" disabled>Action</Button>
+                  <Button variant="outline" style={{ border: '0.5px solid grey', color: '#585958' }} size="small"><AiOutlineArrowDown /> Import Users</Button>
+                  <Button variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} size="small" onClick={openGroupForm}>
+                    <AiOutlinePlus /> Add
+                  </Button>
+                  <Dialog
+                    open={isGroupFormOpen}
+                    onClose={closeGroupForm}
+                  >
+                    {/* Group form content here */}
+                  </Dialog>
+                </Stack>
               </Stack>
             </SoftBox>
-            
+
             <SoftBox
               sx={{
                 "& .MuiTableRow-root:not(:last-child)": {
