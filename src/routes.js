@@ -74,9 +74,9 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Billing",
+    name: "Uphish",
     key: "billing",
-    route: "/billing",
+    route: "/uphish",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: true,
