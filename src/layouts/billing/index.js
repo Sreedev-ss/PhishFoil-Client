@@ -36,12 +36,34 @@ import Transactions from "layouts/billing/components/Transactions";
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, Typography } from "@mui/material";
 import dialog from "assets/theme/components/dialog";
 import SoftAlertCloseIcon from "components/SoftAlert/SoftAlertCloseIcon";
+import { useRef } from "react";
+import EmailEditor from 'react-email-editor'
 
 function Billing() {
+  const emailEditorRef = useRef(null);
+
+  const exportHtml = () => {
+    emailEditorRef.current.editor.exportHtml((data) => {
+      const { design, html } = data;
+      console.log('exportHtml', html);
+    });
+  };
+
+  const onLoad = () => {
+    // editor instance is created
+    // you can load your template here;
+    // const templateJson = {};
+    // emailEditorRef.current.editor.loadDesign(templateJson);
+  }
+
+  const onReady = () => {
+    // editor is ready
+    console.log('onReady');
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <SoftBox mt={4}>
+      {/* <SoftBox mt={4}>
         <SoftBox mb={1.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} lg={8}>
@@ -85,8 +107,18 @@ function Billing() {
             </Grid>
           </Grid>
         </SoftBox>
-      </SoftBox>
-      <Footer />
+      </SoftBox> */}
+      <div>
+        <div>
+          <button onClick={exportHtml}>Export HTML</button>
+        </div>
+
+        <EmailEditor
+          ref={emailEditorRef}
+          onLoad={onLoad}
+          onReady={onReady}
+        />
+      </div>
     </DashboardLayout>
   );
 }
