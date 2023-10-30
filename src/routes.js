@@ -42,6 +42,7 @@ import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
+import EmailTable from "layouts/emailTable";
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -79,6 +80,15 @@ const routes = [
     route: "/uphish",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "EmailTemplateBuilder",
+    key: "emailTemplateBuilder",
+    route: "/emailTemplateBuilder",
+    icon: <Office size="12px" />,
+    component: <EmailTable />,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },
