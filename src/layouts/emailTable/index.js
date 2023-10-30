@@ -42,7 +42,8 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-const options = ['Download Group Managers Reports', '+ Create Email Template'];
+import { useNavigate } from "react-router-dom";
+//const options = ['Download Group Managers Reports', '+ Create Email Template'];
 
 function emailTable() {
   const { columns, rows } = authorsTableData;
@@ -52,6 +53,7 @@ function emailTable() {
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Active');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -68,9 +70,9 @@ function emailTable() {
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleClickbtn = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
-  };
+//   const handleClickbtn = () => {
+//     console.info(`You clicked ${options[selectedIndex]}`);
+//   };
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -132,8 +134,12 @@ function emailTable() {
                     {/* User form content here */}
                   </Dialog>
                   <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
-                    <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
-                    <Button
+                    {/* <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button> */}
+                    <Button onClick={() => {navigate('/emailTemplateBuilder/create-email-template')}}
+                    >
+                        + Create Email Template
+                    </Button>
+                    {/* <Button
                       size="small"
                       aria-controls={open ? 'split-button-menu' : undefined}
                       aria-expanded={open ? 'true' : undefined}
@@ -141,7 +147,7 @@ function emailTable() {
                       aria-haspopup="menu"
                       onClick={handleToggle}
                     >
-                    </Button>
+                    </Button> */}
                   </ButtonGroup>
                   <Popper
                     sx={{
@@ -161,7 +167,7 @@ function emailTable() {
                             placement === 'bottom' ? 'center top' : 'center bottom',
                         }}
                       >
-                        <Paper>
+                        {/* <Paper>
                           <ClickAwayListener onClickAway={handleClosebtn}>
                             <MenuList id="split-button-menu" autoFocusItem>
                               {options.map((option, index) => (
@@ -175,7 +181,7 @@ function emailTable() {
                               ))}
                             </MenuList>
                           </ClickAwayListener>
-                        </Paper>
+                        </Paper> */}
                       </Grow>
                     )}
                   </Popper>

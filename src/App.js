@@ -48,6 +48,8 @@ import EmailTable from "layouts/emailTable";
 // Images
 import brand from "assets/images/logo-ct.png";
 
+import CreateEmailTemplate from "layouts/createEmailTemplate";
+
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor } = controller;
@@ -154,6 +156,7 @@ export default function App() {
       <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="/emailTemplateBuilder/create-email-template" element={<CreateEmailTemplate />} />
       </Routes>
     </ThemeProvider>
   );
