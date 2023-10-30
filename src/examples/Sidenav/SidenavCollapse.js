@@ -78,7 +78,7 @@ function SidenavCollapse({ color, icon, name, children, active, noCollapse, subr
           {subroutes.map((subroute, index) => (
             <NavLink to={subroute.route} key={index}>
               <ListItem component="li" key={index} sx={{ display: 'flex', justifyContent: 'start', fontSize: '10px', padding: '5px' }}>
-                <div style={{ backgroundColor: 'white', marginLeft: "53px", padding: '3px', borderRadius: '2px', minWidth: "175px" }}>
+                <div style={{ backgroundColor: 'white', marginLeft: "53px", padding: '5px', borderRadius: '5px', minWidth: "175px" }}>
                   <ListItemText
                     secondary={subroute.name}
                   />
