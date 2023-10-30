@@ -44,7 +44,10 @@ import routes from "routes";
 
 // Soft UI Dashboard React contexts
 import { useSoftUIController, setMiniSidenav, setOpenConfigurator } from "context";
+
+//components
 import EmailTable from "layouts/emailTable";
+import LandingPageBuilder from "layouts/landingPageBuilder";
 // Images
 import brand from "assets/images/logo-ct.png";
 
@@ -153,6 +156,7 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
+      <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
       <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
