@@ -36,15 +36,26 @@ import {
 
 // Soft UI Dashboard React context
 import { useSoftUIController } from "context";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 
-function SidenavCollapse({ color, icon, name, children, active, noCollapse, open, ...rest }) {
+function SidenavCollapse({ color, icon, name, children, active, noCollapse, subroutes, ...rest }) {
   const [controller] = useSoftUIController();
   const { miniSidenav, transparentSidenav } = controller;
+  const [openCollpase, setOpenCollapse] = useState(false)
 
+  function handleSubroute() {
+    if (subroutes && subroutes.length > 0) {
+      setOpenCollapse(!openCollpase)
+    } else {
+      setOpenCollapse(false)
+    }
+  }
   return (
     <>
-      <ListItem component="li">
-        <SoftBox {...rest} sx={(theme) => collapseItem(theme, { active, transparentSidenav })}>
+      <ListItem component="li" onClick={handleSubroute}>
+        <SoftBox {...rest} sx={(theme) => collapseItem(theme, { active, transparentSidenav })} >
           <ListItemIcon
             sx={(theme) => collapseIconBox(theme, { active, transparentSidenav, color })}
           >
@@ -59,13 +70,26 @@ function SidenavCollapse({ color, icon, name, children, active, noCollapse, open
             primary={name}
             sx={(theme) => collapseText(theme, { miniSidenav, transparentSidenav, active })}
           />
+          {!openCollpase ? subroutes && subroutes.length > 0 && <AiOutlineArrowDown fontSize='12px' /> : <AiOutlineArrowUp fontSize='12px' />}
         </SoftBox>
       </ListItem>
-      {children && (
-        <Collapse in={open} unmountOnExit>
-          {children}
+      {openCollpase && (
+        <Collapse in={openCollpase} unmountOnExit>
+          {subroutes.map((subroute, index) => (
+            <NavLink to={subroute.route} key={index}>
+              <ListItem component="li" key={index} sx={{ display: 'flex', justifyContent: 'start', fontSize: '10px', padding: '5px' }}>
+                <div style={{ backgroundColor: 'white', marginLeft: "53px", padding: '3px', borderRadius: '2px', minWidth: "175px" }}>
+                  <ListItemText
+                    secondary={subroute.name}
+                  />
+                </div>
+              </ListItem>
+            </NavLink>
+          ))}
         </Collapse>
       )}
+
+
     </>
   );
 }
@@ -77,6 +101,7 @@ SidenavCollapse.defaultProps = {
   noCollapse: false,
   children: false,
   open: false,
+  subroutes: null
 };
 
 // Typechecking props for the SidenavCollapse
@@ -88,6 +113,7 @@ SidenavCollapse.propTypes = {
   active: PropTypes.bool,
   noCollapse: PropTypes.bool,
   open: PropTypes.bool,
+  subroutes: PropTypes.node
 };
 
 export default SidenavCollapse;
