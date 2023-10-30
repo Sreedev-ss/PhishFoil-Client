@@ -53,6 +53,8 @@ import SpaceShip from "examples/Icons/SpaceShip";
 import CustomerSupport from "examples/Icons/CustomerSupport";
 import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
+import LandingPageBuilder from "layouts/landingPageBuilder";
+import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
 
 const routes = [
   {
@@ -89,6 +91,21 @@ const routes = [
     route: "/emailTemplateBuilder",
     icon: <Office size="12px" />,
     component: <EmailTable />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Landing Page Builder",
+    key: "landingPageBuilder",
+    route: "/landingPageBuilder",
+    icon: <Office size="12px" />,
+    component: <LandingPageBuilder />,
+    noCollapse: true,
+  },
+
+  {
+    route: "/CreateLandingPage",
+    component: <CreateLandingPage/>,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },
