@@ -34,7 +34,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload, AiOutlineSearch, AiOutlineEdit } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineDelete, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload, AiOutlineSearch, AiOutlineEdit } from 'react-icons/ai';
+import { BsSend } from 'react-icons/bs';
+import { FaRegClone } from 'react-icons/fa';
+import { BiMessageAltAdd } from 'react-icons/bi';
+import { IoIosRemoveCircleOutline } from 'react-icons/io';
 
 
 // Data
@@ -42,7 +46,7 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //const options = ['Download Group Managers Reports', '+ Create Email Template'];
 
 function emailTable() {
@@ -139,15 +143,7 @@ function emailTable() {
                     >
                         + Create Email Template
                     </Button>
-                    {/* <Button
-                      size="small"
-                      aria-controls={open ? 'split-button-menu' : undefined}
-                      aria-expanded={open ? 'true' : undefined}
-                      aria-label="select merge strategy"
-                      aria-haspopup="menu"
-                      onClick={handleToggle}
-                    >
-                    </Button> */}
+
                   </ButtonGroup>
                   <Popper
                     sx={{
@@ -167,21 +163,6 @@ function emailTable() {
                             placement === 'bottom' ? 'center top' : 'center bottom',
                         }}
                       >
-                        {/* <Paper>
-                          <ClickAwayListener onClickAway={handleClosebtn}>
-                            <MenuList id="split-button-menu" autoFocusItem>
-                              {options.map((option, index) => (
-                                <MenuItem
-                                  key={option}
-                                  selected={index === selectedIndex}
-                                  onClick={(event) => handleMenuItemClick(event, index)}
-                                >
-                                  {option}
-                                </MenuItem>
-                              ))}
-                            </MenuList>
-                          </ClickAwayListener>
-                        </Paper> */}
                       </Grow>
                     )}
                   </Popper>
@@ -234,7 +215,6 @@ function emailTable() {
                           onClick={handleClick}
                           variant="outlined"
                           color="info"
-                        // onClick={() => handleArrowClick()}
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -248,31 +228,33 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
-                          <List>
-                            <ListItem button onClick={() => console.log('Edit Email Template')}>
-                              <ListItemText secondary="Edit Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Send Test Email')}>
-                              <ListItemText secondary="Send Test Email" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Clone Email Template')}>
-                              <ListItemText secondary="Clone Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Add Language(s)')}>
-                              <ListItemText secondary="Add Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Remove Language(s)')}>
-                              <ListItemText secondary="Remove Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete Email Template')}>
-                              <ListItemText secondary="Delete Email Template" />
-                            </ListItem>
-                          </List>
+                            <MenuItem component={Link} to="/EditEmailTemplate">
+                            <AiOutlineEdit />
+                            Edit Email Template
+                          </MenuItem>
+                          <MenuItem>
+                            <BsSend /> Send Test Email
+                          </MenuItem>
+                          <MenuItem>
+                            <FaRegClone />
+                            Clone Email Template
+                          </MenuItem>
+                          <MenuItem component={Link} to="/AddLanguages">
+                            <BiMessageAltAdd />
+                            Add Language(s)
+                          </MenuItem>
+                          <MenuItem>
+                            <IoIosRemoveCircleOutline />
+                            Remove Language(s)
+                          </MenuItem>
+                          <MenuItem>
+                            <AiOutlineDelete />
+                            Delete Email Template
+                          </MenuItem>
                         </Popover>
                       </TableCell>
                     </TableRow>
                   </TableBody>
-
                   <TableBody>
                     <TableRow
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -302,26 +284,6 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
-                          <List>
-                            <ListItem button onClick={() => console.log('Edit Email Template')}>
-                              <ListItemText secondary=" Edit Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Send Test Email')}>
-                              <ListItemText secondary="Send Test Email" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Clone Email Template')}>
-                              <ListItemText secondary="Clone Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Add Language(s)')}>
-                              <ListItemText secondary="Add Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Remove Language(s)')}>
-                              <ListItemText secondary="Remove Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete Email Template')}>
-                              <ListItemText secondary="Delete Email Template" />
-                            </ListItem>
-                          </List>
                         </Popover>
                       </TableCell>
                     </TableRow>
