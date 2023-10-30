@@ -180,7 +180,7 @@ function LandingPageBuilder() {
                     {/* User form content here */}
                   </Dialog>
 
-                  <Link to="/CreateLandingPage">
+                  <Link to="/uphish/CreateLandingPage">
                     <Button
                       variant="outline"
                       style={{
