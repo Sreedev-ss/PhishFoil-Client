@@ -63,6 +63,8 @@ import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
 import CreateEmailTemplatePage from "layouts/emailTable/createEmailTemplatePage";
 import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
 import CloneEmailTemplate from "layouts/emailTable/data/cloneEmailTemplate";
+import Simulation from "layouts/createSimulation";
+import ViewSimulation from "layouts/viewSimulation";
 
 const routes = [
   {
@@ -95,15 +97,15 @@ const routes = [
         type: "collapse",
         name: "View Simulation",
         key: "viewSimulation",
-        route: "",
-        component: <EmailTable />,
+        route: "/uphish/simulations",
+        component: <ViewSimulation />,
       },
       {
         type: "collapse",
         name: "Create Simulation",
         key: "createSimulation",
         route: "/uphish/create-simulation",
-        component: <CreateSimulation />,
+        component: <Simulation />,
       },
       {
         type: "collapse",
