@@ -13,7 +13,6 @@ import {
     FormGroup, 
     InputAdornment } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
@@ -25,9 +24,10 @@ import EmailEditor from "react-email-editor";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import  ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Chip from '@mui/material/Chip';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 
-const createEmailTemplate = () => {
+const cloneEmailTemplate = () => {
     const [selectedTab, setSelectedTab] = useState(0);
     const [showDropdown, setShowDropdown] = useState(false);
     const [open, setOpen] = useState(false);
@@ -223,11 +223,16 @@ const createEmailTemplate = () => {
                 type="file" 
                 sx={{ gridColumn: "span 2" }} 
               />
-              {/* <div>
-              <Button variant="outlined" startIcon={<DeleteOutlineIcon />}>
-                Delete
-              </Button>
-              </div> */}
+              <Box>
+            <Button variant="contained" href="#contained-buttons" style={{backgroundColor:'red', color:'#fff', height:'5px', fontWeight:'lighter'}}>
+                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
+                Remove Image
+            </Button>
+            </Box>
+            <Box></Box>
+            {/* <Button variant="contained" href="#contained-buttons">
+        Link
+      </Button> */}
               <Box>
                 <label 
                     htmlFor="name" 
@@ -256,6 +261,10 @@ const createEmailTemplate = () => {
                 type="text" 
                 sx={{ gridColumn: "span 2" }} 
               />
+              <Box>
+                <p style={{fontSize:'12px', color:'gray', fontWeight:'lighter'}}>This name will be displayed in the users inbox. If left blank, the sender email address will be shown instead.</p>
+              </Box>
+              <Box></Box>
                 <Grid container spacing={2}>
                     <Grid item xs={4}>
                         <Box>
@@ -306,15 +315,15 @@ const createEmailTemplate = () => {
                     </Grid>
                 </Grid>               
             </Box>
-            <Box style={{marginTop:'15px'}}>
-                <label 
-                    htmlFor="name" 
-                    style={{fontSize:"13px"}}
-                >
-                    Use a custom sender email address:
-                </label>
-                <Switch {...label} />
-            </Box>             
+                <Box style={{marginTop:'15px'}}>
+                    <label 
+                        htmlFor="name" 
+                        style={{fontSize:"13px"}}
+                    >
+                        Use a custom sender email address:
+                    </label>
+                    <Switch {...label} />
+                </Box>             
               <Box style={{marginTop:"15px"}}>
                 <label 
                     htmlFor="name" 
@@ -329,6 +338,7 @@ const createEmailTemplate = () => {
                 sx={{ gridColumn: "span 2" }} 
                 style={{width:"500px", marginTop:'15px'}} 
               />
+              
               <Button 
               variant="contained" 
               sx={{
@@ -339,6 +349,11 @@ const createEmailTemplate = () => {
                 }}>
                 + Add
             </Button>
+            <Box>
+                <p style={{fontSize:'12px', color:'gray', fontWeight:'lighter'}}>Domains added here will be included in the sender domains dropdown when creating a simulation.<br/>
+Please note that the use of custom domains will increase the likelihood of emails being marked as spam.</p>
+              </Box>
+              <Box></Box>
             <div>
                 <p 
                 style={{
@@ -411,28 +426,7 @@ const createEmailTemplate = () => {
         </div>
         <div>
         <Box style={{marginTop:'15px'}}>
-            <label 
-                htmlFor="name" 
-                style={{fontSize:"13px"}}
-            >
-                Customer Access:
-            </label>
-            </Box>
-            <TextField 
-                fullWidth 
-                variant="filled" 
-                type="text" 
-                sx={{ gridColumn: "span 2" }} 
-                style={{marginTop:'15px', width:'900px'}} 
-            />
-            <p style={{
-                fontSize:'15px', 
-                marginTop:'8px', 
-                fontWeight:'lighter', 
-                color:'gray'}}
-                >
-                    This email template will be visible to the Customers selected
-            </p>
+        </Box>
         </div>
         <div style={{marginTop:'55px'}}>
             <Button 
@@ -464,7 +458,7 @@ const createEmailTemplate = () => {
   
     return (
       <DashboardLayout>
-        <Typography variant="h4">Uphish-Create Email Template</Typography>
+        <Typography variant="h4">Uphish - Update Email Template</Typography>
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -491,4 +485,4 @@ const createEmailTemplate = () => {
     );
   };
   
-  export default createEmailTemplate;
+  export default cloneEmailTemplate;
