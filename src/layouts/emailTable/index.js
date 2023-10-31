@@ -45,6 +45,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import  SendIcon  from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 
 const style = {
   position: 'absolute',
@@ -57,6 +58,13 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const languageOptions = [
+  'English',
+  'Spanish',
+  'French',
+  'German',
+];
 
 
 // Data
@@ -78,18 +86,33 @@ function emailTable() {
   const navigate = useNavigate();
 
   const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
+  const [addLangModalOpen, setAddLangModalOpen] = useState(false);
+
+  const [selectedLanguage, setSelectedLanguage] = useState('');
 
   const openSendTestEmailModal = () => {
     setSendTestEmailModalOpen(true);
   };
-
   const closeSendTestEmailModal = () => {
     setSendTestEmailModalOpen(false);
   };
-
   const sendTestEmail = () => {
     closeSendTestEmailModal();
-  }
+  };
+  
+  const openAddLangModal = () => {
+    setAddLangModalOpen(true);
+  };
+  const closeAddLangModal = () => {
+    setAddLangModalOpen(false);
+  };
+  const addLang = () => {
+    closeAddLangModal();
+  };
+
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -278,11 +301,14 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
+                          {/* edit-email-template */}
                           <MenuItem component={Link} to="/edit-email-template">
                             <EditIcon />
                             Edit Email Template
                           </MenuItem>
 
+
+                           {/* send-test-email-template */}
                           <MenuItem onClick={openSendTestEmailModal}>
                             <SendIcon />
                             send Test Email
@@ -342,8 +368,6 @@ function emailTable() {
                                 type="text" 
                                 sx={{ gridColumn: "span 2" }} 
                               />
-                              {/* Add your form or content for sending test email here */}
-                              {/* <Button onClick={closeSendTestEmailModal}>Close Modal</Button> */}
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
                                 <Button variant="contained" onClick={sendTestEmail} style={{color:'#fff'}} >
                                 <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
@@ -356,14 +380,60 @@ function emailTable() {
                             </Box>
                           </Modal>
 
+                          {/* clone-email-template */}
                           <MenuItem component={Link} to="/clone-email-template">
                             <FileCopyOutlinedIcon style={{fontSize:'small'}} />
                             Clone Email Template
                           </MenuItem>
-                          <MenuItem component={Link} to="/createlanding">
-                            <EditIcon />
+
+                           {/* add-languages */}
+                          <MenuItem onClick={openAddLangModal}>
+                            <AddCircleOutlineOutlinedIcon style={{fontSize:'small'}} />
                             Add Language(s)
                           </MenuItem>
+
+                          <Modal
+                            open={addLangModalOpen}
+                            onClose={closeAddLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Add Language(s) to the Selected Email Templates
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select
+                                  value={selectedLanguage}
+                                  onChange={handleLanguageChange}
+                                >
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={addLang} style={{color:'#fff'}} >
+                                  Add Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+
                           <MenuItem>
                             <EditIcon />
                             Remove Language(s)
