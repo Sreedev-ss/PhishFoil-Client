@@ -40,6 +40,9 @@ import { FaRegClone } from 'react-icons/fa';
 import { BiMessageAltAdd } from 'react-icons/bi';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+
 
 
 // Data
@@ -145,7 +148,7 @@ function emailTable() {
                   >
                     {/* User form content here */}
                   </Dialog>
-                  <Link to="/uphish/email-template-builder/create-email-template">
+                  <Link to="/uphish/create-email-template">
                     <Button
                       variant="outline"
                       style={{
@@ -247,73 +250,39 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
-                            <MenuItem>
-                            <AiOutlineEdit />
-                            <Link to='/uphish/email-template-builder/edit-email-template'>Edit Email Template</Link>
-                            
+                          <MenuItem component={Link} to="/edit-email-template">
+                            <EditIcon />
+                            Edit Landing Page
                           </MenuItem>
-                          {/* <Link to='/uphish/email-template-builder/edit-email-template'>
-                          <MenuItem >
-                            <AiOutlineEdit />
-                            Edit Email Template
-                          </MenuItem>
-                          </Link> */}
+
                           <MenuItem>
-                            <BsSend /> Send Test Email
+                            <DeleteIcon />
+                            Delete Landing Page
+                          </MenuItem>
+
+                          <MenuItem component={Link} to="/CreateLandingPage">
+                            <EditIcon />
+                            Preview Landing Page
+                          </MenuItem>
+                          <MenuItem component={Link} to="/createlanding">
+                            <EditIcon />
+                            Clone Landing Page
                           </MenuItem>
                           <MenuItem>
-                            <FaRegClone />
-                            Clone Email Template
-                          </MenuItem>
-                          <MenuItem component={Link} to="/AddLanguages">
-                            <BiMessageAltAdd />
+                            <EditIcon />
                             Add Language(s)
                           </MenuItem>
-                          <MenuItem>
-                            <IoIosRemoveCircleOutline />
+
+                          <MenuItem component={Link} to="/createlanding">
+                            <EditIcon />
                             Remove Language(s)
                           </MenuItem>
-                          <MenuItem>
-                            <AiOutlineDelete />
-                            Delete Email Template
-                          </MenuItem>
+                          
                         </Popover>
                       </TableCell>
                     </TableRow>
                   </TableBody>
-                  <TableBody>
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>2</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>REAL | Microsoft Account Access</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>Cloud Services</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>
-                        <ul>English(UK)</ul>
-                      </TableCell>
-                      <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                        // onClick={() => handleArrowClick()}
-                        >
-                          <AiOutlineArrowRight />
-                        </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                          }}
-                        >
-                        </Popover>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
+                  
                 </Table>
                 <Menu
                 >

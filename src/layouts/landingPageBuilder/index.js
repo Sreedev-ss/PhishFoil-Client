@@ -77,7 +77,10 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-import CreateLandingPage from './createLandingPage';
+import CreateLandingPage from "./createLandingPage";
+
+import EditLandingPage from "./data/editLandingPage";
+
 // const options = ["Download Group Managers Reports", "+ Create Email Template"];
 
 function LandingPageBuilder() {
@@ -189,7 +192,7 @@ function LandingPageBuilder() {
                         backgroundColor: "#1b7ae4",
                       }}
                     >
-                  Create Landing Page
+                      + Create Landing Page
                     </Button>
                   </Link>
 
@@ -271,7 +274,7 @@ function LandingPageBuilder() {
               {/* <Table columns={columns} rows={rows} /> */}
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
-                <Divider />
+                  <Divider />
                   <TableHead sx={{ display: "table-header-group" }}>
                     <TableRow sx={{ width: "20px" }}>
                       <TableCell>Sl. No</TableCell>
@@ -311,15 +314,17 @@ function LandingPageBuilder() {
                             horizontal: "left",
                           }}
                         >
-                          <MenuItem component={Link} to="/CreateLandingPage">
+                          <MenuItem component={Link} to="/editLandingPage">
                             <EditIcon />
                             Edit Landing Page
                           </MenuItem>
+
                           <MenuItem>
-                            <DeleteIcon /> Delete Landing Page
+                            <DeleteIcon />
+                            Delete Landing Page
                           </MenuItem>
 
-                          <MenuItem component={Link} to="/createlanding">
+                          <MenuItem component={Link} to="/CreateLandingPage">
                             <EditIcon />
                             Preview Landing Page
                           </MenuItem>
@@ -327,10 +332,11 @@ function LandingPageBuilder() {
                             <EditIcon />
                             Clone Landing Page
                           </MenuItem>
-                          <MenuItem component={Link} to="/createlanding">
+                          <MenuItem>
                             <EditIcon />
                             Add Language(s)
                           </MenuItem>
+
                           <MenuItem component={Link} to="/createlanding">
                             <EditIcon />
                             Remove Language(s)
@@ -340,7 +346,7 @@ function LandingPageBuilder() {
                     </TableRow>
                   </TableBody>
 
-                  <TableBody>
+                  {/* <TableBody>
                     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell>2</TableCell>
                       <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>
@@ -373,7 +379,7 @@ function LandingPageBuilder() {
                         </Popover>
                       </TableCell>
                     </TableRow>
-                  </TableBody>
+                  </TableBody> */}
                 </Table>
                 <Menu></Menu>
               </TableContainer>

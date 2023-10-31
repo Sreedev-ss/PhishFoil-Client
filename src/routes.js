@@ -43,6 +43,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import EmailTable from "layouts/emailTable";
+
 import updateEmailTemplate from "layouts/updateEmailTemplate";
 
 // Soft UI Dashboard React icons
@@ -56,6 +57,10 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import LandingPageBuilder from "layouts/landingPageBuilder";
 import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
+import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
+
+import CreateEmailTemplatePage from "layouts/emailTable/createEmailTemplatePage";
+import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
 
 const routes = [
   {
@@ -128,14 +133,27 @@ const routes = [
       },
     ],
   },
+
+  //landing Page Routes
   {
     route: "/uphish/CreateLandingPage",
     component: <CreateLandingPage/>,
     noCollapse: true,
   },
+  //Edit
   {
-    route: "/uphish/email-template-builder/create-email-template",
-    component: <updateEmailTemplate/>,
+    route: "/editLandingPage",
+    component: <EditLandingPage/>,
+    noCollapse: true,
+  },
+  {
+    route: "/uphish/create-email-template",
+    component: <CreateEmailTemplatePage/>,
+    noCollapse: true,
+  },
+  {
+    route: "/edit-email-template",
+    component: <EditEmailTemplate/>,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },

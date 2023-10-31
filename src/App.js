@@ -158,7 +158,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
       <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
-      {/* <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />; */}
+      <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
       {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
