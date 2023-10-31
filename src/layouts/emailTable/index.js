@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import Table from "examples/Tables/Table";
-import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, TextField, Typography } from '@mui/material'
 
 
 import Table from '@mui/material/Table';
@@ -34,7 +34,37 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload, AiOutlineSearch, AiOutlineEdit } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineDelete, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload, AiOutlineSearch, AiOutlineEdit } from 'react-icons/ai';
+import { BsSend } from 'react-icons/bs';
+import { FaRegClone } from 'react-icons/fa';
+import { BiMessageAltAdd } from 'react-icons/bi';
+import { IoIosRemoveCircleOutline } from 'react-icons/io';
+
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import  SendIcon  from '@mui/icons-material/Send';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+const languageOptions = [
+  'English',
+  'Spanish',
+  'French',
+  'German',
+];
 
 
 // Data
@@ -42,7 +72,7 @@ import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //const options = ['Download Group Managers Reports', '+ Create Email Template'];
 
 function emailTable() {
@@ -55,9 +85,43 @@ function emailTable() {
   const [status, setStatus] = useState('Active');
   const navigate = useNavigate();
 
+  const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
+  const [addLangModalOpen, setAddLangModalOpen] = useState(false);
+
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  const openSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(true);
+  };
+  const closeSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(false);
+  };
+  const sendTestEmail = () => {
+    closeSendTestEmailModal();
+  };
+  
+  const openAddLangModal = () => {
+    setAddLangModalOpen(true);
+  };
+  const closeAddLangModal = () => {
+    setAddLangModalOpen(false);
+  };
+  const addLang = () => {
+    closeAddLangModal();
+  };
+
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
+
   const handleChange = (event) => {
     setStatus(event.target.value);
   };
+
+  const handleEditClick = () => {
+    navigate('/uphish/email-template-builder/edit-email-template'); 
+  };
+  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -73,6 +137,8 @@ function emailTable() {
 //   const handleClickbtn = () => {
 //     console.info(`You clicked ${options[selectedIndex]}`);
 //   };
+
+
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -110,8 +176,8 @@ function emailTable() {
   const openAnchor = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  return (
 
+  return (
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
@@ -133,22 +199,25 @@ function emailTable() {
                   >
                     {/* User form content here */}
                   </Dialog>
-                  <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
-                    {/* <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button> */}
-                    <Button onClick={() => {navigate('/emailTemplateBuilder/create-email-template')}}
+                  <Link to="/uphish/create-email-template">
+                    <Button
+                      variant="outline"
+                      style={{
+                        border: "0.5px solid #1C7AE4",
+                        color: "white",
+                        backgroundColor: "#1b7ae4",
+                      }}
+                    >
+                  Create Landing Page
+                    </Button>
+                  </Link>
+                  {/* <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
+                    <Button onClick={() => {navigate('/uphish/email-template-builder/create-email-template')}}
                     >
                         + Create Email Template
                     </Button>
-                    {/* <Button
-                      size="small"
-                      aria-controls={open ? 'split-button-menu' : undefined}
-                      aria-expanded={open ? 'true' : undefined}
-                      aria-label="select merge strategy"
-                      aria-haspopup="menu"
-                      onClick={handleToggle}
-                    >
-                    </Button> */}
-                  </ButtonGroup>
+
+                  </ButtonGroup> */}
                   <Popper
                     sx={{
                       zIndex: 1,
@@ -167,21 +236,6 @@ function emailTable() {
                             placement === 'bottom' ? 'center top' : 'center bottom',
                         }}
                       >
-                        {/* <Paper>
-                          <ClickAwayListener onClickAway={handleClosebtn}>
-                            <MenuList id="split-button-menu" autoFocusItem>
-                              {options.map((option, index) => (
-                                <MenuItem
-                                  key={option}
-                                  selected={index === selectedIndex}
-                                  onClick={(event) => handleMenuItemClick(event, index)}
-                                >
-                                  {option}
-                                </MenuItem>
-                              ))}
-                            </MenuList>
-                          </ClickAwayListener>
-                        </Paper> */}
                       </Grow>
                     )}
                   </Popper>
@@ -234,7 +288,6 @@ function emailTable() {
                           onClick={handleClick}
                           variant="outlined"
                           color="info"
-                        // onClick={() => handleArrowClick()}
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -248,84 +301,154 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
-                          <List>
-                            <ListItem button onClick={() => console.log('Edit Email Template')}>
-                              <ListItemText secondary="Edit Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Send Test Email')}>
-                              <ListItemText secondary="Send Test Email" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Clone Email Template')}>
-                              <ListItemText secondary="Clone Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Add Language(s)')}>
-                              <ListItemText secondary="Add Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Remove Language(s)')}>
-                              <ListItemText secondary="Remove Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete Email Template')}>
-                              <ListItemText secondary="Delete Email Template" />
-                            </ListItem>
-                          </List>
-                        </Popover>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
+                          {/* edit-email-template */}
+                          <MenuItem component={Link} to="/edit-email-template">
+                            <EditIcon />
+                            Edit Email Template
+                          </MenuItem>
 
-                  <TableBody>
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>2</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>REAL | Microsoft Account Access</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>Cloud Services</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>
-                        <ul>English(UK)</ul>
-                      </TableCell>
-                      <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                        // onClick={() => handleArrowClick()}
-                        >
-                          <AiOutlineArrowRight />
-                        </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                          }}
-                        >
-                          <List>
-                            <ListItem button onClick={() => console.log('Edit Email Template')}>
-                              <ListItemText secondary=" Edit Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Send Test Email')}>
-                              <ListItemText secondary="Send Test Email" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Clone Email Template')}>
-                              <ListItemText secondary="Clone Email Template" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Add Language(s)')}>
-                              <ListItemText secondary="Add Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Remove Language(s)')}>
-                              <ListItemText secondary="Remove Language(s)" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete Email Template')}>
-                              <ListItemText secondary="Delete Email Template" />
-                            </ListItem>
-                          </List>
+
+                           {/* send-test-email-template */}
+                          <MenuItem onClick={openSendTestEmailModal}>
+                            <SendIcon />
+                            send Test Email
+                          </MenuItem>
+
+                          <Modal
+                            open={sendTestEmailModalOpen}
+                            onClose={closeSendTestEmailModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                Send Test Simulation Email
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    To:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    First Name:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Last Name:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button variant="contained" onClick={sendTestEmail} style={{color:'#fff'}} >
+                                <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
+                                  Send
+                                </Button>
+                                <Button variant="outlined" onClick={closeSendTestEmailModal} style={{ marginRight:'5px', color:'black'}}>
+                                  Cancel
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+                          {/* clone-email-template */}
+                          <MenuItem component={Link} to="/clone-email-template">
+                            <FileCopyOutlinedIcon style={{fontSize:'small'}} />
+                            Clone Email Template
+                          </MenuItem>
+
+                           {/* add-languages */}
+                          <MenuItem onClick={openAddLangModal}>
+                            <AddCircleOutlineOutlinedIcon style={{fontSize:'small'}} />
+                            Add Language(s)
+                          </MenuItem>
+
+                          <Modal
+                            open={addLangModalOpen}
+                            onClose={closeAddLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Add Language(s) to the Selected Email Templates
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select
+                                  value={selectedLanguage}
+                                  onChange={handleLanguageChange}
+                                >
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={addLang} style={{color:'#fff'}} >
+                                  Add Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+
+                          <MenuItem>
+                            <EditIcon />
+                            Remove Language(s)
+                          </MenuItem>
+
+                          <MenuItem component={Link} to="/createlanding">
+                            <EditIcon />
+                            delete Email Template
+                          </MenuItem>
+                          
                         </Popover>
                       </TableCell>
                     </TableRow>
                   </TableBody>
+                  
                 </Table>
                 <Menu
                 >

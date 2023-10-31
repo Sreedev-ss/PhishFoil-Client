@@ -13,7 +13,6 @@ import {
     FormGroup, 
     InputAdornment } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
@@ -27,7 +26,7 @@ import  ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Chip from '@mui/material/Chip';
 
 
-const createEmailTemplate = () => {
+const updateEmailTemplate = () => {
     const [selectedTab, setSelectedTab] = useState(0);
     const [showDropdown, setShowDropdown] = useState(false);
     const [open, setOpen] = useState(false);
@@ -223,11 +222,6 @@ const createEmailTemplate = () => {
                 type="file" 
                 sx={{ gridColumn: "span 2" }} 
               />
-              {/* <div>
-              <Button variant="outlined" startIcon={<DeleteOutlineIcon />}>
-                Delete
-              </Button>
-              </div> */}
               <Box>
                 <label 
                     htmlFor="name" 
@@ -464,7 +458,7 @@ const createEmailTemplate = () => {
   
     return (
       <DashboardLayout>
-        <Typography variant="h4">Uphish-Create Email Template</Typography>
+        <Typography variant="h4">Uphish - Update Email Template</Typography>
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -491,4 +485,4 @@ const createEmailTemplate = () => {
     );
   };
   
-  export default createEmailTemplate;
+  export default updateEmailTemplate;
