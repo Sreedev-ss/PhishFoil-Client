@@ -44,6 +44,8 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import EmailTable from "layouts/emailTable";
 
+import updateEmailTemplate from "layouts/updateEmailTemplate";
+
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
@@ -55,11 +57,13 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import LandingPageBuilder from "layouts/landingPageBuilder";
 import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
+import CreateSimulation from "layouts/createSimulation";
 import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
 import CreateEmailTemplatePage from "layouts/emailTable/createEmailTemplatePage";
 import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
 import CloneEmailTemplate from "layouts/emailTable/data/cloneEmailTemplate";
 import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage"
+
 
 const routes = [
   {
@@ -99,8 +103,8 @@ const routes = [
         type: "collapse",
         name: "Create Simulation",
         key: "createSimulation",
-        route: "",
-        component: <EmailTable />,
+        route: "/uphish/create-simulation",
+        component: <CreateSimulation />,
       },
       {
         type: "collapse",
@@ -146,12 +150,14 @@ const routes = [
     noCollapse: true,
   },
 
+
   //Clone
   {
     route: "/cloneLandingPage",
     component: <CloneLandingPage/>,
     noCollapse: true,
   },
+
   {
     route: "/uphish/create-email-template",
     component: <CreateEmailTemplatePage/>,

@@ -4,16 +4,10 @@ import {
     Typography, 
     MenuItem, 
     Grid, 
-    Select, 
-    FormControl, 
-    InputLabel, 
     Switch, 
     Button, 
-    Checkbox, 
-    FormGroup, 
-    InputAdornment } from "@mui/material";
+    Checkbox } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
-// import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
@@ -23,21 +17,19 @@ import React from "react";
 import { useRef } from "react";
 import EmailEditor from "react-email-editor";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import  ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Chip from '@mui/material/Chip';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 
-const createEmailTemplate = () => {
+const createEmailTemplatePage = () => {
     const [selectedTab, setSelectedTab] = useState(0);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [open, setOpen] = useState(false);
-    
     const [category, setCategory] = useState("");
     const [languages, setLanguages] = useState([]);
-    const [age, setAge] = React.useState('');
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
-  
+    const [receipient, setReceipient] = useState('');
     const [checked, setChecked] = useState(false); 
+    const [customSenderEmail, setCustomSenderEmail] = useState(false);
+
     const handleChange = () => {
         setChecked(!checked); 
     };
@@ -47,17 +39,14 @@ const createEmailTemplate = () => {
         { value: 'Tamil', label: 'Tamil' },
     ];
 
-    const handleIconClick = () => {
-        setOpen(!open);
+    const handleChangeReceipient = (event) => {
+        setReceipient(event.target.value);
     };
-  
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-      };
 
-    const selectOption = (option) => {
-    console.log(`Selected: ${option}`);
+    const handleCustomSenderEmailChange = () => {
+        setCustomSenderEmail(!customSenderEmail);
     };
+
     const emailEditorRef = useRef(null);
   
     const exportHtml = () => {
@@ -77,11 +66,6 @@ const createEmailTemplate = () => {
     const handleChanged = (event) => {
         setCategory(event.target.value); 
     };
-
-      const handleChanges = (event) => {
-        setLanguages(event.target.value);
-      };
-
       
     const handleLanguageChange = (event) => {
         const value = event.target.value;
@@ -128,7 +112,7 @@ const createEmailTemplate = () => {
                     select
                     value={languages}
                     onChange={handleLanguageChange}
-                    fullWidth
+                    width="250px"
                     variant="filled"
                     type="text"
                     multiple
@@ -137,13 +121,6 @@ const createEmailTemplate = () => {
                     border: "1px solid #ccc",
                     borderRadius: "4px",
                     backgroundColor: "#fff",
-                    }}
-                    InputProps={{
-                        endAdornment: (
-                        <InputAdornment position="end">
-                            <ArrowDropDownIcon />
-                        </InputAdornment>
-                        ),
                     }}
                 >
 
@@ -223,11 +200,13 @@ const createEmailTemplate = () => {
                 type="file" 
                 sx={{ gridColumn: "span 2" }} 
               />
-              {/* <div>
-              <Button variant="outlined" startIcon={<DeleteOutlineIcon />}>
-                Delete
-              </Button>
-              </div> */}
+            <Box>
+            <Button variant="contained" disabled>
+                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
+                Remove Image
+            </Button>
+            </Box>
+            <Box></Box>
               <Box>
                 <label 
                     htmlFor="name" 
@@ -256,65 +235,119 @@ const createEmailTemplate = () => {
                 type="text" 
                 sx={{ gridColumn: "span 2" }} 
               />
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Box>
-                        <label 
-                            htmlFor="name" 
-                            style={{ fontSize: "13px" }}
-                        >
-                            Sender:
-                        </label>
-                        </Box>
-                        <TextField 
-                            fullWidth 
-                            variant="filled" 
-                            type="text" 
-                        />
-                    </Grid>
-                    <Grid 
-                    item xs={1} 
-                    style={{ 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'center' 
-                        }}
-                        >
-                        <Typography 
-                            variant="h5" 
-                            component="span" 
-                            style={{fontSize:"10px"}}
-                        >
-                            @
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <Box>
-                        <label 
-                            htmlFor="dropdown" 
-                            style={{ fontSize: "13px" }}
-                        >
-                            Recipient:
-                        </label>
-                        </Box>
-                        
-                        <Select fullWidth>
-                        <MenuItem value="option1">Option 1</MenuItem>
-                        <MenuItem value="option2">Option 2</MenuItem>
-                        <MenuItem value="option3">Option 3</MenuItem>
-                        </Select>
-                    </Grid>
-                </Grid>               
-            </Box>
-            <Box style={{marginTop:'15px'}}>
+              <Box>
+                <p 
+                style={{
+                    fontSize:'12px', 
+                    color:'gray', 
+                    fontWeight:'lighter'
+                    }}
+                    >
+                        This name will be displayed in the users inbox. If left blank, the sender email address will be shown instead.
+                </p>
+              </Box>
+              <Box></Box>
+
+              <Box style={{marginTop:'15px'}}>
                 <label 
                     htmlFor="name" 
                     style={{fontSize:"13px"}}
                 >
                     Use a custom sender email address:
                 </label>
-                <Switch {...label} />
-            </Box>             
+                <Switch {...label} 
+                    checked={customSenderEmail}
+                    onChange={handleCustomSenderEmailChange}
+                />
+            </Box> 
+
+            {customSenderEmail ? (
+            <Box>
+                <label htmlFor="name" style={{ fontSize: "13px" }}>
+                    Sender Email Address:
+                </label>
+                <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    sx={{ gridColumn: "span 2" }}
+                />
+                <Box>
+                <p 
+                    style={{ 
+                        fontSize: "12px", 
+                        color: "gray", 
+                        fontWeight: "lighter" }}
+                >
+                        Please be aware that emails may be blocked due to the senders domain. 
+                        You should test your email before setting up your phishing simulation to ensure it will reach the target users.
+                </p>
+                </Box>
+            </Box>
+            ) : (
+            <Box>
+                <Grid container spacing={2}>
+                <Grid item xs={4}>
+                    <Box>
+                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                        Sender:
+                    </label>
+                    </Box>
+                    <TextField fullWidth variant="filled" type="text" />
+                </Grid>
+                <Grid
+                    item xs={1}
+                    style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    }}
+                >
+                    <Typography variant="h5" component="span" style={{ fontSize: "10px" }}>
+                    @
+                    </Typography>
+                </Grid>
+                <Grid item xs={7}>
+                    <Box>
+                    <label htmlFor="dropdown" style={{ fontSize: "13px" }}>
+                        Recipient:
+                    </label>
+                    </Box>
+                    <TextField
+                        select
+                        value={receipient}
+                        onChange={handleChangeReceipient}
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        sx={{
+                        gridColumn: "span 2",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                        backgroundColor: "#ffff",
+
+                        }}
+                        SelectProps={{
+                            IconComponent: () => <ExpandMoreIcon />,
+                            }}
+                    >
+                        <MenuItem value="1nfoclient.fr">1nfoclient.fr</MenuItem>
+                        <MenuItem value="amzwon.net">amzwon.net</MenuItem>
+                        <MenuItem value="asistencoahoy.com">asistencoahoy.com</MenuItem>
+                        <MenuItem value="atencionalclenite.com">atencionalclenite.com</MenuItem>
+                        <MenuItem value="banque-online.com">banque-online.com</MenuItem>
+                        <MenuItem value="billing.net">billing.net</MenuItem>
+                        <MenuItem value="Internal">Internal</MenuItem>
+                        <MenuItem value="centre-assistance">centre-assistance</MenuItem>
+                        <MenuItem value="centro-assistance.fr">centro-assistance.fr</MenuItem>
+                        <MenuItem value="companylegal.co.uk">companylegal.co.uk</MenuItem>
+                        <MenuItem value="companypolicy.ie">companypolicy.ie</MenuItem>
+                    </TextField>
+                </Grid>
+            </Grid>
+        </Box>
+    )}
+            </Box>
               <Box style={{marginTop:"15px"}}>
                 <label 
                     htmlFor="name" 
@@ -329,6 +362,7 @@ const createEmailTemplate = () => {
                 sx={{ gridColumn: "span 2" }} 
                 style={{width:"500px", marginTop:'15px'}} 
               />
+              
               <Button 
               variant="contained" 
               sx={{
@@ -339,6 +373,18 @@ const createEmailTemplate = () => {
                 }}>
                 + Add
             </Button>
+            <Box>
+                <p 
+                    style={{
+                        fontSize:'12px', 
+                        color:'gray', 
+                        fontWeight:'lighter'}}
+                    >
+                        Domains added here will be included in the sender domains dropdown when creating a simulation.<br/>
+                        Please note that the use of custom domains will increase the likelihood of emails being marked as spam.
+                </p>
+              </Box>
+              <Box></Box>
             <div>
                 <p 
                 style={{
@@ -464,7 +510,7 @@ const createEmailTemplate = () => {
   
     return (
       <DashboardLayout>
-        <Typography variant="h4">Uphish-Create Email Template</Typography>
+        <Typography variant="h4">Uphish - Create Email Template</Typography>
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -491,4 +537,4 @@ const createEmailTemplate = () => {
     );
   };
   
-  export default createEmailTemplate;
+  export default createEmailTemplatePage;
