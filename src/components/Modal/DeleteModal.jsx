@@ -26,13 +26,15 @@ export default function DeleteModal() {
         <div className=" w-96 border-zinc-300 bg-white border-[1px] rounded-xl p-5 flex flex-col  gap-4">
           <p>Are you sure you want to delete the selected landing page?</p>
         </div>
-        <div>
-          <p>
-            This will delete: All simulations that use this landing page will be deleted The
-            recipients list of those simulations will be deleted The results of those simulations
-            will be deleted Any active simulations using this landing page will be disrupted
-          </p>
-        </div>
+        <Box>
+          <label htmlFor="name" style={{ fontSize: "13px" }}>
+            This will delete:
+            <li>All simulations that use this email template will be deleted</li>
+            <li>The recipients list of those simulations will be deleted</li>
+            <li>The results of those simulations will be deleted</li>
+            <li>Any active simulations using this email template will be disrupted</li>
+          </label>
+        </Box>
 
         <label htmlFor="name">Number of landing pages to delete :</label>
 
@@ -40,11 +42,20 @@ export default function DeleteModal() {
 
         <Button
           variant="outlined"
-          style={{ border: "1px solid blue", marginRight: "10px", marginTop:"10px", color: "blue" }}
+          style={{
+            border: "1px solid blue",
+            marginRight: "10px",
+            marginTop: "10px",
+            color: "blue",
+          }}
+          onClick={() => {}}
         >
           No
         </Button>
-        <Button variant="outlined" style={{ border: "1px solid red",color: "red", marginTop:"10px" }}>
+        <Button
+          variant="outlined"
+          style={{ border: "1px solid red", color: "red", marginTop: "10px", cursor: "pointer" }}
+        >
           Yes
         </Button>
       </Box>
