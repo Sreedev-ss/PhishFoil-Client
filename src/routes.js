@@ -55,6 +55,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import LandingPageBuilder from "layouts/landingPageBuilder";
 import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
+import CreateSimulation from "layouts/createSimulation";
 
 const routes = [
   {
@@ -94,8 +95,8 @@ const routes = [
         type: "collapse",
         name: "Create Simulation",
         key: "createSimulation",
-        route: "",
-        component: <EmailTable />,
+        route: "/uphish/create-simulation",
+        component: <CreateSimulation />,
       },
       {
         type: "collapse",
