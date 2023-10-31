@@ -55,6 +55,7 @@ import CreditCard from "examples/Icons/CreditCard";
 import Cube from "examples/Icons/Cube";
 import LandingPageBuilder from "layouts/landingPageBuilder";
 import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
+import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
 
 const routes = [
   {
@@ -127,9 +128,17 @@ const routes = [
       },
     ],
   },
+
+  //landing Page Routes
   {
     route: "/uphish/CreateLandingPage",
     component: <CreateLandingPage/>,
+    noCollapse: true,
+  },
+  //Edit
+  {
+    route: "/editLandingPage",
+    component: <EditLandingPage/>,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },

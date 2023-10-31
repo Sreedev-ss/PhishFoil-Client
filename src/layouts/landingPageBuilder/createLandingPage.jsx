@@ -1,4 +1,4 @@
-import { Box, TextField, Typography, MenuItem } from "@mui/material";
+import { Box, Checkbox, TextField, Typography, MenuItem, Button } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -6,6 +6,7 @@ import { useState } from "react";
 import React from "react";
 import { useRef } from "react";
 import EmailEditor from "react-email-editor";
+// import checkbox from './../../assets/theme/components/form/checkbox';
 
 const CreateLandingPage = () => {
   // State to track the currently selected tab
@@ -120,7 +121,9 @@ const CreateLandingPage = () => {
             <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
           </Box>
           <Box>
-            <label htmlFor="name">Content</label>
+            <label htmlFor="name" > 
+              Content
+            </label>
           </Box>
           <div>
             <button onClick={exportHtml}></button>
@@ -131,19 +134,48 @@ const CreateLandingPage = () => {
       );
     } else {
       // Render content for other tabs
-      return <div>
-           <Box
-            display="grid"
-            gap="30px"
-            m="40px"
-            sx={{
-              fontSize: "10px", // Adjust the font size as needed
-            }}
-          >
-        <Typography>Do you wish to make this landing page available to all of your Customers?</Typography>
-      {tabIndex + 1}
-        </Box>
-        </div>;
+      return (
+        <div>
+          <form>
+            <div style={{ marginBottom: "30px" }}>
+              <p style={{ fontSize: "15px", marginTop: "15px" }}>
+                Do you wish to make this landing page available to all of your Customers?:
+              </p>
+              <Checkbox
+                //   checked={checked}
+                //   onChange={handleChange}
+                inputProps={{ "aria-label": "controlled" }}
+              />
+            </div>
+            <div>
+              <p style={{ color: "gray", fontSize: "15px" }}>
+                Checking this box will make this landing page available to all Customers belonging
+                to your MSP.
+              </p>
+            </div>
+            <div>
+              <p style={{ marginTop: "20px", fontSize: "15px" }}>Customer access:</p>
+              <div style={{ marginBottom: "30px", marginTop: "30px", width: "550px" }}>
+                <TextField required id="outlined-required" defaultValue="Customers" fullWidth />
+              </div>
+              <p style={{ fontSize: "15px", color: "gray" }}>
+                This landing page will be visible to the Customers selected
+              </p>
+            </div>
+            <div>
+              <Button
+                variant="outlined"
+                style={{ border: "1px solid blue", marginRight: "10px", color: "blue" }}
+              >
+                Save
+              </Button>
+              <Button variant="outlined" style={{ border: "1px solid red", color: "red" }}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        </div>
+      );
     }
   };
 
@@ -160,18 +192,18 @@ const CreateLandingPage = () => {
         <Tab
           label="Landing Page"
           sx={{
-            color: selectedTab === 0 ? "rgb(30, 123, 228)" : "inherit",
+            // color: selectedTab === 0 ? "rgb(30, 123, 228)" : "inherit",
+            color: selectedTab === 0? 'blue': 'black',
           }}
         />
         <Tab
           label="Access Control"
           sx={{
-            color: selectedTab === 1 ? "rgb(30, 123, 228)" : "inherit",
+            color: selectedTab === 1 ? 'blue' : 'black',
           }}
         />
       </Tabs>
       {renderTabContent(selectedTab)}
-
     </DashboardLayout>
   );
 };
