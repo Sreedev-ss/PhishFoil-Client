@@ -46,6 +46,7 @@ import  SendIcon  from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 
 const style = {
   position: 'absolute',
@@ -87,6 +88,7 @@ function emailTable() {
 
   const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
+  const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
@@ -108,6 +110,16 @@ function emailTable() {
   };
   const addLang = () => {
     closeAddLangModal();
+  };
+
+  const openRemoveLangModal = () => {
+    setRemoveLangModalOpen(true);
+  };
+  const closeRemoveLangModal = () => {
+    setRemoveLangModalOpen(false);
+  };
+  const removeLang = () => {
+    closeRemoveLangModal();
   };
 
   const handleLanguageChange = (event) => {
@@ -211,13 +223,6 @@ function emailTable() {
                   Create Landing Page
                     </Button>
                   </Link>
-                  {/* <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
-                    <Button onClick={() => {navigate('/uphish/email-template-builder/create-email-template')}}
-                    >
-                        + Create Email Template
-                    </Button>
-
-                  </ButtonGroup> */}
                   <Popper
                     sx={{
                       zIndex: 1,
@@ -434,11 +439,53 @@ function emailTable() {
                           </Modal>
 
 
-                          <MenuItem>
-                            <EditIcon />
+                          {/* Remove-languages */}
+                          <MenuItem onClick={openRemoveLangModal}>
+                            <RemoveCircleOutlineOutlinedIcon style={{fontSize:'small'}} />
                             Remove Language(s)
                           </MenuItem>
+                          <Modal
+                            open={removeLangModalOpen}
+                            onClose={closeRemoveLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Remove Language(s) from the Selected Email Templates
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select
+                                  value={selectedLanguage}
+                                  onChange={handleLanguageChange}
+                                >
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
+                                  Remove Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
 
+                          {/* Delete-Email-Temp */}
                           <MenuItem component={Link} to="/createlanding">
                             <EditIcon />
                             delete Email Template
