@@ -61,6 +61,7 @@ import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
 
 import CreateEmailTemplatePage from "layouts/emailTable/createEmailTemplatePage";
 import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
+import CloneEmailTemplate from "layouts/emailTable/data/cloneEmailTemplate";
 
 const routes = [
   {
@@ -154,6 +155,11 @@ const routes = [
   {
     route: "/edit-email-template",
     component: <EditEmailTemplate/>,
+    noCollapse: true,
+  },
+  {
+    route: "/clone-email-template",
+    component: <CloneEmailTemplate/>,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },

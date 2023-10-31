@@ -44,6 +44,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import  SendIcon  from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 
 const style = {
   position: 'absolute',
@@ -281,7 +282,6 @@ function emailTable() {
                             <EditIcon />
                             Edit Email Template
                           </MenuItem>
-                          
 
                           <MenuItem onClick={openSendTestEmailModal}>
                             <SendIcon />
@@ -356,8 +356,8 @@ function emailTable() {
                             </Box>
                           </Modal>
 
-                          <MenuItem component={Link} to="/CreateLandingPage">
-                            <EditIcon />
+                          <MenuItem component={Link} to="/clone-email-template">
+                            <FileCopyOutlinedIcon style={{fontSize:'small'}} />
                             Clone Email Template
                           </MenuItem>
                           <MenuItem component={Link} to="/createlanding">
