@@ -1,31 +1,29 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
-import SoftTypography from "components/SoftTypography";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Table from "examples/Tables/Table";
-import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, TextField, Typography } from '@mui/material'
-
+import { 
+  Box, 
+  Button, 
+  Dialog, 
+  Divider, 
+  FormControl, 
+  Grow, 
+  IconButton, 
+  Menu, 
+  MenuItem, 
+  Modal, 
+  Popover, 
+  Popper, 
+  Select, 
+  Stack, 
+  TextField, 
+  Typography } from '@mui/material'
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -34,20 +32,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { AiFillPlusCircle, AiOutlineArrowDown, AiOutlineDelete, AiOutlineArrowRight, AiOutlinePlus, AiOutlineReload, AiOutlineSearch, AiOutlineEdit } from 'react-icons/ai';
-import { BsSend } from 'react-icons/bs';
-import { FaRegClone } from 'react-icons/fa';
-import { BiMessageAltAdd } from 'react-icons/bi';
-import { IoIosRemoveCircleOutline } from 'react-icons/io';
+import { AiOutlineArrowRight, AiOutlineSearch } from 'react-icons/ai';
 
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import  SendIcon  from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 
 const style = {
   position: 'absolute',
@@ -68,38 +62,29 @@ const languageOptions = [
   'German',
 ];
 
-
-// Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-//const options = ['Download Group Managers Reports', '+ Create Email Template'];
+import { Link } from "react-router-dom";
 
 function emailTable() {
-  const { columns, rows } = authorsTableData;
-  const { columns: prCols, rows: prRows } = projectsTableData;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('Active');
-  const navigate = useNavigate();
-
   const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
   const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
-
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
   const openSendTestEmailModal = () => {
     setSendTestEmailModalOpen(true);
   };
+
   const closeSendTestEmailModal = () => {
     setSendTestEmailModalOpen(false);
   };
+
   const sendTestEmail = () => {
     closeSendTestEmailModal();
   };
@@ -107,9 +92,11 @@ function emailTable() {
   const openAddLangModal = () => {
     setAddLangModalOpen(true);
   };
+
   const closeAddLangModal = () => {
     setAddLangModalOpen(false);
   };
+
   const addLang = () => {
     closeAddLangModal();
   };
@@ -117,9 +104,11 @@ function emailTable() {
   const openRemoveLangModal = () => {
     setRemoveLangModalOpen(true);
   };
+
   const closeRemoveLangModal = () => {
     setRemoveLangModalOpen(false);
   };
+
   const removeLang = () => {
     closeRemoveLangModal();
   };
@@ -127,9 +116,11 @@ function emailTable() {
   const openDeleteEmailTempModal = () => {
     setDeleteEmailTempModalOpen(true);
   };
+
   const closeDeleteEmailTempModal = () => {
     setDeleteEmailTempModalOpen(false);
   };
+
   const deleteEmailTemp = () => {
     closeDeleteEmailTempModal();
   };
@@ -137,16 +128,7 @@ function emailTable() {
   const handleLanguageChange = (event) => {
     setSelectedLanguage(event.target.value);
   };
-
-  const handleChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handleEditClick = () => {
-    navigate('/uphish/email-template-builder/edit-email-template'); 
-  };
   
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -156,30 +138,6 @@ function emailTable() {
   };
 
   const anchorRef = useRef(null);
-  const [selectedIndex, setSelectedIndex] = useState(1);
-
-//   const handleClickbtn = () => {
-//     console.info(`You clicked ${options[selectedIndex]}`);
-//   };
-
-
-
-  const handleMenuItemClick = (event, index) => {
-    setSelectedIndex(index);
-    setOpen(false);
-  };
-
-  const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClosebtn = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   const openUserForm = () => {
     setUserFormOpen(true);
@@ -189,10 +147,6 @@ function emailTable() {
     setUserFormOpen(false);
   };
 
-  const openGroupForm = () => {
-    setGroupFormOpen(true);
-  };
-
   const closeGroupForm = () => {
     setGroupFormOpen(false);
   };
@@ -200,21 +154,57 @@ function emailTable() {
   const openAnchor = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
-            <SoftBox display="flex" flexDirection="row" justifyContent="space-between" alignItems="flex-end" p={3}>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
-                <div style={{ display:'flex', gap:'5px', alignItems:'center'}}><Typography sx={{ fontSize: 'large', color:'black', fontWeight:'bold' }}>Uphish - Email Template Builder</Typography></div>
+            <SoftBox 
+              display="flex" 
+              flexDirection="row" 
+              justifyContent="space-between" 
+              alignItems="flex-end" 
+              p={3}
+            >
+              <div 
+                style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  gap: '1px' }}
+                >
+                <div 
+                  style={{ 
+                    display:'flex', 
+                    gap:'5px', 
+                    alignItems:'center'}}
+                  >
+                    <Typography 
+                      sx={{ 
+                        fontSize: 'large', 
+                        color:'black', 
+                        fontWeight:'bold' }}
+                      >
+                        Uphish - Email Template Builder
+                    </Typography>
+                </div>
                 <Divider />
               </div>
               <Stack>
-                <Stack spacing={2} direction="row" justifyContent="flex-end">
-                  <Button variant="outline" style={{ border: '0.5px solid grey',  color: '#d4d4d4', fontSize:"10px" }} size="small" onClick={openUserForm}>
+                <Stack 
+                  spacing={2} 
+                  direction="row" 
+                  justifyContent="flex-end"
+                >
+                  <Button 
+                    variant="outline" 
+                    style={{ 
+                      border: '0.5px solid grey',  
+                      color: '#d4d4d4', 
+                      fontSize:"10px" }} 
+                      size="small" 
+                      onClick={openUserForm}
+                    >
                     Search for an item...<AiOutlineSearch style={{color: 'gray', fontSize:"15px"}} />
                   </Button>
                   <Dialog
@@ -230,9 +220,10 @@ function emailTable() {
                         border: "0.5px solid #1C7AE4",
                         color: "white",
                         backgroundColor: "#1b7ae4",
+                        fontWeight:'lighter'
                       }}
                     >
-                  Create Landing Page
+                  + Create Email Tmeplate 
                     </Button>
                   </Link>
                   <Popper
@@ -277,7 +268,6 @@ function emailTable() {
                 },
               }}
             >
-              {/* <Table columns={columns} rows={rows} /> */}
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
@@ -390,7 +380,11 @@ function emailTable() {
                                 <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
                                   Send
                                 </Button>
-                                <Button variant="outlined" onClick={closeSendTestEmailModal} style={{ marginRight:'5px', color:'black'}}>
+                                <Button 
+                                  variant="outlined" 
+                                  onClick={closeSendTestEmailModal} 
+                                  style={{ marginRight:'5px', color:'black'}}
+                                >
                                   Cancel
                                 </Button>
                               </Box>
@@ -418,6 +412,17 @@ function emailTable() {
                             {/* Content for the "Send Test Email" modal */}
                             
                             <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeAddLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
                               <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                               Add Language(s) to the Selected Email Templates
                               </Typography>
@@ -465,6 +470,17 @@ function emailTable() {
                             {/* Content for the "Send Test Email" modal */}
                             
                             <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeRemoveLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
                               <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                               Remove Language(s) from the Selected Email Templates
                               </Typography>
@@ -545,22 +561,27 @@ function emailTable() {
                               />
                                                             
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                <Button variant="contained" onClick={closeDeleteEmailTempModal } style={{color:'#fff'}} >
+                                <Button 
+                                  variant="contained" 
+                                  onClick={closeDeleteEmailTempModal } 
+                                  style={{color:'#fff'}} 
+                                >
                                   No
                                 </Button>
-                                <Button variant="outlined" onClick={deleteEmailTemp} style={{ marginRight:'5px', color:'black'}}>
+                                <Button 
+                                  variant="outlined" 
+                                  onClick={deleteEmailTemp} 
+                                  style={{ marginRight:'5px', color:'black'}}
+                                >
                                   Yes
                                 </Button>
-                              </Box>
-                              
+                              </Box>                              
                             </Box>
-                          </Modal>
-                          
+                          </Modal>                          
                         </Popover>
                       </TableCell>
                     </TableRow>
-                  </TableBody>
-                  
+                  </TableBody>                  
                 </Table>
                 <Menu
                 >
