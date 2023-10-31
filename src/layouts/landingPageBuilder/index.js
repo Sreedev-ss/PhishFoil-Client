@@ -12,6 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+import React from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -80,8 +81,10 @@ import { useRef, useState } from "react";
 import CreateLandingPage from "./createLandingPage";
 
 import EditLandingPage from "./data/editLandingPage";
+import DeleteModal from "components/Modal/DeleteModal";
+import RemoveModal from "components/Modal/RemoveModal";
 
-// const options = ["Download Group Managers Reports", "+ Create Email Template"];
+const options = ["Download Group Managers Reports", "+ Create Email Template"];
 
 function LandingPageBuilder() {
   const { columns, rows } = authorsTableData;
@@ -89,8 +92,16 @@ function LandingPageBuilder() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState("Active");
+  // const [open, setOpen] = useState(false);
+  // const [status, setStatus] = useState("Active");
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleCloses = () => setOpen(false);
+
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpened = () => setOpenModal(true);
+  const handleClosed = () => setOpenModal(false);
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -196,28 +207,7 @@ function LandingPageBuilder() {
                     </Button>
                   </Link>
 
-                  {/* <ButtonGroup
-                    variant="outline"
-                    style={{
-                      border: "0.5px solid #1C7AE4",
-                      color: "white",
-                      backgroundColor: "#1b7ae4",
-                    }}
-                    ref={anchorRef}
-                    aria-label="split button"
-                  >
-                    <Link to="/CreateLandingPage"> 
-                    <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
-                    </Link>
-                    <Button
-                      size="small"
-                      aria-controls={open ? "split-button-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
-                      aria-label="select merge strategy"
-                      aria-haspopup="menu"
-                      onClick={handleToggle}
-                    ></Button>
-                  </ButtonGroup> */}
+                
                   <Popper
                     sx={{
                       zIndex: 1,
@@ -319,7 +309,9 @@ function LandingPageBuilder() {
                             Edit Landing Page
                           </MenuItem>
 
-                          <MenuItem>
+                          {/* <Button onClick={handleOpen}>Open modal</Button> */}
+
+                          <MenuItem onClick={handleOpen}>
                             <DeleteIcon />
                             Delete Landing Page
                           </MenuItem>
@@ -337,56 +329,43 @@ function LandingPageBuilder() {
                             Add Language(s)
                           </MenuItem>
 
-                          <MenuItem component={Link} to="/createlanding">
+                          <MenuItem onClick={handleOpened}>
                             <EditIcon />
                             Remove Language(s)
                           </MenuItem>
+                          
                         </Popover>
                       </TableCell>
                     </TableRow>
                   </TableBody>
 
-                  {/* <TableBody>
-                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell>2</TableCell>
-                      <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>
-                      Argentina | Test | Claro
-                      </TableCell>
-                      <TableCell style={{ fontSize: "13px" }}>Bills</TableCell>
-                      <TableCell style={{ fontSize: "13px" }}>
-                        <ul>Spanish Spanish (Argentina)</ul>
-                      </TableCell>
-                      <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                          // onClick={() => handleArrowClick()}
-                        >
-                          <AiOutlineArrowRight />
-                        </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                          }}
-                        >
-                        
-                        </Popover>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody> */}
+                
                 </Table>
+
                 <Menu></Menu>
               </TableContainer>
             </SoftBox>
           </Card>
         </SoftBox>
+        {openModal && (
+          <RemoveModal 
+          openModal={openModal}
+          onClosed={handleClosed}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          />
+
+        )}
       </SoftBox>
+      {open && (
+        <DeleteModal
+          open={open}
+          onClose={handleCloses}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        />
+        )}
+      
     </DashboardLayout>
   );
 }

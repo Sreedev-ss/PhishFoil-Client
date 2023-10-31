@@ -34,7 +34,10 @@ const CreateLandingPage = () => {
     setSelectedTab(newValue);
   };
   const tabStyle = {
-    marginTop: "30px", // Add your desired margin-top value
+    marginTop: "30px", 
+  
+    
+    // Add your desired margin-top value
   };
   const renderTabContent = (tabIndex) => {
     if (tabIndex === 0) {
@@ -185,22 +188,27 @@ const CreateLandingPage = () => {
       <Tabs
         value={selectedTab}
         onChange={handleTabChange}
+        aria-label="wrapped label tabs example"
         centered // This centers the tabs horizontally
         textColor="secondary"
+        disableRipple
         style={tabStyle}
       >
         <Tab
           label="Landing Page"
           sx={{
+          
             // color: selectedTab === 0 ? "rgb(30, 123, 228)" : "inherit",
-            color: selectedTab === 0? 'blue': 'black',
+            color: selectedTab === 0 ? 'blue' : 'black',
           }}
+          disableRipple
         />
         <Tab
           label="Access Control"
           sx={{
             color: selectedTab === 1 ? 'blue' : 'black',
           }}
+          disableRipple
         />
       </Tabs>
       {renderTabContent(selectedTab)}
