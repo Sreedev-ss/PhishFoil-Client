@@ -24,7 +24,7 @@ import SoftTypography from "components/SoftTypography";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import Table from "examples/Tables/Table";
-import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Checkbox, ClickAwayListener, Dialog, Divider, FormControl, FormControlLabel, FormGroup, Grow, IconButton, InputLabel, List, ListItem, ListItemText, Menu, MenuItem, MenuList, Modal, Popover, Popper, Select, Stack, TextField, Typography } from '@mui/material'
 
 
 import Table from '@mui/material/Table';
@@ -42,7 +42,20 @@ import { IoIosRemoveCircleOutline } from 'react-icons/io';
 
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import  SendIcon  from '@mui/icons-material/Send';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 
 // Data
@@ -62,6 +75,20 @@ function emailTable() {
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('Active');
   const navigate = useNavigate();
+
+  const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
+
+  const openSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(true);
+  };
+
+  const closeSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(false);
+  };
+
+  const sendTestEmail = () => {
+    closeSendTestEmailModal();
+  }
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -252,30 +279,99 @@ function emailTable() {
                         >
                           <MenuItem component={Link} to="/edit-email-template">
                             <EditIcon />
-                            Edit Landing Page
+                            Edit Email Template
+                          </MenuItem>
+                          
+
+                          <MenuItem onClick={openSendTestEmailModal}>
+                            <SendIcon />
+                            send Test Email
                           </MenuItem>
 
-                          <MenuItem>
-                            <DeleteIcon />
-                            Delete Landing Page
-                          </MenuItem>
+                          <Modal
+                            open={sendTestEmailModalOpen}
+                            onClose={closeSendTestEmailModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                Send Test Simulation Email
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    To:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    First Name:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Last Name:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                              {/* Add your form or content for sending test email here */}
+                              {/* <Button onClick={closeSendTestEmailModal}>Close Modal</Button> */}
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button variant="contained" onClick={sendTestEmail} style={{color:'#fff'}} >
+                                <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
+                                  Send
+                                </Button>
+                                <Button variant="outlined" onClick={closeSendTestEmailModal} style={{ marginRight:'5px', color:'black'}}>
+                                  Cancel
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
 
                           <MenuItem component={Link} to="/CreateLandingPage">
                             <EditIcon />
-                            Preview Landing Page
+                            Clone Email Template
                           </MenuItem>
                           <MenuItem component={Link} to="/createlanding">
                             <EditIcon />
-                            Clone Landing Page
+                            Add Language(s)
                           </MenuItem>
                           <MenuItem>
                             <EditIcon />
-                            Add Language(s)
+                            Remove Language(s)
                           </MenuItem>
 
                           <MenuItem component={Link} to="/createlanding">
                             <EditIcon />
-                            Remove Language(s)
+                            delete Email Template
                           </MenuItem>
                           
                         </Popover>
