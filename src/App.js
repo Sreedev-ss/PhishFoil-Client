@@ -52,6 +52,7 @@ import LandingPageBuilder from "layouts/landingPageBuilder";
 import brand from "assets/images/logo-ct.png";
 
 import CreateEmailTemplate from "layouts/createEmailTemplate";
+import UpdateEmailTemplate from "layouts/updateEmailTemplate";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -157,10 +158,13 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
       <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
-      <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
+      {/* <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />; */}
+      {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
-        <Route path="/emailTemplateBuilder/create-email-template" element={<CreateEmailTemplate />} />
+        {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
+        {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
+        
       </Routes>
     </ThemeProvider>
   );

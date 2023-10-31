@@ -41,6 +41,7 @@ import { BiMessageAltAdd } from 'react-icons/bi';
 import { IoIosRemoveCircleOutline } from 'react-icons/io';
 
 
+
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
@@ -63,6 +64,11 @@ function emailTable() {
     setStatus(event.target.value);
   };
 
+  const handleEditClick = () => {
+    navigate('/uphish/email-template-builder/edit-email-template'); 
+  };
+  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,6 +83,8 @@ function emailTable() {
 //   const handleClickbtn = () => {
 //     console.info(`You clicked ${options[selectedIndex]}`);
 //   };
+
+
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -114,8 +122,8 @@ function emailTable() {
   const openAnchor = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  return (
 
+  return (
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
@@ -137,14 +145,25 @@ function emailTable() {
                   >
                     {/* User form content here */}
                   </Dialog>
-                  <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
-                    {/* <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button> */}
-                    <Button onClick={() => {navigate('/emailTemplateBuilder/create-email-template')}}
+                  <Link to="/uphish/email-template-builder/create-email-template">
+                    <Button
+                      variant="outline"
+                      style={{
+                        border: "0.5px solid #1C7AE4",
+                        color: "white",
+                        backgroundColor: "#1b7ae4",
+                      }}
+                    >
+                  Create Landing Page
+                    </Button>
+                  </Link>
+                  {/* <ButtonGroup variant="outline" style={{ border: '0.5px solid #1C7AE4', color: 'white', backgroundColor: '#1b7ae4' }} ref={anchorRef} aria-label="split button">
+                    <Button onClick={() => {navigate('/uphish/email-template-builder/create-email-template')}}
                     >
                         + Create Email Template
                     </Button>
 
-                  </ButtonGroup>
+                  </ButtonGroup> */}
                   <Popper
                     sx={{
                       zIndex: 1,
@@ -228,10 +247,17 @@ function emailTable() {
                             horizontal: 'left',
                           }}
                         >
-                            <MenuItem component={Link} to="/EditEmailTemplate">
+                            <MenuItem>
+                            <AiOutlineEdit />
+                            <Link to='/uphish/email-template-builder/edit-email-template'>Edit Email Template</Link>
+                            
+                          </MenuItem>
+                          {/* <Link to='/uphish/email-template-builder/edit-email-template'>
+                          <MenuItem >
                             <AiOutlineEdit />
                             Edit Email Template
                           </MenuItem>
+                          </Link> */}
                           <MenuItem>
                             <BsSend /> Send Test Email
                           </MenuItem>

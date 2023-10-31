@@ -43,6 +43,7 @@ import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import EmailTable from "layouts/emailTable";
+import updateEmailTemplate from "layouts/updateEmailTemplate";
 
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
@@ -130,6 +131,11 @@ const routes = [
   {
     route: "/uphish/CreateLandingPage",
     component: <CreateLandingPage/>,
+    noCollapse: true,
+  },
+  {
+    route: "/uphish/email-template-builder/create-email-template",
+    component: <updateEmailTemplate/>,
     noCollapse: true,
   },
   { type: "title", title: "Account Pages", key: "account-pages" },
