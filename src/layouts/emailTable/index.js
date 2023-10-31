@@ -47,6 +47,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
 const style = {
   position: 'absolute',
@@ -89,6 +90,7 @@ function emailTable() {
   const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
+  const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
 
   const [selectedLanguage, setSelectedLanguage] = useState('');
 
@@ -120,6 +122,16 @@ function emailTable() {
   };
   const removeLang = () => {
     closeRemoveLangModal();
+  };
+
+  const openDeleteEmailTempModal = () => {
+    setDeleteEmailTempModalOpen(true);
+  };
+  const closeDeleteEmailTempModal = () => {
+    setDeleteEmailTempModalOpen(false);
+  };
+  const deleteEmailTemp = () => {
+    closeDeleteEmailTempModal();
   };
 
   const handleLanguageChange = (event) => {
@@ -486,10 +498,63 @@ function emailTable() {
                           </Modal>
 
                           {/* Delete-Email-Temp */}
-                          <MenuItem component={Link} to="/createlanding">
-                            <EditIcon />
+                          <MenuItem onClick={openDeleteEmailTempModal}>
+                            <DeleteOutlineOutlinedIcon style={{fontSize:'15px'}} />
                             delete Email Template
                           </MenuItem>
+
+                          <Modal
+                            open={deleteEmailTempModalOpen}
+                            onClose={closeDeleteEmailTempModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Are you sure you want to delete the selected email template?
+                              </Typography>
+                              
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    This will delete:
+                                    <li>All simulations that use this email template will be deleted</li>
+                                    <li>The recipients list of those simulations will be deleted</li>
+                                    <li>The results of those simulations will be deleted</li>
+                                    <li>Any active simulations using this email template will be disrupted</li>
+                                </label>
+                              </Box>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Number of email templates to delete:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                variant="filled" 
+                                defaultValue="1"
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button variant="contained" onClick={closeDeleteEmailTempModal } style={{color:'#fff'}} >
+                                  No
+                                </Button>
+                                <Button variant="outlined" onClick={deleteEmailTemp} style={{ marginRight:'5px', color:'black'}}>
+                                  Yes
+                                </Button>
+                              </Box>
+                              
+                            </Box>
+                          </Modal>
                           
                         </Popover>
                       </TableCell>
