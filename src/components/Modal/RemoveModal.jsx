@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -16,7 +16,10 @@ const style = {
   boxShadow: 24,
   height: 300,
   p: 4,
-  fontSize: "12px",
+  fontSize: "16px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 };
 
 export default function RemoveModal() {
@@ -26,19 +29,37 @@ export default function RemoveModal() {
         <div className=" w-96 border-zinc-300 bg-white border-[1px] rounded-xl p-5 flex flex-col  gap-4">
           <p>Remove Language(s) from the Selected Landing Page</p>
         </div>
-      
 
         <label htmlFor="name">Language(s) :</label>
 
-        <TextField fullWidth variant="filled" type="number" sx={{ gridColumn: "span 2" }} />
+        <TextField
+          select
+          fullWidth
+          variant="filled"
+          type="text"
+          sx={{
+            gridColumn: "span 2",
+            border: "1px solid #ccc",
+            borderRadius: "4px",
+            backgroundColor: "#fff",
+          }}
+        >
+          <MenuItem value="IN">English</MenuItem>
+          <MenuItem value="US">Malayalam</MenuItem>
+          <MenuItem value="AU">Tamil</MenuItem>
+        </TextField>
 
         <Button
-          variant="outlined"
-          style={{ border: "1px solid blue", marginRight: "10px", marginTop:"10px", color: "blue" }}
+          variant="contained"
+          style={{
+            border: "0.5px solid #1C7AE4",
+            color: "white",
+            backgroundColor: "red",
+            marginTop: "15px",
+          }}
         >
-        Language(s)
+          Language(s)
         </Button>
-       
       </Box>
     </div>
   );

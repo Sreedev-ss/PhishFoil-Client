@@ -56,6 +56,10 @@ import Cube from "examples/Icons/Cube";
 import LandingPageBuilder from "layouts/landingPageBuilder";
 import CreateLandingPage from "layouts/landingPageBuilder/createLandingPage";
 import EditLandingPage from "layouts/landingPageBuilder/data/editLandingPage";
+import CreateEmailTemplatePage from "layouts/emailTable/createEmailTemplatePage";
+import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
+import CloneEmailTemplate from "layouts/emailTable/data/cloneEmailTemplate";
+import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage"
 
 const routes = [
   {
@@ -141,6 +145,29 @@ const routes = [
     component: <EditLandingPage/>,
     noCollapse: true,
   },
+
+  //Clone
+  {
+    route: "/cloneLandingPage",
+    component: <CloneLandingPage/>,
+    noCollapse: true,
+  },
+  {
+    route: "/uphish/create-email-template",
+    component: <CreateEmailTemplatePage/>,
+    noCollapse: true,
+  },
+  {
+    route: "/edit-email-template",
+    component: <EditEmailTemplate/>,
+    noCollapse: true,
+  },
+  {
+    route: "/clone-email-template",
+    component: <CloneEmailTemplate/>,
+    noCollapse: true,
+  },
+
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
     type: "collapse",
