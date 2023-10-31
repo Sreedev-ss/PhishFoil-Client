@@ -52,6 +52,7 @@ import LandingPageBuilder from "layouts/landingPageBuilder";
 import brand from "assets/images/logo-ct.png";
 
 import CreateEmailTemplate from "layouts/createEmailTemplate";
+import CreateSimulation from "layouts/createSimulation";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -156,6 +157,7 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
+      <Route exact path='/uphish/create-simulation' element={<CreateSimulation />} />;
       <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
       <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
         {getRoutes(routes)}
