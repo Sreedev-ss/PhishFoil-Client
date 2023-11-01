@@ -4,15 +4,14 @@ import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
 import React, { useState } from 'react'
 import { AiFillInfoCircle, AiOutlineSearch } from 'react-icons/ai'
-import AddIcon from '@mui/icons-material/Add';
-
 import ListItemText from '@mui/material/ListItemText';
-
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import addImage from 'assets/images/images.png'
-import SoftAvatar from 'components/SoftAvatar'
+import CreateSimulation from './createSimulation'
 
-const CreateSimulation = () => {
+const Simulation = () => {
+
+    const [openTemp, setOpenTemp] = useState(false)
 
     const [type, setType] = useState('All');
     const [category, setCategory] = useState('All');
@@ -36,13 +35,14 @@ const CreateSimulation = () => {
         setSelectedItems(updatedSelection);
     };
 
+
     return (
         <DashboardLayout>
             <DashboardNavbar />
             <SoftBox py={3}>
                 <SoftBox mb={3}>
                     <Card sx={{ minHeight: '75vh' }}>
-                        <SoftBox
+                        {!openTemp ? <SoftBox
                             // display="flex"
                             // flexDirection="row"
                             // justifyContent="space-between"
@@ -147,15 +147,26 @@ const CreateSimulation = () => {
                                     <AiOutlineSearch style={{ color: "grey", fontSize: "15px" }} />
                                 </Button>
                             </Stack>
-                            <div style={{ border: "0.5px solid #d2d6da", width: '30%', borderRadius: '4px', height: '20rem', marginTop: '1.2rem' }}>
+                            <div style={{ border: "0.5px solid #d2d6da", width: '30%', borderRadius: '4px', height: '20rem', marginTop: '1.2rem' }} onClick={() => setOpenTemp(true)}>
                                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                     <img src={addImage} alt="name" />
                                 </div>
-                                <Typography sx={{ fontSize: "medium", color: "black", fontWeight: '500', paddingLeft:'15px' }}>
+                                <Typography sx={{ fontSize: "medium", color: "black", fontWeight: '500', paddingLeft: '15px' }} >
                                     Create new template
                                 </Typography>
                             </div>
-                        </SoftBox>
+                        </SoftBox> :
+                            <SoftBox
+                                // display="flex"
+                                // flexDirection="row"
+                                // justifyContent="space-between"
+                                // alignItems="flex-end"
+                                p={3}
+                            >
+                                <CreateSimulation />
+                            </SoftBox>
+
+                        }
                     </Card>
                 </SoftBox>
             </SoftBox>
@@ -163,4 +174,4 @@ const CreateSimulation = () => {
     )
 }
 
-export default CreateSimulation
+export default Simulation
