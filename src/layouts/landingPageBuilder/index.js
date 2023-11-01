@@ -12,6 +12,7 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
+import React from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -23,7 +24,11 @@ import SoftTypography from "components/SoftTypography";
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Table from "examples/Tables/Table";
+import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
+import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
+import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+
 import {
   Box,
   Button,
@@ -72,6 +77,22 @@ import {
   AiOutlineEdit,
 } from "react-icons/ai";
 
+
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
+const languageOptions = ["English", "Spanish", "French", "German"];
+
 // Data
 import authorsTableData from "layouts/tables/data/authorsTableData";
 import projectsTableData from "layouts/tables/data/projectsTableData";
@@ -80,8 +101,10 @@ import { useRef, useState } from "react";
 import CreateLandingPage from "./createLandingPage";
 
 import EditLandingPage from "./data/editLandingPage";
+import DeleteModal from "components/Modal/DeleteModal";
+import RemoveModal from "components/Modal/RemoveModal";
 
-// const options = ["Download Group Managers Reports", "+ Create Email Template"];
+const options = ["Download Group Managers Reports", "+ Create Email Template"];
 
 function LandingPageBuilder() {
   const { columns, rows } = authorsTableData;
@@ -89,9 +112,32 @@ function LandingPageBuilder() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState("Active");
+  const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
 
+  //Delete Landing page
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleCloses = () => setOpen(false);
+
+  //Add language
+  const [addLangModalOpen, setAddLangModalOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+
+  //remove Language
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpened = () => setOpenModal(true);
+  const handleClosed = () => setOpenModal(false);
+
+  const openAddLangModal = () => {
+    setAddLangModalOpen(true);
+  };
+  const closeAddLangModal = () => {
+    setAddLangModalOpen(false);
+  };
+
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
   const handleChange = (event) => {
     setStatus(event.target.value);
   };
@@ -102,6 +148,18 @@ function LandingPageBuilder() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const openRemoveLangModal = () => {
+    setRemoveLangModalOpen(true);
+  };
+
+  const closeRemoveLangModal = () => {
+    setRemoveLangModalOpen(false);
+  };
+
+  const removeLang = () => {
+    closeRemoveLangModal();
   };
 
   const anchorRef = useRef(null);
@@ -190,34 +248,13 @@ function LandingPageBuilder() {
                         border: "0.5px solid #1C7AE4",
                         color: "white",
                         backgroundColor: "#1b7ae4",
+                        fontWeight: 'lighter',
                       }}
                     >
                       + Create Landing Page
                     </Button>
                   </Link>
 
-                  {/* <ButtonGroup
-                    variant="outline"
-                    style={{
-                      border: "0.5px solid #1C7AE4",
-                      color: "white",
-                      backgroundColor: "#1b7ae4",
-                    }}
-                    ref={anchorRef}
-                    aria-label="split button"
-                  >
-                    <Link to="/CreateLandingPage"> 
-                    <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
-                    </Link>
-                    <Button
-                      size="small"
-                      aria-controls={open ? "split-button-menu" : undefined}
-                      aria-expanded={open ? "true" : undefined}
-                      aria-label="select merge strategy"
-                      aria-haspopup="menu"
-                      onClick={handleToggle}
-                    ></Button>
-                  </ButtonGroup> */}
                   <Popper
                     sx={{
                       zIndex: 1,
@@ -319,74 +356,165 @@ function LandingPageBuilder() {
                             Edit Landing Page
                           </MenuItem>
 
-                          <MenuItem>
+                          {/* <Button onClick={handleOpen}>Open modal</Button> */}
+
+                          <MenuItem onClick={handleOpen}>
                             <DeleteIcon />
                             Delete Landing Page
                           </MenuItem>
 
-                          <MenuItem component={Link} to="/CreateLandingPage">
-                            <EditIcon />
-                            Preview Landing Page
-                          </MenuItem>
-                          <MenuItem component={Link} to="/createlanding">
-                            <EditIcon />
+                          <MenuItem component={Link} to="/cloneLandingPage">
+                            <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Clone Landing Page
                           </MenuItem>
-                          <MenuItem>
-                            <EditIcon />
+
+                          <MenuItem onClick={openAddLangModal}>
+                            <AddCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Add Language(s)
                           </MenuItem>
+                          <Modal
+                            open={addLangModalOpen}
+                            onClose={closeAddLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeAddLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography
+                                id="send-test-email-modal-title"
+                                variant="h6"
+                                component="h2"
+                              >
+                                Add Language(s) to the Selected Landing Page
+                              </Typography>
+                              <Box>
+                                <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                  Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select value={selectedLanguage} onChange={handleLanguageChange}>
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                                <Button
+                                  variant="contained"
+                                  style={{
+                                    border: "0.5px solid #1C7AE4",
+                                    color: "white",
+                                    backgroundColor: "#1b7ae4",
+                                    marginTop: "15px",
+                                  }}
+                                >
+                                  Add Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
 
-                          <MenuItem component={Link} to="/createlanding">
-                            <EditIcon />
+                          <MenuItem onClick={openRemoveLangModal}>
+                            <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
+                          </MenuItem>
+                          <Modal
+                            open={removeLangModalOpen}
+                            onClose={closeRemoveLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeRemoveLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Remove Language(s) from the Selected Email Templates
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select
+                                  value={selectedLanguage}
+                                  onChange={handleLanguageChange}
+                                >
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
+                                  Remove Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+                          <MenuItem component={Link} to="/CreateLandingPage">
+                            <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
+                            Preview Landing Page
                           </MenuItem>
                         </Popover>
                       </TableCell>
                     </TableRow>
                   </TableBody>
-
-                  {/* <TableBody>
-                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell>2</TableCell>
-                      <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>
-                      Argentina | Test | Claro
-                      </TableCell>
-                      <TableCell style={{ fontSize: "13px" }}>Bills</TableCell>
-                      <TableCell style={{ fontSize: "13px" }}>
-                        <ul>Spanish Spanish (Argentina)</ul>
-                      </TableCell>
-                      <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                          // onClick={() => handleArrowClick()}
-                        >
-                          <AiOutlineArrowRight />
-                        </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                          }}
-                        >
-                        
-                        </Popover>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody> */}
                 </Table>
+
                 <Menu></Menu>
               </TableContainer>
             </SoftBox>
           </Card>
         </SoftBox>
+        {openModal && (
+          <RemoveModal
+            openModal={openModal}
+            onClosed={handleClosed}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          />
+        )}
       </SoftBox>
+      {open && (
+        <DeleteModal
+          open={open}
+          onClose={handleCloses}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        />
+      )}
     </DashboardLayout>
   );
 }

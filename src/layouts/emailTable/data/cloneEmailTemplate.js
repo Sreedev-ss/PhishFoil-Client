@@ -4,13 +4,9 @@ import {
     Typography, 
     MenuItem, 
     Grid, 
-    Select, 
-    FormControl, 
-    InputLabel, 
     Switch, 
     Button, 
-    Checkbox, 
-    FormGroup, 
+    Checkbox,  
     InputAdornment } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -29,15 +25,13 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const cloneEmailTemplate = () => {
     const [selectedTab, setSelectedTab] = useState(0);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [open, setOpen] = useState(false);
-    
     const [category, setCategory] = useState("");
     const [languages, setLanguages] = useState([]);
-    const [age, setAge] = React.useState('');
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
-  
+    const [customSenderEmail, setCustomSenderEmail] = useState(false);
+    const [receipient, setReceipient] = useState('');
     const [checked, setChecked] = useState(false); 
+
     const handleChange = () => {
         setChecked(!checked); 
     };
@@ -47,17 +41,14 @@ const cloneEmailTemplate = () => {
         { value: 'Tamil', label: 'Tamil' },
     ];
 
-    const handleIconClick = () => {
-        setOpen(!open);
+    const handleChangeReceipient = (event) => {
+        setReceipient(event.target.value);
     };
-  
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-      };
+      
+    const handleCustomSenderEmailChange = () => {
+        setCustomSenderEmail(!customSenderEmail);
+    };
 
-    const selectOption = (option) => {
-    console.log(`Selected: ${option}`);
-    };
     const emailEditorRef = useRef(null);
   
     const exportHtml = () => {
@@ -77,11 +68,6 @@ const cloneEmailTemplate = () => {
     const handleChanged = (event) => {
         setCategory(event.target.value); 
     };
-
-      const handleChanges = (event) => {
-        setLanguages(event.target.value);
-      };
-
       
     const handleLanguageChange = (event) => {
         const value = event.target.value;
@@ -96,6 +82,7 @@ const cloneEmailTemplate = () => {
     const tabStyle = {
       marginTop: "30px", 
     };
+    
     const renderTabContent = (tabIndex) => {
       if (tabIndex === 0) {
         return (
@@ -118,7 +105,96 @@ const cloneEmailTemplate = () => {
                 variant="filled" 
                 type="text" 
                 sx={{ gridColumn: "span 2" }} />
-              <div>
+                <div>
+                <Box>
+                    <label htmlFor="name" style={{fontSize:"13px"}}>
+                        Language(s):
+                    </label>
+                </Box>
+                <TextField
+                    select
+                    value={languages}
+                    onChange={handleLanguageChange}
+                    width="250px"
+                    variant="filled"
+                    type="text"
+                    multiple
+                    sx={{
+                    gridColumn: "span 2",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    backgroundColor: "#fff",
+                    }}
+                >
+
+                {languageOptions.map((option) => (
+                    <FormControlLabel 
+                    key={option.value}
+                    control={
+                        <Checkbox 
+                            checked={languages.includes(option.value)}
+                            onChange={handleLanguageChange}
+                            value={option.value}
+                        />
+                    }
+                    label={option.label}
+                    />
+                ))}
+                
+                </TextField>
+                <Box sx={{ display: 'flex', flexWrap:'wrap'}}>
+                    {languages.map((language) => (
+                        <Chip 
+                        key={language}
+                        label={language}
+                        onDelete={()=>{
+                            setLanguages(languages.filter((lang)=> lang!==language));
+                        }}
+                        />
+                    ))}
+                </Box>
+            </div>
+            <div>
+                <Box>
+                    <label 
+                        htmlFor="name" 
+                        style={{fontSize:"13px"}}
+                        >
+                            Category:
+                    </label>
+                </Box>
+                <TextField
+                    select
+                    value={category}
+                    onChange={handleChanged}
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    sx={{
+                    gridColumn: "span 2",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    backgroundColor: "#ffff",
+
+                    }}
+                    SelectProps={{
+                        IconComponent: () => <ExpandMoreIcon />,
+                      }}
+                >
+                    <MenuItem value="No Category">No Category</MenuItem>
+                    <MenuItem value="Bills">Bills</MenuItem>
+                    <MenuItem value="Cloud Services">Cloud Services</MenuItem>
+                    <MenuItem value="Delivery">Delivery</MenuItem>
+                    <MenuItem value="Finance">Finance</MenuItem>
+                    <MenuItem value="Government">Government</MenuItem>
+                    <MenuItem value="Internal">Internal</MenuItem>
+                    <MenuItem value="News & Entertainment">News & Entertainment</MenuItem>
+                    <MenuItem value="Shopping">Shopping</MenuItem>
+                    <MenuItem value="Social Media">Social Media</MenuItem>
+                    <MenuItem value="Travel">Travel</MenuItem>
+                </TextField>
+            </div>
+              {/* <div>
                 <Box>
                     <label htmlFor="name" style={{fontSize:"13px"}}>
                         Language(s):
@@ -208,7 +284,7 @@ const cloneEmailTemplate = () => {
                     <MenuItem value="Social Media">Social Media</MenuItem>
                     <MenuItem value="Travel">Travel</MenuItem>
                 </TextField>
-              </div>
+              </div> */}
               <Box>
                 <label 
                     htmlFor="name" 
@@ -224,15 +300,20 @@ const cloneEmailTemplate = () => {
                 sx={{ gridColumn: "span 2" }} 
               />
               <Box>
-            <Button variant="contained" href="#contained-buttons" style={{backgroundColor:'red', color:'#fff', height:'5px', fontWeight:'lighter'}}>
+            <Button 
+                variant="contained" 
+                href="#contained-buttons" 
+                style={{
+                    backgroundColor:'red', 
+                    color:'#fff', 
+                    height:'5px', 
+                    fontWeight:'lighter'}}
+                >
                 <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
                 Remove Image
             </Button>
             </Box>
             <Box></Box>
-            {/* <Button variant="contained" href="#contained-buttons">
-        Link
-      </Button> */}
               <Box>
                 <label 
                     htmlFor="name" 
@@ -262,68 +343,116 @@ const cloneEmailTemplate = () => {
                 sx={{ gridColumn: "span 2" }} 
               />
               <Box>
-                <p style={{fontSize:'12px', color:'gray', fontWeight:'lighter'}}>This name will be displayed in the users inbox. If left blank, the sender email address will be shown instead.</p>
+                <p 
+                    style={{
+                        fontSize:'12px', 
+                        color:'gray', 
+                        fontWeight:'lighter'}}
+                    >
+                        This name will be displayed in the users inbox. If left blank, the sender email address will be shown instead.
+                </p>
               </Box>
               <Box></Box>
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
-                        <Box>
-                        <label 
-                            htmlFor="name" 
-                            style={{ fontSize: "13px" }}
-                        >
-                            Sender:
-                        </label>
-                        </Box>
-                        <TextField 
-                            fullWidth 
-                            variant="filled" 
-                            type="text" 
-                        />
-                    </Grid>
-                    <Grid 
-                    item xs={1} 
-                    style={{ 
-                        display: 'flex', 
-                        justifyContent: 'center', 
-                        alignItems: 'center' 
-                        }}
-                        >
-                        <Typography 
-                            variant="h5" 
-                            component="span" 
-                            style={{fontSize:"10px"}}
-                        >
-                            @
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <Box>
-                        <label 
-                            htmlFor="dropdown" 
-                            style={{ fontSize: "13px" }}
-                        >
-                            Recipient:
-                        </label>
-                        </Box>
-                        
-                        <Select fullWidth>
-                        <MenuItem value="option1">Option 1</MenuItem>
-                        <MenuItem value="option2">Option 2</MenuItem>
-                        <MenuItem value="option3">Option 3</MenuItem>
-                        </Select>
-                    </Grid>
-                </Grid>               
-            </Box>
-                <Box style={{marginTop:'15px'}}>
+              <Box style={{marginTop:'15px'}}>
                     <label 
                         htmlFor="name" 
                         style={{fontSize:"13px"}}
                     >
                         Use a custom sender email address:
                     </label>
-                    <Switch {...label} />
-                </Box>             
+                    <Switch {...label} 
+                    checked={customSenderEmail}
+                    onChange={handleCustomSenderEmailChange}
+                    />
+                </Box> 
+
+                {customSenderEmail ? (
+                <Box>
+                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                    Sender Email Address:
+                    </label>
+                    <TextField
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    sx={{ gridColumn: "span 2" }}
+                    />
+                    <Box>
+                    <p 
+                        style={{ 
+                            fontSize: "12px", 
+                            color: "gray", 
+                            fontWeight: "lighter" }}
+                        >
+                            Please be aware that emails may be blocked due to the senders domain. 
+                            You should test your email before setting up your phishing simulation to ensure it will reach the target users.
+                    </p>
+                    </Box>
+                </Box>
+                ) : (
+                <Box>
+                    <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                        <Box>
+                        <label htmlFor="name" style={{ fontSize: "13px" }}>
+                            Sender:
+                        </label>
+                        </Box>
+                        <TextField fullWidth variant="filled" type="text" />
+                    </Grid>
+                    <Grid
+                        item xs={1}
+                        style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        }}
+                    >
+                        <Typography variant="h5" component="span" style={{ fontSize: "10px" }}>
+                        @
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={7}>
+                        <Box>
+                        <label htmlFor="dropdown" style={{ fontSize: "13px" }}>
+                            Recipient:
+                        </label>
+                        </Box>
+                        <TextField
+                    select
+                    value={receipient}
+                    onChange={handleChangeReceipient}
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    sx={{
+                    gridColumn: "span 2",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    backgroundColor: "#ffff",
+
+                    }}
+                    SelectProps={{
+                        IconComponent: () => <ExpandMoreIcon />,
+                      }}
+                >
+                    <MenuItem value="1nfoclient.fr">1nfoclient.fr</MenuItem>
+                    <MenuItem value="amzwon.net">amzwon.net</MenuItem>
+                    <MenuItem value="asistencoahoy.com">asistencoahoy.com</MenuItem>
+                    <MenuItem value="atencionalclenite.com">atencionalclenite.com</MenuItem>
+                    <MenuItem value="banque-online.com">banque-online.com</MenuItem>
+                    <MenuItem value="billing.net">billing.net</MenuItem>
+                    <MenuItem value="Internal">Internal</MenuItem>
+                    <MenuItem value="centre-assistance">centre-assistance</MenuItem>
+                    <MenuItem value="centro-assistance.fr">centro-assistance.fr</MenuItem>
+                    <MenuItem value="companylegal.co.uk">companylegal.co.uk</MenuItem>
+                    <MenuItem value="companypolicy.ie">companypolicy.ie</MenuItem>
+                </TextField>
+            </Grid>
+        </Grid>
+    </Box>
+    )}
+            </Box>
               <Box style={{marginTop:"15px"}}>
                 <label 
                     htmlFor="name" 
@@ -350,8 +479,15 @@ const cloneEmailTemplate = () => {
                 + Add
             </Button>
             <Box>
-                <p style={{fontSize:'12px', color:'gray', fontWeight:'lighter'}}>Domains added here will be included in the sender domains dropdown when creating a simulation.<br/>
-Please note that the use of custom domains will increase the likelihood of emails being marked as spam.</p>
+                <p 
+                    style={{
+                        fontSize:'12px', 
+                        color:'gray', 
+                        fontWeight:'lighter'}}
+                    >
+                        Domains added here will be included in the sender domains dropdown when creating a simulation.<br/>
+                        Please note that the use of custom domains will increase the likelihood of emails being marked as spam.
+                </p>
               </Box>
               <Box></Box>
             <div>
@@ -458,7 +594,7 @@ Please note that the use of custom domains will increase the likelihood of email
   
     return (
       <DashboardLayout>
-        <Typography variant="h4">Uphish - Update Email Template</Typography>
+        <Typography variant="h4">Uphish - Clone Email Template</Typography>
         <Tabs
           value={selectedTab}
           onChange={handleTabChange}
@@ -479,8 +615,7 @@ Please note that the use of custom domains will increase the likelihood of email
             }}
           />
         </Tabs>
-        {renderTabContent(selectedTab)}
-  
+        {renderTabContent(selectedTab)} 
       </DashboardLayout>
     );
   };
