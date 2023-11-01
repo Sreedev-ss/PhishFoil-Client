@@ -75,6 +75,8 @@ const ViewSimulation = () => {
     const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [sendAllEmailsModalOpen, setSendAllEmailsModalOpen] = useState(false);
+    const [sendEmailSimulationModalOpen, setSendEmailSimulationModalOpen] = useState(false);
+    const [deleteSimulationModalOpen, setDeleteSimulationModalOpen] = useState(false);
 
     const openSendTestEmailModal = () => {
         setSendTestEmailModalOpen(true);
@@ -134,6 +136,30 @@ const ViewSimulation = () => {
 
     const removeAllSendEmails = () => {
         closeSendAllEmailsModal();
+    };
+
+    const openSendEmailSimulationModal = () => {
+        setSendEmailSimulationModalOpen(true);
+    };
+
+    const closeSendEmailSimulationModal = () => {
+        setSendEmailSimulationModalOpen(false);
+    };
+
+    const sendEmailSimulation = () => {
+        closeSendEmailSimulationModal();
+    };
+
+    const openDeleteSimulationModal = () => {
+        setDeleteSimulationModalOpen(true);
+    };
+
+    const closeDeleteSimulationModal = () => {
+        setDeleteSimulationModalOpen(false);
+    };
+
+    const removeDeleteSimulation = () => {
+        closeDeleteSimulationModal();
     };
 
     const handleLanguageChange = (event) => {
@@ -449,131 +475,124 @@ const ViewSimulation = () => {
                                                         </Box>
                                                     </Modal>
 
-                                                    {/* clone-email-template */}
-                                                    <MenuItem component={Link} to="/clone-email-template">
+                                                    {/* clone-simulation */}
+                                                    <MenuItem component={Link} to="/clone-simulation">
                                                         <FileCopyOutlinedIcon style={{ fontSize: 'small' }} />
                                                         Clone Simulation
                                                     </MenuItem>
-                                                    <MenuItem component={Link} to="/clone-email-template">
-                                                        <DeleteOutlineOutlinedIcon style={{ fontSize: 'small' }} />
+
+                                                    {/* delete simulation*/}
+                                                    <MenuItem onClick={openDeleteSimulationModal}>
+                                                        <SendIcon style={{ fontSize: '15px' }} />
                                                         Delete Simulation
                                                     </MenuItem>
-
-                                                    {/* add-languages */}
-                                                    <MenuItem onClick={openAddLangModal}>
-                                                        <ViewDayOutlined style={{ fontSize: 'small' }} />
-                                                        View Landing Page
-                                                    </MenuItem>
-
                                                     <Modal
-                                                        open={addLangModalOpen}
-                                                        onClose={closeAddLangModal}
+                                                        open={deleteSimulationModalOpen}
+                                                        onClose={closeDeleteSimulationModal}
                                                         aria-labelledby="send-test-email-modal-title"
                                                         aria-describedby="send-test-email-modal-description"
                                                     >
-                                                        {/* Content for the "Send Test Email" modal */}
-
                                                         <Box sx={style}>
-                                                            <IconButton
-                                                                aria-label="Close"
-                                                                sx={{
-                                                                    position: 'absolute',
-                                                                    top: 0,
-                                                                    right: 0,
-                                                                }}
-                                                                onClick={closeAddLangModal}
-                                                            >
-                                                                <HighlightOffOutlinedIcon style={{ fontSize: 'medium' }} />
-                                                            </IconButton>
                                                             <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                                Add Language(s) to the Selected Email Templates
-                                                            </Typography>
-                                                            <Box>
-                                                                <label
-                                                                    htmlFor="name"
-                                                                    style={{ fontSize: "13px" }}
+                                                            Are you sure you want to delete this simulation?
+                                                            </Typography>                                                          
+                                                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                                                <Button
+                                                                    variant="contained"
+                                                                    onClick={closeDeleteSimulationModal}
+                                                                    style={{ color: '#fff' }}
                                                                 >
-                                                                    Language(s):
-                                                                </label>
-                                                            </Box>
-                                                            <FormControl fullWidth variant="filled">
-                                                                <Select
-                                                                    value={selectedLanguage}
-                                                                    onChange={handleLanguageChange}
+                                                                    No
+                                                                </Button>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    onClick={removeDeleteSimulation}
+                                                                    style={{ marginRight: '5px', color: 'black' }}
                                                                 >
-                                                                    {languageOptions.map((language, index) => (
-                                                                        <MenuItem key={index} value={language}>
-                                                                            {language}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-                                                            </FormControl>
-
-                                                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                                                                <Button variant="contained" onClick={addLang} style={{ color: '#fff' }} >
-                                                                    Add Language(s)
+                                                                    Yes
                                                                 </Button>
                                                             </Box>
                                                         </Box>
                                                     </Modal>
 
-
-                                                    {/* Remove-languages */}
+                                                    {/* View-landing-page */}
                                                     <MenuItem onClick={openRemoveLangModal}>
                                                         <SendOutlined style={{ fontSize: 'small' }} />
-                                                        Send Test Email
+                                                        View Landing Page
+                                                    </MenuItem>  
+
+                                                     {/* send-test-email */}
+                                                    <MenuItem onClick={openSendEmailSimulationModal}>
+                                                        <SendIcon />
+                                                        send Test Email
                                                     </MenuItem>
+
                                                     <Modal
-                                                        open={removeLangModalOpen}
-                                                        onClose={closeRemoveLangModal}
+                                                        open={sendEmailSimulationModalOpen}
+                                                        onClose={closeSendEmailSimulationModal}
                                                         aria-labelledby="send-test-email-modal-title"
                                                         aria-describedby="send-test-email-modal-description"
                                                     >
                                                         {/* Content for the "Send Test Email" modal */}
-
+                                                        
                                                         <Box sx={style}>
-                                                            <IconButton
-                                                                aria-label="Close"
-                                                                sx={{
-                                                                    position: 'absolute',
-                                                                    top: 0,
-                                                                    right: 0,
-                                                                }}
-                                                                onClick={closeRemoveLangModal}
+                                                        <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                                            Send Test Simulation Email
+                                                        </Typography>
+                                                        <Box>
+                                                            <label 
+                                                                htmlFor="name" 
+                                                                style={{fontSize:"13px"}}
                                                             >
-                                                                <HighlightOffOutlinedIcon style={{ fontSize: 'medium' }} />
-                                                            </IconButton>
-                                                            <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                                Remove Language(s) from the Selected Email Templates
-                                                            </Typography>
-                                                            <Box>
-                                                                <label
-                                                                    htmlFor="name"
-                                                                    style={{ fontSize: "13px" }}
-                                                                >
-                                                                    Language(s):
-                                                                </label>
-                                                            </Box>
-                                                            <FormControl fullWidth variant="filled">
-                                                                <Select
-                                                                    value={selectedLanguage}
-                                                                    onChange={handleLanguageChange}
-                                                                >
-                                                                    {languageOptions.map((language, index) => (
-                                                                        <MenuItem key={index} value={language}>
-                                                                            {language}
-                                                                        </MenuItem>
-                                                                    ))}
-                                                                </Select>
-                                                            </FormControl>
-
-                                                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                                                                <Button variant="contained" onClick={removeLang} style={{ color: '#fff' }} >
-                                                                    Remove Language(s)
-                                                                </Button>
-                                                            </Box>
+                                                                To:
+                                                            </label>
                                                         </Box>
-                                                    </Modal>
+                                                        <TextField 
+                                                            fullWidth                                
+                                                            type="text" 
+                                                            sx={{ gridColumn: "span 2" }} 
+                                                        />
+                                                        <Box>
+                                                            <label 
+                                                                htmlFor="name" 
+                                                                style={{fontSize:"13px"}}
+                                                            >
+                                                                First Name:
+                                                            </label>
+                                                        </Box>
+                                                        <TextField 
+                                                            fullWidth 
+                                                            type="text" 
+                                                            sx={{ gridColumn: "span 2" }} 
+                                                        />
+                                                        <Box>
+                                                            <label 
+                                                                htmlFor="name" 
+                                                                style={{fontSize:"13px"}}
+                                                            >
+                                                                Last Name:
+                                                            </label>
+                                                        </Box>
+                                                        <TextField 
+                                                            fullWidth 
+                                                            type="text" 
+                                                            sx={{ gridColumn: "span 2" }} 
+                                                        />
+                                                        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                                            <Button variant="contained" onClick={sendEmailSimulation} style={{color:'#fff'}} >
+                                                            <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
+                                                            Send
+                                                            </Button>
+                                                            <Button 
+                                                            variant="outlined" 
+                                                            onClick={closeSendEmailSimulationModal} 
+                                                            style={{ marginRight:'5px', color:'black'}}
+                                                            >
+                                                            Cancel
+                                                            </Button>
+                                                        </Box>
+                                                        </Box>
+                                                    </Modal>                                                 
 
                                                     {/* send all emails*/}
                                                     <MenuItem onClick={openSendAllEmailsModal}>

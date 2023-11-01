@@ -66,9 +66,9 @@ const cloneEmailTemplate = () => {
       setCategory(event.target.value);
   };
       
-    const handleCustomSenderEmailChange = () => {
-        setCustomSenderEmail(!customSenderEmail);
-    };
+      const handleCustomSenderEmailChange = () => {
+          setCustomSenderEmail(!customSenderEmail);
+      };
 
     const emailEditorRef = useRef(null);
   
