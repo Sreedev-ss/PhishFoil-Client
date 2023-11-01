@@ -35,7 +35,7 @@ import Paper from '@mui/material/Paper';
 import { AiOutlineArrowRight, AiOutlineSearch } from 'react-icons/ai';
 
 import EditIcon from "@mui/icons-material/Edit";
-import  SendIcon  from '@mui/icons-material/Send';
+import SendIcon  from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
