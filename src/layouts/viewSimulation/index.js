@@ -33,14 +33,7 @@ import Paper from '@mui/material/Paper';
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { CheckBox } from '@mui/icons-material'
-import { AiFillInfoCircle } from 'react-icons/ai'
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-
-import AddCircleOutlineOutlined from '@material-ui/icons/AddCircleOutlineOutlined';
-import MailOutline from '@material-ui/icons/MailOutline';
-
 
 import EditIcon from "@mui/icons-material/Edit";
 import SendIcon from '@mui/icons-material/Send';
@@ -50,6 +43,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import { DownloadDoneOutlined, DownloadOutlined, RoundaboutLeft, SendOutlined, ViewDayOutlined } from '@mui/icons-material'
 
 const style = {
     position: 'absolute',
@@ -361,14 +355,14 @@ const ViewSimulation = () => {
                                                 >
                                                     {/* edit-email-template */}
                                                     <MenuItem component={Link} to="/edit-email-template">
-                                                        <EditIcon />
+                                                        <RoundaboutLeft />
                                                         View Simulation
                                                     </MenuItem>
 
 
                                                     {/* send-test-email-template */}
                                                     <MenuItem onClick={openSendTestEmailModal}>
-                                                        <SendIcon />
+                                                        <DownloadOutlined />
                                                         Download Simulation Report
                                                     </MenuItem>
 
@@ -448,13 +442,13 @@ const ViewSimulation = () => {
                                                         Clone Simulation
                                                     </MenuItem>
                                                     <MenuItem component={Link} to="/clone-email-template">
-                                                        <FileCopyOutlinedIcon style={{ fontSize: 'small' }} />
+                                                        <DeleteOutlineOutlinedIcon style={{ fontSize: 'small' }} />
                                                         Delete Simulation
                                                     </MenuItem>
 
                                                     {/* add-languages */}
                                                     <MenuItem onClick={openAddLangModal}>
-                                                        <AddCircleOutlineOutlinedIcon style={{ fontSize: 'small' }} />
+                                                        <ViewDayOutlined style={{ fontSize: 'small' }} />
                                                         View Landing Page
                                                     </MenuItem>
 
@@ -513,7 +507,7 @@ const ViewSimulation = () => {
 
                                                     {/* Remove-languages */}
                                                     <MenuItem onClick={openRemoveLangModal}>
-                                                        <RemoveCircleOutlineOutlinedIcon style={{ fontSize: 'small' }} />
+                                                        <SendOutlined style={{ fontSize: 'small' }} />
                                                         Send Test Email
                                                     </MenuItem>
                                                     <Modal
@@ -570,7 +564,7 @@ const ViewSimulation = () => {
 
                                                     {/* Delete-Email-Temp */}
                                                     <MenuItem onClick={openDeleteEmailTempModal}>
-                                                        <DeleteOutlineOutlinedIcon style={{ fontSize: '15px' }} />
+                                                        <SendIcon style={{ fontSize: '15px' }} />
                                                         Send All Emails Now
                                                     </MenuItem>
 
