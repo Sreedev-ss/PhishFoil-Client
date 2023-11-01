@@ -74,6 +74,7 @@ const ViewSimulation = () => {
     const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
     const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [sendAllEmailsModalOpen, setSendAllEmailsModalOpen] = useState(false);
 
     const openSendTestEmailModal = () => {
         setSendTestEmailModalOpen(true);
@@ -121,6 +122,18 @@ const ViewSimulation = () => {
 
     const deleteEmailTemp = () => {
         closeDeleteEmailTempModal();
+    };
+
+    const openSendAllEmailsModal = () => {
+        setSendAllEmailsModalOpen(true);
+    };
+
+    const closeSendAllEmailsModal = () => {
+        setSendAllEmailsModalOpen(false);
+    };
+
+    const removeAllSendEmails = () => {
+        closeSendAllEmailsModal();
     };
 
     const handleLanguageChange = (event) => {
@@ -562,64 +575,32 @@ const ViewSimulation = () => {
                                                         </Box>
                                                     </Modal>
 
-                                                    {/* Delete-Email-Temp */}
-                                                    <MenuItem onClick={openDeleteEmailTempModal}>
+                                                    {/* send all emails*/}
+                                                    <MenuItem onClick={openSendAllEmailsModal}>
                                                         <SendIcon style={{ fontSize: '15px' }} />
                                                         Send All Emails Now
                                                     </MenuItem>
-
                                                     <Modal
-                                                        open={deleteEmailTempModalOpen}
-                                                        onClose={closeDeleteEmailTempModal}
+                                                        open={sendAllEmailsModalOpen}
+                                                        onClose={closeSendAllEmailsModal}
                                                         aria-labelledby="send-test-email-modal-title"
                                                         aria-describedby="send-test-email-modal-description"
                                                     >
-                                                        {/* Content for the "Send Test Email" modal */}
-
                                                         <Box sx={style}>
                                                             <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                                Are you sure you want to delete the selected email template?
-                                                            </Typography>
-
-                                                            <Box>
-                                                                <label
-                                                                    htmlFor="name"
-                                                                    style={{ fontSize: "13px" }}
-                                                                >
-                                                                    This will delete:
-                                                                    <li>All simulations that use this email template will be deleted</li>
-                                                                    <li>The recipients list of those simulations will be deleted</li>
-                                                                    <li>The results of those simulations will be deleted</li>
-                                                                    <li>Any active simulations using this email template will be disrupted</li>
-                                                                </label>
-                                                            </Box>
-                                                            <Box>
-                                                                <label
-                                                                    htmlFor="name"
-                                                                    style={{ fontSize: "13px" }}
-                                                                >
-                                                                    Number of email templates to delete:
-                                                                </label>
-                                                            </Box>
-                                                            <TextField
-                                                                fullWidth
-                                                                variant="filled"
-                                                                defaultValue="1"
-                                                                type="text"
-                                                                sx={{ gridColumn: "span 2" }}
-                                                            />
-
+                                                            Are you sure you want to send all emails for this simulation?
+                                                            </Typography>                                                          
                                                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
                                                                 <Button
                                                                     variant="contained"
-                                                                    onClick={closeDeleteEmailTempModal}
+                                                                    onClick={closeSendAllEmailsModal}
                                                                     style={{ color: '#fff' }}
                                                                 >
                                                                     No
                                                                 </Button>
                                                                 <Button
                                                                     variant="outlined"
-                                                                    onClick={deleteEmailTemp}
+                                                                    onClick={removeAllSendEmails}
                                                                     style={{ marginRight: '5px', color: 'black' }}
                                                                 >
                                                                     Yes
