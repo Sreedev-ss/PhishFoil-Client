@@ -40,6 +40,7 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  Chip,
   ClickAwayListener,
   Dialog,
   Divider,
@@ -108,7 +109,8 @@ import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
 import DeleteUserModal from "components/Modal/DeleteUserModal";
-// import { FormControl } from '@mui/material';
+
+const items = ['Technical', 'Administration', 'Sample'];
 
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 
@@ -131,6 +133,8 @@ function Tables() {
   //Add language
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [addUsersOpen, setAddUsersOpen] = useState(false);
+  const [selectedGroups, setSelectedGroups] = useState(['Technical']);
 
   const [country, setCountry] = useState("");
 
@@ -148,8 +152,24 @@ function Tables() {
     setSelectedLanguage(event.target.value);
   };
 
+  const openUsersModal = () => {
+    setAddUsersOpen(true);
+  };
+
+  const closeUsersModal = () => {
+    setAddUsersOpen(false);
+  };
+
+  const addUsers = () => {
+    closeUsersModal();
+  };
+
   const handleChange = (event) => {
     setStatus(event.target.value);
+  };
+
+  const handleChangeUsers = (event) => {
+    setSelectedGroups(event.target.value);
   };
 
   const handleClick = (event) => {
@@ -199,6 +219,13 @@ function Tables() {
   const closeGroupForm = () => {
     setGroupFormOpen(false);
   };
+
+  const handleDeleteGroup = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedGroups.filter((item) => item !== itemToDelete);
+    setSelectedGroups(updatedSelection);
+};
 
   const openAnchor = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -576,10 +603,81 @@ function Tables() {
                                 <AirplanemodeInactiveIcon />
                                 Mark as inactive
                               </MenuItem>
-                              <MenuItem component={Link} to="/editLandingPage">
+
+                              {/* add-users */}
+                              <MenuItem onClick={openUsersModal}>
                                 <GroupAddIcon />
                                 Add Users to Group
                               </MenuItem>
+
+                              <Modal
+                            open={addUsersOpen}
+                            onClose={closeUsersModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeUsersModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Add Users to Group(s)
+                              </Typography>                              
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Group(s)</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select groups'
+                                      value={selectedGroups}
+                                      onChange={handleChangeUsers}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDeleteGroup(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedGroups.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={addUsers} style={{color:'#fff'}} >
+                                  SAVE
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
                               <MenuItem>
                                 <SubscriptionsIcon />
                                 Enrol on Course
