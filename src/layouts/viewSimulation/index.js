@@ -5,6 +5,12 @@ import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
 import React from 'react'
 import ReviewsBar from './components/ReviewsBar'
 import { AiFillInfoCircle } from 'react-icons/ai'
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+import AddCircleOutlineOutlined from '@material-ui/icons/AddCircleOutlineOutlined';
+import MailOutline from '@material-ui/icons/MailOutline';
+
 
 const ViewSimulation = () => {
     return (
