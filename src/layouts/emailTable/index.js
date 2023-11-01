@@ -10,11 +10,14 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import { 
   Box, 
   Button, 
+  Checkbox, 
+  Chip, 
   Dialog, 
   Divider, 
   FormControl, 
   Grow, 
   IconButton, 
+  ListItemText, 
   Menu, 
   MenuItem, 
   Modal, 
@@ -65,6 +68,7 @@ const languageOptions = [
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 
 function emailTable() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -76,6 +80,7 @@ function emailTable() {
   const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
   const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [selectedItems, setSelectedItems] = useState(['English']);
 
   const openSendTestEmailModal = () => {
     setSendTestEmailModalOpen(true);
@@ -123,6 +128,16 @@ function emailTable() {
 
   const deleteEmailTemp = () => {
     closeDeleteEmailTempModal();
+  };
+    const handleDelete = (itemToDelete) => (event) => {
+      console.log(itemToDelete);
+      event.preventDefault();
+      const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+      setSelectedItems(updatedSelection);
+  };
+
+  const handleChangeItems = (event) => {
+    setSelectedItems(event.target.value);
   };
 
   const handleLanguageChange = (event) => {
@@ -342,8 +357,7 @@ function emailTable() {
                                 </label>
                               </Box>
                               <TextField 
-                                fullWidth 
-                                variant="filled" 
+                                fullWidth                                
                                 type="text" 
                                 sx={{ gridColumn: "span 2" }} 
                               />
@@ -357,7 +371,6 @@ function emailTable() {
                               </Box>
                               <TextField 
                                 fullWidth 
-                                variant="filled" 
                                 type="text" 
                                 sx={{ gridColumn: "span 2" }} 
                               />
@@ -371,7 +384,6 @@ function emailTable() {
                               </Box>
                               <TextField 
                                 fullWidth 
-                                variant="filled" 
                                 type="text" 
                                 sx={{ gridColumn: "span 2" }} 
                               />
@@ -425,27 +437,43 @@ function emailTable() {
                             </IconButton>
                               <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                               Add Language(s) to the Selected Email Templates
-                              </Typography>
-                              <Box>
-                                <label 
-                                    htmlFor="name" 
-                                    style={{fontSize:"13px"}}
-                                >
-                                    Language(s):
-                                </label>
-                              </Box>
-                              <FormControl fullWidth variant="filled">
-                                <Select
-                                  value={selectedLanguage}
-                                  onChange={handleLanguageChange}
-                                >
-                                  {languageOptions.map((language, index) => (
-                                    <MenuItem key={index} value={language}>
-                                      {language}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
+                              </Typography>                              
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems}
+                                      onChange={handleChangeItems}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
                                                             
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
                                 <Button variant="contained" onClick={addLang} style={{color:'#fff'}} >
@@ -483,27 +511,43 @@ function emailTable() {
                             </IconButton>
                               <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                               Remove Language(s) from the Selected Email Templates
-                              </Typography>
-                              <Box>
-                                <label 
-                                    htmlFor="name" 
-                                    style={{fontSize:"13px"}}
-                                >
-                                    Language(s):
-                                </label>
-                              </Box>
-                              <FormControl fullWidth variant="filled">
-                                <Select
-                                  value={selectedLanguage}
-                                  onChange={handleLanguageChange}
-                                >
-                                  {languageOptions.map((language, index) => (
-                                    <MenuItem key={index} value={language}>
-                                      {language}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
+                              </Typography>                              
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems}
+                                      onChange={handleChangeItems}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
                                                             
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
                                 <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
@@ -554,7 +598,6 @@ function emailTable() {
                               </Box>
                               <TextField 
                                 fullWidth 
-                                variant="filled" 
                                 defaultValue="1"
                                 type="text" 
                                 sx={{ gridColumn: "span 2" }} 

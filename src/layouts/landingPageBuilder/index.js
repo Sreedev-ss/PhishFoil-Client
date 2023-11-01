@@ -34,6 +34,7 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  Chip,
   ClickAwayListener,
   Dialog,
   Divider,
@@ -103,6 +104,7 @@ import CreateLandingPage from "./createLandingPage";
 import EditLandingPage from "./data/editLandingPage";
 import DeleteModal from "components/Modal/DeleteModal";
 import RemoveModal from "components/Modal/RemoveModal";
+const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 
 const options = ["Download Group Managers Reports", "+ Create Email Template"];
 
@@ -113,6 +115,7 @@ function LandingPageBuilder() {
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
+  const [selectedItems, setSelectedItems] = useState(['English']);
 
   //Delete Landing page
   const [open, setOpen] = React.useState(false);
@@ -152,6 +155,17 @@ function LandingPageBuilder() {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const handleDelete = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+    setSelectedItems(updatedSelection);
+};
+
+const handleChangeItems = (event) => {
+  setSelectedItems(event.target.value);
+};
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -344,7 +358,6 @@ function LandingPageBuilder() {
                           onClick={handleClick}
                           variant="outlined"
                           color="info"
-                          // onClick={() => handleArrowClick()}
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -362,8 +375,6 @@ function LandingPageBuilder() {
                             <EditIcon />
                             Edit Landing Page
                           </MenuItem>
-
-                          {/* <Button onClick={handleOpen}>Open modal</Button> */}
 
                           <MenuItem onClick={handleOpen}>
                             <DeleteIcon />
@@ -405,20 +416,43 @@ function LandingPageBuilder() {
                               >
                                 Add Language(s) to the Selected Landing Page
                               </Typography>
-                              <Box>
-                                <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                  Language(s):
-                                </label>
-                              </Box>
-                              <FormControl fullWidth variant="filled">
-                                <Select value={selectedLanguage} onChange={handleLanguageChange}>
-                                  {languageOptions.map((language, index) => (
-                                    <MenuItem key={index} value={language}>
-                                      {language}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems}
+                                      onChange={handleChangeItems}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
+
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                                 <Button
                                   variant="contained"
@@ -434,10 +468,7 @@ function LandingPageBuilder() {
                               </Box>
                             </Box>
                           </Modal>
-
-
                           <MenuItem onClick={openRemoveLangModal}>
-
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
                           </MenuItem>
@@ -447,7 +478,6 @@ function LandingPageBuilder() {
                             aria-labelledby="send-test-email-modal-title"
                             aria-describedby="send-test-email-modal-description"
                           >
-                            {/* Content for the "Send Test Email" modal */}
                             
                             <Box sx={style}>
                             <IconButton
@@ -464,26 +494,42 @@ function LandingPageBuilder() {
                               <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                               Remove Language(s) from the Selected Email Templates
                               </Typography>
-                              <Box>
-                                <label 
-                                    htmlFor="name" 
-                                    style={{fontSize:"13px"}}
-                                >
-                                    Language(s):
-                                </label>
-                              </Box>
-                              <FormControl fullWidth variant="filled">
-                                <Select
-                                  value={selectedLanguage}
-                                  onChange={handleLanguageChange}
-                                >
-                                  {languageOptions.map((language, index) => (
-                                    <MenuItem key={index} value={language}>
-                                      {language}
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems}
+                                      onChange={handleChangeItems}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
                                                             
                               <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
                                 <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
