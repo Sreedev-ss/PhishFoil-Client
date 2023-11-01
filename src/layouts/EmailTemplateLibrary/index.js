@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, Checkbox, Chip, Divider, FormControl, InputAdornment, InputLabel, MenuItem, Select, Stack, TextField, ThemeProvider, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, Checkbox, Chip, Divider, FormControl, InputLabel, MenuItem, Select, Stack, ThemeProvider, Typography } from '@mui/material'
 import SoftBox from 'components/SoftBox'
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
@@ -8,18 +8,25 @@ import ListItemText from '@mui/material/ListItemText';
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import addImage from 'assets/images/images.png'
 import CreateSimulation from './createSimulation'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
-const Simulation = () => {
+import AspectRatio from '@mui/joy/AspectRatio';
+import CardContent from '@mui/joy/CardContent';
+import CardOverflow from '@mui/joy/CardOverflow';
+
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LanguageIcon from '@mui/icons-material/Language';
+
+
+
+const EmailTemplateLibrary = () => {
 
     const [openTemp, setOpenTemp] = useState(false)
 
     const [type, setType] = useState('All');
     const [category, setCategory] = useState('All');
     const [selectedItems, setSelectedItems] = useState(['English']);
-    const [openType, setOpenType] = useState(false);
-    const [openCategory, setOpenCategory] = useState(false);
 
     const handleChange = (event) => {
         setSelectedItems(event.target.value);
@@ -31,6 +38,10 @@ const Simulation = () => {
     const handleCategory = (event) => {
         setCategory(event.target.value);
     };
+
+    const handleOpenTemplate = () => {
+        // Your logic to open the template
+      };
 
     const handleDelete = (itemToDelete) => (event) => {
         console.log(itemToDelete);
@@ -56,7 +67,7 @@ const Simulation = () => {
                             <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
                                 <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                                     <Typography sx={{ fontSize: "large", color: "black", fontWeight: "bold" }}>
-                                        Uphish - Create Simulation
+                                        Uphish - Email Template Library
                                     </Typography>
                                 </div>
                                 <Divider />
@@ -74,19 +85,9 @@ const Simulation = () => {
                                         <Select
                                             labelId="type-label"
                                             id="type-label"
-                                            select
                                             value={type}
+                                            label="Type"
                                             onChange={handleType}
-                                            open={openType}
-                                            onOpen={() => setOpenType(true)}
-                                            onClose={() => setOpenType(false)}
-                                            endAdornment={
-                                                <div
-                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-                                                >
-                                                    {openType ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                                                </div>
-                                            }
                                         >
                                             <MenuItem value={'All'} >All</MenuItem>
                                             <MenuItem value={'Default'}>Default</MenuItem>
@@ -102,17 +103,6 @@ const Simulation = () => {
                                             label="Status"
                                             MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
                                             onChange={handleCategory}
-                                            open={openCategory}
-                                            onOpen={() => setOpenCategory(true)}
-                                            onClose={() => setOpenCategory(false)}
-                                            endAdornment={
-                                                <div
-                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-                                                >
-                                                    {openCategory ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                                                </div>
-                                            }
-
                                         >
                                             <MenuItem value={'All'}>All</MenuItem>
                                             <MenuItem value={'No Category'}>No Category</MenuItem>
@@ -172,13 +162,54 @@ const Simulation = () => {
                                     <AiOutlineSearch style={{ color: "grey", fontSize: "15px" }} />
                                 </Button>
                             </Stack>
-                            <div style={{ border: "0.5px solid #d2d6da", width: '30%', borderRadius: '4px', height: '20rem', marginTop: '1.2rem' }} onClick={() => setOpenTemp(true)}>
-                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                    <img src={addImage} alt="name" />
-                                </div>
-                                <Typography sx={{ fontSize: "medium", color: "black", fontWeight: '500', paddingLeft: '15px' }} >
-                                    Create new template
-                                </Typography>
+                            <div
+                                style={{
+                                    border: "0.5px solid #d2d6da",
+                                    width: '30%',
+                                    borderRadius: '4px',
+                                    height: '20rem',
+                                    marginTop: '1.2rem',
+                                    display: 'flex',
+                                    flexDirection: 'column', 
+                                    justifyContent: 'space-between', 
+                                  }}
+                            >
+                                <div>
+                                <IconButton
+                                    style={{
+                                        background: '#fff',
+                                        borderRadius: '50%',
+                                        justifyContent: 'end'
+                                      }}
+                                    onClick={handleOpenTemplate}
+                                >
+                                    <LanguageIcon />  
+                                </IconButton>
+                                <div 
+                                    style={{ 
+                                        display: 'flex', 
+                                        justifyContent:'center', 
+                                        alignItems: 'center', 
+                                        marginBottom:'100px' }}
+                                    >
+                                    <img
+                                        src="https://colorlib.com/wp/wp-content/uploads/sites/2/free-html5-and-css3-login-forms.jpg" 
+                                        height='150px'
+                                        alt="name"
+                                        style={{ maxWidth: '100%', maxHeight: '100%' }}
+                                    />                                    
+                                </div>                                
+                                <div 
+                                    style={{ 
+                                        background: 'gray', 
+                                        padding: '10px', 
+                                        color: 'white', 
+                                        textAlign: 'center', 
+                                        marginBottom:'0' }}
+                                        >
+                                   <MailOutlineIcon/>
+                                </div>                               
+                            </div>
                             </div>
                         </SoftBox> :
                             <SoftBox
@@ -190,13 +221,12 @@ const Simulation = () => {
                             >
                                 <CreateSimulation />
                             </SoftBox>
-
                         }
                     </Card>
                 </SoftBox>
-            </SoftBox >
-        </DashboardLayout >
+            </SoftBox>
+        </DashboardLayout>
     )
 }
 
-export default Simulation
+export default EmailTemplateLibrary;

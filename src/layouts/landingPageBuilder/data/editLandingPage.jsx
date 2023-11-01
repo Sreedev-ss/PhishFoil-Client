@@ -113,7 +113,98 @@ const EditLandingPage = () => {
               </label>
             </Box>
             <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
+
             <div>
+                <Box>
+                    <label htmlFor="name" style={{fontSize:"13px"}}>
+                        Language(s):
+                    </label>
+                </Box>
+                <TextField
+                    select
+                    value={languages}
+                    onChange={handleLanguageChange}
+                    width="250px"
+                    variant="filled"
+                    type="text"
+                    multiple
+                    sx={{
+                    gridColumn: "span 2",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    backgroundColor: "#fff",
+                    }}
+                >
+
+                {languageOptions.map((option) => (
+                    <FormControlLabel 
+                    key={option.value}
+                    control={
+                        <Checkbox 
+                            checked={languages.includes(option.value)}
+                            onChange={handleLanguageChange}
+                            value={option.value}
+                        />
+                    }
+                    label={option.label}
+                    />
+                ))}
+                
+                </TextField>
+                <Box sx={{ display: 'flex', flexWrap:'wrap'}}>
+                    {languages.map((language) => (
+                        <Chip 
+                        key={language}
+                        label={language}
+                        onDelete={()=>{
+                            setLanguages(languages.filter((lang)=> lang!==language));
+                        }}
+                        />
+                    ))}
+                </Box>
+            </div>
+            <div>
+                <Box>
+                    <label 
+                        htmlFor="name" 
+                        style={{fontSize:"13px"}}
+                        >
+                            Category:
+                    </label>
+                </Box>
+                <TextField
+                    select
+                    value={category}
+                    onChange={handleChanged}
+                    fullWidth
+                    variant="filled"
+                    type="text"
+                    sx={{
+                    gridColumn: "span 2",
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    backgroundColor: "#ffff",
+
+                    }}
+                    SelectProps={{
+                        IconComponent: () => <ExpandMoreIcon />,
+                      }}
+                >
+                    <MenuItem value="No Category">No Category</MenuItem>
+                    <MenuItem value="Bills">Bills</MenuItem>
+                    <MenuItem value="Cloud Services">Cloud Services</MenuItem>
+                    <MenuItem value="Delivery">Delivery</MenuItem>
+                    <MenuItem value="Finance">Finance</MenuItem>
+                    <MenuItem value="Government">Government</MenuItem>
+                    <MenuItem value="Internal">Internal</MenuItem>
+                    <MenuItem value="News & Entertainment">News & Entertainment</MenuItem>
+                    <MenuItem value="Shopping">Shopping</MenuItem>
+                    <MenuItem value="Social Media">Social Media</MenuItem>
+                    <MenuItem value="Travel">Travel</MenuItem>
+                </TextField>
+            </div>
+            
+            {/* <div>
               <Box>
                 <label htmlFor="name" style={{ fontSize: "13px" }}>
                   Language(s):
@@ -202,7 +293,7 @@ const EditLandingPage = () => {
                 <MenuItem value="Social Media">Social Media</MenuItem>
                 <MenuItem value="Travel">Travel</MenuItem>
               </TextField>
-            </div>
+            </div> */}
 
             <Box style={{ marginTop: "15px" }}>
               <label htmlFor="name" style={{ fontSize: "13px" }}>

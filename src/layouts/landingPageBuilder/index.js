@@ -27,7 +27,8 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
-// import Table from "examples/Tables/Table";
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+
 import {
   Box,
   Button,
@@ -76,6 +77,8 @@ import {
   AiOutlineEdit,
 } from "react-icons/ai";
 
+
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -109,6 +112,7 @@ function LandingPageBuilder() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
+  const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
 
   //Delete Landing page
   const [open, setOpen] = React.useState(false);
@@ -151,6 +155,18 @@ function LandingPageBuilder() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const openRemoveLangModal = () => {
+    setRemoveLangModalOpen(true);
+  };
+
+  const closeRemoveLangModal = () => {
+    setRemoveLangModalOpen(false);
+  };
+
+  const removeLang = () => {
+    closeRemoveLangModal();
   };
 
   const anchorRef = useRef(null);
@@ -239,6 +255,7 @@ function LandingPageBuilder() {
                         border: "0.5px solid #1C7AE4",
                         color: "white",
                         backgroundColor: "#1b7ae4",
+                        fontWeight: 'lighter',
                       }}
                     >
                       + Create Landing Page
@@ -370,12 +387,23 @@ function LandingPageBuilder() {
                             aria-describedby="send-test-email-modal-description"
                           >
                             <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeAddLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
                               <Typography
                                 id="send-test-email-modal-title"
                                 variant="h6"
                                 component="h2"
                               >
-                                Add Language(s) to the Selected Email Templates
+                                Add Language(s) to the Selected Landing Page
                               </Typography>
                               <Box>
                                 <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -407,10 +435,64 @@ function LandingPageBuilder() {
                             </Box>
                           </Modal>
 
-                          <MenuItem onClick={handleOpenRemoveModal}>
+
+                          <MenuItem onClick={openRemoveLangModal}>
+
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
                           </MenuItem>
+                          <Modal
+                            open={removeLangModalOpen}
+                            onClose={closeRemoveLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeRemoveLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Remove Language(s) from the Selected Email Templates
+                              </Typography>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Language(s):
+                                </label>
+                              </Box>
+                              <FormControl fullWidth variant="filled">
+                                <Select
+                                  value={selectedLanguage}
+                                  onChange={handleLanguageChange}
+                                >
+                                  {languageOptions.map((language, index) => (
+                                    <MenuItem key={index} value={language}>
+                                      {language}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
+                                  Remove Language(s)
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
                           <MenuItem component={Link} to="/CreateLandingPage">
                             <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Preview Landing Page
