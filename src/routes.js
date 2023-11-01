@@ -66,6 +66,7 @@ import Simulation from "layouts/createSimulation";
 import ViewSimulation from "layouts/viewSimulation";
 import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage";
 import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
+import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 
 const routes = [
   {
@@ -181,6 +182,11 @@ const routes = [
   {
     route: "/clone-email-template",
     component: <CloneEmailTemplate/>,
+    noCollapse: true,
+  },
+  {
+    route: "/clone-simulation",
+    component: <CloneSimulation/>,
     noCollapse: true,
   },
   

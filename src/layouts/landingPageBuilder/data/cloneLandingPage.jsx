@@ -3,17 +3,13 @@ import {
     TextField,
     Typography,
     MenuItem,
-    Grid,
     Select,
     FormControl,
-    InputLabel,
-    Switch,
     Button,
     Checkbox,
-    FormGroup,
     InputAdornment,
+    ListItemText,
   } from "@mui/material";
-  import FormControlLabel from "@mui/material/FormControlLabel";
   
   import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
   import Tabs from "@mui/material/Tabs";
@@ -23,41 +19,38 @@ import {
   import { useRef } from "react";
   import EmailEditor from "react-email-editor";
   import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-  import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
   import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
   import Chip from "@mui/material/Chip";
+  const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
   
   const CloneLandingPage = () => {
     const [selectedTab, setSelectedTab] = useState(0);
     const [showDropdown, setShowDropdown] = useState(false);
     const [open, setOpen] = useState(false);
-  
-    const [category, setCategory] = useState("");
+    const [selectedItems, setSelectedItems] = useState(['English']);
+    const [category, setCategory] = useState("No Category");
     const [languages, setLanguages] = useState([]);
-    const [age, setAge] = React.useState("");
-    const label = { inputProps: { "aria-label": "Switch demo" } };
-  
     const [checked, setChecked] = useState(false);
+
     const handleChange = () => {
       setChecked(!checked);
     };
-    const languageOptions = [
-      { value: "English", label: "English" },
-      { value: "Malayalam", label: "Malayalam" },
-      { value: "Tamil", label: "Tamil" },
-    ];
-  
-    const handleIconClick = () => {
-      setOpen(!open);
+
+    const handleChangeItems = (event) => {
+      setSelectedItems(event.target.value);
     };
   
-    const toggleDropdown = () => {
-      setShowDropdown(!showDropdown);
+    const handleCategory = (event) => {
+      setCategory(event.target.value);
     };
   
-    const selectOption = (option) => {
-      console.log(`Selected: ${option}`);
+    const handleDelete = (itemToDelete) => (event) => {
+      console.log(itemToDelete);
+      event.preventDefault();
+      const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+      setSelectedItems(updatedSelection);
     };
+
     const emailEditorRef = useRef(null);
   
     const exportHtml = () => {
@@ -72,24 +65,6 @@ import {
   
     const handleTabChange = (event, newValue) => {
       setSelectedTab(newValue);
-    };
-  
-    const handleChanged = (event) => {
-      setCategory(event.target.value);
-    };
-  
-    const handleChanges = (event) => {
-      setLanguages(event.target.value);
-    };
-  
-    const handleLanguageChange = (event) => {
-      const value = event.target.value;
-  
-      if (languages.includes(value)) {
-        setLanguages(languages.filter((lang) => lang !== value));
-      } else {
-        setLanguages([...languages, value]);
-      }
     };
   
     const tabStyle = {
@@ -112,111 +87,87 @@ import {
                   Template Name:
                 </label>
               </Box>
-              <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
-
-              <div>
-                <Box>
-                    <label htmlFor="name" style={{fontSize:"13px"}}>
-                        Language(s):
-                    </label>
-                </Box>
-                <TextField
-                    select
-                    value={languages}
-                    onChange={handleLanguageChange}
-                    width="250px"
-                    variant="filled"
-                    type="text"
-                    multiple
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#fff",
-                    }}
-                >
-
-                {languageOptions.map((option) => (
-                    <FormControlLabel 
-                    key={option.value}
-                    control={
-                        <Checkbox 
-                            checked={languages.includes(option.value)}
-                            onChange={handleLanguageChange}
-                            value={option.value}
-                        />
-                    }
-                    label={option.label}
-                    />
-                ))}
-                
-                </TextField>
-                <Box sx={{ display: 'flex', flexWrap:'wrap'}}>
-                    {languages.map((language) => (
-                        <Chip 
-                        key={language}
-                        label={language}
-                        onDelete={()=>{
-                            setLanguages(languages.filter((lang)=> lang!==language));
-                        }}
-                        />
-                    ))}
-                </Box>
-            </div>
+              <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />              
             <div>
-                <Box>
-                    <label 
-                        htmlFor="name" 
-                        style={{fontSize:"13px"}}
-                        >
-                            Category:
-                    </label>
-                </Box>
-                <TextField
-                    select
-                    value={category}
-                    onChange={handleChanged}
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#ffff",
-
-                    }}
-                    SelectProps={{
-                        IconComponent: () => <ExpandMoreIcon />,
-                      }}
+              <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
+                <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Language(s):</Typography>
+                <Select
+                    labelId="multiple-select-label"
+                    id="multiple-select"
+                    multiple
+                    label='Select languages'
+                    value={selectedItems}
+                    onChange={handleChangeItems}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                    renderValue={(selected) => (
+                        <div>
+                            {selected.map((item) => (
+                                <Chip
+                                    key={item}
+                                    label={item}
+                                    onDelete={handleDelete(item)}
+                                    sx={{
+                                        marginRight: '5px',
+                                        height: '20px', 
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    )}
                 >
-                    <MenuItem value="No Category">No Category</MenuItem>
-                    <MenuItem value="Bills">Bills</MenuItem>
-                    <MenuItem value="Cloud Services">Cloud Services</MenuItem>
-                    <MenuItem value="Delivery">Delivery</MenuItem>
-                    <MenuItem value="Finance">Finance</MenuItem>
-                    <MenuItem value="Government">Government</MenuItem>
-                    <MenuItem value="Internal">Internal</MenuItem>
-                    <MenuItem value="News & Entertainment">News & Entertainment</MenuItem>
-                    <MenuItem value="Shopping">Shopping</MenuItem>
-                    <MenuItem value="Social Media">Social Media</MenuItem>
-                    <MenuItem value="Travel">Travel</MenuItem>
-                </TextField>
-            </div>
+                    {items.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                            <ListItemText secondary={item} />
+                        </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              </div>          
+            <div>
+              <FormControl sx={{ minWidth: 150 }}>
+                    <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Category:</Typography>
+                    <Select
+                        labelId="category-label"
+                        id="category-label"
+                        value={category}
+                        label="Status"
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                        onChange={handleCategory}
+                        endAdornment={  
+                          <InputAdornment position="end">
+                            <ExpandMoreIcon />
+                          </InputAdornment>
+                        }
+                    >
+                        <MenuItem value={'No Category'}>No Category</MenuItem>
+                        <MenuItem value={'Bills'}>Bills</MenuItem>
+                        <MenuItem value={'Cloud Services'}>Cloud Services</MenuItem>
+                        <MenuItem value={'Delivery'}>Delivery</MenuItem>
+                        <MenuItem value={'Finance'}>Finance</MenuItem>
+                        <MenuItem value={'Government'}>Government</MenuItem>
+                        <MenuItem value={'Internal'}>Internal</MenuItem>
+                        <MenuItem value={'News & Entertainment'}>News & Entertainment</MenuItem>
+                        <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                        <MenuItem value={'Social Media'}>Social Media</MenuItem>
+                        <MenuItem value={'Travel'}>Travel</MenuItem>
+                    </Select>
+                </FormControl>
+              </div>
   
               <Box style={{ marginTop: "15px" }}>
                 <label htmlFor="name" style={{ fontSize: "13px" }}>
                   Page Title :
                 </label>
               </Box>
-              <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
+              <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
   
               <Box>
                 <label htmlFor="name" style={{ fontSize: "13px" }}>
                   Title Image:
                 </label>
               </Box>
-              <TextField fullWidth variant="filled" type="file" sx={{ gridColumn: "span 2" }} />
+              <TextField fullWidth type="file" sx={{ gridColumn: "span 2" }} />
   
               <Button
                 variant="contained"
@@ -239,7 +190,7 @@ import {
                   Associated Email Templates
                 </label>
               </Box>
-              <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
+              <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
             </Box>
   
             <div>

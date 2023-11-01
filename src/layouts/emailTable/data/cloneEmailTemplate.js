@@ -7,8 +7,12 @@ import {
     Switch, 
     Button, 
     Checkbox,  
-    InputAdornment } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
+    InputAdornment, 
+    ListItemText,
+    Select,
+    FormControl} from "@mui/material";
+
+const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
@@ -25,12 +29,14 @@ import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const cloneEmailTemplate = () => {
     const [selectedTab, setSelectedTab] = useState(0);
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState("No Category");
     const [languages, setLanguages] = useState([]);
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
     const [customSenderEmail, setCustomSenderEmail] = useState(false);
     const [receipient, setReceipient] = useState('');
     const [checked, setChecked] = useState(false); 
+
+    const [selectedItems, setSelectedItems] = useState(['English']);
 
     const handleChange = () => {
         setChecked(!checked); 
@@ -44,10 +50,25 @@ const cloneEmailTemplate = () => {
     const handleChangeReceipient = (event) => {
         setReceipient(event.target.value);
     };
+
+    const handleChangeItems = (event) => {
+      setSelectedItems(event.target.value);
+  };
+
+  const handleDelete = (itemToDelete) => (event) => {
+      console.log(itemToDelete);
+      event.preventDefault();
+      const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+      setSelectedItems(updatedSelection);
+  };
+
+  const handleCategory = (event) => {
+      setCategory(event.target.value);
+  };
       
-    const handleCustomSenderEmailChange = () => {
-        setCustomSenderEmail(!customSenderEmail);
-    };
+      const handleCustomSenderEmailChange = () => {
+          setCustomSenderEmail(!customSenderEmail);
+      };
 
     const emailEditorRef = useRef(null);
   
@@ -102,189 +123,74 @@ const cloneEmailTemplate = () => {
               </Box>
               <TextField 
                 fullWidth 
-                variant="filled" 
                 type="text" 
-                sx={{ gridColumn: "span 2" }} />
-                <div>
-                <Box>
-                    <label htmlFor="name" style={{fontSize:"13px"}}>
-                        Language(s):
-                    </label>
-                </Box>
-                <TextField
-                    select
-                    value={languages}
-                    onChange={handleLanguageChange}
-                    width="250px"
-                    variant="filled"
-                    type="text"
-                    multiple
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#fff",
-                    }}
-                >
-
-                {languageOptions.map((option) => (
-                    <FormControlLabel 
-                    key={option.value}
-                    control={
-                        <Checkbox 
-                            checked={languages.includes(option.value)}
-                            onChange={handleLanguageChange}
-                            value={option.value}
-                        />
-                    }
-                    label={option.label}
-                    />
-                ))}
-                
-                </TextField>
-                <Box sx={{ display: 'flex', flexWrap:'wrap'}}>
-                    {languages.map((language) => (
-                        <Chip 
-                        key={language}
-                        label={language}
-                        onDelete={()=>{
-                            setLanguages(languages.filter((lang)=> lang!==language));
-                        }}
-                        />
-                    ))}
-                </Box>
-            </div>
+                sx={{ gridColumn: "span 2" }} />               
             <div>
-                <Box>
-                    <label 
-                        htmlFor="name" 
-                        style={{fontSize:"13px"}}
-                        >
-                            Category:
-                    </label>
-                </Box>
-                <TextField
-                    select
-                    value={category}
-                    onChange={handleChanged}
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#ffff",
-
-                    }}
-                    SelectProps={{
-                        IconComponent: () => <ExpandMoreIcon />,
-                      }}
-                >
-                    <MenuItem value="No Category">No Category</MenuItem>
-                    <MenuItem value="Bills">Bills</MenuItem>
-                    <MenuItem value="Cloud Services">Cloud Services</MenuItem>
-                    <MenuItem value="Delivery">Delivery</MenuItem>
-                    <MenuItem value="Finance">Finance</MenuItem>
-                    <MenuItem value="Government">Government</MenuItem>
-                    <MenuItem value="Internal">Internal</MenuItem>
-                    <MenuItem value="News & Entertainment">News & Entertainment</MenuItem>
-                    <MenuItem value="Shopping">Shopping</MenuItem>
-                    <MenuItem value="Social Media">Social Media</MenuItem>
-                    <MenuItem value="Travel">Travel</MenuItem>
-                </TextField>
-            </div>
-              {/* <div>
-                <Box>
-                    <label htmlFor="name" style={{fontSize:"13px"}}>
-                        Language(s):
-                    </label>
-                </Box>
-                <TextField
-                    select
-                    value={languages}
-                    onChange={handleLanguageChange}
-                    fullWidth
-                    variant="filled"
-                    type="text"
+              <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
+                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>Language (s)</Typography>
+                <Select
+                    labelId="multiple-select-label"
+                    id="multiple-select"
                     multiple
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#fff",
-                    }}
-                    InputProps={{
-                        endAdornment: (
-                        <InputAdornment position="end">
-                            <ArrowDropDownIcon />
-                        </InputAdornment>
-                        ),
-                    }}
+                    label='Select languages'
+                    value={selectedItems}
+                    onChange={handleChangeItems}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                    renderValue={(selected) => (
+                        <div>
+                            {selected.map((item) => (
+                                <Chip
+                                    key={item}
+                                    label={item}
+                                    onDelete={handleDelete(item)}
+                                    sx={{
+                                        marginRight: '5px',
+                                        height: '20px', 
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    )}
                 >
-
-                {languageOptions.map((option) => (
-                    <FormControlLabel 
-                    key={option.value}
-                    control={
-                        <Checkbox 
-                            checked={languages.includes(option.value)}
-                            onChange={handleLanguageChange}
-                            value={option.value}
-                        />
-                    }
-                    label={option.label}
-                    />
-                ))}
-                
-                </TextField>
-                <Box sx={{ display: 'flex', flexWrap:'wrap'}}>
-                    {languages.map((language) => (
-                        <Chip 
-                        key={language}
-                        label={language}
-                        onDelete={()=>{
-                            setLanguages(languages.filter((lang)=> lang!==language));
-                        }}
-                        />
+                    {items.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                            <ListItemText secondary={item} />
+                        </MenuItem>
                     ))}
-                </Box>
-              </div>
-              <div>
-                <Box>
-                    <label htmlFor="name" style={{fontSize:"13px"}}>Category:</label>
-                </Box>
-                <TextField
-                    select
-                    value={category}
-                    onChange={handleChanged}
-                    fullWidth
-                    variant="filled"
-                    type="text"
-                    sx={{
-                    gridColumn: "span 2",
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    backgroundColor: "#ffff",
-
-                    }}
-                    SelectProps={{
-                        IconComponent: () => <ExpandMoreIcon />,
-                      }}
-                >
-                    <MenuItem value="No Category">No Category</MenuItem>
-                    <MenuItem value="Bills">Bills</MenuItem>
-                    <MenuItem value="Cloud Services">Cloud Services</MenuItem>
-                    <MenuItem value="Delivery">Delivery</MenuItem>
-                    <MenuItem value="Finance">Finance</MenuItem>
-                    <MenuItem value="Government">Government</MenuItem>
-                    <MenuItem value="Internal">Internal</MenuItem>
-                    <MenuItem value="News & Entertainment">News & Entertainment</MenuItem>
-                    <MenuItem value="Shopping">Shopping</MenuItem>
-                    <MenuItem value="Social Media">Social Media</MenuItem>
-                    <MenuItem value="Travel">Travel</MenuItem>
-                </TextField>
-              </div> */}
+                </Select>
+              </FormControl>
+              </div>            
+            <div>
+              <FormControl sx={{ minWidth: 150 }}>
+                    <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>Category</Typography>
+                    <Select
+                        labelId="category-label"
+                        id="category-label"
+                        value={category}
+                        label="Status"
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                        onChange={handleCategory}
+                        endAdornment={  
+                          <InputAdornment position="end">
+                            <ExpandMoreIcon />
+                          </InputAdornment>
+                        }
+                    >
+                        <MenuItem value={'No Category'}>No Category</MenuItem>
+                        <MenuItem value={'Bills'}>Bills</MenuItem>
+                        <MenuItem value={'Cloud Services'}>Cloud Services</MenuItem>
+                        <MenuItem value={'Delivery'}>Delivery</MenuItem>
+                        <MenuItem value={'Finance'}>Finance</MenuItem>
+                        <MenuItem value={'Government'}>Government</MenuItem>
+                        <MenuItem value={'Internal'}>Internal</MenuItem>
+                        <MenuItem value={'News & Entertainment'}>News & Entertainment</MenuItem>
+                        <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                        <MenuItem value={'Social Media'}>Social Media</MenuItem>
+                        <MenuItem value={'Travel'}>Travel</MenuItem>
+                    </Select>
+                </FormControl>
+              </div>             
               <Box>
                 <label 
                     htmlFor="name" 
@@ -295,7 +201,6 @@ const cloneEmailTemplate = () => {
               </Box>
               <TextField 
                 fullWidth 
-                variant="filled" 
                 type="file" 
                 sx={{ gridColumn: "span 2" }} 
               />
@@ -324,7 +229,6 @@ const cloneEmailTemplate = () => {
               </Box>
               <TextField 
                 fullWidth 
-                variant="filled" 
                 type="text" 
                 sx={{ gridColumn: "span 2" }} 
               />
@@ -338,7 +242,6 @@ const cloneEmailTemplate = () => {
               </Box>
               <TextField 
                 fullWidth 
-                variant="filled" 
                 type="text" 
                 sx={{ gridColumn: "span 2" }} 
               />
@@ -373,7 +276,6 @@ const cloneEmailTemplate = () => {
                     </label>
                     <TextField
                     fullWidth
-                    variant="filled"
                     type="text"
                     sx={{ gridColumn: "span 2" }}
                     />
@@ -398,7 +300,7 @@ const cloneEmailTemplate = () => {
                             Sender:
                         </label>
                         </Box>
-                        <TextField fullWidth variant="filled" type="text" />
+                        <TextField fullWidth type="text" />
                     </Grid>
                     <Grid
                         item xs={1}
@@ -423,7 +325,6 @@ const cloneEmailTemplate = () => {
                     value={receipient}
                     onChange={handleChangeReceipient}
                     fullWidth
-                    variant="filled"
                     type="text"
                     sx={{
                     gridColumn: "span 2",
@@ -462,7 +363,6 @@ const cloneEmailTemplate = () => {
                 </label>
               </Box>
               <TextField 
-                variant="filled" 
                 type="text" 
                 sx={{ gridColumn: "span 2" }} 
                 style={{width:"500px", marginTop:'15px'}} 

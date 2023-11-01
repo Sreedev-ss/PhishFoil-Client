@@ -1,4 +1,4 @@
-import { Box, Checkbox, TextField, Typography, MenuItem, Button } from "@mui/material";
+import { Box, Checkbox, TextField, Typography, MenuItem, Button, ListItemText, Chip, Select, FormControl,InputAdornment } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -6,17 +6,29 @@ import { useState } from "react";
 import React from "react";
 import { useRef } from "react";
 import EmailEditor from "react-email-editor";
-// import checkbox from './../../assets/theme/components/form/checkbox';
+const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const CreateLandingPage = () => {
-  // State to track the currently selected tab
+
   const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedItems, setSelectedItems] = useState(['English']);
+  const [category, setCategory] = useState("No Category");
 
-  const [country, setCountry] = useState("");
+  const handleChangeItems = (event) => {
+    setSelectedItems(event.target.value);
+};
+const handleCategory = (event) => {
+  setCategory(event.target.value);
+};
 
-  const handleChange = (event) => {
-    setCountry(event.target.value);
-  };
+const handleDelete = (itemToDelete) => (event) => {
+  console.log(itemToDelete);
+  event.preventDefault();
+  const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+  setSelectedItems(updatedSelection);
+};
   const emailEditorRef = useRef(null);
 
   const exportHtml = () => {
@@ -29,103 +41,116 @@ const CreateLandingPage = () => {
 
   const onReady = () => {};
 
-  // Handler for changing the selected tab
   const handleTabChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
   const tabStyle = {
     marginTop: "30px", 
-  
-    
-    // Add your desired margin-top value
   };
   const renderTabContent = (tabIndex) => {
     if (tabIndex === 0) {
-      // Render the form for "Landing Page" tab
       return (
         <form>
           <Box
             display="grid"
-            gap="30px"
-            m="40px"
+            gap="15px"
+            width='590px'
             sx={{
-              fontSize: "16px", // Adjust the font size as needed
+              fontSize: "16px",
             }}
           >
-            <Box>
-              <label htmlFor="name">Template Name</label>
+            <Box style={{marginTop:'15px'}}>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Template Name:</label>
             </Box>
-            <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
-            <Box>
-              <label htmlFor="name">Language(s)</label>
-            </Box>
-            <TextField
-              select
-              value={country}
-              onChange={handleChange}
-              fullWidth
-              variant="filled"
-              type="text"
-              sx={{
-                gridColumn: "span 2",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                backgroundColor: "#fff",
-                // "&:hover": {
-                //   backgroundColor: "rgb(30, 123, 228)", // Change to the desired color
-                //   cursor: "pointer", // Optional: Change the cursor to a pointer on hover
-                // },
-              }}
-            >
-              <MenuItem value="IN">English</MenuItem>
-              <MenuItem value="US">Malayalam</MenuItem>
-              <MenuItem value="AU">Tamil</MenuItem>
-            </TextField>
+            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+            <div>
+              <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
+                <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Language(s):</Typography>
+                <Select
+                    labelId="multiple-select-label"
+                    id="multiple-select"
+                    multiple
+                    label='Select languages'
+                    value={selectedItems}
+                    onChange={handleChangeItems}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                    renderValue={(selected) => (
+                        <div>
+                            {selected.map((item) => (
+                                <Chip
+                                    key={item}
+                                    label={item}
+                                    onDelete={handleDelete(item)}
+                                    sx={{
+                                        marginRight: '5px',
+                                        height: '20px', 
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    )}
+                >
+                    {items.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                            <ListItemText secondary={item} />
+                        </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              </div>
+              <div>
+              <FormControl sx={{ minWidth: 150 }}>
+                    <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Category:</Typography>
+                    <Select
+                        labelId="category-label"
+                        id="category-label"
+                        value={category}
+                        label="Status"
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                        onChange={handleCategory}
+                        endAdornment={  
+                          <InputAdornment position="end">
+                            <ExpandMoreIcon />
+                          </InputAdornment>
+                        }
+                    >
+                        <MenuItem value={'No Category'}>No Category</MenuItem>
+                        <MenuItem value={'Bills'}>Bills</MenuItem>
+                        <MenuItem value={'Cloud Services'}>Cloud Services</MenuItem>
+                        <MenuItem value={'Delivery'}>Delivery</MenuItem>
+                        <MenuItem value={'Finance'}>Finance</MenuItem>
+                        <MenuItem value={'Government'}>Government</MenuItem>
+                        <MenuItem value={'Internal'}>Internal</MenuItem>
+                        <MenuItem value={'News & Entertainment'}>News & Entertainment</MenuItem>
+                        <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                        <MenuItem value={'Social Media'}>Social Media</MenuItem>
+                        <MenuItem value={'Travel'}>Travel</MenuItem>
+                    </Select>
+                </FormControl>
+              </div>
 
             <Box>
-              <label htmlFor="name">Page Title</label>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Page Title:</label>
             </Box>
-            <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
+            <TextField fullWidth  type="text" sx={{ gridColumn: "span 2" }} />            
             <Box>
-              <label htmlFor="name">Category</label>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Title Image:</label>
             </Box>
-            <TextField
-              select
-              value={country}
-              onChange={handleChange}
-              fullWidth
-              variant="filled"
-              type="text"
-              sx={{
-                gridColumn: "span 2",
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                backgroundColor: "#fff",
-                // "&:hover": {
-                //   backgroundColor: "rgb(30, 123, 228)", // Change to the desired color
-                //   cursor: "pointer", // Optional: Change the cursor to a pointer on hover
-                // },
-              }}
-            >
-              <MenuItem value="IN">Socila Media</MenuItem>
-              <MenuItem value="US">Bills</MenuItem>
-              <MenuItem value="AU">Travel</MenuItem>
-              <MenuItem value="AU">Shopping</MenuItem>
-              <MenuItem value="AU">Finance</MenuItem>
-              <MenuItem value="AU">Government</MenuItem>
-            </TextField>
+            <TextField fullWidth type="file" sx={{ gridColumn: "span 2" }} />
+            <Button variant="contained" disabled>
+                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
+                Remove Image
+            </Button>
+            <Box></Box>
             <Box>
-              <label htmlFor="name">Title Image</label>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Associated Email Template:</label>
             </Box>
-            <TextField fullWidth variant="filled" type="file" sx={{ gridColumn: "span 2" }} />
-            <Box>
-              <label htmlFor="name">Associated Email Template</label>
-            </Box>
-            <TextField fullWidth variant="filled" type="text" sx={{ gridColumn: "span 2" }} />
+            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
           </Box>
           <Box>
-            <label htmlFor="name" > 
-              Content
+            <label htmlFor="name" style={{fontSize:"13px"}}> 
+              Content:
             </label>
           </Box>
           <div>
@@ -136,7 +161,6 @@ const CreateLandingPage = () => {
         </form>
       );
     } else {
-      // Render content for other tabs
       return (
         <div>
           <form>
@@ -145,8 +169,6 @@ const CreateLandingPage = () => {
                 Do you wish to make this landing page available to all of your Customers?:
               </p>
               <Checkbox
-                //   checked={checked}
-                //   onChange={handleChange}
                 inputProps={{ "aria-label": "controlled" }}
               />
             </div>
@@ -178,6 +200,7 @@ const CreateLandingPage = () => {
             </div>
           </form>
         </div>
+        
       );
     }
   };
@@ -189,7 +212,7 @@ const CreateLandingPage = () => {
         value={selectedTab}
         onChange={handleTabChange}
         aria-label="wrapped label tabs example"
-        centered // This centers the tabs horizontally
+        centered 
         textColor="secondary"
         disableRipple
         style={tabStyle}
@@ -197,8 +220,6 @@ const CreateLandingPage = () => {
         <Tab
           label="Landing Page"
           sx={{
-          
-            // color: selectedTab === 0 ? "rgb(30, 123, 228)" : "inherit",
             color: selectedTab === 0 ? 'blue' : 'black',
           }}
           disableRipple
