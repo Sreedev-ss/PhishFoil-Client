@@ -44,6 +44,7 @@ import RemoveCircleOutlineOutlinedIcon from '@material-ui/icons/RemoveCircleOutl
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
 import { DownloadDoneOutlined, DownloadOutlined, RoundaboutLeft, SendOutlined, ViewDayOutlined } from '@mui/icons-material'
+import ViewSimulationData from './components/viewSimulationData'
 
 const style = {
     position: 'absolute',
@@ -77,6 +78,15 @@ const ViewSimulation = () => {
     const [sendAllEmailsModalOpen, setSendAllEmailsModalOpen] = useState(false);
     const [sendEmailSimulationModalOpen, setSendEmailSimulationModalOpen] = useState(false);
     const [deleteSimulationModalOpen, setDeleteSimulationModalOpen] = useState(false);
+    const [viewSimulationsModalOpen, setViewSimulationModalOpen] = useState(false)
+
+    const openViewSimulationsModal = () => {
+        setViewSimulationModalOpen(true)
+    }
+
+    const closeViewSimulationsModal = () => {
+        setViewSimulationModalOpen(false)
+    }
 
     const openSendTestEmailModal = () => {
         setSendTestEmailModalOpen(true);
@@ -254,7 +264,7 @@ const ViewSimulation = () => {
                             <h6 style={{ fontWeight: 400 }}>Unopened - 43</h6>
                         </div>
                     </div>
-                    <Card sx={{marginTop:3}}>
+                    <Card sx={{ marginTop: 3 }}>
                         <SoftBox
                             display="flex"
                             flexDirection="row"
@@ -349,8 +359,8 @@ const ViewSimulation = () => {
                                             <TableCell >Simulation</TableCell>
                                             <TableCell >Recipients</TableCell>
                                             <TableCell >Status</TableCell>
-                                            <TableCell >Start<br/>Date/Time</TableCell>
-                                            <TableCell >End<br/>Date/Time</TableCell>
+                                            <TableCell >Start<br />Date/Time</TableCell>
+                                            <TableCell >End<br />Date/Time</TableCell>
                                             <TableCell >Sent</TableCell>
                                             <TableCell >Opened</TableCell>
                                             <TableCell >Visited</TableCell>
@@ -361,19 +371,19 @@ const ViewSimulation = () => {
                                     </TableHead>
                                     <TableBody>
                                         <TableRow
-                                            sx={{ '&:last-child td, &:last-child th': { border: 0 },  }}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
                                         >
                                             <TableCell><Checkbox {...label} /></TableCell>
-                                            <TableCell style={{ fontSize: "13px", color: "#209ce8", textAlign:'center' }}>Auto Phish - 01/11/2023</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>3</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>Started</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>01/11/2023<br/>05:31</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>15/11/2023<br/>05:30</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center'}}>0</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>0</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>0</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>0</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' }}>0</TableCell>
+                                            <TableCell style={{ fontSize: "13px", color: "#209ce8", textAlign: 'center' }}>Auto Phish - 01/11/2023</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>3</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>Started</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>01/11/2023<br />05:31</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>15/11/2023<br />05:30</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>0</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>0</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>0</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>0</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>0</TableCell>
                                             <TableCell>
                                                 <SoftButton
                                                     onClick={handleClick}
@@ -391,12 +401,23 @@ const ViewSimulation = () => {
                                                         vertical: 'bottom',
                                                         horizontal: 'left',
                                                     }}
+                                                    transformOrigin={{
+                                                        vertical: 'top',
+                                                        horizontal: 'left',
+                                                    }}
                                                 >
                                                     {/* edit-email-template */}
-                                                    <MenuItem component={Link} to="/edit-email-template">
+                                                    <MenuItem onClick={openViewSimulationsModal}>
                                                         <RoundaboutLeft />
                                                         View Simulation
                                                     </MenuItem>
+
+                                                    <Modal
+                                                        open={viewSimulationsModalOpen}
+                                                        onClose={closeViewSimulationsModal}
+                                                        >
+                                                       <ViewSimulationData/>
+                                                    </Modal>
 
 
                                                     {/* send-test-email-template */}
@@ -494,8 +515,8 @@ const ViewSimulation = () => {
                                                     >
                                                         <Box sx={style}>
                                                             <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                            Are you sure you want to delete this simulation?
-                                                            </Typography>                                                          
+                                                                Are you sure you want to delete this simulation?
+                                                            </Typography>
                                                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
                                                                 <Button
                                                                     variant="contained"
@@ -519,12 +540,12 @@ const ViewSimulation = () => {
                                                     <MenuItem onClick={openRemoveLangModal}>
                                                         <SendOutlined style={{ fontSize: 'small' }} />
                                                         View Landing Page
-                                                    </MenuItem>  
+                                                    </MenuItem>
 
-                                                     {/* send-test-email */}
+                                                    {/* send-test-email */}
                                                     <MenuItem onClick={openSendEmailSimulationModal}>
                                                         <SendIcon />
-                                                        send Test Email
+                                                        Send Test Email
                                                     </MenuItem>
 
                                                     <Modal
@@ -534,65 +555,65 @@ const ViewSimulation = () => {
                                                         aria-describedby="send-test-email-modal-description"
                                                     >
                                                         {/* Content for the "Send Test Email" modal */}
-                                                        
+
                                                         <Box sx={style}>
-                                                        <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                            Send Test Simulation Email
-                                                        </Typography>
-                                                        <Box>
-                                                            <label 
-                                                                htmlFor="name" 
-                                                                style={{fontSize:"13px"}}
-                                                            >
-                                                                To:
-                                                            </label>
+                                                            <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                                                Send Test Simulation Email
+                                                            </Typography>
+                                                            <Box>
+                                                                <label
+                                                                    htmlFor="name"
+                                                                    style={{ fontSize: "13px" }}
+                                                                >
+                                                                    To:
+                                                                </label>
+                                                            </Box>
+                                                            <TextField
+                                                                fullWidth
+                                                                type="text"
+                                                                sx={{ gridColumn: "span 2" }}
+                                                            />
+                                                            <Box>
+                                                                <label
+                                                                    htmlFor="name"
+                                                                    style={{ fontSize: "13px" }}
+                                                                >
+                                                                    First Name:
+                                                                </label>
+                                                            </Box>
+                                                            <TextField
+                                                                fullWidth
+                                                                type="text"
+                                                                sx={{ gridColumn: "span 2" }}
+                                                            />
+                                                            <Box>
+                                                                <label
+                                                                    htmlFor="name"
+                                                                    style={{ fontSize: "13px" }}
+                                                                >
+                                                                    Last Name:
+                                                                </label>
+                                                            </Box>
+                                                            <TextField
+                                                                fullWidth
+                                                                type="text"
+                                                                sx={{ gridColumn: "span 2" }}
+                                                            />
+                                                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                                                <Button variant="contained" onClick={sendEmailSimulation} style={{ color: '#fff' }} >
+                                                                    <MailOutlineIcon sx={{ marginRight: '5px', color: '#fff' }} />
+                                                                    Send
+                                                                </Button>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    onClick={closeSendEmailSimulationModal}
+                                                                    style={{ marginRight: '5px', color: 'black' }}
+                                                                >
+                                                                    Cancel
+                                                                </Button>
+                                                            </Box>
                                                         </Box>
-                                                        <TextField 
-                                                            fullWidth                                
-                                                            type="text" 
-                                                            sx={{ gridColumn: "span 2" }} 
-                                                        />
-                                                        <Box>
-                                                            <label 
-                                                                htmlFor="name" 
-                                                                style={{fontSize:"13px"}}
-                                                            >
-                                                                First Name:
-                                                            </label>
-                                                        </Box>
-                                                        <TextField 
-                                                            fullWidth 
-                                                            type="text" 
-                                                            sx={{ gridColumn: "span 2" }} 
-                                                        />
-                                                        <Box>
-                                                            <label 
-                                                                htmlFor="name" 
-                                                                style={{fontSize:"13px"}}
-                                                            >
-                                                                Last Name:
-                                                            </label>
-                                                        </Box>
-                                                        <TextField 
-                                                            fullWidth 
-                                                            type="text" 
-                                                            sx={{ gridColumn: "span 2" }} 
-                                                        />
-                                                        <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                                            <Button variant="contained" onClick={sendEmailSimulation} style={{color:'#fff'}} >
-                                                            <MailOutlineIcon sx={{ marginRight: '5px', color:'#fff' }} />
-                                                            Send
-                                                            </Button>
-                                                            <Button 
-                                                            variant="outlined" 
-                                                            onClick={closeSendEmailSimulationModal} 
-                                                            style={{ marginRight:'5px', color:'black'}}
-                                                            >
-                                                            Cancel
-                                                            </Button>
-                                                        </Box>
-                                                        </Box>
-                                                    </Modal>                                                 
+                                                    </Modal>
 
                                                     {/* send all emails*/}
                                                     <MenuItem onClick={openSendAllEmailsModal}>
@@ -607,8 +628,8 @@ const ViewSimulation = () => {
                                                     >
                                                         <Box sx={style}>
                                                             <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                                            Are you sure you want to send all emails for this simulation?
-                                                            </Typography>                                                          
+                                                                Are you sure you want to send all emails for this simulation?
+                                                            </Typography>
                                                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
                                                                 <Button
                                                                     variant="contained"
