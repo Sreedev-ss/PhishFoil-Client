@@ -64,7 +64,8 @@ import EditEmailTemplate from "layouts/emailTable/data/editEmailTemplate";
 import CloneEmailTemplate from "layouts/emailTable/data/cloneEmailTemplate";
 import Simulation from "layouts/createSimulation";
 import ViewSimulation from "layouts/viewSimulation";
-import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage"
+import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage";
+import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 
 const routes = [
   {
@@ -121,19 +122,26 @@ const routes = [
         route: "/uphish/landingPageBuilder",
         component: <LandingPageBuilder />,
       },
-      {
-        type: "collapse",
-        name: "Email Template Library",
-        key: "emailbuilder",
-        route: "",
-        component: <EmailTable />,
-      },
+      // {
+      //   type: "collapse",
+      //   name: "Email Template Library",
+      //   key: "emailbuilder",
+      //   route: "",
+      //   component: <EmailTable />,
+      // },
       {
         type: "collapse",
         name: "Email Template Builder",
         key: "emailbuilder",
         route: "/uphish/email-template-builder",
         component: <EmailTable />,
+      },
+      {
+        type: "collapse",
+        name: "Email Template Library",
+        key: "emailtemplatelibrary",
+        route: "/uphish/email-template-library",
+        component: <EmailTemplateLibrary />,
       },
     ],
   },
@@ -159,6 +167,7 @@ const routes = [
     noCollapse: true,
   },
 
+  //email template
   {
     route: "/uphish/create-email-template",
     component: <CreateEmailTemplatePage/>,
@@ -174,6 +183,7 @@ const routes = [
     component: <CloneEmailTemplate/>,
     noCollapse: true,
   },
+  
 
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
