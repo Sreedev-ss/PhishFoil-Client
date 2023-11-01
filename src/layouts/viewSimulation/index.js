@@ -30,6 +30,18 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+import SoftButton from "components/SoftButton";
+import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { CheckBox } from '@mui/icons-material'
+import { AiFillInfoCircle } from 'react-icons/ai'
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+import AddCircleOutlineOutlined from '@material-ui/icons/AddCircleOutlineOutlined';
+import MailOutline from '@material-ui/icons/MailOutline';
+
+
 import EditIcon from "@mui/icons-material/Edit";
 import SendIcon from '@mui/icons-material/Send';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -57,12 +69,6 @@ const languageOptions = [
     'French',
     'German',
 ];
-
-import SoftButton from "components/SoftButton";
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { CheckBox } from '@mui/icons-material'
-
 
 const ViewSimulation = () => {
     const [anchorEl, setAnchorEl] = useState(null);
