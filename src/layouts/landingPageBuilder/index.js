@@ -27,7 +27,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import AddCircleOutlineOutlinedIcon from "@material-ui/icons/AddCircleOutlineOutlined";
 import RemoveCircleOutlineOutlinedIcon from "@material-ui/icons/RemoveCircleOutlineOutlined";
 import FileCopyOutlinedIcon from "@material-ui/icons/FileCopyOutlined";
-import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 import {
   Box,
@@ -78,8 +78,6 @@ import {
   AiOutlineEdit,
 } from "react-icons/ai";
 
-
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -104,7 +102,7 @@ import CreateLandingPage from "./createLandingPage";
 import EditLandingPage from "./data/editLandingPage";
 import DeleteModal from "components/Modal/DeleteModal";
 import RemoveModal from "components/Modal/RemoveModal";
-const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
+const items = ["English", "Dutch", "Czech", "Danish", "Spanish"];
 
 const options = ["Download Group Managers Reports", "+ Create Email Template"];
 
@@ -115,7 +113,7 @@ function LandingPageBuilder() {
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
-  const [selectedItems, setSelectedItems] = useState(['English']);
+  const [selectedItems, setSelectedItems] = useState(["English"]);
 
   //Delete Landing page
   const [open, setOpen] = React.useState(false);
@@ -161,11 +159,11 @@ function LandingPageBuilder() {
     event.preventDefault();
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
-};
+  };
 
-const handleChangeItems = (event) => {
-  setSelectedItems(event.target.value);
-};
+  const handleChangeItems = (event) => {
+    setSelectedItems(event.target.value);
+  };
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -269,7 +267,7 @@ const handleChangeItems = (event) => {
                         border: "0.5px solid #1C7AE4",
                         color: "white",
                         backgroundColor: "#1b7ae4",
-                        fontWeight: 'lighter',
+                        fontWeight: "lighter",
                       }}
                     >
                       + Create Landing Page
@@ -354,11 +352,7 @@ const handleChangeItems = (event) => {
                         <ul>Swedish</ul>
                       </TableCell>
                       <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                        >
+                        <SoftButton onClick={handleClick} variant="outlined" color="info">
                           <AiOutlineArrowRight />
                         </SoftButton>
                         <Popover
@@ -375,22 +369,18 @@ const handleChangeItems = (event) => {
                             <EditIcon />
                             Edit Landing Page
                           </MenuItem>
-
                           <MenuItem onClick={handleOpen}>
                             <DeleteIcon />
                             Delete Landing Page
                           </MenuItem>
-
                           <MenuItem component={Link} to="/cloneLandingPage">
                             <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Clone Landing Page
                           </MenuItem>
-
                           <MenuItem onClick={openAddLangModal}>
                             <AddCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Add Language(s)
                           </MenuItem>
-
                           <Modal
                             open={addLangModalOpen}
                             onClose={closeAddLangModal}
@@ -398,17 +388,17 @@ const handleChangeItems = (event) => {
                             aria-describedby="send-test-email-modal-description"
                           >
                             <Box sx={style}>
-                            <IconButton
-                              aria-label="Close"
-                              sx={{
-                                position: 'absolute',
-                                top: 0,
-                                right: 0,
-                              }}
-                              onClick={closeAddLangModal}
-                            >
-                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
-                            </IconButton>
+                              <IconButton
+                                aria-label="Close"
+                                sx={{
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
+                                }}
+                                onClick={closeAddLangModal}
+                              >
+                                <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                              </IconButton>
                               <Typography
                                 id="send-test-email-modal-title"
                                 variant="h6"
@@ -417,38 +407,47 @@ const handleChangeItems = (event) => {
                                 Add Language(s) to the Selected Landing Page
                               </Typography>
                               <div>
-                                <FormControl sx={{ width: "330px", height: 'auto' }}>
-                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
-                                  <Select
-                                      labelId="multiple-select-label"
-                                      id="multiple-select"
-                                      multiple
-                                      label='Select languages'
-                                      value={selectedItems}
-                                      onChange={handleChangeItems}
-                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
-                                      renderValue={(selected) => (
-                                          <div>
-                                              {selected.map((item) => (
-                                                  <Chip
-                                                      key={item}
-                                                      label={item}
-                                                      onDelete={handleDelete(item)}
-                                                      sx={{
-                                                          marginRight: '5px',
-                                                          height: '20px', 
-                                                      }}
-                                                  />
-                                              ))}
-                                          </div>
-                                      )}
+                                <FormControl sx={{ width: "330px", height: "auto" }}>
+                                  <Typography
+                                    sx={{
+                                      fontSize: "",
+                                      marginBottom: "5px",
+                                      marginLeft: "2px",
+                                      marginTop: "15px",
+                                    }}
                                   >
-                                      {items.map((item) => (
-                                          <MenuItem key={item} value={item}>
-                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
-                                              <ListItemText secondary={item} />
-                                          </MenuItem>
-                                      ))}
+                                    Language (s)
+                                  </Typography>
+                                  <Select
+                                    labelId="multiple-select-label"
+                                    id="multiple-select"
+                                    multiple
+                                    label="Select languages"
+                                    value={selectedItems}
+                                    onChange={handleChangeItems}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                    renderValue={(selected) => (
+                                      <div>
+                                        {selected.map((item) => (
+                                          <Chip
+                                            key={item}
+                                            label={item}
+                                            onDelete={handleDelete(item)}
+                                            sx={{
+                                              marginRight: "5px",
+                                              height: "20px",
+                                            }}
+                                          />
+                                        ))}
+                                      </div>
+                                    )}
+                                  >
+                                    {items.map((item) => (
+                                      <MenuItem key={item} value={item}>
+                                        <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                        <ListItemText secondary={item} />
+                                      </MenuItem>
+                                    ))}
                                   </Select>
                                 </FormControl>
                               </div>
@@ -468,6 +467,9 @@ const handleChangeItems = (event) => {
                               </Box>
                             </Box>
                           </Modal>
+
+
+
                           <MenuItem onClick={openRemoveLangModal}>
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
@@ -478,67 +480,81 @@ const handleChangeItems = (event) => {
                             aria-labelledby="send-test-email-modal-title"
                             aria-describedby="send-test-email-modal-description"
                           >
-                            
                             <Box sx={style}>
-                            <IconButton
-                              aria-label="Close"
-                              sx={{
-                                position: 'absolute',
-                                top: 0,
-                                right: 0,
-                              }}
-                              onClick={closeRemoveLangModal}
-                            >
-                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
-                            </IconButton>
-                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                              Remove Language(s) from the Selected Email Templates
+                              <IconButton
+                                aria-label="Close"
+                                sx={{
+                                  position: "absolute",
+                                  top: 0,
+                                  right: 0,
+                                }}
+                                onClick={closeRemoveLangModal}
+                              >
+                                <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                              </IconButton>
+                              <Typography
+                                id="send-test-email-modal-title"
+                                variant="h6"
+                                component="h2"
+                              >
+                                Remove Language(s) from the Selected Email Templates
                               </Typography>
                               <div>
-                                <FormControl sx={{ width: "330px", height: 'auto' }}>
-                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Language (s)</Typography>
-                                  <Select
-                                      labelId="multiple-select-label"
-                                      id="multiple-select"
-                                      multiple
-                                      label='Select languages'
-                                      value={selectedItems}
-                                      onChange={handleChangeItems}
-                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
-                                      renderValue={(selected) => (
-                                          <div>
-                                              {selected.map((item) => (
-                                                  <Chip
-                                                      key={item}
-                                                      label={item}
-                                                      onDelete={handleDelete(item)}
-                                                      sx={{
-                                                          marginRight: '5px',
-                                                          height: '20px', 
-                                                      }}
-                                                  />
-                                              ))}
-                                          </div>
-                                      )}
+                                <FormControl sx={{ width: "330px", height: "auto" }}>
+                                  <Typography
+                                    sx={{
+                                      fontSize: "",
+                                      marginBottom: "5px",
+                                      marginLeft: "2px",
+                                      marginTop: "15px",
+                                    }}
                                   >
-                                      {items.map((item) => (
-                                          <MenuItem key={item} value={item}>
-                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
-                                              <ListItemText secondary={item} />
-                                          </MenuItem>
-                                      ))}
+                                    Language (s)
+                                  </Typography>
+                                  <Select
+                                    labelId="multiple-select-label"
+                                    id="multiple-select"
+                                    multiple
+                                    label="Select languages"
+                                    value={selectedItems}
+                                    onChange={handleChangeItems}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                    renderValue={(selected) => (
+                                      <div>
+                                        {selected.map((item) => (
+                                          <Chip
+                                            key={item}
+                                            label={item}
+                                            onDelete={handleDelete(item)}
+                                            sx={{
+                                              marginRight: "5px",
+                                              height: "20px",
+                                            }}
+                                          />
+                                        ))}
+                                      </div>
+                                    )}
+                                  >
+                                    {items.map((item) => (
+                                      <MenuItem key={item} value={item}>
+                                        <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                        <ListItemText secondary={item} />
+                                      </MenuItem>
+                                    ))}
                                   </Select>
                                 </FormControl>
                               </div>
-                                                            
-                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
-                                <Button variant="contained" onClick={removeLang} style={{color:'#fff'}} >
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                                <Button
+                                  variant="contained"
+                                  onClick={removeLang}
+                                  style={{ color: "#fff" }}
+                                >
                                   Remove Language(s)
                                 </Button>
                               </Box>
                             </Box>
                           </Modal>
-
                           <MenuItem component={Link} to="/CreateLandingPage">
                             <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Preview Landing Page
@@ -548,7 +564,6 @@ const handleChangeItems = (event) => {
                     </TableRow>
                   </TableBody>
                 </Table>
-
                 <Menu></Menu>
               </TableContainer>
             </SoftBox>
