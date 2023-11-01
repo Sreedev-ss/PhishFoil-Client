@@ -140,11 +140,24 @@ function Tables() {
   const [addUsersOpen, setAddUsersOpen] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState(['Technical']);
   const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
+  const [unenrolGapAnalysisModalOpen, setUnenrolGapAnalysisModalOpen] = useState(false);
 
   const [country, setCountry] = useState("");
 
   const handleChanges = (event) => {
     setCountry(event.target.value);
+  };
+
+  const openUnenrolAnalysisModal = () => {
+    setUnenrolGapAnalysisModalOpen(true);
+  };
+
+  const closeUnenrolAnalysisModal = () => {
+    setUnenrolGapAnalysisModalOpen(false);
+  };
+
+  const deleteUnenrolAnalysis = () => {
+    closeUnenrolAnalysisModal();
   };
 
   const openAddLangModal = () => {
@@ -704,11 +717,6 @@ const removeGapAnalysis = () => {
                                 Enrol on Course
                               </MenuItem>
 
-                              {/* <MenuItem component={Link} to="/editLandingPage">
-                                <AnalyticsIcon />
-                                Enrol on Gap Analysis
-                              </MenuItem> */}
-
 
                               {/* Enrol on Gap Analysis */}
                               <MenuItem onClick={openGapAnalysisModal}>
@@ -749,10 +757,78 @@ const removeGapAnalysis = () => {
                                 <DeleteIcon />
                                 Unenrol from Course
                               </MenuItem>
-                              <MenuItem component={Link} to="/editLandingPage">
+
+                              
+                              {/* <MenuItem>
                                 <EditIcon />
                                 Unenrol from Gap Analysis
+                              </MenuItem> */}
+
+                              {/* Unenrol from Gap Analysis */}
+                        
+                              <MenuItem onClick={openUnenrolAnalysisModal}>
+                                  <SendIcon style={{ fontSize: '15px' }} />
+                                  Unenrol from Gap Analysis
                               </MenuItem>
+                              <Modal
+                            open={unenrolGapAnalysisModalOpen}
+                            onClose={closeUnenrolAnalysisModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Are you sure you want to unenrol this user from Gap Analysis?
+                              </Typography>
+                              
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Please note the following:
+                                    <li>A user will only be unenrolled if they have an outstanding Gap Analysis Questionnaire.</li>
+                                    <li>This action will neither remove nor reset a completed questionnaire</li>
+                                    <li>Users will not be notified that they have been unenrolled</li>
+                                </label>
+                              </Box>
+                              <Box>
+                                <label 
+                                    htmlFor="name" 
+                                    style={{fontSize:"13px"}}
+                                >
+                                    Number of Users to Unenrol:
+                                </label>
+                              </Box>
+                              <TextField 
+                                fullWidth 
+                                defaultValue="1"
+                                type="text" 
+                                sx={{ gridColumn: "span 2" }} 
+                              />
+                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button 
+                                  variant="contained" 
+                                  onClick={closeUnenrolAnalysisModal } 
+                                  style={{color:'#fff'}} 
+                                >
+                                  No
+                                </Button>
+                                <Button 
+                                  variant="outlined" 
+                                  onClick={deleteUnenrolAnalysis} 
+                                  style={{ marginRight:'5px', color:'black'}}
+                                >
+                                  Yes
+                                </Button>
+                              </Box>                              
+                            </Box>
+                          </Modal> 
+
+
                               <MenuItem>
                                 <ImportExportIcon />
                                 Export Course Data
