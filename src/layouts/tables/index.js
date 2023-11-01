@@ -110,6 +110,8 @@ import { useRef, useState } from "react";
 import React from "react";
 import DeleteUserModal from "components/Modal/DeleteUserModal";
 
+import SendIcon from '@mui/icons-material/Send';
+
 const items = ['Technical', 'Administration', 'Sample'];
 
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
@@ -122,6 +124,8 @@ function Tables() {
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   // const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("Active");
+  const [enrolGapAnalysisModalOpen, setEnrolGapAnalysisModalOpen] = useState(false);
+  // const [courses, setCourses] = useState("All");
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -135,6 +139,7 @@ function Tables() {
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [addUsersOpen, setAddUsersOpen] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState(['Technical']);
+  const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
 
   const [country, setCountry] = useState("");
 
@@ -163,6 +168,22 @@ function Tables() {
   const addUsers = () => {
     closeUsersModal();
   };
+
+  const openGapAnalysisModal = () => {
+    setGapAnalysisModalOpen(true);
+};
+
+const closeGapAnalysisModal = () => {
+  setGapAnalysisModalOpen(false);
+};
+
+const removeGapAnalysis = () => {
+  closeGapAnalysisModal();
+};
+
+// const handleCourses = (event) => {
+//   setCourses(event.target.value);
+// };
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -682,10 +703,48 @@ function Tables() {
                                 <SubscriptionsIcon />
                                 Enrol on Course
                               </MenuItem>
-                              <MenuItem component={Link} to="/editLandingPage">
+
+                              {/* <MenuItem component={Link} to="/editLandingPage">
                                 <AnalyticsIcon />
                                 Enrol on Gap Analysis
+                              </MenuItem> */}
+
+
+                              {/* Enrol on Gap Analysis */}
+                              <MenuItem onClick={openGapAnalysisModal}>
+                                  <SendIcon style={{ fontSize: '15px' }} />
+                                  Enrol on Gap Analysis
                               </MenuItem>
+                              <Modal
+                                  open={gapAnalysisModalOpen}
+                                  onClose={closeGapAnalysisModal}
+                                  aria-labelledby="send-test-email-modal-title"
+                                  aria-describedby="send-test-email-modal-description"
+                              >
+                                  <Box sx={style}>
+                                      <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                      Are you sure you want to enrol the selected user on Gap Analysis?
+                                      </Typography>                                                          
+                                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                          <Button
+                                              variant="contained"
+                                              onClick={closeGapAnalysisModal}
+                                              style={{ color: '#fff' }}
+                                          >
+                                              No
+                                          </Button>
+                                          <Button
+                                              variant="outlined"
+                                              onClick={removeGapAnalysis}
+                                              style={{ marginRight: '5px', color: 'black' }}
+                                          >
+                                              Yes
+                                          </Button>
+                                      </Box>
+                                  </Box>
+                              </Modal>
+
+
                               <MenuItem>
                                 <DeleteIcon />
                                 Unenrol from Course
