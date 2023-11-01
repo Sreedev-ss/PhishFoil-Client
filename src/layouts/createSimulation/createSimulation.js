@@ -1,4 +1,4 @@
-import { Box, Checkbox, TextField, Typography, MenuItem, Button } from "@mui/material";
+import { Box, Checkbox, TextField, Typography, MenuItem, Button, FormControl, Select } from "@mui/material";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,6 +7,8 @@ import React from "react";
 import { useRef } from "react";
 import EmailEditor from "react-email-editor";
 // import checkbox from './../../assets/theme/components/form/checkbox';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 const CreateSimulation = () => {
     // State to track the currently selected tab
@@ -83,6 +85,30 @@ const CreateSimulation = () => {
                             <MenuItem value="US">Malayalam</MenuItem>
                             <MenuItem value="AU">Tamil</MenuItem>
                         </TextField>
+                        {/* <FormControl fullWidth>
+                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>Language(s)</Typography>
+                            <Select
+                                fullWidth
+                                labelId="category-label"
+                                id="category-label"
+                                value={country}
+                                label="Status"
+                                MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                onChange={handleChange}
+                                endAdornment={
+                                    <div
+                                        style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                    >
+                                        <ArrowDropDownIcon />
+                                    </div>
+                                }
+
+                            >
+                                <MenuItem value="IN">English</MenuItem>
+                                <MenuItem value="US">Malayalam</MenuItem>
+                                <MenuItem value="AU">Tamil</MenuItem>
+                            </Select>
+                        </FormControl> */}
 
                         <Box>
                             <label htmlFor="name">Page Title</label>
@@ -147,7 +173,7 @@ const CreateSimulation = () => {
                                 Do you wish to make this landing page available to all of your Customers?
                             </p>
                             <Checkbox
-                                sx={{marginTop:'25px'}}
+                                sx={{ marginTop: '25px' }}
                                 //   checked={checked}
                                 //   onChange={handleChange}
                                 inputProps={{ "aria-label": "controlled" }}
@@ -157,7 +183,7 @@ const CreateSimulation = () => {
                                 to your MSP.
                             </p>
                         </div>
-                        <div style={{marginTop: "25px"}}>
+                        <div style={{ marginTop: "25px" }}>
                             <p style={{ fontSize: "15px" }}>Customer access:</p>
                             <div style={{ marginBottom: "5px", marginTop: "7px", width: "550px" }}>
                                 <TextField required id="outlined-required" defaultValue="Customers" fullWidth />
@@ -166,7 +192,7 @@ const CreateSimulation = () => {
                                 This landing page will be visible to the Customers selected
                             </p>
                         </div>
-                        <div style={{marginTop:'40px'}}>
+                        <div style={{ marginTop: '40px' }}>
                             <Button
                                 variant="outlined"
                                 style={{ border: "1px solid blue", marginRight: "10px", color: "blue" }}
