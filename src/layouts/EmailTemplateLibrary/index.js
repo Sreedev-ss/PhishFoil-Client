@@ -41,7 +41,7 @@ const EmailTemplateLibrary = () => {
 
     const handleOpenTemplate = () => {
         // Your logic to open the template
-      };
+    };
 
     const handleDelete = (itemToDelete) => (event) => {
         console.log(itemToDelete);
@@ -71,11 +71,8 @@ const EmailTemplateLibrary = () => {
                                     </Typography>
                                 </div>
                                 <Divider />
-                                <div style={{ display: 'flex', paddingLeft: '6px', gap: '6px', padding: '4px', width: '100%', height: '2.5rem', backgroundColor: '#e7f6fe', border: '0.5px solid #91d5ff', fontSize: 'medium', alignItems: 'center' }}>
-                                    <AiFillInfoCircle fontSize='large' /><span>Please select the landing page for your simulation.</span>
-                                </div>
                             </div>
-                            <Typography sx={{ fontSize: "medium", color: "black", fontWeight: '500', marginTop: '1.7rem' }}>
+                            <Typography sx={{ fontSize: "medium", color: "black", fontWeight: '500' }}>
                                 Choose your landing page
                             </Typography>
                             <Stack direction="row" justifyContent="space-between" alignItems="end">
@@ -170,46 +167,51 @@ const EmailTemplateLibrary = () => {
                                     height: '20rem',
                                     marginTop: '1.2rem',
                                     display: 'flex',
-                                    flexDirection: 'column', 
-                                    justifyContent: 'space-between', 
-                                  }}
+                                    flexDirection: 'column',
+                                    position: 'relative'
+                                }}
                             >
-                                <div>
                                 <IconButton
                                     style={{
                                         background: '#fff',
                                         borderRadius: '50%',
                                         justifyContent: 'end'
-                                      }}
+                                    }}
                                     onClick={handleOpenTemplate}
                                 >
-                                    <LanguageIcon />  
+                                    <LanguageIcon fontSize='small' />
                                 </IconButton>
-                                <div 
-                                    style={{ 
-                                        display: 'flex', 
-                                        justifyContent:'center', 
-                                        alignItems: 'center', 
-                                        marginBottom:'100px' }}
-                                    >
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                        marginBottom: '100px'
+                                    }}
+                                >
                                     <img
-                                        src="https://colorlib.com/wp/wp-content/uploads/sites/2/free-html5-and-css3-login-forms.jpg" 
+                                        src="https://colorlib.com/wp/wp-content/uploads/sites/2/free-html5-and-css3-login-forms.jpg"
                                         height='150px'
                                         alt="name"
-                                        style={{ maxWidth: '100%', maxHeight: '100%' }}
-                                    />                                    
-                                </div>                                
-                                <div 
-                                    style={{ 
-                                        background: 'gray', 
-                                        padding: '10px', 
-                                        color: 'white', 
-                                        textAlign: 'center', 
-                                        marginBottom:'0' }}
-                                        >
-                                   <MailOutlineIcon/>
-                                </div>                               
-                            </div>
+                                        style={{ maxWidth: '100%', maxHeight: '100%', marginBottom:5 }}
+                                    />
+                                    <h3>Title</h3>
+                                    <h6 style={{ fontWeight: 200 }}>Category</h6>
+                                    <div
+                                        style={{
+                                            width: '100%',
+                                            background: '#EEEEEE',
+                                            padding: '10px',
+                                            color: 'white',
+                                            textAlign: 'center',
+                                            position: 'absolute',
+                                            bottom: 0
+                                        }}
+                                    >
+                                        <MailOutlineIcon color='black' />
+                                    </div>
+                                </div>
                             </div>
                         </SoftBox> :
                             <SoftBox
