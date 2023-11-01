@@ -436,6 +436,7 @@ function LandingPageBuilder() {
                           </Modal>
 
 
+
                           <MenuItem onClick={openRemoveLangModal}>
 
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
