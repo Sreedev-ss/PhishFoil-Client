@@ -119,10 +119,17 @@ function LandingPageBuilder() {
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
 
-  //remove Language
-  const [openModal, setOpenModal] = React.useState(false);
-  const handleOpened = () => setOpenModal(true);
-  const handleClosed = () => setOpenModal(false);
+  const [openRemoveModal, setOpenRemoveModal] = useState(false);
+
+  // Function to open the RemoveModal
+  const handleOpenRemoveModal = () => {
+    setOpenRemoveModal(true);
+  };
+
+  // Function to close the RemoveModal
+  const handleCloseRemoveModal = () => {
+    setOpenRemoveModal(false);
+  };
 
   const openAddLangModal = () => {
     setAddLangModalOpen(true);
@@ -355,6 +362,7 @@ function LandingPageBuilder() {
                             <AddCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Add Language(s)
                           </MenuItem>
+
                           <Modal
                             open={addLangModalOpen}
                             onClose={closeAddLangModal}
@@ -399,7 +407,7 @@ function LandingPageBuilder() {
                             </Box>
                           </Modal>
 
-                          <MenuItem onClick={handleOpened}>
+                          <MenuItem onClick={handleOpenRemoveModal}>
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
                           </MenuItem>
@@ -418,10 +426,10 @@ function LandingPageBuilder() {
             </SoftBox>
           </Card>
         </SoftBox>
-        {openModal && (
+        {openRemoveModal && (
           <RemoveModal
-            openModal={openModal}
-            onClosed={handleClosed}
+            open={openRemoveModal}
+            onClose={handleCloseRemoveModal}
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           />

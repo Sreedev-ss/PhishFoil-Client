@@ -1,9 +1,7 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TextField } from "@mui/material";
+import { TextField,Button} from "@mui/material";
 
 const style = {
   position: "absolute",
@@ -47,6 +45,7 @@ export default function DeleteModal() {
             marginRight: "10px",
             marginTop: "10px",
             color: "blue",
+            cursor: "pointer",
           }}
           onClick={() => {}}
         >
@@ -54,7 +53,7 @@ export default function DeleteModal() {
         </Button>
         <Button
           variant="outlined"
-          style={{ border: "1px solid red", color: "red", marginTop: "10px", cursor: "pointer" }}
+          style={{ border: "1px solid red", color: "red", marginTop: "10px",cursor: "pointer",}}
         >
           Yes
         </Button>
