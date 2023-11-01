@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Card, Checkbox, Chip, Divider, FormControl, InputLabel, MenuItem, Select, Stack, ThemeProvider, Typography } from '@mui/material'
+import { Avatar, Box, Button, Card, Checkbox, Chip, Divider, FormControl, InputAdornment, InputLabel, MenuItem, Select, Stack, TextField, ThemeProvider, Typography } from '@mui/material'
 import SoftBox from 'components/SoftBox'
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
 import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
@@ -8,6 +8,8 @@ import ListItemText from '@mui/material/ListItemText';
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import addImage from 'assets/images/images.png'
 import CreateSimulation from './createSimulation'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 const Simulation = () => {
 
@@ -16,6 +18,8 @@ const Simulation = () => {
     const [type, setType] = useState('All');
     const [category, setCategory] = useState('All');
     const [selectedItems, setSelectedItems] = useState(['English']);
+    const [openType, setOpenType] = useState(false);
+    const [openCategory, setOpenCategory] = useState(false);
 
     const handleChange = (event) => {
         setSelectedItems(event.target.value);
@@ -70,9 +74,19 @@ const Simulation = () => {
                                         <Select
                                             labelId="type-label"
                                             id="type-label"
+                                            select
                                             value={type}
-                                            label="Type"
                                             onChange={handleType}
+                                            open={openType}
+                                            onOpen={() => setOpenType(true)}
+                                            onClose={() => setOpenType(false)}
+                                            endAdornment={
+                                                <div
+                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                >
+                                                    {openType ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                                                </div>
+                                            }
                                         >
                                             <MenuItem value={'All'} >All</MenuItem>
                                             <MenuItem value={'Default'}>Default</MenuItem>
@@ -88,6 +102,17 @@ const Simulation = () => {
                                             label="Status"
                                             MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
                                             onChange={handleCategory}
+                                            open={openCategory}
+                                            onOpen={() => setOpenCategory(true)}
+                                            onClose={() => setOpenCategory(false)}
+                                            endAdornment={
+                                                <div
+                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
+                                                >
+                                                    {openCategory ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                                                </div>
+                                            }
+
                                         >
                                             <MenuItem value={'All'}>All</MenuItem>
                                             <MenuItem value={'No Category'}>No Category</MenuItem>
@@ -169,8 +194,8 @@ const Simulation = () => {
                         }
                     </Card>
                 </SoftBox>
-            </SoftBox>
-        </DashboardLayout>
+            </SoftBox >
+        </DashboardLayout >
     )
 }
 
