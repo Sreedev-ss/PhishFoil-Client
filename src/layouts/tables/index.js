@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
@@ -26,15 +11,13 @@ import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Table from "examples/Tables/Table";
+
 import {
   Box,
   Button,
@@ -49,9 +32,6 @@ import {
   FormGroup,
   Grow,
   IconButton,
-  InputLabel,
-  List,
-  ListItem,
   ListItemText,
   Menu,
   MenuItem,
@@ -65,8 +45,8 @@ import {
   Typography,
   InputAdornment,
 } from "@mui/material";
-import TextField from "@mui/material/TextField";
 
+import TextField from "@mui/material/TextField";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const style = {
@@ -87,8 +67,6 @@ const scrollableContentStyle = {
   maxHeight: "300px",
 };
 
-const languageOptions = ["English", "Spanish", "French", "German"];
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -96,7 +74,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DeleteModal from "components/Modal/DeleteModal";
+
 import {
   AiFillPlusCircle,
   AiOutlineArrowDown,
@@ -112,26 +90,22 @@ import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
 import DeleteUserModal from "components/Modal/DeleteUserModal";
-
 import SendIcon from '@mui/icons-material/Send';
 
 const items = ['Technical', 'Administration', 'Sample'];
-const courses = ['Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)', 'Home Network Security Awareness: Robs Router Routine(Beginner)', 'Security Email Use'];
-
+const courses = [
+  'Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)', 
+  'Home Network Security Awareness: Robs Router Routine(Beginner)', 
+  'Security Email Use'
+];
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 
 function Tables() {
-  const { columns, rows } = authorsTableData;
-  const { columns: prCols, rows: prRows } = projectsTableData;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
-  // const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("Active");
-  const [enrolGapAnalysisModalOpen, setEnrolGapAnalysisModalOpen] = useState(false);
-  // const [courses, setCourses] = useState("All");
   const [subject, setSubject] = useState("All");
-
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   //Delete Landing page
@@ -181,7 +155,7 @@ function Tables() {
 
   const handleSubject = (event) => {
     setSubject(event.target.value);
-};
+  };
 
   const openUnenrolAnalysisModal = () => {
     setUnenrolGapAnalysisModalOpen(true);
@@ -221,17 +195,13 @@ function Tables() {
     setGapAnalysisModalOpen(true);
 };
 
-const closeGapAnalysisModal = () => {
-  setGapAnalysisModalOpen(false);
-};
+  const closeGapAnalysisModal = () => {
+    setGapAnalysisModalOpen(false);
+  };
 
-const removeGapAnalysis = () => {
-  closeGapAnalysisModal();
-};
-
-// const handleCourses = (event) => {
-//   setCourses(event.target.value);
-// };
+  const removeGapAnalysis = () => {
+    closeGapAnalysisModal();
+  };
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -298,14 +268,14 @@ const removeGapAnalysis = () => {
     event.preventDefault();
     const updatedSelection = selectedGroups.filter((item) => item !== itemToDelete);
     setSelectedGroups(updatedSelection);
-};
+  };
 
-const handleDeleteCourses = (itemToDelete) => (event) => {
-  console.log(itemToDelete);
-  event.preventDefault();
-  const updatedSelection = selectedCourses.filter((item) => item !== itemToDelete);
-  setSelectedCourses(updatedSelection);
-};
+  const handleDeleteCourses = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedCourses.filter((item) => item !== itemToDelete);
+    setSelectedCourses(updatedSelection);
+  };
 
   const openAnchor = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -487,7 +457,7 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                 },
               }}
             >
-              {/* <Table columns={columns} rows={rows} /> */}
+
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
@@ -514,7 +484,6 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                           onClick={handleClick}
                           variant="outlined"
                           color="info"
-                          // onClick={() => handleArrowClick()}
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -528,11 +497,11 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                             horizontal: "left",
                           }}
                         >
+                          {/* Edit user */}
                           <MenuItem onClick={openAddLangModal}>
                             <EditIcon />
                             Edit User
                           </MenuItem>
-
                           <Modal
                             open={addLangModalOpen}
                             onClose={closeAddLangModal}
@@ -667,9 +636,7 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                               </Box>
                             </Box>
                           </Modal>
-
-                          <FormControl>
-                        
+                          <FormControl>                        
                               <MenuItem onClick={handleOpen}>
                                 <DeleteIcon />
                                 Delete User
@@ -777,7 +744,16 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                               Enrol Kalaiyarasi V on Course(s)
                               </Typography>
                               <FormControl sx={{width: '350px' }}>
-                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Subject:</Typography>
+                                <Typography 
+                                  sx={{ 
+                                    fontSize: '', 
+                                    marginBottom: "5px", 
+                                    marginLeft: "2px", 
+                                    marginTop:'15px' 
+                                    }}
+                                    >
+                                      Subject:
+                                </Typography>
                                 <Select
                                     labelId="subject-label"
                                     id="subject-label"
@@ -799,7 +775,16 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                                 </Select>
                               </FormControl>         
                               <FormControl sx={{ width: "350px", height: 'auto' }}>
-                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Course(s)</Typography>
+                                <Typography 
+                                  sx={{ 
+                                    fontSize: '', 
+                                    marginBottom: "5px", 
+                                    marginLeft: "2px", 
+                                    marginTop:'15px' 
+                                    }}
+                                    >
+                                      Course(s)
+                                    </Typography>
                                 <Select
                                     labelId="multiple-select-label"
                                     id="multiple-select"
@@ -862,7 +847,14 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                                   <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                                   Are you sure you want to enrol the selected user on Gap Analysis?
                                   </Typography>                                                          
-                                  <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                  <Box 
+                                    sx={{ 
+                                      display: "flex", 
+                                      justifyContent: "flex-end", 
+                                      mt: 2, 
+                                      gap: 2 
+                                      }}
+                                    >
                                       <Button
                                           variant="contained"
                                           onClick={closeGapAnalysisModal}
@@ -900,7 +892,16 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                               Enrol Kalaiyarasi V on Course(s)
                               </Typography>
                               <FormControl sx={{width: '350px' }}>
-                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Subject:</Typography>
+                                <Typography 
+                                  sx={{ 
+                                    fontSize: '', 
+                                    marginBottom: "5px", 
+                                    marginLeft: "2px", 
+                                    marginTop:'15px' 
+                                    }}
+                                    >
+                                      Subject:
+                                    </Typography>
                                 <Select
                                     labelId="subject-label"
                                     id="subject-label"
@@ -922,7 +923,16 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                                 </Select>
                               </FormControl>         
                               <FormControl sx={{ width: "350px", height: 'auto' }}>
-                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Course(s)</Typography>
+                                <Typography 
+                                  sx={{ 
+                                    fontSize: '', 
+                                    marginBottom: "5px", 
+                                    marginLeft: "2px", 
+                                    marginTop:'15px' 
+                                    }}
+                                    >
+                                      Course(s)
+                                    </Typography>
                                 <Select
                                     labelId="multiple-select-label"
                                     id="multiple-select"
@@ -1031,8 +1041,7 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                             </Box>                              
                           </Box>
                           </Modal> 
-
-
+                          
                           <MenuItem>
                             <ImportExportIcon />
                             Export Course Data
