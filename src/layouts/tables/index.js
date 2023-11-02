@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Soft UI Dashboard React - v4.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
@@ -26,15 +11,13 @@ import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-// import Table from "examples/Tables/Table";
+
 import {
   Box,
   Button,
@@ -49,9 +32,6 @@ import {
   FormGroup,
   Grow,
   IconButton,
-  InputLabel,
-  List,
-  ListItem,
   ListItemText,
   Menu,
   MenuItem,
@@ -63,8 +43,11 @@ import {
   Stack,
   Switch,
   Typography,
+  InputAdornment,
 } from "@mui/material";
+
 import TextField from "@mui/material/TextField";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const style = {
   position: "absolute",
@@ -84,8 +67,6 @@ const scrollableContentStyle = {
   maxHeight: "300px",
 };
 
-const languageOptions = ["English", "Spanish", "French", "German"];
-
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -93,7 +74,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DeleteModal from "components/Modal/DeleteModal";
+
 import {
   AiFillPlusCircle,
   AiOutlineArrowDown,
@@ -108,11 +89,15 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
-
+// import DeleteUserModal from "components/Modal/DeleteUserModal";
 import SendIcon from '@mui/icons-material/Send';
 
 const items = ['Technical', 'Administration', 'Sample'];
-
+const courses = [
+  'Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)', 
+  'Home Network Security Awareness: Robs Router Routine(Beginner)', 
+  'Security Email Use'
+];
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 const item1 = [
   "Password Constrution Guidelines",
@@ -124,17 +109,13 @@ const item1 = [
 ];
 
 function Tables() {
-  const { columns, rows } = authorsTableData;
-  const { columns: prCols, rows: prRows } = projectsTableData;
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("Active");
-  const [enrolGapAnalysisModalOpen, setEnrolGapAnalysisModalOpen] = useState(false);
-  // const [courses, setCourses] = useState("All");
-
+  const [subject, setSubject] = useState("All");
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   //Add language
@@ -149,7 +130,6 @@ function Tables() {
   const [activeModalOpen, setActiveModalOpen] = useState(false);
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
-
   const [country, setCountry] = useState("");
 
   const OpendeleteUserModal = () => {
@@ -201,9 +181,40 @@ function Tables() {
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
   };
+  const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
+  const [selectedCourses, setSelectedCourses] = useState(['Home Network Security Awareness: Robes Routine(Beginner)']);
+  const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
+
+  const openEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(true);
+  };
+
+  const closeEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(false);
+  };
+
+  const enrolCourses = () => {
+    closeEnrolCoursesModal();
+  };
+
+  const openUnenrolCoursesModal = () => {
+    setUnenrolCoursesModalOpen(true);
+  };
+
+  const closeUnenrolCoursesModal = () => {
+    setUnenrolCoursesModalOpen(false);
+  };
+
+  const unenrolCourses = () => {
+    closeUnenrolCoursesModal();
+  };
 
   const handleChanges = (event) => {
     setCountry(event.target.value);
+  };
+
+  const handleSubject = (event) => {
+    setSubject(event.target.value);
   };
 
   const openUnenrolAnalysisModal = () => {
@@ -244,17 +255,13 @@ function Tables() {
     setGapAnalysisModalOpen(true);
 };
 
-const closeGapAnalysisModal = () => {
-  setGapAnalysisModalOpen(false);
-};
+  const closeGapAnalysisModal = () => {
+    setGapAnalysisModalOpen(false);
+  };
 
-const removeGapAnalysis = () => {
-  closeGapAnalysisModal();
-};
-
-// const handleCourses = (event) => {
-//   setCourses(event.target.value);
-// };
+  const removeGapAnalysis = () => {
+    closeGapAnalysisModal();
+  };
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -262,6 +269,10 @@ const removeGapAnalysis = () => {
 
   const handleChangeUsers = (event) => {
     setSelectedGroups(event.target.value);
+  };
+
+  const handleChangeCourses = (event) => {
+    setSelectedCourses(event.target.value);
   };
 
   const handleClick = (event) => {
@@ -317,7 +328,14 @@ const removeGapAnalysis = () => {
     event.preventDefault();
     const updatedSelection = selectedGroups.filter((item) => item !== itemToDelete);
     setSelectedGroups(updatedSelection);
-};
+  };
+
+  const handleDeleteCourses = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedCourses.filter((item) => item !== itemToDelete);
+    setSelectedCourses(updatedSelection);
+  };
 
   const openAnchor = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -499,7 +517,7 @@ const removeGapAnalysis = () => {
                 },
               }}
             >
-              {/* <Table columns={columns} rows={rows} /> */}
+
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
@@ -526,7 +544,6 @@ const removeGapAnalysis = () => {
                           onClick={handleClick}
                           variant="outlined"
                           color="info"
-                          // onClick={() => handleArrowClick()}
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -540,6 +557,7 @@ const removeGapAnalysis = () => {
                             horizontal: "left",
                           }}
                         >
+                          {/* Edit user */}
                           <MenuItem onClick={openAddLangModal}>
                             <EditIcon />
                             Edit User
