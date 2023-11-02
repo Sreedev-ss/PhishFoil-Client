@@ -75,6 +75,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import csvIcon from '../../assets/images/csv.png';
+import MicrosoftIcon from '../../assets/images/microsoft.png';
+import GoogleIcon from '../../assets/images/google.png';
+
 import {
   AiFillPlusCircle,
   AiOutlineArrowDown,
@@ -141,6 +145,16 @@ function Tables() {
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
   const [groupItems, setGroupItems] = useState(["Technical"]);
   const [deleteUser, setDeleteUser] = useState(false);
+  const [importUsersModal, setImportUsersModal] = useState(false);
+
+
+  const openImportUsersModal = () => {
+    setImportUsersModal(true);
+  };
+
+  const closeImportUsersModal = () => {
+    setImportUsersModal(false);
+  };
 
   //Delete User
   const OpendeleteUserModal = () => {
@@ -508,9 +522,59 @@ const handleManagerChanges = (event) => {
                     variant="outline"
                     style={{ border: "0.5px solid grey", color: "#585958" }}
                     size="small"
+                    onClick={openImportUsersModal}
                   >
                     <AiOutlineArrowDown /> Import Users
                   </Button>
+                  {/* <Modal show={importUsersModal} onHide={closeImportUsersModal}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Import Users</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                     
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button variant="secondary" onClick={closeImportUsersModal}>
+                        Close
+                      </Button>
+                     
+                    </Modal.Footer>
+                  </Modal> */}
+                   <Modal
+                    open={importUsersModal}
+                    onClose={closeImportUsersModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                        {/* Text in a modal */}
+                        {/* <img style={{width:'50px', marginRight:'70px'}} src={csvIcon} alt="csv Icon" />
+                        <img style={{width:'50px', marginRight:'60px'}} src={MicrosoftIcon} alt="microsoft Icon" />
+                        <img style={{width:'50px'}} src={GoogleIcon} alt="google Icon" /> */}
+                        {/* <img src={GoogleIcon2} alt="Google Icon 2" />
+                        <img src={GoogleIcon3} alt="Google Icon 3" /> */}
+
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
+                            <Typography variant="body2" style={{marginRight:'70px'}}>CSV</Typography>
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
+                            <Typography variant="body2" style={{marginRight:'70px'}}>Microsoft</Typography>
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px" }} src={GoogleIcon} alt="Google Icon" />
+                            <Typography variant="body2">Google</Typography>
+                          </div>
+                        </div>
+                      </Typography>
+                      
+                    </Box>
+                  </Modal>
+
+
                   <Button
                     variant="outline"
                     style={{
