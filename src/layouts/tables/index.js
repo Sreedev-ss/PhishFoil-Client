@@ -13,6 +13,7 @@ import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
+import { Close } from "@mui/icons-material";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -526,20 +527,6 @@ const handleManagerChanges = (event) => {
                   >
                     <AiOutlineArrowDown /> Import Users
                   </Button>
-                  {/* <Modal show={importUsersModal} onHide={closeImportUsersModal}>
-                    <Modal.Header closeButton>
-                      <Modal.Title>Import Users</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                     
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <Button variant="secondary" onClick={closeImportUsersModal}>
-                        Close
-                      </Button>
-                     
-                    </Modal.Footer>
-                  </Modal> */}
                    <Modal
                     open={importUsersModal}
                     onClose={closeImportUsersModal}
@@ -547,15 +534,18 @@ const handleManagerChanges = (event) => {
                     aria-describedby="modal-modal-description"
                   >
                     <Box sx={style}>
+                    <IconButton
+                      edge="end"
+                      color="inherit"
+                      onClick={closeImportUsersModal}
+                      style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                    >
+                      <Close />
+                    </IconButton>
+                      <Typography>Import Users</Typography>
+                      <hr/>
                       <Typography id="modal-modal-title" variant="h6" component="h2">
-                        {/* Text in a modal */}
-                        {/* <img style={{width:'50px', marginRight:'70px'}} src={csvIcon} alt="csv Icon" />
-                        <img style={{width:'50px', marginRight:'60px'}} src={MicrosoftIcon} alt="microsoft Icon" />
-                        <img style={{width:'50px'}} src={GoogleIcon} alt="google Icon" /> */}
-                        {/* <img src={GoogleIcon2} alt="Google Icon 2" />
-                        <img src={GoogleIcon3} alt="Google Icon 3" /> */}
-
-                        <div style={{ display: "flex", alignItems: "center" }}>
+                        <div style={{ display: "flex", alignItems: "center", marginTop:'40px' }}>
                           <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                             <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
                             <Typography variant="body2" style={{marginRight:'70px'}}>CSV</Typography>
@@ -570,10 +560,8 @@ const handleManagerChanges = (event) => {
                           </div>
                         </div>
                       </Typography>
-                      
                     </Box>
                   </Modal>
-
 
                   <Button
                     variant="outline"
