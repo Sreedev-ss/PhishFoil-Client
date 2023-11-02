@@ -108,7 +108,6 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
-import DeleteUserModal from "components/Modal/DeleteUserModal";
 
 import SendIcon from '@mui/icons-material/Send';
 
