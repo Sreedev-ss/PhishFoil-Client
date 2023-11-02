@@ -107,6 +107,7 @@ const item1 = [
   "Test Policy",
   "Test policy 2",
 ];
+const item2 = ["Administration" , "Sample", "Technical"]
 
 
 function Tables() {
@@ -130,6 +131,7 @@ function Tables() {
   const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
   const [unenrolGapAnalysisModalOpen, setUnenrolGapAnalysisModalOpen] = useState(false);
   const [country, setCountry] = useState("");
+  const [manager, setManager] = useState("");
   const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
   const [selectedCourses, setSelectedCourses] = useState(['Home Network Security Awareness: Robes Routine(Beginner)']);
   const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
@@ -137,8 +139,10 @@ function Tables() {
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
+  const [groupItems, setGroupItems] = useState(["Technical"]);
   const [deleteUser, setDeleteUser] = useState(false);
 
+  //Delete User
   const OpendeleteUserModal = () => {
     setDeleteUser(true);
   };
@@ -149,7 +153,7 @@ function Tables() {
     closeDeleteUserModal();
   };
 
-
+//Active
   const openActiveModal = () => {
     setActiveModalOpen(true);
   };
@@ -159,6 +163,7 @@ function Tables() {
   const removeActiveUser = () => {
     closeActiveModal();
   };
+  //InActive
   const openInactiveModal = () => {
     setInactiveModalOpen(true);
   };
@@ -168,6 +173,7 @@ function Tables() {
   const removeInactiveModal = () => {
     closeInactiveModal();
   };
+  //Policy
 
   const openSendPolicy = () => {
     setSendPolicy(true);
@@ -187,6 +193,16 @@ function Tables() {
     event.preventDefault();
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
+  };
+  //Groups in Edituser
+  const handleChangeItem2 = (event) => {
+    setGroupItems(event.target.value);
+  };
+  const handleDeleted = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelections = selectedItems.filter((item) => item !== itemToDelete);
+    setGroupItems(updatedSelections);
   };
 
   const openEnrolCoursesModal = () => {
@@ -212,7 +228,9 @@ function Tables() {
   const unenrolCourses = () => {
     closeUnenrolCoursesModal();
   };
-
+const handleManagerChanges = (event) => {
+  setManager(event.target.value)
+}
   const handleChanges = (event) => {
     setCountry(event.target.value);
   };
@@ -645,17 +663,25 @@ function Tables() {
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
-                                <Box style={{ marginTop: "15px" }}>
+                                   <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Manager
+                                  Manager
                                   </label>
                                 </Box>
                                 <TextField
+                                  select
+                                  value={manager}
+                                  onChange={handleManagerChanges}
                                   fullWidth
                                   variant="filled"
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
-                                />
+                                >
+                                     <MenuItem value="IN">Vijay</MenuItem>
+                                  <MenuItem value="US">Vino</MenuItem>
+                                  <MenuItem value="IN">Vedieshwaran</MenuItem>
+                                  <MenuItem value="US">Velayutham</MenuItem>
+                                  </TextField>
                                 <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Preferred Language:
@@ -667,17 +693,63 @@ function Tables() {
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
-                                <Box style={{ marginTop: "15px" }}>
+                                {/* <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Group(s) :
                                   </label>
-                                </Box>
-                                <TextField
+                                </Box> */}
+                                <div>
+                                  <FormControl sx={{ width: "330px", height: "auto" }}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "",
+                                        marginBottom: "5px",
+                                        marginLeft: "2px",
+                                        marginTop: "15px",
+                                      }}
+                                    >
+                                   Groups
+                                    </Typography>
+                                    <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label="Select Groups"
+                                      value={groupItems}
+                                      onChange={handleChangeItem2}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                      renderValue={(selected) => (
+                                        <div>
+                                          {selected.map((item) => (
+                                            <Chip
+                                              key={item}
+                                              label={item}
+                                              onDelete={handleDelete(item)}
+                                              sx={{
+                                                marginRight: "5px",
+                                                height: "20px",
+                                              }}
+                                            />
+                                          ))}
+                                        </div>
+                                      )}
+                                    >
+                                      {item2.map((item) => (
+                                        <MenuItem key={item} value={item}>
+                                          <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                          <ListItemText secondary={item} />
+                                        </MenuItem>
+                                      ))}
+                                    </Select>
+                                  </FormControl>
+                                </div>
+
+                                {/* <TextField
                                   fullWidth
                                   variant="filled"
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
-                                />
+                                /> */}
                                 <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Exclude user from Auto Enrol:
@@ -1297,13 +1369,13 @@ function Tables() {
                                         marginTop: "15px",
                                       }}
                                     >
-                                      Language (s)
+                                     Policy
                                     </Typography>
                                     <Select
                                       labelId="multiple-select-label"
                                       id="multiple-select"
                                       multiple
-                                      label="Select languages"
+                                      label="Select Policy"
                                       value={selectedItems}
                                       onChange={handleChangeItems}
                                       MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
@@ -1332,18 +1404,7 @@ function Tables() {
                                     </Select>
                                   </FormControl>
                                 </div>
-                                {/* <TextField
-                                  select
-                                  value={country}
-                                  onChange={handleChanges}
-                                  fullWidth
-                                  variant="filled"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                >
-                                  <MenuItem value="IN">Email</MenuItem>
-                                  <MenuItem value="US">UserID</MenuItem>
-                                </TextField> */}
+                              
                                 <Box
                                   sx={{
                                     display: "flex",
