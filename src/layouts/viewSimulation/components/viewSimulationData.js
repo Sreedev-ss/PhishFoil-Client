@@ -1,6 +1,6 @@
-import { Box, Button, FormControlLabel, FormGroup, IconButton, Switch } from '@mui/material';
+import { Box, Button, Checkbox, FormControlLabel, FormGroup, IconButton, Paper, Popover, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import React, { useState } from 'react'
-import { AiOutlineMail, AiOutlineReload } from 'react-icons/ai';
+import { AiOutlineArrowRight, AiOutlineMail, AiOutlineReload } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import LanguageIcon from "@mui/icons-material/Language";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import SoftButton from 'components/SoftButton';
+import SoftBox from 'components/SoftBox';
 
 const style = {
     position: 'absolute',
@@ -58,10 +60,25 @@ function a11yProps(index) {
 
 const ViewSimulationData = () => {
     const [value, setValue] = useState(0);
+    const [anchorEl, setAnchorEl] = useState(null);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+
+    const openAnchor = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
     return (
         <Box sx={style}>
@@ -194,7 +211,7 @@ const ViewSimulationData = () => {
                                     display: "flex",
                                     flexDirection: "column",
                                     position: "relative",
-                                    padding:5
+                                    padding: 5
                                 }}
                             >
                                 <IconButton
@@ -241,7 +258,70 @@ const ViewSimulationData = () => {
                         </div>
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={1}>
-                        Item Two
+                        <SoftBox
+                            sx={{
+                                "& .MuiTableRow-root:not(:last-child)": {
+                                    "& td": {
+                                        borderBottom: ({ borders: { borderWidth, borderColor } }) =>
+                                            `${borderWidth[1]} solid ${borderColor}`,
+                                    },
+                                },
+                            }}
+                        >
+                            <TableContainer component={Paper}>
+                                <Table sx={{ width: "100%" }} aria-label="simple table">
+                                    <TableHead sx={{ display: "table-header-group" }}>
+                                        <TableRow sx={{ width: "20px" }}>
+                                            <TableCell sx={{textAlign:'center'}} ></TableCell>
+                                            <TableCell >Recipients</TableCell>
+                                            <TableCell sx={{textAlign:'center'}} >Scheduled / Send At</TableCell>
+                                            <TableCell sx={{textAlign:'center'}} >Status</TableCell>
+                                            <TableCell sx={{textAlign:'center'}} >Reported</TableCell>
+                                            <TableCell sx={{textAlign:'center'}} >Delivery Method</TableCell>
+                                    
+                                            <TableCell ></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        <TableRow
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
+                                        >
+                                            <TableCell><Checkbox {...label} /></TableCell>
+                                            <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>Vedieshwaran R<br/><p style={{color:'grey'}}>vedieshwaran@twintechsolution.com</p></TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign:'center'}}>01/11/2023 05:31</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign:'center' , textAlign:'center'}}>Not Sent</TableCell>
+                                            <TableCell style={{ fontSize: "13px" , textAlign:'center'}}>N/A</TableCell>
+                                            <TableCell style={{ fontSize: "13px" , textAlign:'center'}}></TableCell>
+                                            <TableCell>
+                                                <SoftButton
+                                                    onClick={handleClick}
+                                                    variant="outlined"
+                                                    color="info"
+                                                >
+                                                    <AiOutlineArrowRight />
+                                                </SoftButton>
+                                                <Popover
+                                                    id={id}
+                                                    open={openAnchor}
+                                                    anchorEl={anchorEl}
+                                                    onClose={handleClose}
+                                                    anchorOrigin={{
+                                                        vertical: 'bottom',
+                                                        horizontal: 'left',
+                                                    }}
+                                                    transformOrigin={{
+                                                        vertical: 'top',
+                                                        horizontal: 'left',
+                                                    }}
+                                                >
+
+                                                </Popover>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </SoftBox>
                     </CustomTabPanel>
                     <CustomTabPanel value={value} index={2}>
                         Item Three
