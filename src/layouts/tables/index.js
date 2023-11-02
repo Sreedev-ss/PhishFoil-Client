@@ -580,7 +580,7 @@ const handleManagerChanges = (event) => {
                           }}
                         >
                           {/* Edit user */}
-                          <MenuItem onClick={openAddLangModal}>
+                          <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
                             <EditIcon />
                             Edit User
                           </MenuItem>
@@ -773,7 +773,7 @@ const handleManagerChanges = (event) => {
                             </Box>
                           </Modal>
                           <FormControl>
-                            <MenuItem onClick={OpendeleteUserModal}>
+                            <MenuItem onClick={OpendeleteUserModal} style={{background:'#fff'}}>
                               <DeleteIcon />
                               Delete User
                             </MenuItem>
@@ -854,7 +854,7 @@ const handleManagerChanges = (event) => {
                               </Box>
                             </Modal>
 
-                            <MenuItem onClick={openActiveModal}>
+                            <MenuItem onClick={openActiveModal} style={{background:'#fff'}}>
                               <ArchiveIcon />
                               Mark as Active
                             </MenuItem>
@@ -898,7 +898,7 @@ const handleManagerChanges = (event) => {
                                 </Box>
                               </Box>
                             </Modal>
-                            <MenuItem onClick={openInactiveModal}>
+                            <MenuItem onClick={openInactiveModal} style={{background:'#fff'}}>
                               <AirplanemodeInactiveIcon />
                               Mark as inactive
                             </MenuItem>
@@ -941,8 +941,9 @@ const handleManagerChanges = (event) => {
                                 </Box>
                               </Box>
                             </Modal>
+
                             {/* add-users */}
-                            <MenuItem onClick={openUsersModal}>
+                            <MenuItem onClick={openUsersModal} style={{background:'#fff'}}>
                               <GroupAddIcon />
                               Add Users to Group
                             </MenuItem>
@@ -1016,7 +1017,7 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Enrol on Course */}
-                            <MenuItem onClick={openEnrolCoursesModal}>
+                            <MenuItem onClick={openEnrolCoursesModal} style={{background:'#fff'}}>
                               <SendIcon />
                               Enrol on Course
                             </MenuItem>
@@ -1123,7 +1124,7 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Enrol on Gap Analysis */}
-                            <MenuItem onClick={openGapAnalysisModal}>
+                            <MenuItem onClick={openGapAnalysisModal} style={{background:'#fff'}}>
                               <SendIcon style={{ fontSize: '15px' }} />
                               Enrol on Gap Analysis
                             </MenuItem>
@@ -1164,7 +1165,7 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* unenrol from Course */}
-                            <MenuItem onClick={openUnenrolCoursesModal}>
+                            <MenuItem onClick={openUnenrolCoursesModal} style={{background:'#fff'}}>
                               <SendIcon />
                               Unenrol from Course
                             </MenuItem>
@@ -1271,7 +1272,7 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Unenrol from Gap Analysis */}
-                            <MenuItem onClick={openUnenrolAnalysisModal}>
+                            <MenuItem onClick={openUnenrolAnalysisModal} style={{background:'#fff'}}>
                               <SendIcon style={{ fontSize: '15px' }} />
                               Unenrol from Gap Analysis
                             </MenuItem>
@@ -1332,11 +1333,11 @@ const handleManagerChanges = (event) => {
                               </Box>
                             </Modal>
 
-                            <MenuItem>
+                            <MenuItem style={{background:'#fff'}}>
                               <ImportExportIcon />
                               Export Course Data
                             </MenuItem>
-                            <MenuItem onClick={openSendPolicy}>
+                            <MenuItem onClick={openSendPolicy} style={{background:'#fff'}}>
                               <MarkEmailReadIcon />
                               Send Policy
                             </MenuItem>
@@ -1430,11 +1431,11 @@ const handleManagerChanges = (event) => {
                                 </Box>
                               </Box>
                             </Modal>
-                            <MenuItem>
+                            <MenuItem style={{background:'#fff'}}>
                               <ImportExportIcon />
                               Export Policy Data
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem style={{background:'#fff'}}>
                               <ImportExportIcon />
                               Export Simulation Data
                             </MenuItem>
