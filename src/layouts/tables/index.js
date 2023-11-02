@@ -89,10 +89,7 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
-import DeleteUserModal from "components/Modal/DeleteUserModal";
 import SendIcon from "@mui/icons-material/Send";
-// import { FormGroup } from '@mui/material';
-
 const items = ["Technical", "Administration", "Sample"];
 const courses = [
   "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
@@ -121,10 +118,7 @@ function Tables() {
 
   const [anchorEll, setAnchorEll] = useState(null);
 
-  //Delete Landing page
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleCloses = () => setOpen(false);
 
   //Add language
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
@@ -518,11 +512,11 @@ function Tables() {
                     )}
                   </Popper>
                 </Stack>
-                <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
-                  <div>
+                <Stack spacing={2} margin={2}  direction="row" justifyContent="flex-end">
+                  <div >
                     <Button
                       variant="outline"
-                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      style={{ border: "0.5px solid grey", color: "#585958" , marginRight: "10px" }}
                       size="small"
                       disabled
                     >
@@ -530,7 +524,7 @@ function Tables() {
                     </Button>
                     <Button
                       variant="outline"
-                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      style={{ border: "0.5px solid grey", color: "#585958", marginRight: "10px" }}
                       size="small"
                     >
                       <AiOutlineArrowDown /> Import Users
@@ -541,6 +535,7 @@ function Tables() {
                         border: "0.5px solid #1C7AE4",
                         color: "white",
                         backgroundColor: "#1b7ae4",
+                        marginRight: "10px"
                       }}
                       size="small"
                       onClick={handleClicks}
@@ -939,7 +934,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                  variant="filled"
+                                  
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -950,7 +945,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                  variant="filled"
+                            
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -965,7 +960,7 @@ function Tables() {
                                   value={country}
                                   onChange={handleChanges}
                                   fullWidth
-                                  variant="filled"
+                                
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 >
@@ -980,7 +975,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                  variant="filled"
+                                 
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -994,7 +989,7 @@ function Tables() {
                                   value={manager}
                                   onChange={handleManagerChanges}
                                   fullWidth
-                                  variant="filled"
+                                
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 >
@@ -1010,7 +1005,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                  variant="filled"
+                                 
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -1845,14 +1840,6 @@ function Tables() {
           </Card>
         </SoftBox>
       </SoftBox>
-      {open && (
-        <DeleteUserModal
-          open={open}
-          onClose={handleCloses}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        />
-      )}
     </DashboardLayout>
   );
 }
