@@ -137,6 +137,18 @@ function Tables() {
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
+  const [deleteUser, setDeleteUser] = useState(false);
+
+  const OpendeleteUserModal = () => {
+    setDeleteUser(true);
+  };
+  const closeDeleteUserModal = () => {
+    setDeleteUser(false);
+  };
+  const deleteUserModal = () => {
+    closeDeleteUserModal();
+  };
+
 
   const openActiveModal = () => {
     setActiveModalOpen(true);
@@ -689,10 +701,86 @@ function Tables() {
                             </Box>
                           </Modal>
                           <FormControl>
-                            <MenuItem onClick={handleOpen}>
+                            <MenuItem onClick={OpendeleteUserModal}>
                               <DeleteIcon />
                               Delete User
                             </MenuItem>
+
+                            <Modal
+                              open={deleteUser}
+                              onClose={closeDeleteUserModal}
+                              aria-labelledby="send-test-email-modal-title"
+                              aria-describedby="send-test-email-modal-description"
+                            >
+                              {/* Content for the "Send Test Email" modal */}
+
+                              <Box sx={style}>
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
+                                  Are you sure you want to delete the selected user?
+                                </Typography>
+
+                                <Box>
+                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                    This will delete:
+                                    <li>Any breach scan for this user</li>
+                                    <li>
+                                      Any outstanding or completed course enrolments associated with
+                                      this user
+                                    </li>
+                                    <li>
+                                      Any pending or finished simulation results for this user
+                                    </li>
+                                    <li>
+                                      Any outstanding or completed policy signature requests for
+                                      this user
+                                    </li>
+                                    <li>
+                                      All current and historical reporting data associated with this
+                                      user
+                                    </li>
+                                  </label>
+                                </Box>
+                                <Box>
+                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                    Number of users to delete :
+                                  </label>
+                                </Box>
+                                <TextField
+                                  fullWidth
+                                  defaultValue="1"
+                                  type="text"
+                                  sx={{ gridColumn: "span 2" }}
+                                />
+
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    mt: 2,
+                                    gap: 2,
+                                  }}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    onClick={closeDeleteUserModal}
+                                    style={{ color: "#fff" }}
+                                  >
+                                    No
+                                  </Button>
+                                  <Button
+                                    variant="outlined"
+                                    onClick={deleteUserModal}
+                                    style={{ marginRight: "5px", color: "black" }}
+                                  >
+                                    Yes
+                                  </Button>
+                                </Box>
+                              </Box>
+                            </Modal>
 
                             <MenuItem onClick={openActiveModal}>
                               <ArchiveIcon />
