@@ -149,6 +149,7 @@ function Tables() {
   const [country, setCountry] = useState("");
   const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
   const [selectedCourses, setSelectedCourses] = useState(['Home Network Security Awareness: Robes Routine(Beginner)']);
+  const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
 
   const openEnrolCoursesModal = () => {
     setEnrolCoursesModalOpen(true);
@@ -160,6 +161,18 @@ function Tables() {
 
   const enrolCourses = () => {
     closeEnrolCoursesModal();
+  };
+
+  const openUnenrolCoursesModal = () => {
+    setUnenrolCoursesModalOpen(true);
+  };
+
+  const closeUnenrolCoursesModal = () => {
+    setUnenrolCoursesModalOpen(false);
+  };
+
+  const unenrolCourses = () => {
+    closeUnenrolCoursesModal();
   };
 
   const handleChanges = (event) => {
@@ -834,7 +847,6 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                             </Box>
                           </Modal>
 
-
                           {/* Enrol on Gap Analysis */}
                           <MenuItem onClick={openGapAnalysisModal}>
                               <SendIcon style={{ fontSize: '15px' }} />
@@ -869,8 +881,96 @@ const handleDeleteCourses = (itemToDelete) => (event) => {
                               </Box>
                           </Modal>
 
-                          {/* Unenrol from Gap Analysis */}
-                        
+                          {/* unenrol from Course */}
+                          <MenuItem onClick={openUnenrolCoursesModal}>
+                            <SendIcon />
+                          Unenrol from Course
+                          </MenuItem>
+
+                          <Modal
+                            open={unenrolCoursesModalOpen}
+                            onClose={closeUnenrolCoursesModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style} style={{width:'500px'}}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Enrol Kalaiyarasi V on Course(s)
+                              </Typography>
+                              <FormControl sx={{width: '350px' }}>
+                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Subject:</Typography>
+                                <Select
+                                    labelId="subject-label"
+                                    id="subject-label"
+                                    value={subject}
+                                    label="Status"
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    onChange={handleSubject}
+                                    endAdornment={  
+                                      <InputAdornment position="end">
+                                        <ExpandMoreIcon />
+                                      </InputAdornment>
+                                    }
+                                >
+                                    <MenuItem value={'All'}>All</MenuItem>
+                                    <MenuItem value={'InfoSec'}>InfoSec</MenuItem>
+                                    <MenuItem value={'Video'}>Video</MenuItem>
+                                    <MenuItem value={'Compliance'}>Compliance</MenuItem>
+                                    <MenuItem value={'Custom'}>Custom</MenuItem>
+                                </Select>
+                              </FormControl>         
+                              <FormControl sx={{ width: "350px", height: 'auto' }}>
+                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Course(s)</Typography>
+                                <Select
+                                    labelId="multiple-select-label"
+                                    id="multiple-select"
+                                    multiple
+                                    label='Select courses'
+                                    value={selectedCourses}
+                                    onChange={handleChangeCourses}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    renderValue={(selected) => (
+                                        <div>
+                                            {selected.map((item) => (
+                                                <Chip
+                                                    key={item}
+                                                    label={item}
+                                                    onDelete={handleDeleteCourses(item)}
+                                                    sx={{
+                                                        marginRight: '5px',
+                                                        height: '20px', 
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                >
+                                    {courses.map((item) => (
+                                        <MenuItem key={item} value={item}>
+                                            <Checkbox checked={selectedCourses.indexOf(item) > -1} />
+                                            <ListItemText secondary={item} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                              </FormControl>
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button variant="contained" onClick={unenrolCourses} style={{color:'#fff'}} >
+                                  Unenrol
+                                </Button>
+                                <Button 
+                                  variant="outlined" 
+                                  onClick={closeUnenrolCoursesModal} 
+                                  style={{ marginRight:'5px', color:'black'}}
+                                >
+                                  Cancel
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+                          {/* Unenrol from Gap Analysis */}                       
                           <MenuItem onClick={openUnenrolAnalysisModal}>
                               <SendIcon style={{ fontSize: '15px' }} />
                               Unenrol from Gap Analysis
