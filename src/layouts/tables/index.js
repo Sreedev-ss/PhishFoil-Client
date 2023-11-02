@@ -54,7 +54,6 @@ import {
   ListItem,
   ListItemText,
   Menu,
-  Chip,
   MenuItem,
   MenuList,
   Modal,
@@ -116,7 +115,7 @@ import SendIcon from '@mui/icons-material/Send';
 const items = ['Technical', 'Administration', 'Sample'];
 
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
-const items = [
+const item1 = [
   "Password Constrution Guidelines",
   "Phishing test policy",
   "Policy 1",
@@ -934,7 +933,7 @@ const removeGapAnalysis = () => {
                                         </div>
                                       )}
                                     >
-                                      {items.map((item) => (
+                                      {item1.map((item) => (
                                         <MenuItem key={item} value={item}>
                                           <Checkbox checked={selectedItems.indexOf(item) > -1} />
                                           <ListItemText secondary={item} />
