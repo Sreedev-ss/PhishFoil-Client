@@ -67,6 +67,7 @@ import ViewSimulation from "layouts/viewSimulation";
 import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage";
 import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
+import LandingPageLibrary from "layouts/landingPageLibrary";
 
 const routes = [
   {
@@ -109,18 +110,12 @@ const routes = [
         route: "/uphish/create-simulation",
         component: <Simulation />,
       },
-      {
-        type: "collapse",
-        name: "Landing Page Library",
-        key: "landingLibrary",
-        route: "",
-        component: <EmailTable />,
-      },
+   
       {
         type: "collapse",
         name: "Landing Page builder",
         key: "landingBuilder",
-        route: "/uphish/landingPageBuilder",
+        route: "/uphish/landingPagelibrary",
         component: <LandingPageBuilder />,
       },
       // {
@@ -143,6 +138,13 @@ const routes = [
         key: "emailtemplatelibrary",
         route: "/uphish/email-template-library",
         component: <EmailTemplateLibrary />,
+      },
+        {
+        type: "collapse",
+        name: "Landing Page Library",
+        key: "landingPagelibrary",
+        route: "/uphish/landingPagelibrary",
+        component: <LandingPageLibrary/>,
       },
     ],
   },
