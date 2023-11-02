@@ -407,7 +407,7 @@ const ViewSimulation = () => {
                                                     }}
                                                 >
                                                     {/* edit-email-template */}
-                                                    <MenuItem onClick={openViewSimulationsModal}>
+                                                    <MenuItem onClick={openViewSimulationsModal} style={{background:'#fff'}}>
                                                         <RoundaboutLeft />
                                                         View Simulation
                                                     </MenuItem>
@@ -421,7 +421,7 @@ const ViewSimulation = () => {
 
 
                                                     {/* send-test-email-template */}
-                                                    <MenuItem onClick={openSendTestEmailModal}>
+                                                    <MenuItem onClick={openSendTestEmailModal} style={{background:'#fff'}}>
                                                         <DownloadOutlined />
                                                         Download Simulation Report
                                                     </MenuItem>
@@ -497,13 +497,13 @@ const ViewSimulation = () => {
                                                     </Modal>
 
                                                     {/* clone-simulation */}
-                                                    <MenuItem component={Link} to="/clone-simulation">
+                                                    <MenuItem component={Link} to="/clone-simulation" style={{background:'#fff'}}>
                                                         <FileCopyOutlinedIcon style={{ fontSize: 'small' }} />
                                                         Clone Simulation
                                                     </MenuItem>
 
                                                     {/* delete simulation*/}
-                                                    <MenuItem onClick={openDeleteSimulationModal}>
+                                                    <MenuItem onClick={openDeleteSimulationModal} style={{background:'#fff'}}>
                                                         <SendIcon style={{ fontSize: '15px' }} />
                                                         Delete Simulation
                                                     </MenuItem>
@@ -537,13 +537,13 @@ const ViewSimulation = () => {
                                                     </Modal>
 
                                                     {/* View-landing-page */}
-                                                    <MenuItem onClick={openRemoveLangModal}>
+                                                    <MenuItem onClick={openRemoveLangModal} style={{background:'#fff'}}>
                                                         <SendOutlined style={{ fontSize: 'small' }} />
                                                         View Landing Page
                                                     </MenuItem>
 
                                                     {/* send-test-email */}
-                                                    <MenuItem onClick={openSendEmailSimulationModal}>
+                                                    <MenuItem onClick={openSendEmailSimulationModal} style={{background:'#fff'}}>
                                                         <SendIcon />
                                                         Send Test Email
                                                     </MenuItem>
@@ -616,7 +616,7 @@ const ViewSimulation = () => {
                                                     </Modal>
 
                                                     {/* send all emails*/}
-                                                    <MenuItem onClick={openSendAllEmailsModal}>
+                                                    <MenuItem onClick={openSendAllEmailsModal} style={{background:'#fff'}}>
                                                         <SendIcon style={{ fontSize: '15px' }} />
                                                         Send All Emails Now
                                                     </MenuItem>
