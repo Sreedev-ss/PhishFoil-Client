@@ -47,7 +47,7 @@ import {
 } from "@mui/material";
 
 import TextField from "@mui/material/TextField";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const style = {
   position: "absolute",
@@ -90,13 +90,14 @@ import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
 import DeleteUserModal from "components/Modal/DeleteUserModal";
-import SendIcon from '@mui/icons-material/Send';
+import SendIcon from "@mui/icons-material/Send";
+// import { FormGroup } from '@mui/material';
 
-const items = ['Technical', 'Administration', 'Sample'];
+const items = ["Technical", "Administration", "Sample"];
 const courses = [
-  'Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)',
-  'Home Network Security Awareness: Robs Router Routine(Beginner)',
-  'Security Email Use'
+  "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
+  "Home Network Security Awareness: Robs Router Routine(Beginner)",
+  "Security Email Use",
 ];
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 const item1 = [
@@ -107,8 +108,8 @@ const item1 = [
   "Test Policy",
   "Test policy 2",
 ];
-const item2 = ["Administration" , "Sample", "Technical"]
-
+const item2 = ["Administration", "Sample", "Technical"];
+const groupManagers = ["Vino", "Vijay", "Velayutham"];
 
 function Tables() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -117,6 +118,8 @@ function Tables() {
   const [status, setStatus] = useState("Active");
   const [subject, setSubject] = useState("All");
   const label = { inputProps: { "aria-label": "Switch demo" } };
+
+  const [anchorEll, setAnchorEll] = useState(null);
 
   //Delete Landing page
   const [open, setOpen] = React.useState(false);
@@ -127,20 +130,31 @@ function Tables() {
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [addUsersOpen, setAddUsersOpen] = useState(false);
-  const [selectedGroups, setSelectedGroups] = useState(['Technical']);
+  const [selectedGroups, setSelectedGroups] = useState(["Technical"]);
   const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
   const [unenrolGapAnalysisModalOpen, setUnenrolGapAnalysisModalOpen] = useState(false);
   const [country, setCountry] = useState("");
   const [manager, setManager] = useState("");
   const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
-  const [selectedCourses, setSelectedCourses] = useState(['Home Network Security Awareness: Robes Routine(Beginner)']);
+  const [selectedCourses, setSelectedCourses] = useState([
+    "Home Network Security Awareness: Robes Routine(Beginner)",
+  ]);
   const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
   const [activeModalOpen, setActiveModalOpen] = useState(false);
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
   const [groupItems, setGroupItems] = useState(["Technical"]);
+  const [groupManager, setGroupmanagers] = useState(["Vijay"]);
   const [deleteUser, setDeleteUser] = useState(false);
+
+  const handleClicks = (event) => {
+    setAnchorEll(event.currentTarget);
+  };
+
+  const handleClos = () => {
+    setAnchorEll(null);
+  };
 
   //Delete User
   const OpendeleteUserModal = () => {
@@ -153,7 +167,7 @@ function Tables() {
     closeDeleteUserModal();
   };
 
-//Active
+  //Active
   const openActiveModal = () => {
     setActiveModalOpen(true);
   };
@@ -204,6 +218,15 @@ function Tables() {
     const updatedSelections = selectedItems.filter((item) => item !== itemToDelete);
     setGroupItems(updatedSelections);
   };
+  //Group mangers in Add Group
+  const handleGroupManagers = (event) => {
+    setGroupmanagers(event.target.value);
+  };
+  const handletheDelete = (itemToDelete) => (event) => {
+    event.preventDefault();
+    const updateSelections = selectedItems.filter((item) => item !== itemToDelete);
+    setGroupmanagers(updateSelections);
+  };
 
   const openEnrolCoursesModal = () => {
     setEnrolCoursesModalOpen(true);
@@ -228,9 +251,9 @@ function Tables() {
   const unenrolCourses = () => {
     closeUnenrolCoursesModal();
   };
-const handleManagerChanges = (event) => {
-  setManager(event.target.value)
-}
+  const handleManagerChanges = (event) => {
+    setManager(event.target.value);
+  };
   const handleChanges = (event) => {
     setCountry(event.target.value);
   };
@@ -496,33 +519,336 @@ const handleManagerChanges = (event) => {
                   </Popper>
                 </Stack>
                 <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
-                  <Button
-                    variant="outline"
-                    style={{ border: "0.5px solid grey", color: "#585958" }}
-                    size="small"
-                    disabled
-                  >
-                    Action
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={{ border: "0.5px solid grey", color: "#585958" }}
-                    size="small"
-                  >
-                    <AiOutlineArrowDown /> Import Users
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={{
-                      border: "0.5px solid #1C7AE4",
-                      color: "white",
-                      backgroundColor: "#1b7ae4",
-                    }}
-                    size="small"
-                    onClick={openGroupForm}
-                  >
-                    <AiOutlinePlus /> Add
-                  </Button>
+                  <div>
+                    <Button
+                      variant="outline"
+                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      size="small"
+                      disabled
+                    >
+                      Action
+                    </Button>
+                    <Button
+                      variant="outline"
+                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      size="small"
+                    >
+                      <AiOutlineArrowDown /> Import Users
+                    </Button>
+                    <Button
+                      variant="outline"
+                      style={{
+                        border: "0.5px solid #1C7AE4",
+                        color: "white",
+                        backgroundColor: "#1b7ae4",
+                      }}
+                      size="small"
+                      onClick={handleClicks}
+                    >
+                      <AiOutlinePlus /> Add
+                    </Button>
+                    <Menu anchorEl={anchorEll} open={Boolean(anchorEll)} onClose={handleClos}>
+                      <MenuItem onClick={openAddLangModal}>User</MenuItem>
+                      <Modal
+                        open={addLangModalOpen}
+                        onClose={closeAddLangModal}
+                        aria-labelledby="send-test-email-modal-title"
+                        aria-describedby="send-test-email-modal-description"
+                      >
+                        <Box sx={style}>
+                          <IconButton
+                            aria-label="Close"
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              right: 0,
+                            }}
+                            onClick={closeAddLangModal}
+                          >
+                            <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                          </IconButton>
+                          <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                            Add User
+                          </Typography>
+
+                          <form>
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                First Name:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Last Name:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Add user via Email or User ID?
+                              </label>
+                            </Box>
+                            <TextField
+                              select
+                              value={country}
+                              onChange={handleChanges}
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            >
+                              <MenuItem value="IN">Email</MenuItem>
+                              <MenuItem value="US">UserID</MenuItem>
+                            </TextField>
+
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Email:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Manager
+                              </label>
+                            </Box>
+                            <TextField
+                              select
+                              value={manager}
+                              onChange={handleManagerChanges}
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            >
+                              <MenuItem value="IN">Vijay</MenuItem>
+                              <MenuItem value="US">Vino</MenuItem>
+                              <MenuItem value="IN">Vedieshwaran</MenuItem>
+                              <MenuItem value="US">Velayutham</MenuItem>
+                            </TextField>
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Preferred Language:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+                          
+                            <div>
+                              <FormControl sx={{ width: "330px", height: "auto" }}>
+                                <Typography
+                                  sx={{
+                                    fontSize: "",
+                                    marginBottom: "5px",
+                                    marginLeft: "2px",
+                                    marginTop: "15px",
+                                  }}
+                                >
+                                  Groups
+                                </Typography>
+                                <Select
+                                  labelId="multiple-select-label"
+                                  id="multiple-select"
+                                  multiple
+                                  label="Select Groups"
+                                  value={groupManagers}
+                                  onChange={handleGroupManagers}
+                                  MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                  renderValue={(selected) => (
+                                    <div>
+                                      {selected.map((item) => (
+                                        <Chip
+                                          key={item}
+                                          label={item}
+                                          onDelete={handletheDelete(item)}
+                                          sx={{
+                                            marginRight: "5px",
+                                            height: "20px",
+                                          }}
+                                        />
+                                      ))}
+                                    </div>
+                                  )}
+                                >
+                                  {item2.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                      <ListItemText secondary={item} />
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </div>
+
+                            {/* <TextField
+                                  fullWidth
+                                  variant="filled"
+                                  type="text"
+                                  sx={{ gridColumn: "span 2" }}
+                                /> */}
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Exclude user from Auto Enrol:
+                              </label>
+                            </Box>
+                            <Switch {...label} />
+                          </form>
+                          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                border: "0.5px solid #1C7AE4",
+                                color: "white",
+                                backgroundColor: "#1b7ae4",
+                                marginTop: "15px",
+                              }}
+                            >
+                              Save
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Modal>
+                      <MenuItem onClick={openAddLangModal}>Group</MenuItem>
+
+                      <Modal
+                        open={addLangModalOpen}
+                        onClose={closeAddLangModal}
+                        aria-labelledby="send-test-email-modal-title"
+                        aria-describedby="send-test-email-modal-description"
+                      >
+                        <Box sx={style}>
+                          <IconButton
+                            aria-label="Close"
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              right: 0,
+                            }}
+                            onClick={closeAddLangModal}
+                          >
+                            <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                          </IconButton>
+                          <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                            Add Group
+                          </Typography>
+
+                          <form>
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Group Name:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Parent Group
+                              </label>
+                            </Box>
+                            <TextField
+                              select
+                              value={manager}
+                              onChange={handleManagerChanges}
+                              fullWidth
+                              variant="filled"
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            >
+                              <MenuItem value="IN">Administration</MenuItem>
+                              <MenuItem value="US">Technical</MenuItem>
+                              <MenuItem value="IN">Sample</MenuItem>
+                            </TextField>
+
+                            <div>
+                              <FormControl sx={{ width: "330px", height: "auto" }}>
+                                <Typography
+                                  sx={{
+                                    fontSize: "",
+                                    marginBottom: "5px",
+                                    marginLeft: "2px",
+                                    marginTop: "15px",
+                                  }}
+                                >
+                                  Group Manager(s) :
+                                </Typography>
+                                <Select
+                                  labelId="multiple-select-label"
+                                  id="multiple-select"
+                                  multiple
+                                  label="Select Groups"
+                                  value={groupItems}
+                                  onChange={handleChangeItem2}
+                                  MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                  renderValue={(selected) => (
+                                    <div>
+                                      {selected.map((item) => (
+                                        <Chip
+                                          key={item}
+                                          label={item}
+                                          onDelete={handleDelete(item)}
+                                          sx={{
+                                            marginRight: "5px",
+                                            height: "20px",
+                                          }}
+                                        />
+                                      ))}
+                                    </div>
+                                  )}
+                                >
+                                  {groupManagers.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                      <ListItemText secondary={item} />
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </div>
+                          </form>
+                          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                border: "0.5px solid #1C7AE4",
+                                color: "white",
+                                backgroundColor: "#1b7ae4",
+                                marginTop: "15px",
+                              }}
+                            >
+                              Save
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Modal>
+                    </Menu>
+                  </div>
+
                   <Dialog open={isGroupFormOpen} onClose={closeGroupForm}>
                     {/* Group form content here */}
                   </Dialog>
@@ -539,7 +865,6 @@ const handleManagerChanges = (event) => {
                 },
               }}
             >
-
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
@@ -562,11 +887,7 @@ const handleManagerChanges = (event) => {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <SoftButton
-                          onClick={handleClick}
-                          variant="outlined"
-                          color="info"
-                        >
+                        <SoftButton onClick={handleClick} variant="outlined" color="info">
                           <AiOutlineArrowRight />
                         </SoftButton>
                         <Popover
@@ -580,7 +901,7 @@ const handleManagerChanges = (event) => {
                           }}
                         >
                           {/* Edit user */}
-                          <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
+                          <MenuItem onClick={openAddLangModal} style={{ background: "#fff" }}>
                             <EditIcon />
                             Edit User
                           </MenuItem>
@@ -663,9 +984,9 @@ const handleManagerChanges = (event) => {
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
-                                   <Box style={{ marginTop: "15px" }}>
+                                <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                  Manager
+                                    Manager
                                   </label>
                                 </Box>
                                 <TextField
@@ -677,11 +998,11 @@ const handleManagerChanges = (event) => {
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 >
-                                     <MenuItem value="IN">Vijay</MenuItem>
+                                  <MenuItem value="IN">Vijay</MenuItem>
                                   <MenuItem value="US">Vino</MenuItem>
                                   <MenuItem value="IN">Vedieshwaran</MenuItem>
                                   <MenuItem value="US">Velayutham</MenuItem>
-                                  </TextField>
+                                </TextField>
                                 <Box style={{ marginTop: "15px" }}>
                                   <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Preferred Language:
@@ -708,7 +1029,7 @@ const handleManagerChanges = (event) => {
                                         marginTop: "15px",
                                       }}
                                     >
-                                   Groups
+                                      Groups
                                     </Typography>
                                     <Select
                                       labelId="multiple-select-label"
@@ -773,7 +1094,7 @@ const handleManagerChanges = (event) => {
                             </Box>
                           </Modal>
                           <FormControl>
-                            <MenuItem onClick={OpendeleteUserModal} style={{background:'#fff'}}>
+                            <MenuItem onClick={OpendeleteUserModal} style={{ background: "#fff" }}>
                               <DeleteIcon />
                               Delete User
                             </MenuItem>
@@ -854,7 +1175,7 @@ const handleManagerChanges = (event) => {
                               </Box>
                             </Modal>
 
-                            <MenuItem onClick={openActiveModal} style={{background:'#fff'}}>
+                            <MenuItem onClick={openActiveModal} style={{ background: "#fff" }}>
                               <ArchiveIcon />
                               Mark as Active
                             </MenuItem>
@@ -898,7 +1219,7 @@ const handleManagerChanges = (event) => {
                                 </Box>
                               </Box>
                             </Modal>
-                            <MenuItem onClick={openInactiveModal} style={{background:'#fff'}}>
+                            <MenuItem onClick={openInactiveModal} style={{ background: "#fff" }}>
                               <AirplanemodeInactiveIcon />
                               Mark as inactive
                             </MenuItem>
@@ -943,7 +1264,7 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* add-users */}
-                            <MenuItem onClick={openUsersModal} style={{background:'#fff'}}>
+                            <MenuItem onClick={openUsersModal} style={{ background: "#fff" }}>
                               <GroupAddIcon />
                               Add Users to Group
                             </MenuItem>
@@ -960,28 +1281,41 @@ const handleManagerChanges = (event) => {
                                 <IconButton
                                   aria-label="Close"
                                   sx={{
-                                    position: 'absolute',
+                                    position: "absolute",
                                     top: 0,
                                     right: 0,
                                   }}
                                   onClick={closeUsersModal}
                                 >
-                                  <HighlightOffOutlinedIcon style={{ fontSize: 'medium' }} />
+                                  <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
                                 </IconButton>
-                                <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
                                   Add Users to Group(s)
                                 </Typography>
                                 <div>
-                                  <FormControl sx={{ width: "330px", height: 'auto' }}>
-                                    <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>Group(s)</Typography>
+                                  <FormControl sx={{ width: "330px", height: "auto" }}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "",
+                                        marginBottom: "5px",
+                                        marginLeft: "2px",
+                                        marginTop: "15px",
+                                      }}
+                                    >
+                                      Group(s)
+                                    </Typography>
                                     <Select
                                       labelId="multiple-select-label"
                                       id="multiple-select"
                                       multiple
-                                      label='Select groups'
+                                      label="Select groups"
                                       value={selectedGroups}
                                       onChange={handleChangeUsers}
-                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                       renderValue={(selected) => (
                                         <div>
                                           {selected.map((item) => (
@@ -990,8 +1324,8 @@ const handleManagerChanges = (event) => {
                                               label={item}
                                               onDelete={handleDeleteGroup(item)}
                                               sx={{
-                                                marginRight: '5px',
-                                                height: '20px',
+                                                marginRight: "5px",
+                                                height: "20px",
                                               }}
                                             />
                                           ))}
@@ -1009,7 +1343,11 @@ const handleManagerChanges = (event) => {
                                 </div>
 
                                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                                  <Button variant="contained" onClick={addUsers} style={{ color: '#fff' }} >
+                                  <Button
+                                    variant="contained"
+                                    onClick={addUsers}
+                                    style={{ color: "#fff" }}
+                                  >
                                     SAVE
                                   </Button>
                                 </Box>
@@ -1017,7 +1355,10 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Enrol on Course */}
-                            <MenuItem onClick={openEnrolCoursesModal} style={{background:'#fff'}}>
+                            <MenuItem
+                              onClick={openEnrolCoursesModal}
+                              style={{ background: "#fff" }}
+                            >
                               <SendIcon />
                               Enrol on Course
                             </MenuItem>
@@ -1030,17 +1371,21 @@ const handleManagerChanges = (event) => {
                             >
                               {/* Content for the "Send Test Email" modal */}
 
-                              <Box sx={style} style={{ width: '500px' }}>
-                                <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              <Box sx={style} style={{ width: "500px" }}>
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
                                   Enrol Kalaiyarasi V on Course(s)
                                 </Typography>
-                                <FormControl sx={{ width: '350px' }}>
+                                <FormControl sx={{ width: "350px" }}>
                                   <Typography
                                     sx={{
-                                      fontSize: '',
+                                      fontSize: "",
                                       marginBottom: "5px",
                                       marginLeft: "2px",
-                                      marginTop: '15px'
+                                      marginTop: "15px",
                                     }}
                                   >
                                     Subject:
@@ -1050,7 +1395,7 @@ const handleManagerChanges = (event) => {
                                     id="subject-label"
                                     value={subject}
                                     label="Status"
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                     onChange={handleSubject}
                                     endAdornment={
                                       <InputAdornment position="end">
@@ -1058,20 +1403,20 @@ const handleManagerChanges = (event) => {
                                       </InputAdornment>
                                     }
                                   >
-                                    <MenuItem value={'All'}>All</MenuItem>
-                                    <MenuItem value={'InfoSec'}>InfoSec</MenuItem>
-                                    <MenuItem value={'Video'}>Video</MenuItem>
-                                    <MenuItem value={'Compliance'}>Compliance</MenuItem>
-                                    <MenuItem value={'Custom'}>Custom</MenuItem>
+                                    <MenuItem value={"All"}>All</MenuItem>
+                                    <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
+                                    <MenuItem value={"Video"}>Video</MenuItem>
+                                    <MenuItem value={"Compliance"}>Compliance</MenuItem>
+                                    <MenuItem value={"Custom"}>Custom</MenuItem>
                                   </Select>
                                 </FormControl>
-                                <FormControl sx={{ width: "350px", height: 'auto' }}>
+                                <FormControl sx={{ width: "350px", height: "auto" }}>
                                   <Typography
                                     sx={{
-                                      fontSize: '',
+                                      fontSize: "",
                                       marginBottom: "5px",
                                       marginLeft: "2px",
-                                      marginTop: '15px'
+                                      marginTop: "15px",
                                     }}
                                   >
                                     Course(s)
@@ -1080,10 +1425,10 @@ const handleManagerChanges = (event) => {
                                     labelId="multiple-select-label"
                                     id="multiple-select"
                                     multiple
-                                    label='Select courses'
+                                    label="Select courses"
                                     value={selectedCourses}
                                     onChange={handleChangeCourses}
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                     renderValue={(selected) => (
                                       <div>
                                         {selected.map((item) => (
@@ -1092,8 +1437,8 @@ const handleManagerChanges = (event) => {
                                             label={item}
                                             onDelete={handleDeleteCourses(item)}
                                             sx={{
-                                              marginRight: '5px',
-                                              height: '20px',
+                                              marginRight: "5px",
+                                              height: "20px",
                                             }}
                                           />
                                         ))}
@@ -1108,14 +1453,25 @@ const handleManagerChanges = (event) => {
                                     ))}
                                   </Select>
                                 </FormControl>
-                                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                  <Button variant="contained" onClick={enrolCourses} style={{ color: '#fff' }} >
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    mt: 2,
+                                    gap: 2,
+                                  }}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    onClick={enrolCourses}
+                                    style={{ color: "#fff" }}
+                                  >
                                     Enrol
                                   </Button>
                                   <Button
                                     variant="outlined"
                                     onClick={closeEnrolCoursesModal}
-                                    style={{ marginRight: '5px', color: 'black' }}
+                                    style={{ marginRight: "5px", color: "black" }}
                                   >
                                     Cancel
                                   </Button>
@@ -1124,8 +1480,8 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Enrol on Gap Analysis */}
-                            <MenuItem onClick={openGapAnalysisModal} style={{background:'#fff'}}>
-                              <SendIcon style={{ fontSize: '15px' }} />
+                            <MenuItem onClick={openGapAnalysisModal} style={{ background: "#fff" }}>
+                              <SendIcon style={{ fontSize: "15px" }} />
                               Enrol on Gap Analysis
                             </MenuItem>
                             <Modal
@@ -1135,7 +1491,11 @@ const handleManagerChanges = (event) => {
                               aria-describedby="send-test-email-modal-description"
                             >
                               <Box sx={style}>
-                                <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
                                   Are you sure you want to enrol the selected user on Gap Analysis?
                                 </Typography>
                                 <Box
@@ -1143,20 +1503,20 @@ const handleManagerChanges = (event) => {
                                     display: "flex",
                                     justifyContent: "flex-end",
                                     mt: 2,
-                                    gap: 2
+                                    gap: 2,
                                   }}
                                 >
                                   <Button
                                     variant="contained"
                                     onClick={closeGapAnalysisModal}
-                                    style={{ color: '#fff' }}
+                                    style={{ color: "#fff" }}
                                   >
                                     No
                                   </Button>
                                   <Button
                                     variant="outlined"
                                     onClick={removeGapAnalysis}
-                                    style={{ marginRight: '5px', color: 'black' }}
+                                    style={{ marginRight: "5px", color: "black" }}
                                   >
                                     Yes
                                   </Button>
@@ -1165,7 +1525,10 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* unenrol from Course */}
-                            <MenuItem onClick={openUnenrolCoursesModal} style={{background:'#fff'}}>
+                            <MenuItem
+                              onClick={openUnenrolCoursesModal}
+                              style={{ background: "#fff" }}
+                            >
                               <SendIcon />
                               Unenrol from Course
                             </MenuItem>
@@ -1178,17 +1541,21 @@ const handleManagerChanges = (event) => {
                             >
                               {/* Content for the "Send Test Email" modal */}
 
-                              <Box sx={style} style={{ width: '500px' }}>
-                                <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              <Box sx={style} style={{ width: "500px" }}>
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
                                   Enrol Kalaiyarasi V on Course(s)
                                 </Typography>
-                                <FormControl sx={{ width: '350px' }}>
+                                <FormControl sx={{ width: "350px" }}>
                                   <Typography
                                     sx={{
-                                      fontSize: '',
+                                      fontSize: "",
                                       marginBottom: "5px",
                                       marginLeft: "2px",
-                                      marginTop: '15px'
+                                      marginTop: "15px",
                                     }}
                                   >
                                     Subject:
@@ -1198,7 +1565,7 @@ const handleManagerChanges = (event) => {
                                     id="subject-label"
                                     value={subject}
                                     label="Status"
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                     onChange={handleSubject}
                                     endAdornment={
                                       <InputAdornment position="end">
@@ -1206,20 +1573,20 @@ const handleManagerChanges = (event) => {
                                       </InputAdornment>
                                     }
                                   >
-                                    <MenuItem value={'All'}>All</MenuItem>
-                                    <MenuItem value={'InfoSec'}>InfoSec</MenuItem>
-                                    <MenuItem value={'Video'}>Video</MenuItem>
-                                    <MenuItem value={'Compliance'}>Compliance</MenuItem>
-                                    <MenuItem value={'Custom'}>Custom</MenuItem>
+                                    <MenuItem value={"All"}>All</MenuItem>
+                                    <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
+                                    <MenuItem value={"Video"}>Video</MenuItem>
+                                    <MenuItem value={"Compliance"}>Compliance</MenuItem>
+                                    <MenuItem value={"Custom"}>Custom</MenuItem>
                                   </Select>
                                 </FormControl>
-                                <FormControl sx={{ width: "350px", height: 'auto' }}>
+                                <FormControl sx={{ width: "350px", height: "auto" }}>
                                   <Typography
                                     sx={{
-                                      fontSize: '',
+                                      fontSize: "",
                                       marginBottom: "5px",
                                       marginLeft: "2px",
-                                      marginTop: '15px'
+                                      marginTop: "15px",
                                     }}
                                   >
                                     Course(s)
@@ -1228,10 +1595,10 @@ const handleManagerChanges = (event) => {
                                     labelId="multiple-select-label"
                                     id="multiple-select"
                                     multiple
-                                    label='Select courses'
+                                    label="Select courses"
                                     value={selectedCourses}
                                     onChange={handleChangeCourses}
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                     renderValue={(selected) => (
                                       <div>
                                         {selected.map((item) => (
@@ -1240,8 +1607,8 @@ const handleManagerChanges = (event) => {
                                             label={item}
                                             onDelete={handleDeleteCourses(item)}
                                             sx={{
-                                              marginRight: '5px',
-                                              height: '20px',
+                                              marginRight: "5px",
+                                              height: "20px",
                                             }}
                                           />
                                         ))}
@@ -1256,14 +1623,25 @@ const handleManagerChanges = (event) => {
                                     ))}
                                   </Select>
                                 </FormControl>
-                                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                  <Button variant="contained" onClick={unenrolCourses} style={{ color: '#fff' }} >
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    mt: 2,
+                                    gap: 2,
+                                  }}
+                                >
+                                  <Button
+                                    variant="contained"
+                                    onClick={unenrolCourses}
+                                    style={{ color: "#fff" }}
+                                  >
                                     Unenrol
                                   </Button>
                                   <Button
                                     variant="outlined"
                                     onClick={closeUnenrolCoursesModal}
-                                    style={{ marginRight: '5px', color: 'black' }}
+                                    style={{ marginRight: "5px", color: "black" }}
                                   >
                                     Cancel
                                   </Button>
@@ -1272,8 +1650,11 @@ const handleManagerChanges = (event) => {
                             </Modal>
 
                             {/* Unenrol from Gap Analysis */}
-                            <MenuItem onClick={openUnenrolAnalysisModal} style={{background:'#fff'}}>
-                              <SendIcon style={{ fontSize: '15px' }} />
+                            <MenuItem
+                              onClick={openUnenrolAnalysisModal}
+                              style={{ background: "#fff" }}
+                            >
+                              <SendIcon style={{ fontSize: "15px" }} />
                               Unenrol from Gap Analysis
                             </MenuItem>
                             <Modal
@@ -1285,25 +1666,31 @@ const handleManagerChanges = (event) => {
                               {/* Content for the "Send Test Email" modal */}
 
                               <Box sx={style}>
-                                <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                <Typography
+                                  id="send-test-email-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
                                   Are you sure you want to unenrol this user from Gap Analysis?
                                 </Typography>
                                 <Box>
-                                  <label
-                                    htmlFor="name"
-                                    style={{ fontSize: "13px" }}
-                                  >
+                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Please note the following:
-                                    <li>A user will only be unenrolled if they have an outstanding Gap Analysis Questionnaire.</li>
-                                    <li>This action will neither remove nor reset a completed questionnaire</li>
-                                    <li>Users will not be notified that they have been unenrolled</li>
+                                    <li>
+                                      A user will only be unenrolled if they have an outstanding Gap
+                                      Analysis Questionnaire.
+                                    </li>
+                                    <li>
+                                      This action will neither remove nor reset a completed
+                                      questionnaire
+                                    </li>
+                                    <li>
+                                      Users will not be notified that they have been unenrolled
+                                    </li>
                                   </label>
                                 </Box>
                                 <Box>
-                                  <label
-                                    htmlFor="name"
-                                    style={{ fontSize: "13px" }}
-                                  >
+                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
                                     Number of Users to Unenrol:
                                   </label>
                                 </Box>
@@ -1314,18 +1701,25 @@ const handleManagerChanges = (event) => {
                                   sx={{ gridColumn: "span 2" }}
                                 />
 
-                                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    mt: 2,
+                                    gap: 2,
+                                  }}
+                                >
                                   <Button
                                     variant="contained"
                                     onClick={closeUnenrolAnalysisModal}
-                                    style={{ color: '#fff' }}
+                                    style={{ color: "#fff" }}
                                   >
                                     No
                                   </Button>
                                   <Button
                                     variant="outlined"
                                     onClick={deleteUnenrolAnalysis}
-                                    style={{ marginRight: '5px', color: 'black' }}
+                                    style={{ marginRight: "5px", color: "black" }}
                                   >
                                     Yes
                                   </Button>
@@ -1333,11 +1727,11 @@ const handleManagerChanges = (event) => {
                               </Box>
                             </Modal>
 
-                            <MenuItem style={{background:'#fff'}}>
+                            <MenuItem style={{ background: "#fff" }}>
                               <ImportExportIcon />
                               Export Course Data
                             </MenuItem>
-                            <MenuItem onClick={openSendPolicy} style={{background:'#fff'}}>
+                            <MenuItem onClick={openSendPolicy} style={{ background: "#fff" }}>
                               <MarkEmailReadIcon />
                               Send Policy
                             </MenuItem>
@@ -1370,7 +1764,7 @@ const handleManagerChanges = (event) => {
                                         marginTop: "15px",
                                       }}
                                     >
-                                     Policy
+                                      Policy
                                     </Typography>
                                     <Select
                                       labelId="multiple-select-label"
@@ -1405,7 +1799,7 @@ const handleManagerChanges = (event) => {
                                     </Select>
                                   </FormControl>
                                 </div>
-                              
+
                                 <Box
                                   sx={{
                                     display: "flex",
@@ -1431,11 +1825,11 @@ const handleManagerChanges = (event) => {
                                 </Box>
                               </Box>
                             </Modal>
-                            <MenuItem style={{background:'#fff'}}>
+                            <MenuItem style={{ background: "#fff" }}>
                               <ImportExportIcon />
                               Export Policy Data
                             </MenuItem>
-                            <MenuItem style={{background:'#fff'}}>
+                            <MenuItem style={{ background: "#fff" }}>
                               <ImportExportIcon />
                               Export Simulation Data
                             </MenuItem>
