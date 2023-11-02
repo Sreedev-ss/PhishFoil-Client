@@ -63,8 +63,11 @@ import {
   Stack,
   Switch,
   Typography,
+  InputAdornment,
 } from "@mui/material";
 import TextField from "@mui/material/TextField";
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const style = {
   position: "absolute",
@@ -113,6 +116,7 @@ import DeleteUserModal from "components/Modal/DeleteUserModal";
 import SendIcon from '@mui/icons-material/Send';
 
 const items = ['Technical', 'Administration', 'Sample'];
+const courses = ['Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)', 'Home Network Security Awareness: Robs Router Routine(Beginner)', 'Security Email Use'];
 
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 
@@ -126,6 +130,7 @@ function Tables() {
   const [status, setStatus] = useState("Active");
   const [enrolGapAnalysisModalOpen, setEnrolGapAnalysisModalOpen] = useState(false);
   // const [courses, setCourses] = useState("All");
+  const [subject, setSubject] = useState("All");
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -141,12 +146,29 @@ function Tables() {
   const [selectedGroups, setSelectedGroups] = useState(['Technical']);
   const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
   const [unenrolGapAnalysisModalOpen, setUnenrolGapAnalysisModalOpen] = useState(false);
-
   const [country, setCountry] = useState("");
+  const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
+  const [selectedCourses, setSelectedCourses] = useState(['Home Network Security Awareness: Robes Routine(Beginner)']);
+
+  const openEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(true);
+  };
+
+  const closeEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(false);
+  };
+
+  const enrolCourses = () => {
+    closeEnrolCoursesModal();
+  };
 
   const handleChanges = (event) => {
     setCountry(event.target.value);
   };
+
+  const handleSubject = (event) => {
+    setSubject(event.target.value);
+};
 
   const openUnenrolAnalysisModal = () => {
     setUnenrolGapAnalysisModalOpen(true);
@@ -206,6 +228,10 @@ const removeGapAnalysis = () => {
     setSelectedGroups(event.target.value);
   };
 
+  const handleChangeCourses = (event) => {
+    setSelectedCourses(event.target.value);
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -259,6 +285,13 @@ const removeGapAnalysis = () => {
     event.preventDefault();
     const updatedSelection = selectedGroups.filter((item) => item !== itemToDelete);
     setSelectedGroups(updatedSelection);
+};
+
+const handleDeleteCourses = (itemToDelete) => (event) => {
+  console.log(itemToDelete);
+  event.preventDefault();
+  const updatedSelection = selectedCourses.filter((item) => item !== itemToDelete);
+  setSelectedCourses(updatedSelection);
 };
 
   const openAnchor = Boolean(anchorEl);
@@ -696,7 +729,7 @@ const removeGapAnalysis = () => {
                                   >
                                       {items.map((item) => (
                                           <MenuItem key={item} value={item}>
-                                              <Checkbox checked={selectedGroups.indexOf(item) > -1} />
+                                              <Checkbox checked={selectedCourses.indexOf(item) > -1} />
                                               <ListItemText secondary={item} />
                                           </MenuItem>
                                       ))}
@@ -712,183 +745,211 @@ const removeGapAnalysis = () => {
                             </Box>
                           </Modal>
 
-                              <MenuItem>
-                                <SubscriptionsIcon />
-                                Enrol on Course
-                              </MenuItem>
+                          {/* Enrol on Course */}
+                          <MenuItem onClick={openEnrolCoursesModal}>
+                            <SendIcon />
+                          Enrol on Course
+                          </MenuItem>
+
+                          <Modal
+                            open={enrolCoursesModalOpen}
+                            onClose={closeEnrolCoursesModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style} style={{width:'500px'}}>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Enrol Kalaiyarasi V on Course(s)
+                              </Typography>
+                              <FormControl sx={{width: '350px' }}>
+                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Subject:</Typography>
+                                <Select
+                                    labelId="subject-label"
+                                    id="subject-label"
+                                    value={subject}
+                                    label="Status"
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    onChange={handleSubject}
+                                    endAdornment={  
+                                      <InputAdornment position="end">
+                                        <ExpandMoreIcon />
+                                      </InputAdornment>
+                                    }
+                                >
+                                    <MenuItem value={'All'}>All</MenuItem>
+                                    <MenuItem value={'InfoSec'}>InfoSec</MenuItem>
+                                    <MenuItem value={'Video'}>Video</MenuItem>
+                                    <MenuItem value={'Compliance'}>Compliance</MenuItem>
+                                    <MenuItem value={'Custom'}>Custom</MenuItem>
+                                </Select>
+                              </FormControl>         
+                              <FormControl sx={{ width: "350px", height: 'auto' }}>
+                                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Course(s)</Typography>
+                                <Select
+                                    labelId="multiple-select-label"
+                                    id="multiple-select"
+                                    multiple
+                                    label='Select courses'
+                                    value={selectedCourses}
+                                    onChange={handleChangeCourses}
+                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                    renderValue={(selected) => (
+                                        <div>
+                                            {selected.map((item) => (
+                                                <Chip
+                                                    key={item}
+                                                    label={item}
+                                                    onDelete={handleDeleteCourses(item)}
+                                                    sx={{
+                                                        marginRight: '5px',
+                                                        height: '20px', 
+                                                    }}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
+                                >
+                                    {courses.map((item) => (
+                                        <MenuItem key={item} value={item}>
+                                            <Checkbox checked={selectedCourses.indexOf(item) > -1} />
+                                            <ListItemText secondary={item} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                              </FormControl>
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                <Button variant="contained" onClick={enrolCourses} style={{color:'#fff'}} >
+                                  Enrol
+                                </Button>
+                                <Button 
+                                  variant="outlined" 
+                                  onClick={closeEnrolCoursesModal} 
+                                  style={{ marginRight:'5px', color:'black'}}
+                                >
+                                  Cancel
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
 
 
-                              {/* Enrol on Gap Analysis */}
-                              <MenuItem onClick={openGapAnalysisModal}>
-                                  <SendIcon style={{ fontSize: '15px' }} />
-                                  Enrol on Gap Analysis
-                              </MenuItem>
-                              <Modal
-                                  open={gapAnalysisModalOpen}
-                                  onClose={closeGapAnalysisModal}
-                                  aria-labelledby="send-test-email-modal-title"
-                                  aria-describedby="send-test-email-modal-description"
-                              >
-                                  <Box sx={style}>
-                                      <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                                      Are you sure you want to enrol the selected user on Gap Analysis?
-                                      </Typography>                                                          
-                                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                          <Button
-                                              variant="contained"
-                                              onClick={closeGapAnalysisModal}
-                                              style={{ color: '#fff' }}
-                                          >
-                                              No
-                                          </Button>
-                                          <Button
-                                              variant="outlined"
-                                              onClick={removeGapAnalysis}
-                                              style={{ marginRight: '5px', color: 'black' }}
-                                          >
-                                              Yes
-                                          </Button>
-                                      </Box>
+                          {/* Enrol on Gap Analysis */}
+                          <MenuItem onClick={openGapAnalysisModal}>
+                              <SendIcon style={{ fontSize: '15px' }} />
+                              Enrol on Gap Analysis
+                          </MenuItem>
+                          <Modal
+                              open={gapAnalysisModalOpen}
+                              onClose={closeGapAnalysisModal}
+                              aria-labelledby="send-test-email-modal-title"
+                              aria-describedby="send-test-email-modal-description"
+                          >
+                              <Box sx={style}>
+                                  <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                                  Are you sure you want to enrol the selected user on Gap Analysis?
+                                  </Typography>                                                          
+                                  <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                                      <Button
+                                          variant="contained"
+                                          onClick={closeGapAnalysisModal}
+                                          style={{ color: '#fff' }}
+                                      >
+                                          No
+                                      </Button>
+                                      <Button
+                                          variant="outlined"
+                                          onClick={removeGapAnalysis}
+                                          style={{ marginRight: '5px', color: 'black' }}
+                                      >
+                                          Yes
+                                      </Button>
                                   </Box>
-                              </Modal>
+                              </Box>
+                          </Modal>
 
-
-                              <MenuItem>
-                                <DeleteIcon />
-                                Unenrol from Course
-                              </MenuItem>
-
-                              
-                              {/* <MenuItem>
-                                <EditIcon />
-                                Unenrol from Gap Analysis
-                              </MenuItem> */}
-
-                              {/* Unenrol from Gap Analysis */}
+                          {/* Unenrol from Gap Analysis */}
                         
-                              <MenuItem onClick={openUnenrolAnalysisModal}>
-                                  <SendIcon style={{ fontSize: '15px' }} />
-                                  Unenrol from Gap Analysis
-                              </MenuItem>
-                              <Modal
+                          <MenuItem onClick={openUnenrolAnalysisModal}>
+                              <SendIcon style={{ fontSize: '15px' }} />
+                              Unenrol from Gap Analysis
+                          </MenuItem>
+                          <Modal
                             open={unenrolGapAnalysisModalOpen}
                             onClose={closeUnenrolAnalysisModal}
                             aria-labelledby="send-test-email-modal-title"
                             aria-describedby="send-test-email-modal-description"
                           >
                             {/* Content for the "Send Test Email" modal */}
-                            
-                            <Box sx={style}>
-                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                              Are you sure you want to unenrol this user from Gap Analysis?
-                              </Typography>
-                              
-                              <Box>
-                                <label 
-                                    htmlFor="name" 
-                                    style={{fontSize:"13px"}}
-                                >
-                                    Please note the following:
-                                    <li>A user will only be unenrolled if they have an outstanding Gap Analysis Questionnaire.</li>
-                                    <li>This action will neither remove nor reset a completed questionnaire</li>
-                                    <li>Users will not be notified that they have been unenrolled</li>
-                                </label>
-                              </Box>
-                              <Box>
-                                <label 
-                                    htmlFor="name" 
-                                    style={{fontSize:"13px"}}
-                                >
-                                    Number of Users to Unenrol:
-                                </label>
-                              </Box>
-                              <TextField 
-                                fullWidth 
-                                defaultValue="1"
-                                type="text" 
-                                sx={{ gridColumn: "span 2" }} 
-                              />
-                                                            
-                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
-                                <Button 
-                                  variant="contained" 
-                                  onClick={closeUnenrolAnalysisModal } 
-                                  style={{color:'#fff'}} 
-                                >
-                                  No
-                                </Button>
-                                <Button 
-                                  variant="outlined" 
-                                  onClick={deleteUnenrolAnalysis} 
-                                  style={{ marginRight:'5px', color:'black'}}
-                                >
-                                  Yes
-                                </Button>
-                              </Box>                              
+                        
+                          <Box sx={style}>
+                            <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                            Are you sure you want to unenrol this user from Gap Analysis?
+                            </Typography>                            
+                            <Box>
+                              <label 
+                                  htmlFor="name" 
+                                  style={{fontSize:"13px"}}
+                              >
+                                  Please note the following:
+                                  <li>A user will only be unenrolled if they have an outstanding Gap Analysis Questionnaire.</li>
+                                  <li>This action will neither remove nor reset a completed questionnaire</li>
+                                  <li>Users will not be notified that they have been unenrolled</li>
+                              </label>
                             </Box>
+                            <Box>
+                              <label 
+                                  htmlFor="name" 
+                                  style={{fontSize:"13px"}}
+                              >
+                                  Number of Users to Unenrol:
+                              </label>
+                            </Box>
+                            <TextField 
+                              fullWidth 
+                              defaultValue="1"
+                              type="text" 
+                              sx={{ gridColumn: "span 2" }} 
+                            />
+                                                          
+                            <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
+                              <Button 
+                                variant="contained" 
+                                onClick={closeUnenrolAnalysisModal } 
+                                style={{color:'#fff'}} 
+                              >
+                                No
+                              </Button>
+                              <Button 
+                                variant="outlined" 
+                                onClick={deleteUnenrolAnalysis} 
+                                style={{ marginRight:'5px', color:'black'}}
+                              >
+                                Yes
+                              </Button>
+                            </Box>                              
+                          </Box>
                           </Modal> 
 
 
-                              <MenuItem>
-                                <ImportExportIcon />
-                                Export Course Data
-                              </MenuItem>
-                              <MenuItem component={Link} to="/editLandingPage">
-                                <MarkEmailReadIcon />
-                                Send Policy
-                              </MenuItem>
-                              <MenuItem>
-                                <ImportExportIcon />
-                                Export Policy Data
-                              </MenuItem>
-                              <MenuItem>
-                                <ImportExportIcon />
-                                Export Simulation Data
-                              </MenuItem>
-                        
-                          </FormControl>
-
-                          {/* <List>
-                            <ListItem button onClick={() => console.log('Edit User')}>
-                              <ListItemText secondary="Edit User" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Delete User" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Mark as Active" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Mark as Inactive" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Add Users to Group" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Enrol on Course" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Enrol on Gap Analysis" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Unerol from Course" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Unenrol from Gap Analysis" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Export Course Data" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Send Policy" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Export Policy Data" />
-                            </ListItem>
-                            <ListItem button onClick={() => console.log('Delete User')}>
-                              <ListItemText secondary="Export Simulation Data" />
-                            </ListItem>
-                          </List> */}
+                          <MenuItem>
+                            <ImportExportIcon />
+                            Export Course Data
+                          </MenuItem>
+                          <MenuItem component={Link} to="/editLandingPage">
+                            <MarkEmailReadIcon />
+                            Send Policy
+                          </MenuItem>
+                          <MenuItem>
+                            <ImportExportIcon />
+                            Export Policy Data
+                          </MenuItem>
+                          <MenuItem>
+                            <ImportExportIcon />
+                            Export Simulation Data
+                          </MenuItem>                   
+                        </FormControl>                        
                         </Popover>
                       </TableCell>
                     </TableRow>
