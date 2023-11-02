@@ -365,19 +365,19 @@ function LandingPageBuilder() {
                             horizontal: "left",
                           }}
                         >
-                          <MenuItem component={Link} to="/editLandingPage">
+                          <MenuItem component={Link} to="/editLandingPage" style={{background:'#fff'}}>
                             <EditIcon />
                             Edit Landing Page
                           </MenuItem>
-                          <MenuItem onClick={handleOpen}>
+                          <MenuItem onClick={handleOpen} style={{background:'#fff'}}>
                             <DeleteIcon />
                             Delete Landing Page
                           </MenuItem>
-                          <MenuItem component={Link} to="/cloneLandingPage">
+                          <MenuItem component={Link} to="/cloneLandingPage" style={{background:'#fff'}}>
                             <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Clone Landing Page
                           </MenuItem>
-                          <MenuItem onClick={openAddLangModal}>
+                          <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
                             <AddCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Add Language(s)
                           </MenuItem>
@@ -468,9 +468,7 @@ function LandingPageBuilder() {
                             </Box>
                           </Modal>
 
-
-
-                          <MenuItem onClick={openRemoveLangModal}>
+                          <MenuItem onClick={openRemoveLangModal} style={{background:'#fff'}}>
                             <RemoveCircleOutlineOutlinedIcon style={{ fontSize: "small" }} />
                             Remove Language(s)
                           </MenuItem>
@@ -555,7 +553,7 @@ function LandingPageBuilder() {
                               </Box>
                             </Box>
                           </Modal>
-                          <MenuItem component={Link} to="/CreateLandingPage">
+                          <MenuItem component={Link} to="/CreateLandingPage" style={{background:'#fff'}}>
                             <FileCopyOutlinedIcon style={{ fontSize: "small" }} />
                             Preview Landing Page
                           </MenuItem>
