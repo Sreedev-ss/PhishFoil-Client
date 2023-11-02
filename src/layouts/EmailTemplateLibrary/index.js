@@ -40,6 +40,7 @@ const EmailTemplateLibrary = () => {
   const [category, setCategory] = useState("All");
   const [selectedItems, setSelectedItems] = useState(["English"]);
 
+
   const handleChange = (event) => {
     setSelectedItems(event.target.value);
   };

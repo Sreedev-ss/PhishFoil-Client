@@ -40,6 +40,7 @@ import {
   Button,
   ButtonGroup,
   Checkbox,
+  Chip,
   ClickAwayListener,
   Dialog,
   Divider,
@@ -108,6 +109,12 @@ import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
+import DeleteUserModal from "components/Modal/DeleteUserModal";
+
+import SendIcon from '@mui/icons-material/Send';
+
+const items = ['Technical', 'Administration', 'Sample'];
+
 const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
 const items = [
   "Password Constrution Guidelines",
@@ -127,12 +134,18 @@ function Tables() {
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState("Active");
+  const [enrolGapAnalysisModalOpen, setEnrolGapAnalysisModalOpen] = useState(false);
+  // const [courses, setCourses] = useState("All");
 
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
   //Add language
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [addUsersOpen, setAddUsersOpen] = useState(false);
+  const [selectedGroups, setSelectedGroups] = useState(['Technical']);
+  const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
+  const [unenrolGapAnalysisModalOpen, setUnenrolGapAnalysisModalOpen] = useState(false);
 
   const [deleteUser, setDeleteUser] = useState(false);
   const [activeModalOpen, setActiveModalOpen] = useState(false);
@@ -195,6 +208,18 @@ function Tables() {
     setCountry(event.target.value);
   };
 
+  const openUnenrolAnalysisModal = () => {
+    setUnenrolGapAnalysisModalOpen(true);
+  };
+
+  const closeUnenrolAnalysisModal = () => {
+    setUnenrolGapAnalysisModalOpen(false);
+  };
+
+  const deleteUnenrolAnalysis = () => {
+    closeUnenrolAnalysisModal();
+  };
+
   const openAddLangModal = () => {
     setAddLangModalOpen(true);
   };
@@ -205,8 +230,40 @@ function Tables() {
     setSelectedLanguage(event.target.value);
   };
 
+  const openUsersModal = () => {
+    setAddUsersOpen(true);
+  };
+
+  const closeUsersModal = () => {
+    setAddUsersOpen(false);
+  };
+
+  const addUsers = () => {
+    closeUsersModal();
+  };
+
+  const openGapAnalysisModal = () => {
+    setGapAnalysisModalOpen(true);
+};
+
+const closeGapAnalysisModal = () => {
+  setGapAnalysisModalOpen(false);
+};
+
+const removeGapAnalysis = () => {
+  closeGapAnalysisModal();
+};
+
+// const handleCourses = (event) => {
+//   setCourses(event.target.value);
+// };
+
   const handleChange = (event) => {
     setStatus(event.target.value);
+  };
+
+  const handleChangeUsers = (event) => {
+    setSelectedGroups(event.target.value);
   };
 
   const handleClick = (event) => {
@@ -256,6 +313,13 @@ function Tables() {
   const closeGroupForm = () => {
     setGroupFormOpen(false);
   };
+
+  const handleDeleteGroup = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedGroups.filter((item) => item !== itemToDelete);
+    setSelectedGroups(updatedSelection);
+};
 
   const openAnchor = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
