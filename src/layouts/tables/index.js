@@ -104,9 +104,6 @@ import {
   AiOutlineReload,
 } from "react-icons/ai";
 
-// Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
