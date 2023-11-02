@@ -872,11 +872,11 @@ function Tables() {
                               Add Users to Group
                             </MenuItem>
                             <MenuItem>
-                              <SubscriptionsIcon />
+                              {/* <SubscriptionsIcon /> */}
                               Enrol on Course
                             </MenuItem>
                             <MenuItem component={Link} to="/editLandingPage">
-                              <AnalyticsIcon />
+                              {/* <AnalyticsIcon /> */}
                               Enrol on Gap Analysis
                             </MenuItem>
                             <MenuItem>

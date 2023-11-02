@@ -110,12 +110,18 @@ const routes = [
         route: "/uphish/create-simulation",
         component: <Simulation />,
       },
-   
       {
         type: "collapse",
-        name: "Landing Page builder",
-        key: "landingBuilder",
+        name: "Landing Page Library",
+        key: "landingPagelibrary",
         route: "/uphish/landingPagelibrary",
+        component: <LandingPageLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Landing Page Builder",
+        key: "landingBuilder",
+        route: "/uphish/landingPageBuilder",
         component: <LandingPageBuilder />,
       },
       // {
@@ -127,24 +133,17 @@ const routes = [
       // },
       {
         type: "collapse",
-        name: "Email Template Builder",
-        key: "emailbuilder",
-        route: "/uphish/email-template-builder",
-        component: <EmailTable />,
-      },
-      {
-        type: "collapse",
         name: "Email Template Library",
         key: "emailtemplatelibrary",
         route: "/uphish/email-template-library",
         component: <EmailTemplateLibrary />,
       },
-        {
+      {
         type: "collapse",
-        name: "Landing Page Library",
-        key: "landingPagelibrary",
-        route: "/uphish/landingPagelibrary",
-        component: <LandingPageLibrary/>,
+        name: "Email Template Builder",
+        key: "emailbuilder",
+        route: "/uphish/email-template-builder",
+        component: <EmailTable />,
       },
     ],
   },
@@ -152,13 +151,13 @@ const routes = [
   //landing Page Routes
   {
     route: "/uphish/CreateLandingPage",
-    component: <CreateLandingPage/>,
+    component: <CreateLandingPage />,
     noCollapse: true,
   },
   //Edit
   {
     route: "/editLandingPage",
-    component: <EditLandingPage/>,
+    component: <EditLandingPage />,
     noCollapse: true,
   },
 
@@ -166,32 +165,32 @@ const routes = [
   //Clone
   {
     route: "/cloneLandingPage",
-    component: <CloneLandingPage/>,
+    component: <CloneLandingPage />,
     noCollapse: true,
   },
 
   //email template
   {
     route: "/uphish/create-email-template",
-    component: <CreateEmailTemplatePage/>,
+    component: <CreateEmailTemplatePage />,
     noCollapse: true,
   },
   {
     route: "/edit-email-template",
-    component: <EditEmailTemplate/>,
+    component: <EditEmailTemplate />,
     noCollapse: true,
   },
   {
     route: "/clone-email-template",
-    component: <CloneEmailTemplate/>,
+    component: <CloneEmailTemplate />,
     noCollapse: true,
   },
   {
     route: "/clone-simulation",
-    component: <CloneSimulation/>,
+    component: <CloneSimulation />,
     noCollapse: true,
   },
-  
+
 
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
