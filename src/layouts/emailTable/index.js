@@ -324,14 +324,14 @@ function emailTable() {
                           }}
                         >
                           {/* edit-email-template */}
-                          <MenuItem component={Link} to="/edit-email-template">
+                          <MenuItem component={Link} to="/edit-email-template" style={{background:'#fff'}}>
                             <EditIcon />
                             Edit Email Template
                           </MenuItem>
 
 
                            {/* send-test-email-template */}
-                          <MenuItem onClick={openSendTestEmailModal}>
+                          <MenuItem onClick={openSendTestEmailModal} style={{background:'#fff'}}>
                             <SendIcon />
                             send Test Email
                           </MenuItem>
@@ -404,13 +404,13 @@ function emailTable() {
                           </Modal>
 
                           {/* clone-email-template */}
-                          <MenuItem component={Link} to="/clone-email-template">
+                          <MenuItem component={Link} to="/clone-email-template" style={{background:'#fff'}}>
                             <FileCopyOutlinedIcon style={{fontSize:'small'}} />
                             Clone Email Template
                           </MenuItem>
 
                            {/* add-languages */}
-                          <MenuItem onClick={openAddLangModal}>
+                          <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
                             <AddCircleOutlineOutlinedIcon style={{fontSize:'small'}} />
                             Add Language(s)
                           </MenuItem>
@@ -485,7 +485,7 @@ function emailTable() {
 
 
                           {/* Remove-languages */}
-                          <MenuItem onClick={openRemoveLangModal}>
+                          <MenuItem onClick={openRemoveLangModal} style={{background:'#fff'}}>
                             <RemoveCircleOutlineOutlinedIcon style={{fontSize:'small'}} />
                             Remove Language(s)
                           </MenuItem>
@@ -558,7 +558,7 @@ function emailTable() {
                           </Modal>
 
                           {/* Delete-Email-Temp */}
-                          <MenuItem onClick={openDeleteEmailTempModal}>
+                          <MenuItem onClick={openDeleteEmailTempModal} style={{background:'#fff'}}>
                             <DeleteOutlineOutlinedIcon style={{fontSize:'15px'}} />
                             delete Email Template
                           </MenuItem>
