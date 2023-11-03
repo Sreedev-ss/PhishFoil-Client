@@ -185,7 +185,7 @@ function Users() {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     setError(null);
-  }
+  };
 
   const isFormValid = () => {
     const {
@@ -197,11 +197,24 @@ function Users() {
       groups,
       excludefromautoenrol,
     } = formData;
+
+    const firstnameRegex = /^[a-zA-Z0-9]+$/;
+        const lastnameRegex = /^[A-Za-z]+$/;
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    return (
+      firstname.trim() !== "" &&
+      lastname !== "" &&
+      email.match(emailRegex) &&
+      manager !== "" &&
+      preferredlanguage !== "" &&
+      groups !== "" &&
+      excludefromautoenrol !== ""
+  );
   }
 
   const handleSubmitAddUser = async (e) => {
     e.preventDefault();
-
     if (!isFormValid()) {
       setError("Please fill out all the required fileds.");
       return;
@@ -899,6 +912,7 @@ function Users() {
                             <TextField
                               fullWidth
                               type="text"
+                              name="firstname"
                               sx={{ gridColumn: "span 2" }}
                               value={formData.firstname}
                               onChange={handleChangeAddUser}
@@ -911,9 +925,10 @@ function Users() {
                             <TextField
                               fullWidth
                               type="text"
+                              name="lastname"
                               sx={{ gridColumn: "span 2" }}
-                              value={formData.lastname}
-                              onChange={handleChangeAddUser}
+                              // value={formData.lastname}
+                              // onChange={handleChangeAddUser}
                             />
 
                             {/* <Box style={{ marginTop: "15px" }}>
@@ -941,9 +956,10 @@ function Users() {
                             <TextField
                               fullWidth
                               type="text"
+                              name="email"
                               sx={{ gridColumn: "span 2" }}
-                              value={formData.email}
-                              onChange={handleChangeAddUser}
+                              // value={formData.email}
+                              // onChange={handleChangeAddUser}
                             />
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
