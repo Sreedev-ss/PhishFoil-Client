@@ -607,6 +607,7 @@ function Users() {
                         <TextField
                           fullWidth
                           type="text"
+                          name="groupname"
                           sx={{ gridColumn: "span 2" }}
                           value={addGroupData.groupname}
                           onChange={handleChangeAddGroup}
@@ -981,8 +982,8 @@ function Users() {
                               type="text"
                               name="lastname"
                               sx={{ gridColumn: "span 2" }}
-                              // value={formData.lastname}
-                              // onChange={handleChangeAddUser}
+                              value={formData.lastname}
+                              onChange={handleChangeAddUser}
                             />
 
                             {/* <Box style={{ marginTop: "15px" }}>
