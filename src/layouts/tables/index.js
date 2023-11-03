@@ -516,38 +516,38 @@ function Tables() {
                                       marginTop:'15px' 
                                       }}
                                     >
-                                      Group Manager(s):</Typography>
+                                      Group Manager(s):</Typography>                                 
                                   <Select
-                                      labelId="multiple-select-label"
-                                      id="multiple-select"
-                                      multiple
-                                      label='Select Groups'
-                                      value={groupItems}
-                                      onChange={handleChangeItem2}
-                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
-                                      renderValue={(selected) => (
-                                          <div>
-                                              {selected.map((item) => (
-                                                  <Chip
-                                                      key={item}
-                                                      label={item}
-                                                      onDelete={handleDelete(item)}
-                                                      sx={{
-                                                          marginRight: '5px',
-                                                          height: '20px', 
-                                                      }}
-                                                  />
-                                              ))}
-                                          </div>
-                                      )}
-                                  >
-                                      {groupManagers.map((item) => (
-                                          <MenuItem key={item} value={item}>
-                                              <Checkbox checked={groupItems.indexOf(item) > -1} />
-                                              <ListItemText secondary={item} />
-                                          </MenuItem>
+                                  labelId="multiple-select-label"
+                                  id="multiple-select"
+                                  multiple
+                                  label="Select Groups"
+                                  value={groupManager}
+                                  onChange={handleGroupManagers}
+                                  MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                  renderValue={(selected) => (
+                                    <div>
+                                      {selected.map((item) => (
+                                        <Chip
+                                          key={item}
+                                          label={item}
+                                          onDelete={handletheDelete(item)}
+                                          sx={{
+                                            marginRight: "5px",
+                                            height: "20px",
+                                          }}
+                                        />
                                       ))}
-                                  </Select>
+                                    </div>
+                                  )}
+                                >
+                                  {groupManagers.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                      <Checkbox checked={groupManager.indexOf(item) > -1} />
+                                      <ListItemText secondary={item} />
+                                    </MenuItem>
+                                  ))}
+                                </Select>
                                 </FormControl>
                             </div>
                           </form>
