@@ -37,7 +37,7 @@ Coded by www.creative-tim.com
 
 // Soft UI Dashboard React layouts
 import Dashboard from "layouts/dashboard";
-import Tables from "layouts/tables";
+import Users from "layouts/users";
 import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
@@ -85,7 +85,7 @@ const routes = [
     key: "users",
     route: "/users",
     icon: <Office size="12px" />,
-    component: <Tables />,
+    component: <Users />,
     noCollapse: true,
   },
   {
