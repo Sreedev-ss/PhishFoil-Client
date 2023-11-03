@@ -656,21 +656,21 @@ function Tables() {
                 </Stack>
                 <Stack spacing={2} margin={2}  direction="row" justifyContent="flex-end">
                   <div >
-                    <Button
+                    {/* <Button
                       variant="outline"
                       style={{ border: "0.5px solid grey", color: "#585958" , marginRight: "10px" }}
                       size="small"
                       disabled
                     >
                       Action
-                    </Button>
-                    <Button
+                    </Button> */}
+                    {/* <Button
                       variant="outline"
                       style={{ border: "0.5px solid grey", color: "#585958", marginRight: "10px" }}
                       size="small"
                     >
                       <AiOutlineArrowDown /> Import Users
-                    </Button>
+                    </Button> */}
                     <Button
                       variant="outline"
                       style={{
@@ -985,6 +985,7 @@ function Tables() {
                       </Modal>
                     </Menu>
                   </div>
+
                 <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
                   <Button
                     variant="outline"
@@ -1038,7 +1039,7 @@ function Tables() {
                     </Box>
                   </Modal>
 
-                  <Button
+                  {/* <Button
                     variant="outline"
                     style={{
                       border: "0.5px solid #1C7AE4",
@@ -1049,11 +1050,12 @@ function Tables() {
                     onClick={openGroupForm}
                   >
                     <AiOutlinePlus /> Add
-                  </Button>
+                  </Button> */}
                   <Dialog open={isGroupFormOpen} onClose={closeGroupForm}>
                     {/* Group form content here */}
                   </Dialog>
                 </Stack>
+              </Stack>
               </Stack>
             </SoftBox>
             <SoftBox
