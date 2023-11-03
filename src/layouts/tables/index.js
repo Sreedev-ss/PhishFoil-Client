@@ -141,6 +141,7 @@ function Tables() {
   //Add language
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
+
   const [addUsersOpen, setAddUsersOpen] = useState(false);
   const [selectedGroups, setSelectedGroups] = useState(["Technical"]);
   const [gapAnalysisModalOpen, setGapAnalysisModalOpen] = useState(false);
@@ -156,7 +157,7 @@ function Tables() {
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
-  const [groupItems, setGroupItems] = useState(["Vijay"]);
+  const [groupItems, setGroupItems] = useState(["Technical"]);
   const [groupManager, setGroupmanagers] = useState(["Vijay"]);
   const [deleteUser, setDeleteUser] = useState(false);
   const [importUsersModal, setImportUsersModal] = useState(false);
@@ -925,7 +926,7 @@ function Tables() {
                                   id="multiple-select"
                                   multiple
                                   label="Select Groups"
-                                  value={item2}
+                                  value={groupItems}
                                   onChange={handleChangeItem2}
                                   MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                   renderValue={(selected) => (
@@ -1055,8 +1056,8 @@ function Tables() {
                                   id="multiple-select"
                                   multiple
                                   label="Select Groups"
-                                  value={groupItems}
-                                  onChange={handleChangeItem2}
+                                  value={groupManager}
+                                  onChange={handleGroupManagers}
                                   MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                   renderValue={(selected) => (
                                     <div>
@@ -1064,7 +1065,7 @@ function Tables() {
                                         <Chip
                                           key={item}
                                           label={item}
-                                          onDelete={handleDelete(item)}
+                                          onDelete={handletheDelete(item)}
                                           sx={{
                                             marginRight: "5px",
                                             height: "20px",
