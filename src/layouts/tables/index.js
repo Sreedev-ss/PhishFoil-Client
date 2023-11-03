@@ -245,6 +245,13 @@ function Tables() {
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
   };
+
+  //DeleteAddUserGroups
+  const handleDeleteAddUserGroups = (itemToDelete) => (event) => {;
+    event.preventDefault();
+    const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+    setGroupItems(updatedSelection);
+  };
   //Groups in Edituser
   const handleChangeItem2 = (event) => {
     setGroupItems(event.target.value);
@@ -833,7 +840,6 @@ function Tables() {
                             </Box>
                             <TextField
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
@@ -844,12 +850,11 @@ function Tables() {
                             </Box>
                             <TextField
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
 
-                            <Box style={{ marginTop: "15px" }}>
+                            {/* <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
                                 Add user via Email or User ID?
                               </label>
@@ -859,13 +864,12 @@ function Tables() {
                               value={country}
                               onChange={handleChanges}
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             >
                               <MenuItem value="IN">Email</MenuItem>
                               <MenuItem value="US">UserID</MenuItem>
-                            </TextField>
+                            </TextField> */}
 
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -874,7 +878,6 @@ function Tables() {
                             </Box>
                             <TextField
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
@@ -888,7 +891,6 @@ function Tables() {
                               value={manager}
                               onChange={handleManagerChanges}
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             >
@@ -904,7 +906,6 @@ function Tables() {
                             </Box>
                             <TextField
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
@@ -935,7 +936,7 @@ function Tables() {
                                         <Chip
                                           key={item}
                                           label={item}
-                                          onDelete={handleDeleted(item)}
+                                          onDelete={handleDeleteAddUserGroups(item)}
                                           sx={{
                                             marginRight: "5px",
                                             height: "20px",
@@ -947,7 +948,7 @@ function Tables() {
                                 >
                                   {item2.map((item) => (
                                     <MenuItem key={item} value={item}>
-                                      <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                      <Checkbox checked={groupItems.indexOf(item) > -1} />
                                       <ListItemText secondary={item} />
                                     </MenuItem>
                                   ))}
