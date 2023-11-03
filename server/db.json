@@ -1,0 +1,53 @@
+{
+    "login": [
+        {
+            "username": "aa@gg.com",
+            "password": "s2E±S8c′",
+            "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYUBnZy5jb20iLCJpYXQiOjE2OTkwMTM3NDEsImV4cCI6MTY5OTAxNTU0MX0._HTW7zVshgC_8joT9Vt4lNPJlEIeusF_MhuEocOJWSc",
+            "role": "msp",
+            "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
+            "detailsid": "f14b5107-d837-4ec1-926a-5607ebb3064a"
+        }
+    ],
+    "groups": [
+        {
+            "groupid": "202cc509-af5c-4d37-8361-1a2dff213e4a",
+            "groupname": "starsusers",
+            "groupmanager": null,
+            "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
+            "isparentgroup": false,
+            "parentid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
+            "pp": []
+        },
+        {
+            "groupid": "306c6438-1ce0-4b00-89f7-dc88ec33cd87",
+            "groupname": "stars2",
+            "groupmanager": null,
+            "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
+            "isparentgroup": true,
+            "parentid": null,
+            "pp": []
+        },
+        {
+            "groupid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
+            "groupname": "stars",
+            "groupmanager": null,
+            "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
+            "isparentgroup": true,
+            "parentid": null,
+            "pp": []
+        },
+        {
+            "groupid": "9e99c765-1230-446e-82bd-035c2e771edd",
+            "groupname": "stars1",
+            "groupmanager": null,
+            "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
+            "isparentgroup": true,
+            "parentid": null,
+            "pp": []
+        }
+    ],
+    "allUsers": [],
+    "addGroups": [],
+    "addUsers": []
+}

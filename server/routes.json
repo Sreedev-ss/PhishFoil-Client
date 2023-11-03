@@ -1,0 +1,8 @@
+{
+    "/login/authenticate":"/login",
+    "/user/group/all/de24f5e0-382c-4657-b296-9fd673758c5a": "/groups",
+    "/user/newgroup/de24f5e0-382c-4657-b296-9fd673758c5a": "/createGroups",
+    "/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a":"/allusers",
+    "/user/new/de24f5e0-382c-4657-b296-9fd673758c5a":"/addusers"
+  }
+  

@@ -1,6 +1,6 @@
 // @mui material components
 import Card from "@mui/material/Card";
-
+/* eslint-disable */
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
