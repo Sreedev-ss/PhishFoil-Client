@@ -156,7 +156,7 @@ function Tables() {
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
   const [sendPolicy, setSendPolicy] = useState(false);
   const [selectedItems, setSelectedItems] = useState(["Policy 1"]);
-  const [groupItems, setGroupItems] = useState(["Technical"]);
+  const [groupItems, setGroupItems] = useState(["Vijay"]);
   const [groupManager, setGroupmanagers] = useState(["Vijay"]);
   const [deleteUser, setDeleteUser] = useState(false);
   const [importUsersModal, setImportUsersModal] = useState(false);
@@ -443,7 +443,125 @@ function Tables() {
               <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
                 <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                   <Typography sx={{ fontSize: "medium" }}>Your Groups</Typography>
-                  <AiFillPlusCircle />
+                  <AiFillPlusCircle  
+                    onClick={openAddLangModal}
+                    style={{ cursor: 'pointer'}}
+                  />
+
+                      <Modal
+                        open={addLangModalOpen}
+                        onClose={closeAddLangModal}
+                        aria-labelledby="send-test-email-modal-title"
+                        aria-describedby="send-test-email-modal-description"
+                      >
+                        <Box sx={style}>
+                          <IconButton
+                            aria-label="Close"
+                            sx={{
+                              position: "absolute",
+                              top: 0,
+                              right: 0,
+                            }}
+                            onClick={closeAddLangModal}
+                          >
+                            <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                          </IconButton>
+                          <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                            Add Group
+                          </Typography>
+
+                          <form>
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Group Name:
+                              </label>
+                            </Box>
+                            <TextField
+                              fullWidth
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            />
+
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                Parent Group:
+                              </label>
+                            </Box>
+                            <TextField
+                              select
+                              value={manager}
+                              onChange={handleManagerChanges}
+                              fullWidth
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            >
+                              <MenuItem value="IN">Administration</MenuItem>
+                              <MenuItem value="US">Technical</MenuItem>
+                              <MenuItem value="IN">Sample</MenuItem>
+                            </TextField>
+                            <div>
+
+                            <FormControl sx={{ width: "330px", height: "auto" }}>
+                                  <Typography 
+                                    sx={{ 
+                                      fontSize: '', 
+                                      marginBottom: "5px", 
+                                      marginLeft: "2px", 
+                                      marginTop:'15px' 
+                                      }}
+                                    >
+                                      Group Manager(s):</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select Groups'
+                                      value={groupItems}
+                                      onChange={handleChangeItem2}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {groupManagers.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={groupItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                            </div>
+                          </form>
+                          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                border: "0.5px solid #1C7AE4",
+                                color: "white",
+                                backgroundColor: "#1b7ae4",
+                                marginTop: "15px",
+                              }}
+                            >
+                              Create Group
+                            </Button>
+                          </Box>
+                        </Box>
+                      </Modal>
+
+
                 </div>
                 <FormGroup
                   sx={{
