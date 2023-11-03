@@ -955,11 +955,11 @@ function Users() {
                             </Box>
                             <TextField
                               fullWidth
-                              type="text"
+                              type="email"
                               name="email"
                               sx={{ gridColumn: "span 2" }}
-                              // value={formData.email}
-                              // onChange={handleChangeAddUser}
+                              value={formData.email}
+                              onChange={handleChangeAddUser}
                             />
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -1062,7 +1062,7 @@ function Users() {
                             <Button
                               variant="contained"
                               onClick={handleSubmitAddUser}
-                              disabled={!isFormValid()}
+                              // disabled={!isFormValid()}
                               style={{
                                 border: "0.5px solid #1C7AE4",
                                 color: "white",
