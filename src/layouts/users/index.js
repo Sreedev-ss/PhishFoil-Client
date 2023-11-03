@@ -170,6 +170,7 @@ function Users() {
 
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null)
 
   const [formData, setFormData] = useState({
     firstname: '',
@@ -179,7 +180,7 @@ function Users() {
     preferredlanguage: [],
     groups: '',
     excludefromautoenrol: '',
-  })
+  });
 
   const handleChangeAddUser = (e) => {
     const { name, value } = e.target;
@@ -220,7 +221,7 @@ function Users() {
       return;
     } else {
       try {
-        const res = await axios.post();
+        const res = await axios.post("http://localhost:4000/user/addUser", FormData);
         if (res.status === 201) {
           toast.success("Successfully created");
           setTimeout(() => {
@@ -232,7 +233,56 @@ function Users() {
         setError(err);
       }
     }
-  }
+  };
+
+  const [addGroupData, setAddGroupData] = useState({
+    groupname: '',
+    parentid: '',
+    manager: '',
+    manageremailid: '',
+  });
+
+  const handleChangeAddGroup = (e) => {
+    const { name, value } = e.target;
+    setAddGroupData({ ...addGroupData, [name]: value });
+    setError(null)
+  };
+
+  const isAddGroupFormValid = () => {
+    const requiredFields = [
+      "groupname",
+      "parentid",
+      "manager",
+      "manageremailid",
+    ];
+    return requiredFields.every((field) => addGroupData[field].trim() !=="");
+  };
+
+  const handleAddGroupSubmit = async (e) => {
+    e.preventDefault();
+
+    if(!isAddGroupFormValid()) {
+      setError("All fields are required");
+    } else {
+      try {
+        const res = await axios.post("http://localhost:4000/addGroup", addGroupData);
+        const mess = res
+        setMessage(mess)
+        setAddGroupData({
+          groupname: '',
+          parentid: '',
+          manager: '',
+          manageremailid: '',
+        })
+        toast.success("Successfully created");
+        setTimeout(() => {
+          navigate('/users')
+        }, 1000)
+      } catch (err) {
+        setError(err)
+      }
+    }
+  };
 
 
   const handleSearchChange = (e) => {
@@ -558,9 +608,11 @@ function Users() {
                           fullWidth
                           type="text"
                           sx={{ gridColumn: "span 2" }}
+                          value={addGroupData.groupname}
+                          onChange={handleChangeAddGroup}
                         />
 
-                        <Box style={{ marginTop: "15px" }}>
+                        {/* <Box style={{ marginTop: "15px" }}>
                           <label htmlFor="name" style={{ fontSize: "13px" }}>
                             Parent Group:
                           </label>
@@ -576,7 +628,7 @@ function Users() {
                           <MenuItem value="Administration">Administration</MenuItem>
                           <MenuItem value="Technical">Technical</MenuItem>
                           <MenuItem value="Sample">Sample</MenuItem>
-                        </TextField>
+                        </TextField> */}
                         <div>
 
                           <FormControl sx={{ width: "330px", height: "auto" }}>
@@ -635,10 +687,11 @@ function Users() {
                         >
                           Create Group
                         </Button>
+                        <p style={{ fontSize: "12px", paddingX: "20px" }}>{message ? message : null}</p>
+                        <p style={{ fontSize: "12px", paddingX: "20px", color: "red" }}>{error ? error : null}</p>
                       </Box>
                     </Box>
                   </Modal>
-
 
                 </div>
                 <FormGroup
@@ -1072,6 +1125,14 @@ function Users() {
                             >
                               Save
                             </Button>
+                            { success && (
+                              <Typography
+                              variant="success-message"
+                              sx={{fontSize: "12px", paddingX: "10px", textAlign: "center"}}
+                              >
+                                {success}
+                              </Typography>
+                            )}
                           </Box>
                         </Box>
                       </Modal>
