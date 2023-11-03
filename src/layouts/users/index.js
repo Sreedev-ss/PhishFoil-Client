@@ -105,11 +105,12 @@ import {
 } from "react-icons/ai";
 
 import SoftButton from "components/SoftButton";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const items = ["Technical", "Administration", "Sample"];
 const courses = [
   "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
@@ -127,6 +128,27 @@ const item1 = [
 ];
 const item2 = ["Administration", "Sample", "Technical"];
 const groupManagers = ["Vino", "Vijay", "Velayutham"];
+
+const host = 'http://localhost:8081';
+
+const usersData = [
+  {
+    detailsid: '6f138b0f-f277-4f0a-83ec-3baa7ce71aa6',
+    name: 'fin',
+    emailid: 'vv@tcs.com',
+    enableordisable: true,
+    orgainzationrole: null,
+    ismanager: true,
+    manager: '9e99c765-1230-446e-82bd-035c2e771edd',
+    managername: 'kumaren',
+    manageremailid: 'kumar@tes.com',
+    deleteddate: null,
+    groups: [
+      '202cc509-af5c-4d37-8361-1a24ff213е4a',
+      '9e99c765-1230-4460-82b4-035c20771ed',
+    ],
+  },
+];
 
 function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -165,6 +187,7 @@ function Users() {
   const [importUsersModal, setImportUsersModal] = useState(false);
   const [restoreUser, setRestoreUser] = useState(false);
   const [search, setSearch] = useState("");
+  const [allUserData, setAllUserData] = useState(usersData)
 
   const navigate = useNavigate();
 
@@ -180,7 +203,14 @@ function Users() {
     preferredlanguage: [],
     groups: '',
     excludefromautoenrol: '',
+    accountStatus: 'active',
   });
+
+  // useEffect(() => {
+  //   toast.success('Page loaded')
+  // },[]);
+
+  
 
   const handleChangeAddUser = (e) => {
     const { name, value } = e.target;
@@ -215,13 +245,15 @@ function Users() {
   }
 
   const handleSubmitAddUser = async (e) => {
+    console.log("sucesssssssssssss");
     e.preventDefault();
     if (!isFormValid()) {
       setError("Please fill out all the required fileds.");
       return;
     } else {
       try {
-        const res = await axios.post("http://localhost:4000/user/addUser", FormData);
+        const res = await axios.post(`${host}/user/new/de24f5e0-382c-4657-b296-9fd673758c5a`, FormData);
+        console.log("rrrrrrrrrr",res);
         if (res.status === 201) {
           toast.success("Successfully created");
           setTimeout(() => {
@@ -259,6 +291,7 @@ function Users() {
   };
 
   const handleAddGroupSubmit = async (e) => {
+    console.log("sucesssssssssssss");
     e.preventDefault();
 
     if(!isAddGroupFormValid()) {
@@ -558,6 +591,7 @@ function Users() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
+      <ToastContainer />
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <Card>
@@ -1349,21 +1383,26 @@ function Users() {
                     <TableRow sx={{ width: "20px" }}>
                       <TableCell>Sl. No</TableCell>
                       <TableCell>Name</TableCell>
-                      <TableCell>Email/User ID</TableCell>
-                      <TableCell>Manager</TableCell>
+                      <TableCell>Email ID</TableCell>
+                      <TableCell>Manager Name</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell>1</TableCell>
-                      <TableCell>Kalaiyarasi V</TableCell>
-                      <TableCell>kalai@twintechsolution.com</TableCell>
+                  {allUserData.map((item, index) => (                                                
+                    <TableRow 
+                    key={index}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >              
+                      <TableCell>{index+1}</TableCell>
+                      <TableCell>{item.name}</TableCell>
+                      <TableCell>{item.emailid}</TableCell>
+
                       <TableCell>
-                        Vino Jebastian
-                        <div style={{ fontSize: "12px", color: "gray" }}>
-                          vino@twintechsolution.com
-                        </div>
-                      </TableCell>
+                          {item.managername}
+                          <div style={{ fontSize: "12px", color: "gray" }}>
+                            {item.manageremailid}
+                          </div>
+                        </TableCell>
                       <TableCell>
                         <SoftButton onClick={handleClick} variant="outlined" color="info">
                           <AiOutlineArrowRight />
@@ -2315,6 +2354,7 @@ function Users() {
                         </Popover>
                       </TableCell>
                     </TableRow>
+                    ))}
                   </TableBody>
                 </Table>
                 <Menu></Menu>
