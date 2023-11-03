@@ -235,7 +235,7 @@ import {
                     fontWeight:'lighter'}}
                 >
                     This is the domain used on the links in your simulations emails.
-                Mail providers and popular browsers (most notably Chrome) may report the landing page domain as suspicious, its always worth running a test simulation first.
+                Mail providers and popular browsers<br/> (most notably Chrome) may report the landing page domain as suspicious, its always worth running a test simulation first.
             </p>
         </Box>
             <div style={{ marginTop: "15px" }}>

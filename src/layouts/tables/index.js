@@ -13,6 +13,8 @@ import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
+import { Close } from "@mui/icons-material";
+import {AiOutlineSearch } from "react-icons/ai";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -62,6 +64,21 @@ const style = {
   maxHeight: "400px",
   overflowY: "scroll",
 };
+
+const styleTable = {
+  position: "absolute",
+  top: "30%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 800,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  maxHeight: "500px",
+  overflowY: "scroll",
+
+}
 const scrollableContentStyle = {
   overflowY: "auto",
   maxHeight: "300px",
@@ -75,6 +92,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import csvIcon from '../../assets/images/csv.png';
+import MicrosoftIcon from '../../assets/images/microsoft.png';
+import GoogleIcon from '../../assets/images/google.png';
+
 import {
   AiFillPlusCircle,
   AiOutlineArrowDown,
@@ -83,9 +104,6 @@ import {
   AiOutlineReload,
 } from "react-icons/ai";
 
-// Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
@@ -141,6 +159,31 @@ function Tables() {
   const [groupItems, setGroupItems] = useState(["Technical"]);
   const [groupManager, setGroupmanagers] = useState(["Vijay"]);
   const [deleteUser, setDeleteUser] = useState(false);
+  const [importUsersModal, setImportUsersModal] = useState(false);
+  const [restoreUser, setRestoreUser] = useState(false);
+  const [search, setSearch] = useState("");
+  
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value); 
+  };
+
+  const openRestoreUser = () => {
+    setRestoreUser(true);
+  };
+
+  const closeRestoreUser = () => {
+    setRestoreUser(false);
+  };
+
+
+  const openImportUsersModal = () => {
+    setImportUsersModal(true);
+  };
+
+  const closeImportUsersModal = () => {
+    setImportUsersModal(false);
+  };
 
   const handleClicks = (event) => {
     setAnchorEll(event.currentTarget);
@@ -362,6 +405,11 @@ function Tables() {
     setGroupFormOpen(false);
   };
 
+  const handleRestoreClick = (row) => {
+    alert(`Restoring user: ${row.name}`);
+  };
+  
+
   const handleDeleteGroup = (itemToDelete) => (event) => {
     console.log(itemToDelete);
     event.preventDefault();
@@ -443,14 +491,108 @@ function Tables() {
                   >
                     <AiOutlineReload />
                   </Button>
+
                   <Button
                     variant="outline"
                     style={{ border: "0.5px solid grey", color: "#585958", color: "#585958" }}
                     size="small"
-                    onClick={openUserForm}
+                    onClick={openRestoreUser}
                   >
                     Restore Users
                   </Button>
+
+                  <Modal open={restoreUser} onClose={closeRestoreUser}>
+                  <Box sx={styleTable}>
+                  <IconButton
+                    edge="end"
+                    color="inherit"
+                    onClick={closeRestoreUser}
+                    style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                  >
+                    <Close />
+                  </IconButton>
+                    <Typography>Resore Users</Typography>
+                    <hr/>
+
+                    <Button
+                    variant="outline"
+                    style={{
+                      border: "0.5px solid #d2d6da",
+                      color: "#d4d4d4",
+                      fontSize: "10px",
+                      minWidth: 150,
+                      maxHeight: 40,
+                      marginTop:'15px'
+                    }}
+                    size="small"
+                  >
+                    Search for a user
+                    <AiOutlineSearch style={{ color: "grey", fontSize: "15px" }} />
+                  </Button>
+                    <TableContainer component={Paper} style={{marginTop:'20px'}}>
+                      <Table sx={{ width: "100%" }} aria-label="simple table">
+                        <TableHead sx={{ display: "table-header-group" }}>
+                          <TableRow sx={{ width: "20px" }}>
+                          <TableCell>Sl. No.</TableCell>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Email ID</TableCell>
+                            <TableCell>Deleted At</TableCell>
+                            <TableCell>Restore</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                        <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>1</TableCell>
+                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
+                      <TableCell>
+                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
+                      </TableCell>
+                    </TableRow>
+
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>2</TableCell>
+                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
+                      <TableCell>
+                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>3</TableCell>
+                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
+                      <TableCell>
+                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell>4</TableCell>
+                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
+                      <TableCell>
+                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
+                      </TableCell>
+                    </TableRow>
+                          
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    </Box>
+                  </Modal>
+
                   <Dialog open={isUserFormOpen} onClose={closeUserForm}>
                     {/* User form content here */}
                   </Dialog>
@@ -843,7 +985,71 @@ function Tables() {
                       </Modal>
                     </Menu>
                   </div>
+                <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
+                  <Button
+                    variant="outline"
+                    style={{ border: "0.5px solid grey", color: "#585958" }}
+                    size="small"
+                    disabled
+                  >
+                    Action
+                  </Button>
+                  <Button
+                    variant="outline"
+                    style={{ border: "0.5px solid grey", color: "#585958" }}
+                    size="small"
+                    onClick={openImportUsersModal}
+                  >
+                    <AiOutlineArrowDown /> Import Users
+                  </Button>
+                   <Modal
+                    open={importUsersModal}
+                    onClose={closeImportUsersModal}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                  >
+                    <Box sx={style}>
+                    <IconButton
+                      edge="end"
+                      color="inherit"
+                      onClick={closeImportUsersModal}
+                      style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                    >
+                      <Close />
+                    </IconButton>
+                      <Typography>Import Users</Typography>
+                      <hr/>
+                      <Typography id="modal-modal-title" variant="h6" component="h2">
+                        <div style={{ display: "flex", alignItems: "center", marginTop:'40px' }}>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
+                            <Typography variant="body2" style={{marginRight:'70px'}}>CSV</Typography>
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
+                            <Typography variant="body2" style={{marginRight:'70px'}}>Microsoft</Typography>
+                          </div>
+                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                            <img style={{ width: "50px" }} src={GoogleIcon} alt="Google Icon" />
+                            <Typography variant="body2">Google</Typography>
+                          </div>
+                        </div>
+                      </Typography>
+                    </Box>
+                  </Modal>
 
+                  <Button
+                    variant="outline"
+                    style={{
+                      border: "0.5px solid #1C7AE4",
+                      color: "white",
+                      backgroundColor: "#1b7ae4",
+                    }}
+                    size="small"
+                    onClick={openGroupForm}
+                  >
+                    <AiOutlinePlus /> Add
+                  </Button>
                   <Dialog open={isGroupFormOpen} onClose={closeGroupForm}>
                     {/* Group form content here */}
                   </Dialog>
