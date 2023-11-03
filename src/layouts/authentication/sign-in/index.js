@@ -13,13 +13,14 @@ Coded by www.creative-tim.com
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // react-router-dom components
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // @mui material components
 import Switch from "@mui/material/Switch";
+import axios from 'axios'
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
@@ -32,9 +33,41 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import curved9 from "assets/images/curved-images/curved-6.jpg";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const host = ''
 
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("loginData")) {
+      navigate("/users");
+    }
+  }, []);
+
+  const handleLogin = () => {
+
+    if(username == ""){
+      return toast.error("Email is required")
+    }
+    if(password == ""){
+      return toast.error("Password is required")
+    }
+
+    axios.post(`${host}/login/authenticate`,{username, password}).then((res)=>{
+      if(res.data){
+        localStorage.setItem("loginData",res.data)
+      }else {
+        toast.error("Login failed")
+      }
+    }).catch(e=>{
+      toast.error(`404 : Login failed`)
+    })
+  }
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -44,6 +77,7 @@ function SignIn() {
       description="Enter your email and password to sign in"
       image={curved9}
     >
+      <ToastContainer />
       <SoftBox component="form" role="form">
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -51,7 +85,7 @@ function SignIn() {
               Email
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="email" placeholder="Email" />
+          <SoftInput type="email" placeholder="Email" required onChange={(e) => setUsername(e.target.value)} />
         </SoftBox>
         <SoftBox mb={2}>
           <SoftBox mb={1} ml={0.5}>
@@ -59,7 +93,7 @@ function SignIn() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="password" placeholder="Password" />
+          <SoftInput type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
         </SoftBox>
         {/* <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -72,7 +106,7 @@ function SignIn() {
             &nbsp;&nbsp;Remember me
           </SoftTypography>
         </SoftBox> */}
-        <SoftBox mt={4} mb={1}>
+        <SoftBox mt={4} mb={1} onClick={handleLogin}>
           <SoftButton variant="gradient" color="info" fullWidth>
             sign in
           </SoftButton>

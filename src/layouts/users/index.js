@@ -14,7 +14,7 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { Close } from "@mui/icons-material";
-import {AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineSearch } from "react-icons/ai";
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -128,7 +128,7 @@ const item1 = [
 const item2 = ["Administration", "Sample", "Technical"];
 const groupManagers = ["Vino", "Vijay", "Velayutham"];
 
-function Tables() {
+function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
@@ -178,12 +178,12 @@ function Tables() {
     manager: '',
     preferredlanguage: [],
     groups: '',
-    excludefromautoenrol:'',
+    excludefromautoenrol: '',
   })
 
   const handleChangeAddUser = (e) => {
-    const {name, value} = e.target;
-    setFormData({...formData, [name]: value});
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
     setError(null);
   }
 
@@ -202,13 +202,13 @@ function Tables() {
   const handleSubmitAddUser = async (e) => {
     e.preventDefault();
 
-    if(!isFormValid()) {
+    if (!isFormValid()) {
       setError("Please fill out all the required fileds.");
       return;
     } else {
       try {
         const res = await axios.post();
-        if(res.status === 201) {
+        if (res.status === 201) {
           toast.success("Successfully created");
           setTimeout(() => {
             navigate('/users')
@@ -220,10 +220,10 @@ function Tables() {
       }
     }
   }
-  
+
 
   const handleSearchChange = (e) => {
-    setSearch(e.target.value); 
+    setSearch(e.target.value);
   };
 
   const openRestoreUser = () => {
@@ -297,14 +297,16 @@ function Tables() {
   const handleChangeItems = (event) => {
     setSelectedItems(event.target.value);
   };
-  const handleDelete = (itemToDelete) => (event) => {;
+  const handleDelete = (itemToDelete) => (event) => {
+    ;
     event.preventDefault();
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
   };
 
   //DeleteAddUserGroups
-  const handleDeleteAddUserGroups = (itemToDelete) => (event) => {;
+  const handleDeleteAddUserGroups = (itemToDelete) => (event) => {
+    ;
     event.preventDefault();
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setGroupItems(updatedSelection);
@@ -471,7 +473,7 @@ function Tables() {
   const handleRestoreClick = (row) => {
     alert(`Restoring user: ${row.name}`);
   };
-  
+
 
   const handleDeleteGroup = (itemToDelete) => (event) => {
     console.log(itemToDelete);
@@ -506,123 +508,123 @@ function Tables() {
               <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
                 <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
                   <Typography sx={{ fontSize: "medium" }}>Your Groups</Typography>
-                  <AiFillPlusCircle  
+                  <AiFillPlusCircle
                     onClick={openAddLangModal}
-                    style={{ cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                   />
 
-                      <Modal
-                        open={addLangModalOpen}
-                        onClose={closeAddLangModal}
-                        aria-labelledby="send-test-email-modal-title"
-                        aria-describedby="send-test-email-modal-description"
+                  <Modal
+                    open={addLangModalOpen}
+                    onClose={closeAddLangModal}
+                    aria-labelledby="send-test-email-modal-title"
+                    aria-describedby="send-test-email-modal-description"
+                  >
+                    <Box sx={style}>
+                      <IconButton
+                        aria-label="Close"
+                        sx={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                        }}
+                        onClick={closeAddLangModal}
                       >
-                        <Box sx={style}>
-                          <IconButton
-                            aria-label="Close"
-                            sx={{
-                              position: "absolute",
-                              top: 0,
-                              right: 0,
-                            }}
-                            onClick={closeAddLangModal}
-                          >
-                            <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
-                          </IconButton>
-                          <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                            Add Group
-                          </Typography>
+                        <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                      </IconButton>
+                      <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                        Add Group
+                      </Typography>
 
-                          <form>
-                            <Box style={{ marginTop: "15px" }}>
-                              <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                Group Name:
-                              </label>
-                            </Box>
-                            <TextField
-                              fullWidth
-                              type="text"
-                              sx={{ gridColumn: "span 2" }}
-                            />
+                      <form>
+                        <Box style={{ marginTop: "15px" }}>
+                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                            Group Name:
+                          </label>
+                        </Box>
+                        <TextField
+                          fullWidth
+                          type="text"
+                          sx={{ gridColumn: "span 2" }}
+                        />
 
-                            <Box style={{ marginTop: "15px" }}>
-                              <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                Parent Group:
-                              </label>
-                            </Box>
-                            <TextField
-                              select
-                              value={manager}
-                              onChange={handleManagerChanges}
-                              fullWidth
-                              type="text"
-                              sx={{ gridColumn: "span 2" }}
-                            >
-                              <MenuItem value="IN">Administration</MenuItem>
-                              <MenuItem value="US">Technical</MenuItem>
-                              <MenuItem value="IN">Sample</MenuItem>
-                            </TextField>
-                            <div>
+                        <Box style={{ marginTop: "15px" }}>
+                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                            Parent Group:
+                          </label>
+                        </Box>
+                        <TextField
+                          select
+                          value={manager}
+                          onChange={handleManagerChanges}
+                          fullWidth
+                          type="text"
+                          sx={{ gridColumn: "span 2" }}
+                        >
+                          <MenuItem value="IN">Administration</MenuItem>
+                          <MenuItem value="US">Technical</MenuItem>
+                          <MenuItem value="IN">Sample</MenuItem>
+                        </TextField>
+                        <div>
 
-                            <FormControl sx={{ width: "330px", height: "auto" }}>
-                                  <Typography 
-                                    sx={{ 
-                                      fontSize: '', 
-                                      marginBottom: "5px", 
-                                      marginLeft: "2px", 
-                                      marginTop:'15px' 
-                                      }}
-                                    >
-                                      Group Manager(s):</Typography>                                 
-                                  <Select
-                                  labelId="multiple-select-label"
-                                  id="multiple-select"
-                                  multiple
-                                  label="Select Groups"
-                                  value={groupManager}
-                                  onChange={handleGroupManagers}
-                                  MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                  renderValue={(selected) => (
-                                    <div>
-                                      {selected.map((item) => (
-                                        <Chip
-                                          key={item}
-                                          label={item}
-                                          onDelete={handletheDelete(item)}
-                                          sx={{
-                                            marginRight: "5px",
-                                            height: "20px",
-                                          }}
-                                        />
-                                      ))}
-                                    </div>
-                                  )}
-                                >
-                                  {groupManagers.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      <Checkbox checked={groupManager.indexOf(item) > -1} />
-                                      <ListItemText secondary={item} />
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                                </FormControl>
-                            </div>
-                          </form>
-                          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                            <Button
-                              variant="contained"
-                              style={{
-                                border: "0.5px solid #1C7AE4",
-                                color: "white",
-                                backgroundColor: "#1b7ae4",
-                                marginTop: "15px",
+                          <FormControl sx={{ width: "330px", height: "auto" }}>
+                            <Typography
+                              sx={{
+                                fontSize: '',
+                                marginBottom: "5px",
+                                marginLeft: "2px",
+                                marginTop: '15px'
                               }}
                             >
-                              Create Group
-                            </Button>
-                          </Box>
-                        </Box>
-                      </Modal>
+                              Group Manager(s):</Typography>
+                            <Select
+                              labelId="multiple-select-label"
+                              id="multiple-select"
+                              multiple
+                              label="Select Groups"
+                              value={groupManager}
+                              onChange={handleGroupManagers}
+                              MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                              renderValue={(selected) => (
+                                <div>
+                                  {selected.map((item) => (
+                                    <Chip
+                                      key={item}
+                                      label={item}
+                                      onDelete={handletheDelete(item)}
+                                      sx={{
+                                        marginRight: "5px",
+                                        height: "20px",
+                                      }}
+                                    />
+                                  ))}
+                                </div>
+                              )}
+                            >
+                              {groupManagers.map((item) => (
+                                <MenuItem key={item} value={item}>
+                                  <Checkbox checked={groupManager.indexOf(item) > -1} />
+                                  <ListItemText secondary={item} />
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </div>
+                      </form>
+                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                        <Button
+                          variant="contained"
+                          style={{
+                            border: "0.5px solid #1C7AE4",
+                            color: "white",
+                            backgroundColor: "#1b7ae4",
+                            marginTop: "15px",
+                          }}
+                        >
+                          Create Group
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Modal>
 
 
                 </div>
@@ -683,94 +685,94 @@ function Tables() {
                   </Button>
 
                   <Modal open={restoreUser} onClose={closeRestoreUser}>
-                  <Box sx={styleTable}>
-                  <IconButton
-                    edge="end"
-                    color="inherit"
-                    onClick={closeRestoreUser}
-                    style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
-                  >
-                    <Close />
-                  </IconButton>
-                    <Typography>Resore Users</Typography>
-                    <hr/>
+                    <Box sx={styleTable}>
+                      <IconButton
+                        edge="end"
+                        color="inherit"
+                        onClick={closeRestoreUser}
+                        style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                      >
+                        <Close />
+                      </IconButton>
+                      <Typography>Resore Users</Typography>
+                      <hr />
 
-                    <Button
-                    variant="outline"
-                    style={{
-                      border: "0.5px solid #d2d6da",
-                      color: "#d4d4d4",
-                      fontSize: "10px",
-                      minWidth: 150,
-                      maxHeight: 40,
-                      marginTop:'15px'
-                    }}
-                    size="small"
-                  >
-                    Search for a user
-                    <AiOutlineSearch style={{ color: "grey", fontSize: "15px" }} />
-                  </Button>
-                    <TableContainer component={Paper} style={{marginTop:'20px'}}>
-                      <Table sx={{ width: "100%" }} aria-label="simple table">
-                        <TableHead sx={{ display: "table-header-group" }}>
-                          <TableRow sx={{ width: "20px" }}>
-                          <TableCell>Sl. No.</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Email ID</TableCell>
-                            <TableCell>Deleted At</TableCell>
-                            <TableCell>Restore</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>1</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
-                      <TableCell>
-                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
-                      </TableCell>
-                    </TableRow>
+                      <Button
+                        variant="outline"
+                        style={{
+                          border: "0.5px solid #d2d6da",
+                          color: "#d4d4d4",
+                          fontSize: "10px",
+                          minWidth: 150,
+                          maxHeight: 40,
+                          marginTop: '15px'
+                        }}
+                        size="small"
+                      >
+                        Search for a user
+                        <AiOutlineSearch style={{ color: "grey", fontSize: "15px" }} />
+                      </Button>
+                      <TableContainer component={Paper} style={{ marginTop: '20px' }}>
+                        <Table sx={{ width: "100%" }} aria-label="simple table">
+                          <TableHead sx={{ display: "table-header-group" }}>
+                            <TableRow sx={{ width: "20px" }}>
+                              <TableCell>Sl. No.</TableCell>
+                              <TableCell>Name</TableCell>
+                              <TableCell>Email ID</TableCell>
+                              <TableCell>Deleted At</TableCell>
+                              <TableCell>Restore</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            <TableRow
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell>1</TableCell>
+                              <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>harri loganathan</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>harri@twintechsolution.com</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>20/10/2023 16:57:39</TableCell>
+                              <TableCell>
+                                <button onClick={handleRestoreClick} style={{ height: '30px', width: '100px', background: '#fff' }}>Restore User</button>
+                              </TableCell>
+                            </TableRow>
 
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>2</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
-                      <TableCell>
-                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>3</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
-                      <TableCell>
-                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
-                      <TableCell>4</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>harri loganathan</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>harri@twintechsolution.com</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>20/10/2023 16:57:39</TableCell>
-                      <TableCell>
-                        <button onClick={handleRestoreClick} style={{height:'30px', width:'100px', background:'#fff'}}>Restore User</button>
-                      </TableCell>
-                    </TableRow>
-                          
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
+                            <TableRow
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell>2</TableCell>
+                              <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>harri loganathan</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>harri@twintechsolution.com</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>20/10/2023 16:57:39</TableCell>
+                              <TableCell>
+                                <button onClick={handleRestoreClick} style={{ height: '30px', width: '100px', background: '#fff' }}>Restore User</button>
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell>3</TableCell>
+                              <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>harri loganathan</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>harri@twintechsolution.com</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>20/10/2023 16:57:39</TableCell>
+                              <TableCell>
+                                <button onClick={handleRestoreClick} style={{ height: '30px', width: '100px', background: '#fff' }}>Restore User</button>
+                              </TableCell>
+                            </TableRow>
+                            <TableRow
+                              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                              <TableCell>4</TableCell>
+                              <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>harri loganathan</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>harri@twintechsolution.com</TableCell>
+                              <TableCell style={{ fontSize: "13px" }}>20/10/2023 16:57:39</TableCell>
+                              <TableCell>
+                                <button onClick={handleRestoreClick} style={{ height: '30px', width: '100px', background: '#fff' }}>Restore User</button>
+                              </TableCell>
+                            </TableRow>
+
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
                     </Box>
                   </Modal>
 
@@ -835,7 +837,7 @@ function Tables() {
                     )}
                   </Popper>
                 </Stack>
-                <Stack spacing={2} margin={2}  direction="row" justifyContent="flex-end">
+                <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
                   <div >
                     {/* <Button
                       variant="outline"
@@ -972,7 +974,7 @@ function Tables() {
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
-                          
+
                             <div>
                               <FormControl sx={{ width: "330px", height: "auto" }}>
                                 <Typography
@@ -1036,7 +1038,7 @@ function Tables() {
                             <Button
                               variant="contained"
                               onClick={handleSubmitAddUser}
-                              disabled= {!isFormValid()}
+                              disabled={!isFormValid()}
                               style={{
                                 border: "0.5px solid #1C7AE4",
                                 color: "white",
@@ -1115,7 +1117,7 @@ function Tables() {
                                   }}
                                 >
                                   Group Manager(s) :
-                                </Typography>                               
+                                </Typography>
                                 <Select
                                   labelId="multiple-select-label"
                                   id="multiple-select"
@@ -1168,60 +1170,60 @@ function Tables() {
                     </Menu>
                   </div>
 
-                <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
-                  <Button
-                    variant="outline"
-                    style={{ border: "0.5px solid grey", color: "#585958" }}
-                    size="small"
-                    disabled
-                  >
-                    Action
-                  </Button>
-                  <Button
-                    variant="outline"
-                    style={{ border: "0.5px solid grey", color: "#585958" }}
-                    size="small"
-                    onClick={openImportUsersModal}
-                  >
-                    <AiOutlineArrowDown /> Import Users
-                  </Button>
-                   <Modal
-                    open={importUsersModal}
-                    onClose={closeImportUsersModal}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                  >
-                    <Box sx={style}>
-                    <IconButton
-                      edge="end"
-                      color="inherit"
-                      onClick={closeImportUsersModal}
-                      style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                  <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
+                    <Button
+                      variant="outline"
+                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      size="small"
+                      disabled
                     >
-                      <Close />
-                    </IconButton>
-                      <Typography>Import Users</Typography>
-                      <hr/>
-                      <Typography id="modal-modal-title" variant="h6" component="h2">
-                        <div style={{ display: "flex", alignItems: "center", marginTop:'40px' }}>
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
-                            <Typography variant="body2" style={{marginRight:'70px'}}>CSV</Typography>
+                      Action
+                    </Button>
+                    <Button
+                      variant="outline"
+                      style={{ border: "0.5px solid grey", color: "#585958" }}
+                      size="small"
+                      onClick={openImportUsersModal}
+                    >
+                      <AiOutlineArrowDown /> Import Users
+                    </Button>
+                    <Modal
+                      open={importUsersModal}
+                      onClose={closeImportUsersModal}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={style}>
+                        <IconButton
+                          edge="end"
+                          color="inherit"
+                          onClick={closeImportUsersModal}
+                          style={{ position: "absolute", right: 10, top: 10, zIndex: 1 }}
+                        >
+                          <Close />
+                        </IconButton>
+                        <Typography>Import Users</Typography>
+                        <hr />
+                        <Typography id="modal-modal-title" variant="h6" component="h2">
+                          <div style={{ display: "flex", alignItems: "center", marginTop: '40px' }}>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                              <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
+                              <Typography variant="body2" style={{ marginRight: '70px' }}>CSV</Typography>
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                              <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
+                              <Typography variant="body2" style={{ marginRight: '70px' }}>Microsoft</Typography>
+                            </div>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                              <img style={{ width: "50px" }} src={GoogleIcon} alt="Google Icon" />
+                              <Typography variant="body2">Google</Typography>
+                            </div>
                           </div>
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
-                            <Typography variant="body2" style={{marginRight:'70px'}}>Microsoft</Typography>
-                          </div>
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                            <img style={{ width: "50px" }} src={GoogleIcon} alt="Google Icon" />
-                            <Typography variant="body2">Google</Typography>
-                          </div>
-                        </div>
-                      </Typography>
-                    </Box>
-                  </Modal>
+                        </Typography>
+                      </Box>
+                    </Modal>
 
-                  {/* <Button
+                    {/* <Button
                     variant="outline"
                     style={{
                       border: "0.5px solid #1C7AE4",
@@ -1233,11 +1235,11 @@ function Tables() {
                   >
                     <AiOutlinePlus /> Add
                   </Button> */}
-                  {/* <Dialog open={isGroupFormOpen} onClose={closeGroupForm}> */}
+                    {/* <Dialog open={isGroupFormOpen} onClose={closeGroupForm}> */}
                     {/* Group form content here */}
-                  {/* </Dialog> */}
+                    {/* </Dialog> */}
+                  </Stack>
                 </Stack>
-              </Stack>
               </Stack>
             </SoftBox>
             <SoftBox
@@ -1324,7 +1326,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                  
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -1335,7 +1337,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                            
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -1350,7 +1352,7 @@ function Tables() {
                                   value={country}
                                   onChange={handleChanges}
                                   fullWidth
-                                
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 >
@@ -1365,7 +1367,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                 
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -1379,7 +1381,7 @@ function Tables() {
                                   value={manager}
                                   onChange={handleManagerChanges}
                                   fullWidth
-                                
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 >
@@ -1395,7 +1397,7 @@ function Tables() {
                                 </Box>
                                 <TextField
                                   fullWidth
-                                 
+
                                   type="text"
                                   sx={{ gridColumn: "span 2" }}
                                 />
@@ -2234,4 +2236,4 @@ function Tables() {
   );
 }
 
-export default Tables;
+export default Users;

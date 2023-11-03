@@ -93,8 +93,8 @@ const style = {
 const languageOptions = ["English", "Spanish", "French", "German"];
 
 // Data
-import authorsTableData from "layouts/tables/data/authorsTableData";
-import projectsTableData from "layouts/tables/data/projectsTableData";
+import authorsTableData from "layouts/users/data/authorsTableData";
+import projectsTableData from "layouts/users/data/projectsTableData";
 import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import CreateLandingPage from "./createLandingPage";
