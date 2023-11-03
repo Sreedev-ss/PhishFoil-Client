@@ -239,8 +239,7 @@ function Tables() {
   const handleChangeItems = (event) => {
     setSelectedItems(event.target.value);
   };
-  const handleDelete = (itemToDelete) => (event) => {
-    console.log(itemToDelete);
+  const handleDelete = (itemToDelete) => (event) => {;
     event.preventDefault();
     const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
     setSelectedItems(updatedSelection);
@@ -250,7 +249,6 @@ function Tables() {
     setGroupItems(event.target.value);
   };
   const handleDeleted = (itemToDelete) => (event) => {
-    console.log(itemToDelete);
     event.preventDefault();
     const updatedSelections = selectedItems.filter((item) => item !== itemToDelete);
     setGroupItems(updatedSelections);
@@ -685,10 +683,10 @@ function Tables() {
                       <AiOutlinePlus /> Add
                     </Button>
                     <Menu anchorEl={anchorEll} open={Boolean(anchorEll)} onClose={handleClos}>
-                      <MenuItem onClick={openAddLangModal}>User</MenuItem>
+                      <MenuItem onClick={openUsersModal}>User</MenuItem>
                       <Modal
-                        open={addLangModalOpen}
-                        onClose={closeAddLangModal}
+                        open={addUsersOpen}
+                        onClose={closeUsersModal}
                         aria-labelledby="send-test-email-modal-title"
                         aria-describedby="send-test-email-modal-description"
                       >
@@ -700,7 +698,7 @@ function Tables() {
                               top: 0,
                               right: 0,
                             }}
-                            onClick={closeAddLangModal}
+                            onClick={closeUsersModal}
                           >
                             <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
                           </IconButton>
@@ -809,8 +807,8 @@ function Tables() {
                                   id="multiple-select"
                                   multiple
                                   label="Select Groups"
-                                  value={groupManagers}
-                                  onChange={handleGroupManagers}
+                                  value={item2}
+                                  onChange={handleChangeItem2}
                                   MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                   renderValue={(selected) => (
                                     <div>
@@ -818,7 +816,7 @@ function Tables() {
                                         <Chip
                                           key={item}
                                           label={item}
-                                          onDelete={handletheDelete(item)}
+                                          onDelete={handleDeleted(item)}
                                           sx={{
                                             marginRight: "5px",
                                             height: "20px",
@@ -1051,9 +1049,9 @@ function Tables() {
                   >
                     <AiOutlinePlus /> Add
                   </Button> */}
-                  <Dialog open={isGroupFormOpen} onClose={closeGroupForm}>
+                  {/* <Dialog open={isGroupFormOpen} onClose={closeGroupForm}> */}
                     {/* Group form content here */}
-                  </Dialog>
+                  {/* </Dialog> */}
                 </Stack>
               </Stack>
               </Stack>
