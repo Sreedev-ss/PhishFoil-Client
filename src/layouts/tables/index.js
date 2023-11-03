@@ -1016,7 +1016,6 @@ function Tables() {
                             </Box>
                             <TextField
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             />
@@ -1031,7 +1030,6 @@ function Tables() {
                               value={manager}
                               onChange={handleManagerChanges}
                               fullWidth
-                              variant="filled"
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             >
@@ -1051,7 +1049,7 @@ function Tables() {
                                   }}
                                 >
                                   Group Manager(s) :
-                                </Typography>
+                                </Typography>                               
                                 <Select
                                   labelId="multiple-select-label"
                                   id="multiple-select"
@@ -1078,7 +1076,7 @@ function Tables() {
                                 >
                                   {groupManagers.map((item) => (
                                     <MenuItem key={item} value={item}>
-                                      <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                      <Checkbox checked={groupManager.indexOf(item) > -1} />
                                       <ListItemText secondary={item} />
                                     </MenuItem>
                                   ))}
@@ -1096,7 +1094,7 @@ function Tables() {
                                 marginTop: "15px",
                               }}
                             >
-                              Save
+                              Create Group
                             </Button>
                           </Box>
                         </Box>
