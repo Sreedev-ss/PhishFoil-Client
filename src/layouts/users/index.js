@@ -13,7 +13,7 @@ import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
-import { Close } from "@mui/icons-material";
+import { Close, Language } from "@mui/icons-material";
 import { AiOutlineSearch } from "react-icons/ai";
 
 // Soft UI Dashboard React examples
@@ -560,9 +560,9 @@ function Users() {
                           type="text"
                           sx={{ gridColumn: "span 2" }}
                         >
-                          <MenuItem value="IN">Administration</MenuItem>
-                          <MenuItem value="US">Technical</MenuItem>
-                          <MenuItem value="IN">Sample</MenuItem>
+                          <MenuItem value="Administration">Administration</MenuItem>
+                          <MenuItem value="Technical">Technical</MenuItem>
+                          <MenuItem value="Sample">Sample</MenuItem>
                         </TextField>
                         <div>
 
@@ -890,7 +890,6 @@ function Users() {
                           <Typography id="send-test-email-modal-title" variant="h6" component="h2">
                             Add User
                           </Typography>
-
                           <form>
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -959,10 +958,10 @@ function Users() {
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             >
-                              <MenuItem value="IN">Vijay</MenuItem>
-                              <MenuItem value="US">Vino</MenuItem>
-                              <MenuItem value="IN">Vedieshwaran</MenuItem>
-                              <MenuItem value="US">Velayutham</MenuItem>
+                              <MenuItem value="Vijay">Vijay</MenuItem>
+                              <MenuItem value="Vino">Vino</MenuItem>
+                              <MenuItem value="Vedieshwaran">Vedieshwaran</MenuItem>
+                              <MenuItem value="Velayutham">Velayutham</MenuItem>
                             </TextField>
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -970,10 +969,19 @@ function Users() {
                               </label>
                             </Box>
                             <TextField
+                              select
+                              value={selectedLanguage}
+                              onChange={handleLanguageChange}
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
-                            />
+                            >
+                              <MenuItem value="English(UK)">English(UK)</MenuItem>
+                              <MenuItem value="Italian">Italian</MenuItem>
+                              <MenuItem value="Polish">Polish</MenuItem>
+                              <MenuItem value="Malaysian">Malaysian</MenuItem>
+
+                            </TextField>
 
                             <div>
                               <FormControl sx={{ width: "330px", height: "auto" }}>
@@ -1101,9 +1109,9 @@ function Users() {
                               type="text"
                               sx={{ gridColumn: "span 2" }}
                             >
-                              <MenuItem value="IN">Administration</MenuItem>
-                              <MenuItem value="US">Technical</MenuItem>
-                              <MenuItem value="IN">Sample</MenuItem>
+                              <MenuItem value="Administration">Administration</MenuItem>
+                              <MenuItem value="Technical">Technical</MenuItem>
+                              <MenuItem value="Sample">Sample</MenuItem>
                             </TextField>
 
                             <div>
