@@ -612,7 +612,7 @@ function Users() {
                           onChange={handleChangeAddGroup}
                         />
 
-                        {/* <Box style={{ marginTop: "15px" }}>
+                        <Box style={{ marginTop: "15px" }}>
                           <label htmlFor="name" style={{ fontSize: "13px" }}>
                             Parent Group:
                           </label>
@@ -628,7 +628,7 @@ function Users() {
                           <MenuItem value="Administration">Administration</MenuItem>
                           <MenuItem value="Technical">Technical</MenuItem>
                           <MenuItem value="Sample">Sample</MenuItem>
-                        </TextField> */}
+                        </TextField>
                         <div>
 
                           <FormControl sx={{ width: "330px", height: "auto" }}>
@@ -683,6 +683,7 @@ function Users() {
                             color: "white",
                             backgroundColor: "#1b7ae4",
                             marginTop: "15px",
+                            onClick: {handleAddGroupSubmit}
                           }}
                         >
                           Create Group
@@ -1171,6 +1172,8 @@ function Users() {
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
+                              value={addGroupData.groupname}
+                              onChange={handleChangeAddGroup}
                             />
 
                             <Box style={{ marginTop: "15px" }}>
@@ -1249,6 +1252,8 @@ function Users() {
                             >
                               Create Group
                             </Button>
+                            <p style={{ fontSize: "12px", paddingX: "20px" }}>{message ? message : null}</p>
+                            <p style={{ fontSize: "12px", paddingX: "20px", color: "red" }}>{error ? error : null}</p>
                           </Box>
                         </Box>
                       </Modal>
