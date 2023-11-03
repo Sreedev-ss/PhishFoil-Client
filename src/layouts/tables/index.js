@@ -6,7 +6,7 @@ import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import AirplanemodeInactiveIcon from "@mui/icons-material/AirplanemodeInactive";
@@ -108,6 +108,8 @@ import SoftButton from "components/SoftButton";
 import { useRef, useState } from "react";
 import React from "react";
 import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
+import { toast } from "react-toastify";
 const items = ["Technical", "Administration", "Sample"];
 const courses = [
   "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
@@ -163,6 +165,61 @@ function Tables() {
   const [importUsersModal, setImportUsersModal] = useState(false);
   const [restoreUser, setRestoreUser] = useState(false);
   const [search, setSearch] = useState("");
+
+  const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    manager: '',
+    preferredlanguage: [],
+    groups: '',
+    excludefromautoenrol:'',
+  })
+
+  const handleChangeAddUser = (e) => {
+    const {name, value} = e.target;
+    setFormData({...formData, [name]: value});
+    setError(null);
+  }
+
+  const isFormValid = () => {
+    const {
+      firstname,
+      lastname,
+      email,
+      manager,
+      preferredlanguage,
+      groups,
+      excludefromautoenrol,
+    } = formData;
+  }
+
+  const handleSubmitAddUser = async (e) => {
+    e.preventDefault();
+
+    if(!isFormValid()) {
+      setError("Please fill out all the required fileds.");
+      return;
+    } else {
+      try {
+        const res = await axios.post();
+        if(res.status === 201) {
+          toast.success("Successfully created");
+          setTimeout(() => {
+            navigate('/users')
+          }, 1000)
+          setSuccess("User added successfully");
+        }
+      } catch (err) {
+        setError(err);
+      }
+    }
+  }
   
 
   const handleSearchChange = (e) => {
@@ -842,6 +899,8 @@ function Tables() {
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
+                              value={formData.firstname}
+                              onChange={handleChangeAddUser}
                             />
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -852,6 +911,8 @@ function Tables() {
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
+                              value={formData.lastname}
+                              onChange={handleChangeAddUser}
                             />
 
                             {/* <Box style={{ marginTop: "15px" }}>
@@ -880,6 +941,8 @@ function Tables() {
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
+                              value={formData.email}
+                              onChange={handleChangeAddUser}
                             />
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -972,6 +1035,8 @@ function Tables() {
                           <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                             <Button
                               variant="contained"
+                              onClick={handleSubmitAddUser}
+                              disabled= {!isFormValid()}
                               style={{
                                 border: "0.5px solid #1C7AE4",
                                 color: "white",
@@ -984,6 +1049,7 @@ function Tables() {
                           </Box>
                         </Box>
                       </Modal>
+
                       <MenuItem onClick={openAddLangModal}>Group</MenuItem>
 
                       <Modal
