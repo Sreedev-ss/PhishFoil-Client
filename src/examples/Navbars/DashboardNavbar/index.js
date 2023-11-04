@@ -32,6 +32,7 @@ import Icon from "@mui/material/Icon";
 import SoftBox from "components/SoftBox";
 import SoftTypography from "components/SoftTypography";
 import SoftInput from "components/SoftInput";
+import { useNavigate } from "react-router-dom";
 
 // Soft UI Dashboard React examples
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -64,6 +65,32 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+  const navigate = useNavigate();
+
+  const [userData , setUserData] = useState()
+
+  useEffect(() => {
+    const user = localStorage.getItem("loginData");
+    const parsedObject = user && JSON.parse(user);
+  setUserData(parsedObject)
+   
+  },[])
+
+  // let logout = () => {
+  //   localStorage.clear();
+  //   navigate("/login");
+  //   window.location.reload();
+  // };
+  const logout = () => {
+    localStorage.removeItem("loginData");
+  
+    // Redirect to the login page
+    navigate("/login");
+    
+    // Reloading the window is usually not necessary unless you have specific requirements for it.
+    // window.location.reload();
+  };
+ 
 
   useEffect(() => {
     // Setting the navbar type
@@ -167,8 +194,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     variant="button"
                     fontWeight="medium"
                     color={light ? "white" : "dark"}
+                    onClick={logout}
                   >
-                    Sign in
+                    {userData?.token ? "Logout"  : "Login"} {userData?.role} {userData?.username}
                   </SoftTypography>
                 </IconButton>
               </Link>
