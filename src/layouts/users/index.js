@@ -209,7 +209,8 @@ function Users() {
   const [modalCSVOpen, setModalCSVOpen] = useState(false);
   const [csvContents, setCsvContents] = useState(null);
   const [allGroups, setAllGroups] = useState([])
-  const [parentGroup, setParentGroup] = useState("")
+  const [parentGroup, setParentGroup] = useState("");
+  const [uploadedData, setUploadedData] = useState([]); 
 
   useEffect(() => {
     axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
@@ -244,6 +245,7 @@ function Users() {
     firstname: '',
     lastname: '',
     email: '',
+    manageremail:'',
     manager: '',
     preferredlanguage: [],
     groups: groupItems,
@@ -296,9 +298,25 @@ function Users() {
     const updatedCsvContents = [...csvContents];
     updatedCsvContents.splice(index, 1);
     setCsvContents(updatedCsvContents);
+  };
+
+  // const handleUpload = () => {
+  //   setAllUserData([...usersData, ...csvContents]);
+  //   closeCSVModal();
+  // }
+
+  const handleUpload = (event) => {
+    setUploadedData(csvContents);
+    console.log("csvContents upload data", csvContents);
+    if(csvContents.length){
+      csvContents.forEach(e=>{
+        console.log(e,'csv')
+        setFormData(e)
+        handleSubmitAddUser(event)
+      })
+    }
+    closeCSVModal();
   }
-
-
 
   const handleChangeAddUser = (e) => {
     const { name, value } = e.target;
@@ -313,7 +331,6 @@ function Users() {
       email,
       manager,
       preferredlanguage,
-      groups,
       excludefromautoenrol,
     } = formData;
 
@@ -322,17 +339,16 @@ function Users() {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     return (
-      firstname.trim() !== "" &&
+      firstname !== "" &&
       lastname !== "" &&
       email.match(emailRegex) &&
       manager !== "" &&
-      preferredlanguage !== "" &&
-      groups.length !== 0
+      preferredlanguage !== "" 
     );
   }
 
   const handleSubmitAddUser = async (e) => {
-    console.log(formData)
+    console.log(formData,'formData i nsubmit')
     e.preventDefault();
     if (!isFormValid()) {
       setError("Please fill out all the required fields.");
@@ -345,6 +361,16 @@ function Users() {
         if (res.data) {
           toast.success("Successfully created");
           setAllUserData(res.data)
+          setFormData({
+            firstname: '',
+            lastname: '',
+            email: '',
+            manageremail:'',
+            manager: '',
+            preferredlanguage: [],
+            groups: groupItems,
+            excludefromautoenrol: '',
+          })
           setSuccess("User added successfully");
           closeUsersModal()
 
@@ -1514,7 +1540,7 @@ function Users() {
                                     <button onClick={closeCSVModal}>Close</button>
                                   </div>
                                 )}                                                 
-                                  <button>Upload</button>
+                                  <button onClick={handleUpload}>Upload</button>
                                 </Box>
                                                                   
                                 </div>
