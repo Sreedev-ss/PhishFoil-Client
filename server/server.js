@@ -71,7 +71,7 @@ app.post('/user/new/:clientid', (req, res) => {
         name:req.body?.firstname+' '+req.body?.lastname,
         emailid:req.body?.email,
         managername:req.body?.manager,
-        manageremailid:req.body?.manager+''+'@gmail.com',
+        manageremailid: req.body?.manageremailid ?  req.body?.managerEmailid : req.body?.manager+''+'@gmail.com',
         enableordisable: true,
         orgainzationrole: null,
         groups:req.body?.groups,
