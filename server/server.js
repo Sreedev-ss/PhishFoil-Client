@@ -24,12 +24,39 @@ app.post('/login/authenticate', (req, res) => {
 });
 
 app.get('/user/group/all/:clientid', async (req, res) => {
+    const clientid = req.params.clientid
     const groups = await db.groups.filter((g) => g.clientid == clientid)
     res.json(groups)
 })
 
-app.post('/user/newgroup/:clientid', (req, res) => {
-    db.groups.push(req.body)
+function generateRandomId(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+  
+    return result;
+  }
+  
+
+app.post('/user/newgroup/:clientid', async(req, res) => {
+    const clientid = req.params.clientid
+    console.log(req.body)
+    let data = {
+        groupid: generateRandomId(10),
+        groupname:req.body?.groupname,
+        groupmanager:req.body?.manager,
+        clientid:clientid,
+        isparentgroup:req.body?.parentid ? false : true,
+        parentid: req.body?.parentid,
+        pp:[]
+
+    }
+    db.groups.push(data)
+    console.log(db.groups)
     res.json(db.groups)
 })
 

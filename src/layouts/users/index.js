@@ -46,6 +46,10 @@ import {
   Switch,
   Typography,
   InputAdornment,
+  Collapse,
+  AccordionSummary,
+  Accordion,
+  AccordionDetails,
 } from "@mui/material";
 
 import TextField from "@mui/material/TextField";
@@ -204,11 +208,24 @@ function Users() {
   const [allUserData, setAllUserData] = useState([]);
   const [modalCSVOpen, setModalCSVOpen] = useState(false);
   const [csvContents, setCsvContents] = useState(null);
+  const [allGroups, setAllGroups] = useState([])
+  const [parentGroup, setParentGroup] = useState("")
 
   useEffect(() => {
     axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
       if (res.data) {
         setAllUserData(res.data)
+      } else {
+        toast.error('Failed fetching users')
+      }
+    }).catch(e => {
+      console.log(e)
+    })
+
+    axios.get(`${host}/user/group/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
+      if (res.data) {
+        setAllGroups(res.data)
+        console.log(res.data, 'all')
       } else {
         toast.error('Failed fetching users')
       }
@@ -310,7 +327,7 @@ function Users() {
       email.match(emailRegex) &&
       manager !== "" &&
       preferredlanguage !== "" &&
-      groups.length !== 0 
+      groups.length !== 0
     );
   }
 
@@ -342,7 +359,7 @@ function Users() {
   const [addGroupData, setAddGroupData] = useState({
     groupname: '',
     parentid: '',
-    manager: '',
+    manager: ["Vijay"],
     manageremailid: '',
   });
 
@@ -353,36 +370,29 @@ function Users() {
   };
 
   const isAddGroupFormValid = () => {
-    const requiredFields = [
-      "groupname",
-      "parentid",
-      "manager",
-      "manageremailid",
-    ];
-    return requiredFields.every((field) => addGroupData[field].trim() !== "");
+    if (addGroupData['groupname'].trim() == "") {
+      return false
+    }
+    return true
   };
 
   const handleAddGroupSubmit = async (e) => {
-    console.log("sucesssssssssssss");
     e.preventDefault();
-
+    console.log(addGroupData)
     if (!isAddGroupFormValid()) {
-      setError("All fields are required");
+      setError("Group name is required");
     } else {
       try {
-        const res = await axios.post("http://localhost:4000/addGroup", addGroupData);
-        const mess = res
-        setMessage(mess)
+        const res = await axios.post(`${host}/user/newgroup/de24f5e0-382c-4657-b296-9fd673758c5a`, addGroupData);
         setAddGroupData({
           groupname: '',
           parentid: '',
-          manager: '',
+          manager: ["Vijay"],
           manageremailid: '',
         })
+        setAllGroups(res.data)
         toast.success("Successfully created");
-        setTimeout(() => {
-          navigate('/users')
-        }, 1000)
+        closeAddLangModal()
       } catch (err) {
         setError(err)
       }
@@ -524,6 +534,9 @@ function Users() {
   const handleManagerChanges = (event) => {
     setManager(event.target.value);
   };
+  const handleParentGroup = (event) => {
+    setParentGroup(event.target.value)
+  }
   const handleChanges = (event) => {
     setCountry(event.target.value);
   };
@@ -548,6 +561,7 @@ function Users() {
     setAddLangModalOpen(true);
   };
   const closeAddLangModal = () => {
+    setError('')
     setAddLangModalOpen(false);
   };
   const handleLanguageChange = (event) => {
@@ -660,6 +674,45 @@ function Users() {
   const openAnchor = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+
+
+  const CheckboxTree = ({ data, groups }) => {
+    const [checked, setChecked] = useState({});
+
+    const handleCheck = (name) => {
+      setChecked((prevChecked) => ({
+        ...prevChecked,
+        [name]: !prevChecked[name],
+      }));
+    };
+
+    const getParent = (child) => {
+      return groups.find((item) => item.groupname === child.parentid);
+    };
+
+    return (
+      <div>
+        {data.map((item, index) => (
+          <div key={index}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={checked[item.groupid] || false}
+                  onChange={() => handleCheck(item.groupid)}
+                />
+              }
+              label={item.groupname}
+            />
+            {item.isparentgroup && (
+              <div style={{ marginLeft: '20px' }}>
+                <CheckboxTree data={groups.filter((g) => g.parentid === item.groupname)} groups={groups} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    );
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -676,7 +729,15 @@ function Users() {
             >
               <div style={{ display: "flex", flexDirection: "column", gap: "1px" }}>
                 <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-                  <Typography sx={{ fontSize: "medium" }}>Your Groups</Typography>
+                  <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="h6">Your Groups</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+
+                      <CheckboxTree data={allGroups.filter((item) => !item.parentid)} groups={allGroups} />
+                    </AccordionDetails>
+                  </Accordion>
                   <AiFillPlusCircle
                     onClick={openAddLangModal}
                     style={{ cursor: 'pointer' }}
@@ -707,7 +768,7 @@ function Users() {
                       <form>
                         <Box style={{ marginTop: "15px" }}>
                           <label htmlFor="name" style={{ fontSize: "13px" }}>
-                            Group Name:
+                            Group Name *:
                           </label>
                         </Box>
                         <TextField
@@ -726,8 +787,9 @@ function Users() {
                         </Box>
                         <TextField
                           select
-                          value={manager}
-                          onChange={handleManagerChanges}
+                          name="parentid"
+                          value={addGroupData.parentid}
+                          onChange={handleChangeAddGroup}
                           fullWidth
                           type="text"
                           sx={{ gridColumn: "span 2" }}
@@ -752,9 +814,10 @@ function Users() {
                               labelId="multiple-select-label"
                               id="multiple-select"
                               multiple
+                              name="manager"
                               label="Select Groups"
-                              value={groupManager}
-                              onChange={handleGroupManagers}
+                              value={addGroupData.manager}
+                              onChange={handleChangeAddGroup}
                               MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                               renderValue={(selected) => (
                                 <div>
@@ -774,7 +837,7 @@ function Users() {
                             >
                               {groupManagers.map((item) => (
                                 <MenuItem key={item} value={item}>
-                                  <Checkbox checked={groupManager.indexOf(item) > -1} />
+                                  <Checkbox checked={addGroupData.manager.indexOf(item) > -1} />
                                   <ListItemText secondary={item} />
                                 </MenuItem>
                               ))}
@@ -790,31 +853,17 @@ function Users() {
                             color: "white",
                             backgroundColor: "#1b7ae4",
                             marginTop: "15px",
-                            onClick: { handleAddGroupSubmit }
                           }}
+                          onClick={handleAddGroupSubmit}
                         >
                           Create Group
                         </Button>
-                        <p style={{ fontSize: "12px", paddingX: "20px" }}>{message ? message : null}</p>
                         <p style={{ fontSize: "12px", paddingX: "20px", color: "red" }}>{error ? error : null}</p>
                       </Box>
                     </Box>
                   </Modal>
 
                 </div>
-                <FormGroup
-                  sx={{
-                    display: "flex",
-                    marginLeft: "10px",
-                    marginTop: "8px",
-                    flexDirection: "row",
-                  }}
-                >
-                  <FormControlLabel control={<Checkbox />} label="No Group" />
-                  <FormControlLabel control={<Checkbox />} label="Administration" />
-                  <FormControlLabel control={<Checkbox />} label="Sample" />
-                  <FormControlLabel control={<Checkbox />} label="Technical" />
-                </FormGroup>
                 <Divider />
                 <div style={{ display: "flex", alignItems: "end", gap: 5 }}>
                   <Typography sx={{ fontSize: "medium" }}>Status:</Typography>
@@ -1249,7 +1298,7 @@ function Users() {
 
                       <MenuItem onClick={openAddLangModal}>Group</MenuItem>
 
-                      <Modal
+                      {/* <Modal
                         open={addLangModalOpen}
                         onClose={closeAddLangModal}
                         aria-labelledby="send-test-email-modal-title"
@@ -1365,7 +1414,7 @@ function Users() {
                             <p style={{ fontSize: "12px", paddingX: "20px", color: "red" }}>{error ? error : null}</p>
                           </Box>
                         </Box>
-                      </Modal>
+                      </Modal> */}
                     </Menu>
                   </div>
 
