@@ -135,7 +135,7 @@ const courses = [
   "Home Network Security Awareness: Robs Router Routine(Beginner)",
   "Security Email Use",
 ];
-const options = ["Download Group Managers Reports", "Download Reports", "Download Users Reports"];
+const options = ["Download Group Managers Reports", "Download Users Reports"];
 const item1 = [
   "Password Constrution Guidelines",
   "Phishing test policy",
@@ -1013,7 +1013,7 @@ function Users() {
                     ref={anchorRef}
                     aria-label="split button"
                   >
-                    <Button onClick={handleClickbtn}>{options[selectedIndex]}</Button>
+                    <Button onClick={handleClickbtn}>Download Reports</Button>
                     <Button
                       size="small"
                       aria-controls={open ? "split-button-menu" : undefined}

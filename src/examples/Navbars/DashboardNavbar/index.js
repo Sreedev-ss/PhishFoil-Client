@@ -71,7 +71,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
 
   useEffect(() => {
     const user = localStorage.getItem("loginData");
-    const parsedObject = user && JSON.parse(user);
+    const parsedObject = JSON.parse(user);
   setUserData(parsedObject)
    
   },[])
@@ -196,8 +196,25 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     color={light ? "white" : "dark"}
                     onClick={logout}
                   >
-                    {userData?.token ? "Logout"  : "Login"} {userData?.role} {userData?.username}
+                    {/* {console.log(userData.token)} */}
+                    {userData?.token ? "Logout"  : "Login"} 
                   </SoftTypography>
+                  <div style={{display:'flex',flexDirection:'column', backgroundColor:'#D2D6DA'}}>
+                  <SoftTypography
+                    variant="button"
+                    fontWeight="medium"
+                    color={light ? "white" : "dark"}
+                  >
+                     {userData?.username}
+                  </SoftTypography>
+                  <SoftTypography
+                    variant="button"
+                    fontWeight="medium"
+                    color={light ? "white" : "dark"}
+                  >
+                    {userData?.role} 
+                  </SoftTypography>
+                  </div>
                 </IconButton>
               </Link>
               <IconButton

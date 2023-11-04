@@ -66,7 +66,8 @@ function SignIn() {
           token : res.data?.token,
           role: res.data?.role,
           detailsid: res.data?.detailsid,
-          clientid:res.data?.clientid
+          clientid:res.data?.clientid,
+          username:res.data?.username
 
         }
         const userData = JSON.stringify(data);
