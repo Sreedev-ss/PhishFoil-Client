@@ -53,10 +53,10 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "30%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "60%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -85,7 +85,7 @@ const styleCSV = {
   top: "30%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: "100%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -1406,8 +1406,8 @@ function Users() {
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                           <div style={{ display: "flex", alignItems: "center", marginTop: '40px' }}>
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor:'pointer' }} onClick={handleCsvClick}>
-                              <img style={{ width: "50px", marginRight: "70px"  }} src={csvIcon} alt="csv Icon" />
-                              <Typography variant="body2" style={{ marginRight: '70px'}}>CSV</Typography>                          
+                              <img style={{ width: "50px", marginRight: "200px"  }} src={csvIcon} alt="csv Icon" />
+                              <Typography variant="body2" style={{ marginRight: '200px'}}>CSV</Typography>                          
                             </div>
 
                             {modalCSVOpen && (
@@ -1417,10 +1417,11 @@ function Users() {
                                   <Box sx={styleCSV}>
                                   <label 
                                       htmlFor="name" 
-                                      style={{fontSize:"13px"}}
+                                      style={{fontSize:"16px"}}
                                       >
                                           Import Users & Groups via CSV
                                   </label>
+                                  <br/>
                                 <input type="file" onChange={handleFileChange} />
 
                                 {csvContents && csvContents.length > 0  ? (
@@ -1441,8 +1442,8 @@ function Users() {
                                             <td key={index}>{value}</td>
                                           ))}
                                           <td>
-                                            <button onClick={() => handleDeleteCSV(index)}>
-                                              <DeleteIcon/>
+                                            <button onClick={() => handleDeleteCSV(index)} >
+                                              <DeleteIcon style={{color:'red'}}/>
                                               {/* <span role="img" aria-label="Delete">🗑️</span> */}
                                               
                                             </button>
@@ -1472,8 +1473,8 @@ function Users() {
                             )}
 
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                              <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
-                              <Typography variant="body2" style={{ marginRight: '70px' }}>Microsoft</Typography>
+                              <img style={{ width: "50px", marginRight: "250px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
+                              <Typography variant="body2" style={{ marginRight: '270px' }}>Microsoft</Typography>
                             </div>
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                               <img style={{ width: "50px" }} src={GoogleIcon} alt="Google Icon" />
