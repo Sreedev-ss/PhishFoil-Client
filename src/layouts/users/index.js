@@ -187,7 +187,19 @@ function Users() {
   const [importUsersModal, setImportUsersModal] = useState(false);
   const [restoreUser, setRestoreUser] = useState(false);
   const [search, setSearch] = useState("");
-  const [allUserData, setAllUserData] = useState(usersData)
+  const [allUserData, setAllUserData] = useState([])
+
+  useEffect(() => {
+    axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
+      if (res.data) {
+        setAllUserData(res.data)
+      } else {
+        toast.error('Failed fetching users')
+      }
+    }).catch(e => {
+      console.log(e)
+    })
+  }, [])
 
   const navigate = useNavigate();
 
@@ -201,16 +213,15 @@ function Users() {
     email: '',
     manager: '',
     preferredlanguage: [],
-    groups: '',
+    groups: groupItems,
     excludefromautoenrol: '',
-    accountStatus: 'active',
   });
 
   // useEffect(() => {
   //   toast.success('Page loaded')
   // },[]);
 
-  
+
 
   const handleChangeAddUser = (e) => {
     const { name, value } = e.target;
@@ -230,8 +241,8 @@ function Users() {
     } = formData;
 
     const firstnameRegex = /^[a-zA-Z0-9]+$/;
-        const lastnameRegex = /^[A-Za-z]+$/;
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const lastnameRegex = /^[A-Za-z]+$/;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
     return (
       firstname.trim() !== "" &&
@@ -239,29 +250,30 @@ function Users() {
       email.match(emailRegex) &&
       manager !== "" &&
       preferredlanguage !== "" &&
-      groups !== "" &&
-      excludefromautoenrol !== ""
-  );
+      groups.length !== 0 
+    );
   }
 
   const handleSubmitAddUser = async (e) => {
-    console.log("sucesssssssssssss");
+    console.log(formData)
     e.preventDefault();
     if (!isFormValid()) {
-      setError("Please fill out all the required fileds.");
+      setError("Please fill out all the required fields.");
+      console.log('not valid')
       return;
     } else {
       try {
-        const res = await axios.post(`${host}/user/new/de24f5e0-382c-4657-b296-9fd673758c5a`, FormData);
-        console.log("rrrrrrrrrr",res);
-        if (res.status === 201) {
+        const res = await axios.post(`${host}/user/new/de24f5e0-382c-4657-b296-9fd673758c5a`, formData);
+        console.log("rrrrrrrrrr", res);
+        if (res.data) {
           toast.success("Successfully created");
-          setTimeout(() => {
-            navigate('/users')
-          }, 1000)
+          setAllUserData(res.data)
           setSuccess("User added successfully");
+          closeUsersModal()
+
         }
       } catch (err) {
+        console.log(err)
         setError(err);
       }
     }
@@ -287,14 +299,14 @@ function Users() {
       "manager",
       "manageremailid",
     ];
-    return requiredFields.every((field) => addGroupData[field].trim() !=="");
+    return requiredFields.every((field) => addGroupData[field].trim() !== "");
   };
 
   const handleAddGroupSubmit = async (e) => {
     console.log("sucesssssssssssss");
     e.preventDefault();
 
-    if(!isAddGroupFormValid()) {
+    if (!isAddGroupFormValid()) {
       setError("All fields are required");
     } else {
       try {
@@ -718,7 +730,7 @@ function Users() {
                             color: "white",
                             backgroundColor: "#1b7ae4",
                             marginTop: "15px",
-                            onClick: {handleAddGroupSubmit}
+                            onClick: { handleAddGroupSubmit }
                           }}
                         >
                           Create Group
@@ -1057,8 +1069,9 @@ function Users() {
                             </Box>
                             <TextField
                               select
-                              value={manager}
-                              onChange={handleManagerChanges}
+                              name="manager"
+                              value={formData.manager}
+                              onChange={handleChangeAddUser}
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
@@ -1075,8 +1088,9 @@ function Users() {
                             </Box>
                             <TextField
                               select
-                              value={selectedLanguage}
-                              onChange={handleLanguageChange}
+                              name="preferredlanguage"
+                              value={formData.preferredlanguage}
+                              onChange={handleChangeAddUser}
                               fullWidth
                               type="text"
                               sx={{ gridColumn: "span 2" }}
@@ -1161,10 +1175,10 @@ function Users() {
                             >
                               Save
                             </Button>
-                            { success && (
+                            {success && (
                               <Typography
-                              variant="success-message"
-                              sx={{fontSize: "12px", paddingX: "10px", textAlign: "center"}}
+                                variant="success-message"
+                                sx={{ fontSize: "12px", paddingX: "10px", textAlign: "center" }}
                               >
                                 {success}
                               </Typography>
@@ -1388,412 +1402,46 @@ function Users() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                  {allUserData.map((item, index) => (                                                
-                    <TableRow 
-                    key={index}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >              
-                      <TableCell>{index+1}</TableCell>
-                      <TableCell>{item.name}</TableCell>
-                      <TableCell>{item.emailid}</TableCell>
+                    {allUserData.length != 0 ? allUserData?.map((item, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      >
+                        <TableCell>{index + 1}</TableCell>
+                        <TableCell>{item.name}</TableCell>
+                        <TableCell>{item.emailid}</TableCell>
 
-                      <TableCell>
+                        <TableCell>
                           {item.managername}
                           <div style={{ fontSize: "12px", color: "gray" }}>
                             {item.manageremailid}
                           </div>
                         </TableCell>
-                      <TableCell>
-                        <SoftButton onClick={handleClick} variant="outlined" color="info">
-                          <AiOutlineArrowRight />
-                        </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left",
-                          }}
-                        >
-                          {/* Edit user */}
-                          <MenuItem onClick={openAddLangModal} style={{ background: "#fff" }}>
-                            <EditIcon />
-                            Edit User
-                          </MenuItem>
-                          <Modal
-                            open={addLangModalOpen}
-                            onClose={closeAddLangModal}
-                            aria-labelledby="send-test-email-modal-title"
-                            aria-describedby="send-test-email-modal-description"
+                        <TableCell>
+                          <SoftButton onClick={handleClick} variant="outlined" color="info">
+                            <AiOutlineArrowRight />
+                          </SoftButton>
+                          <Popover
+                            id={id}
+                            open={openAnchor}
+                            anchorEl={anchorEl}
+                            onClose={handleClose}
+                            anchorOrigin={{
+                              vertical: "bottom",
+                              horizontal: "left",
+                            }}
                           >
-                            <Box sx={style}>
-                              <IconButton
-                                aria-label="Close"
-                                sx={{
-                                  position: "absolute",
-                                  top: 0,
-                                  right: 0,
-                                }}
-                                onClick={closeAddLangModal}
-                              >
-                                <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
-                              </IconButton>
-                              <Typography
-                                id="send-test-email-modal-title"
-                                variant="h6"
-                                component="h2"
-                              >
-                                Edit User - Kalaiyarasi V
-                              </Typography>
-
-                              <form>
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    First Name:
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Last Name:
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Add user via Email or User ID?
-                                  </label>
-                                </Box>
-                                <TextField
-                                  select
-                                  value={country}
-                                  onChange={handleChanges}
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                >
-                                  <MenuItem value="IN">Email</MenuItem>
-                                  <MenuItem value="US">UserID</MenuItem>
-                                </TextField>
-
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Email:
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Manager
-                                  </label>
-                                </Box>
-                                <TextField
-                                  select
-                                  value={manager}
-                                  onChange={handleManagerChanges}
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                >
-                                  <MenuItem value="IN">Vijay</MenuItem>
-                                  <MenuItem value="US">Vino</MenuItem>
-                                  <MenuItem value="IN">Vedieshwaran</MenuItem>
-                                  <MenuItem value="US">Velayutham</MenuItem>
-                                </TextField>
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Preferred Language:
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-                                {/* <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Group(s) :
-                                  </label>
-                                </Box> */}
-                                <div>
-                                  <FormControl sx={{ width: "330px", height: "auto" }}>
-                                    <Typography
-                                      sx={{
-                                        fontSize: "",
-                                        marginBottom: "5px",
-                                        marginLeft: "2px",
-                                        marginTop: "15px",
-                                      }}
-                                    >
-                                      Groups
-                                    </Typography>
-                                    <Select
-                                      labelId="multiple-select-label"
-                                      id="multiple-select"
-                                      multiple
-                                      label="Select Groups"
-                                      value={groupItems}
-                                      onChange={handleChangeItem2}
-                                      MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                      renderValue={(selected) => (
-                                        <div>
-                                          {selected.map((item) => (
-                                            <Chip
-                                              key={item}
-                                              label={item}
-                                              onDelete={handleDelete(item)}
-                                              sx={{
-                                                marginRight: "5px",
-                                                height: "20px",
-                                              }}
-                                            />
-                                          ))}
-                                        </div>
-                                      )}
-                                    >
-                                      {item2.map((item) => (
-                                        <MenuItem key={item} value={item}>
-                                          <Checkbox checked={selectedItems.indexOf(item) > -1} />
-                                          <ListItemText secondary={item} />
-                                        </MenuItem>
-                                      ))}
-                                    </Select>
-                                  </FormControl>
-                                </div>
-
-                                {/* <TextField
-                                  fullWidth
-                                  variant="filled"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                /> */}
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Exclude user from Auto Enrol:
-                                  </label>
-                                </Box>
-                                <Switch {...label} />
-                              </form>
-                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                                <Button
-                                  variant="contained"
-                                  style={{
-                                    border: "0.5px solid #1C7AE4",
-                                    color: "white",
-                                    backgroundColor: "#1b7ae4",
-                                    marginTop: "15px",
-                                  }}
-                                >
-                                  Save
-                                </Button>
-                              </Box>
-                            </Box>
-                          </Modal>
-                          <FormControl>
-                            <MenuItem onClick={OpendeleteUserModal} style={{ background: "#fff" }}>
-                              <DeleteIcon />
-                              Delete User
+                            {/* Edit user */}
+                            <MenuItem onClick={openAddLangModal} style={{ background: "#fff" }}>
+                              <EditIcon />
+                              Edit User
                             </MenuItem>
-
                             <Modal
-                              open={deleteUser}
-                              onClose={closeDeleteUserModal}
+                              open={addLangModalOpen}
+                              onClose={closeAddLangModal}
                               aria-labelledby="send-test-email-modal-title"
                               aria-describedby="send-test-email-modal-description"
                             >
-                              {/* Content for the "Send Test Email" modal */}
-
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Are you sure you want to delete the selected user?
-                                </Typography>
-
-                                <Box>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    This will delete:
-                                    <li>Any breach scan for this user</li>
-                                    <li>
-                                      Any outstanding or completed course enrolments associated with
-                                      this user
-                                    </li>
-                                    <li>
-                                      Any pending or finished simulation results for this user
-                                    </li>
-                                    <li>
-                                      Any outstanding or completed policy signature requests for
-                                      this user
-                                    </li>
-                                    <li>
-                                      All current and historical reporting data associated with this
-                                      user
-                                    </li>
-                                  </label>
-                                </Box>
-                                <Box>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Number of users to delete :
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-                                  defaultValue="1"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={closeDeleteUserModal}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={deleteUserModal}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-
-                            <MenuItem onClick={openActiveModal} style={{ background: "#fff" }}>
-                              <ArchiveIcon />
-                              Mark as Active
-                            </MenuItem>
-
-                            <Modal
-                              open={activeModalOpen}
-                              onClose={closeActiveModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Are you sure you want to make the selected user active?
-                                </Typography>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={removeActiveUser}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={closeActiveModal}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-                            <MenuItem onClick={openInactiveModal} style={{ background: "#fff" }}>
-                              <AirplanemodeInactiveIcon />
-                              Mark as inactive
-                            </MenuItem>
-                            <Modal
-                              open={inactiveModalOpen}
-                              onClose={closeInactiveModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Are you sure you want to make the selected user inactive?
-                                </Typography>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={removeInactiveModal}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={closeInactiveModal}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-
-                            {/* add-users */}
-                            <MenuItem onClick={openUsersModal} style={{ background: "#fff" }}>
-                              <GroupAddIcon />
-                              Add Users to Group
-                            </MenuItem>
-
-                            <Modal
-                              open={addUsersOpen}
-                              onClose={closeUsersModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              {/* Content for the "Send Test Email" modal */}
-
                               <Box sx={style}>
                                 <IconButton
                                   aria-label="Close"
@@ -1802,7 +1450,7 @@ function Users() {
                                     top: 0,
                                     right: 0,
                                   }}
-                                  onClick={closeUsersModal}
+                                  onClick={closeAddLangModal}
                                 >
                                   <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
                                 </IconButton>
@@ -1811,10 +1459,458 @@ function Users() {
                                   variant="h6"
                                   component="h2"
                                 >
-                                  Add Users to Group(s)
+                                  Edit User - Kalaiyarasi V
                                 </Typography>
-                                <div>
-                                  <FormControl sx={{ width: "330px", height: "auto" }}>
+
+                                <form>
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      First Name:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Last Name:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Add user via Email or User ID?
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    select
+                                    value={country}
+                                    onChange={handleChanges}
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  >
+                                    <MenuItem value="IN">Email</MenuItem>
+                                    <MenuItem value="US">UserID</MenuItem>
+                                  </TextField>
+
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Email:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Manager
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    select
+                                    value={manager}
+                                    onChange={handleManagerChanges}
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  >
+                                    <MenuItem value="IN">Vijay</MenuItem>
+                                    <MenuItem value="US">Vino</MenuItem>
+                                    <MenuItem value="IN">Vedieshwaran</MenuItem>
+                                    <MenuItem value="US">Velayutham</MenuItem>
+                                  </TextField>
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Preferred Language:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+                                  {/* <Box style={{ marginTop: "15px" }}>
+                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                    Group(s) :
+                                  </label>
+                                </Box> */}
+                                  <div>
+                                    <FormControl sx={{ width: "330px", height: "auto" }}>
+                                      <Typography
+                                        sx={{
+                                          fontSize: "",
+                                          marginBottom: "5px",
+                                          marginLeft: "2px",
+                                          marginTop: "15px",
+                                        }}
+                                      >
+                                        Groups
+                                      </Typography>
+                                      <Select
+                                        labelId="multiple-select-label"
+                                        id="multiple-select"
+                                        multiple
+                                        label="Select Groups"
+                                        value={groupItems}
+                                        onChange={handleChangeItem2}
+                                        MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                        renderValue={(selected) => (
+                                          <div>
+                                            {selected.map((item) => (
+                                              <Chip
+                                                key={item}
+                                                label={item}
+                                                onDelete={handleDelete(item)}
+                                                sx={{
+                                                  marginRight: "5px",
+                                                  height: "20px",
+                                                }}
+                                              />
+                                            ))}
+                                          </div>
+                                        )}
+                                      >
+                                        {item2.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                            <ListItemText secondary={item} />
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </FormControl>
+                                  </div>
+
+                                  {/* <TextField
+                                  fullWidth
+                                  variant="filled"
+                                  type="text"
+                                  sx={{ gridColumn: "span 2" }}
+                                /> */}
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Exclude user from Auto Enrol:
+                                    </label>
+                                  </Box>
+                                  <Switch {...label} />
+                                </form>
+                                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                                  <Button
+                                    variant="contained"
+                                    style={{
+                                      border: "0.5px solid #1C7AE4",
+                                      color: "white",
+                                      backgroundColor: "#1b7ae4",
+                                      marginTop: "15px",
+                                    }}
+                                  >
+                                    Save
+                                  </Button>
+                                </Box>
+                              </Box>
+                            </Modal>
+                            <FormControl>
+                              <MenuItem onClick={OpendeleteUserModal} style={{ background: "#fff" }}>
+                                <DeleteIcon />
+                                Delete User
+                              </MenuItem>
+
+                              <Modal
+                                open={deleteUser}
+                                onClose={closeDeleteUserModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                {/* Content for the "Send Test Email" modal */}
+
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to delete the selected user?
+                                  </Typography>
+
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      This will delete:
+                                      <li>Any breach scan for this user</li>
+                                      <li>
+                                        Any outstanding or completed course enrolments associated with
+                                        this user
+                                      </li>
+                                      <li>
+                                        Any pending or finished simulation results for this user
+                                      </li>
+                                      <li>
+                                        Any outstanding or completed policy signature requests for
+                                        this user
+                                      </li>
+                                      <li>
+                                        All current and historical reporting data associated with this
+                                        user
+                                      </li>
+                                    </label>
+                                  </Box>
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Number of users to delete :
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+                                    defaultValue="1"
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="contained"
+                                      onClick={closeDeleteUserModal}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={deleteUserModal}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+
+                              <MenuItem onClick={openActiveModal} style={{ background: "#fff" }}>
+                                <ArchiveIcon />
+                                Mark as Active
+                              </MenuItem>
+
+                              <Modal
+                                open={activeModalOpen}
+                                onClose={closeActiveModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to make the selected user active?
+                                  </Typography>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="contained"
+                                      onClick={removeActiveUser}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={closeActiveModal}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+                              <MenuItem onClick={openInactiveModal} style={{ background: "#fff" }}>
+                                <AirplanemodeInactiveIcon />
+                                Mark as inactive
+                              </MenuItem>
+                              <Modal
+                                open={inactiveModalOpen}
+                                onClose={closeInactiveModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to make the selected user inactive?
+                                  </Typography>
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="contained"
+                                      onClick={removeInactiveModal}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={closeInactiveModal}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+
+                              {/* add-users */}
+                              <MenuItem onClick={openUsersModal} style={{ background: "#fff" }}>
+                                <GroupAddIcon />
+                                Add Users to Group
+                              </MenuItem>
+
+                              <Modal
+                                open={addUsersOpen}
+                                onClose={closeUsersModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                {/* Content for the "Send Test Email" modal */}
+
+                                <Box sx={style}>
+                                  <IconButton
+                                    aria-label="Close"
+                                    sx={{
+                                      position: "absolute",
+                                      top: 0,
+                                      right: 0,
+                                    }}
+                                    onClick={closeUsersModal}
+                                  >
+                                    <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
+                                  </IconButton>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Add Users to Group(s)
+                                  </Typography>
+                                  <div>
+                                    <FormControl sx={{ width: "330px", height: "auto" }}>
+                                      <Typography
+                                        sx={{
+                                          fontSize: "",
+                                          marginBottom: "5px",
+                                          marginLeft: "2px",
+                                          marginTop: "15px",
+                                        }}
+                                      >
+                                        Group(s)
+                                      </Typography>
+                                      <Select
+                                        labelId="multiple-select-label"
+                                        id="multiple-select"
+                                        multiple
+                                        label="Select groups"
+                                        value={selectedGroups}
+                                        onChange={handleChangeUsers}
+                                        MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                        renderValue={(selected) => (
+                                          <div>
+                                            {selected.map((item) => (
+                                              <Chip
+                                                key={item}
+                                                label={item}
+                                                onDelete={handleDeleteGroup(item)}
+                                                sx={{
+                                                  marginRight: "5px",
+                                                  height: "20px",
+                                                }}
+                                              />
+                                            ))}
+                                          </div>
+                                        )}
+                                      >
+                                        {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                            <Checkbox checked={selectedCourses.indexOf(item) > -1} />
+                                            <ListItemText secondary={item} />
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </FormControl>
+                                  </div>
+
+                                  <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
+                                    <Button
+                                      variant="contained"
+                                      onClick={addUsers}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      SAVE
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+
+                              {/* Enrol on Course */}
+                              <MenuItem
+                                onClick={openEnrolCoursesModal}
+                                style={{ background: "#fff" }}
+                              >
+                                <SendIcon />
+                                Enrol on Course
+                              </MenuItem>
+
+                              <Modal
+                                open={enrolCoursesModalOpen}
+                                onClose={closeEnrolCoursesModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                {/* Content for the "Send Test Email" modal */}
+
+                                <Box sx={style} style={{ width: "500px" }}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Enrol Kalaiyarasi V on Course(s)
+                                  </Typography>
+                                  <FormControl sx={{ width: "350px" }}>
                                     <Typography
                                       sx={{
                                         fontSize: "",
@@ -1823,15 +1919,46 @@ function Users() {
                                         marginTop: "15px",
                                       }}
                                     >
-                                      Group(s)
+                                      Subject:
+                                    </Typography>
+                                    <Select
+                                      labelId="subject-label"
+                                      id="subject-label"
+                                      value={subject}
+                                      label="Status"
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                      onChange={handleSubject}
+                                      endAdornment={
+                                        <InputAdornment position="end">
+                                          <ExpandMoreIcon />
+                                        </InputAdornment>
+                                      }
+                                    >
+                                      <MenuItem value={"All"}>All</MenuItem>
+                                      <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
+                                      <MenuItem value={"Video"}>Video</MenuItem>
+                                      <MenuItem value={"Compliance"}>Compliance</MenuItem>
+                                      <MenuItem value={"Custom"}>Custom</MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                  <FormControl sx={{ width: "350px", height: "auto" }}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "",
+                                        marginBottom: "5px",
+                                        marginLeft: "2px",
+                                        marginTop: "15px",
+                                      }}
+                                    >
+                                      Course(s)
                                     </Typography>
                                     <Select
                                       labelId="multiple-select-label"
                                       id="multiple-select"
                                       multiple
-                                      label="Select groups"
-                                      value={selectedGroups}
-                                      onChange={handleChangeUsers}
+                                      label="Select courses"
+                                      value={selectedCourses}
+                                      onChange={handleChangeCourses}
                                       MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                       renderValue={(selected) => (
                                         <div>
@@ -1839,7 +1966,7 @@ function Users() {
                                             <Chip
                                               key={item}
                                               label={item}
-                                              onDelete={handleDeleteGroup(item)}
+                                              onDelete={handleDeleteCourses(item)}
                                               sx={{
                                                 marginRight: "5px",
                                                 height: "20px",
@@ -1849,7 +1976,7 @@ function Users() {
                                         </div>
                                       )}
                                     >
-                                      {items.map((item) => (
+                                      {courses.map((item) => (
                                         <MenuItem key={item} value={item}>
                                           <Checkbox checked={selectedCourses.indexOf(item) > -1} />
                                           <ListItemText secondary={item} />
@@ -1857,422 +1984,103 @@ function Users() {
                                       ))}
                                     </Select>
                                   </FormControl>
-                                </div>
-
-                                <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                                  <Button
-                                    variant="contained"
-                                    onClick={addUsers}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    SAVE
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-
-                            {/* Enrol on Course */}
-                            <MenuItem
-                              onClick={openEnrolCoursesModal}
-                              style={{ background: "#fff" }}
-                            >
-                              <SendIcon />
-                              Enrol on Course
-                            </MenuItem>
-
-                            <Modal
-                              open={enrolCoursesModalOpen}
-                              onClose={closeEnrolCoursesModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              {/* Content for the "Send Test Email" modal */}
-
-                              <Box sx={style} style={{ width: "500px" }}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Enrol Kalaiyarasi V on Course(s)
-                                </Typography>
-                                <FormControl sx={{ width: "350px" }}>
-                                  <Typography
+                                  <Box
                                     sx={{
-                                      fontSize: "",
-                                      marginBottom: "5px",
-                                      marginLeft: "2px",
-                                      marginTop: "15px",
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
                                     }}
                                   >
-                                    Subject:
-                                  </Typography>
-                                  <Select
-                                    labelId="subject-label"
-                                    id="subject-label"
-                                    value={subject}
-                                    label="Status"
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                    onChange={handleSubject}
-                                    endAdornment={
-                                      <InputAdornment position="end">
-                                        <ExpandMoreIcon />
-                                      </InputAdornment>
-                                    }
-                                  >
-                                    <MenuItem value={"All"}>All</MenuItem>
-                                    <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
-                                    <MenuItem value={"Video"}>Video</MenuItem>
-                                    <MenuItem value={"Compliance"}>Compliance</MenuItem>
-                                    <MenuItem value={"Custom"}>Custom</MenuItem>
-                                  </Select>
-                                </FormControl>
-                                <FormControl sx={{ width: "350px", height: "auto" }}>
+                                    <Button
+                                      variant="contained"
+                                      onClick={enrolCourses}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      Enrol
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={closeEnrolCoursesModal}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Cancel
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+
+                              {/* Enrol on Gap Analysis */}
+                              <MenuItem onClick={openGapAnalysisModal} style={{ background: "#fff" }}>
+                                <SendIcon style={{ fontSize: "15px" }} />
+                                Enrol on Gap Analysis
+                              </MenuItem>
+                              <Modal
+                                open={gapAnalysisModalOpen}
+                                onClose={closeGapAnalysisModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                <Box sx={style}>
                                   <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to enrol the selected user on Gap Analysis?
+                                  </Typography>
+                                  <Box
                                     sx={{
-                                      fontSize: "",
-                                      marginBottom: "5px",
-                                      marginLeft: "2px",
-                                      marginTop: "15px",
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
                                     }}
                                   >
-                                    Course(s)
-                                  </Typography>
-                                  <Select
-                                    labelId="multiple-select-label"
-                                    id="multiple-select"
-                                    multiple
-                                    label="Select courses"
-                                    value={selectedCourses}
-                                    onChange={handleChangeCourses}
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                    renderValue={(selected) => (
-                                      <div>
-                                        {selected.map((item) => (
-                                          <Chip
-                                            key={item}
-                                            label={item}
-                                            onDelete={handleDeleteCourses(item)}
-                                            sx={{
-                                              marginRight: "5px",
-                                              height: "20px",
-                                            }}
-                                          />
-                                        ))}
-                                      </div>
-                                    )}
-                                  >
-                                    {courses.map((item) => (
-                                      <MenuItem key={item} value={item}>
-                                        <Checkbox checked={selectedCourses.indexOf(item) > -1} />
-                                        <ListItemText secondary={item} />
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </FormControl>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={enrolCourses}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    Enrol
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={closeEnrolCoursesModal}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Cancel
-                                  </Button>
+                                    <Button
+                                      variant="contained"
+                                      onClick={closeGapAnalysisModal}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={removeGapAnalysis}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
                                 </Box>
-                              </Box>
-                            </Modal>
+                              </Modal>
 
-                            {/* Enrol on Gap Analysis */}
-                            <MenuItem onClick={openGapAnalysisModal} style={{ background: "#fff" }}>
-                              <SendIcon style={{ fontSize: "15px" }} />
-                              Enrol on Gap Analysis
-                            </MenuItem>
-                            <Modal
-                              open={gapAnalysisModalOpen}
-                              onClose={closeGapAnalysisModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Are you sure you want to enrol the selected user on Gap Analysis?
-                                </Typography>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={closeGapAnalysisModal}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={removeGapAnalysis}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
+                              {/* unenrol from Course */}
+                              <MenuItem
+                                onClick={openUnenrolCoursesModal}
+                                style={{ background: "#fff" }}
+                              >
+                                <SendIcon />
+                                Unenrol from Course
+                              </MenuItem>
 
-                            {/* unenrol from Course */}
-                            <MenuItem
-                              onClick={openUnenrolCoursesModal}
-                              style={{ background: "#fff" }}
-                            >
-                              <SendIcon />
-                              Unenrol from Course
-                            </MenuItem>
+                              <Modal
+                                open={unenrolCoursesModalOpen}
+                                onClose={closeUnenrolCoursesModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                {/* Content for the "Send Test Email" modal */}
 
-                            <Modal
-                              open={unenrolCoursesModalOpen}
-                              onClose={closeUnenrolCoursesModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              {/* Content for the "Send Test Email" modal */}
-
-                              <Box sx={style} style={{ width: "500px" }}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Enrol Kalaiyarasi V on Course(s)
-                                </Typography>
-                                <FormControl sx={{ width: "350px" }}>
+                                <Box sx={style} style={{ width: "500px" }}>
                                   <Typography
-                                    sx={{
-                                      fontSize: "",
-                                      marginBottom: "5px",
-                                      marginLeft: "2px",
-                                      marginTop: "15px",
-                                    }}
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
                                   >
-                                    Subject:
+                                    Enrol Kalaiyarasi V on Course(s)
                                   </Typography>
-                                  <Select
-                                    labelId="subject-label"
-                                    id="subject-label"
-                                    value={subject}
-                                    label="Status"
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                    onChange={handleSubject}
-                                    endAdornment={
-                                      <InputAdornment position="end">
-                                        <ExpandMoreIcon />
-                                      </InputAdornment>
-                                    }
-                                  >
-                                    <MenuItem value={"All"}>All</MenuItem>
-                                    <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
-                                    <MenuItem value={"Video"}>Video</MenuItem>
-                                    <MenuItem value={"Compliance"}>Compliance</MenuItem>
-                                    <MenuItem value={"Custom"}>Custom</MenuItem>
-                                  </Select>
-                                </FormControl>
-                                <FormControl sx={{ width: "350px", height: "auto" }}>
-                                  <Typography
-                                    sx={{
-                                      fontSize: "",
-                                      marginBottom: "5px",
-                                      marginLeft: "2px",
-                                      marginTop: "15px",
-                                    }}
-                                  >
-                                    Course(s)
-                                  </Typography>
-                                  <Select
-                                    labelId="multiple-select-label"
-                                    id="multiple-select"
-                                    multiple
-                                    label="Select courses"
-                                    value={selectedCourses}
-                                    onChange={handleChangeCourses}
-                                    MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                    renderValue={(selected) => (
-                                      <div>
-                                        {selected.map((item) => (
-                                          <Chip
-                                            key={item}
-                                            label={item}
-                                            onDelete={handleDeleteCourses(item)}
-                                            sx={{
-                                              marginRight: "5px",
-                                              height: "20px",
-                                            }}
-                                          />
-                                        ))}
-                                      </div>
-                                    )}
-                                  >
-                                    {courses.map((item) => (
-                                      <MenuItem key={item} value={item}>
-                                        <Checkbox checked={selectedCourses.indexOf(item) > -1} />
-                                        <ListItemText secondary={item} />
-                                      </MenuItem>
-                                    ))}
-                                  </Select>
-                                </FormControl>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={unenrolCourses}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    Unenrol
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={closeUnenrolCoursesModal}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Cancel
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-
-                            {/* Unenrol from Gap Analysis */}
-                            <MenuItem
-                              onClick={openUnenrolAnalysisModal}
-                              style={{ background: "#fff" }}
-                            >
-                              <SendIcon style={{ fontSize: "15px" }} />
-                              Unenrol from Gap Analysis
-                            </MenuItem>
-                            <Modal
-                              open={unenrolGapAnalysisModalOpen}
-                              onClose={closeUnenrolAnalysisModal}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              {/* Content for the "Send Test Email" modal */}
-
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Are you sure you want to unenrol this user from Gap Analysis?
-                                </Typography>
-                                <Box>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Please note the following:
-                                    <li>
-                                      A user will only be unenrolled if they have an outstanding Gap
-                                      Analysis Questionnaire.
-                                    </li>
-                                    <li>
-                                      This action will neither remove nor reset a completed
-                                      questionnaire
-                                    </li>
-                                    <li>
-                                      Users will not be notified that they have been unenrolled
-                                    </li>
-                                  </label>
-                                </Box>
-                                <Box>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Number of Users to Unenrol:
-                                  </label>
-                                </Box>
-                                <TextField
-                                  fullWidth
-                                  defaultValue="1"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                />
-
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="contained"
-                                    onClick={closeUnenrolAnalysisModal}
-                                    style={{ color: "#fff" }}
-                                  >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="outlined"
-                                    onClick={deleteUnenrolAnalysis}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </Modal>
-
-                            <MenuItem style={{ background: "#fff" }}>
-                              <ImportExportIcon />
-                              Export Course Data
-                            </MenuItem>
-                            <MenuItem onClick={openSendPolicy} style={{ background: "#fff" }}>
-                              <MarkEmailReadIcon />
-                              Send Policy
-                            </MenuItem>
-                            <Modal
-                              open={sendPolicy}
-                              onClose={closeSendPolicy}
-                              aria-labelledby="send-test-email-modal-title"
-                              aria-describedby="send-test-email-modal-description"
-                            >
-                              <Box sx={style}>
-                                <Typography
-                                  id="send-test-email-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Send Policy to Vedieshwaran R
-                                </Typography>
-                                <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Add user via Email or User ID?
-                                  </label>
-                                </Box>
-                                <div>
-                                  <FormControl sx={{ width: "330px", height: "auto" }}>
+                                  <FormControl sx={{ width: "350px" }}>
                                     <Typography
                                       sx={{
                                         fontSize: "",
@@ -2281,15 +2089,46 @@ function Users() {
                                         marginTop: "15px",
                                       }}
                                     >
-                                      Policy
+                                      Subject:
+                                    </Typography>
+                                    <Select
+                                      labelId="subject-label"
+                                      id="subject-label"
+                                      value={subject}
+                                      label="Status"
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                      onChange={handleSubject}
+                                      endAdornment={
+                                        <InputAdornment position="end">
+                                          <ExpandMoreIcon />
+                                        </InputAdornment>
+                                      }
+                                    >
+                                      <MenuItem value={"All"}>All</MenuItem>
+                                      <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
+                                      <MenuItem value={"Video"}>Video</MenuItem>
+                                      <MenuItem value={"Compliance"}>Compliance</MenuItem>
+                                      <MenuItem value={"Custom"}>Custom</MenuItem>
+                                    </Select>
+                                  </FormControl>
+                                  <FormControl sx={{ width: "350px", height: "auto" }}>
+                                    <Typography
+                                      sx={{
+                                        fontSize: "",
+                                        marginBottom: "5px",
+                                        marginLeft: "2px",
+                                        marginTop: "15px",
+                                      }}
+                                    >
+                                      Course(s)
                                     </Typography>
                                     <Select
                                       labelId="multiple-select-label"
                                       id="multiple-select"
                                       multiple
-                                      label="Select Policy"
-                                      value={selectedItems}
-                                      onChange={handleChangeItems}
+                                      label="Select courses"
+                                      value={selectedCourses}
+                                      onChange={handleChangeCourses}
                                       MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
                                       renderValue={(selected) => (
                                         <div>
@@ -2297,7 +2136,7 @@ function Users() {
                                             <Chip
                                               key={item}
                                               label={item}
-                                              onDelete={handleDelete(item)}
+                                              onDelete={handleDeleteCourses(item)}
                                               sx={{
                                                 marginRight: "5px",
                                                 height: "20px",
@@ -2307,54 +2146,229 @@ function Users() {
                                         </div>
                                       )}
                                     >
-                                      {item1.map((item) => (
+                                      {courses.map((item) => (
                                         <MenuItem key={item} value={item}>
-                                          <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                          <Checkbox checked={selectedCourses.indexOf(item) > -1} />
                                           <ListItemText secondary={item} />
                                         </MenuItem>
                                       ))}
                                     </Select>
                                   </FormControl>
-                                </div>
-
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    mt: 2,
-                                    gap: 2,
-                                  }}
-                                >
-                                  <Button
-                                    variant="outlined"
-                                    onClick={closeSendPolicy}
-                                    style={{ marginRight: "5px", color: "black" }}
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
                                   >
-                                    No
-                                  </Button>
-                                  <Button
-                                    variant="contained"
-                                    onClick={sendingPolicy}
-                                    style={{ marginRight: "5px", color: "black" }}
-                                  >
-                                    Yes
-                                  </Button>
+                                    <Button
+                                      variant="contained"
+                                      onClick={unenrolCourses}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      Unenrol
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={closeUnenrolCoursesModal}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Cancel
+                                    </Button>
+                                  </Box>
                                 </Box>
-                              </Box>
-                            </Modal>
-                            <MenuItem style={{ background: "#fff" }}>
-                              <ImportExportIcon />
-                              Export Policy Data
-                            </MenuItem>
-                            <MenuItem style={{ background: "#fff" }}>
-                              <ImportExportIcon />
-                              Export Simulation Data
-                            </MenuItem>
-                          </FormControl>
-                        </Popover>
-                      </TableCell>
-                    </TableRow>
-                    ))}
+                              </Modal>
+
+                              {/* Unenrol from Gap Analysis */}
+                              <MenuItem
+                                onClick={openUnenrolAnalysisModal}
+                                style={{ background: "#fff" }}
+                              >
+                                <SendIcon style={{ fontSize: "15px" }} />
+                                Unenrol from Gap Analysis
+                              </MenuItem>
+                              <Modal
+                                open={unenrolGapAnalysisModalOpen}
+                                onClose={closeUnenrolAnalysisModal}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                {/* Content for the "Send Test Email" modal */}
+
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to unenrol this user from Gap Analysis?
+                                  </Typography>
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Please note the following:
+                                      <li>
+                                        A user will only be unenrolled if they have an outstanding Gap
+                                        Analysis Questionnaire.
+                                      </li>
+                                      <li>
+                                        This action will neither remove nor reset a completed
+                                        questionnaire
+                                      </li>
+                                      <li>
+                                        Users will not be notified that they have been unenrolled
+                                      </li>
+                                    </label>
+                                  </Box>
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Number of Users to Unenrol:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+                                    defaultValue="1"
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="contained"
+                                      onClick={closeUnenrolAnalysisModal}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={deleteUnenrolAnalysis}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+
+                              <MenuItem style={{ background: "#fff" }}>
+                                <ImportExportIcon />
+                                Export Course Data
+                              </MenuItem>
+                              <MenuItem onClick={openSendPolicy} style={{ background: "#fff" }}>
+                                <MarkEmailReadIcon />
+                                Send Policy
+                              </MenuItem>
+                              <Modal
+                                open={sendPolicy}
+                                onClose={closeSendPolicy}
+                                aria-labelledby="send-test-email-modal-title"
+                                aria-describedby="send-test-email-modal-description"
+                              >
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Send Policy to Vedieshwaran R
+                                  </Typography>
+                                  <Box style={{ marginTop: "15px" }}>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Add user via Email or User ID?
+                                    </label>
+                                  </Box>
+                                  <div>
+                                    <FormControl sx={{ width: "330px", height: "auto" }}>
+                                      <Typography
+                                        sx={{
+                                          fontSize: "",
+                                          marginBottom: "5px",
+                                          marginLeft: "2px",
+                                          marginTop: "15px",
+                                        }}
+                                      >
+                                        Policy
+                                      </Typography>
+                                      <Select
+                                        labelId="multiple-select-label"
+                                        id="multiple-select"
+                                        multiple
+                                        label="Select Policy"
+                                        value={selectedItems}
+                                        onChange={handleChangeItems}
+                                        MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                        renderValue={(selected) => (
+                                          <div>
+                                            {selected.map((item) => (
+                                              <Chip
+                                                key={item}
+                                                label={item}
+                                                onDelete={handleDelete(item)}
+                                                sx={{
+                                                  marginRight: "5px",
+                                                  height: "20px",
+                                                }}
+                                              />
+                                            ))}
+                                          </div>
+                                        )}
+                                      >
+                                        {item1.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                            <ListItemText secondary={item} />
+                                          </MenuItem>
+                                        ))}
+                                      </Select>
+                                    </FormControl>
+                                  </div>
+
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="outlined"
+                                      onClick={closeSendPolicy}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      No
+                                    </Button>
+                                    <Button
+                                      variant="contained"
+                                      onClick={sendingPolicy}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      Yes
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+                              <MenuItem style={{ background: "#fff" }}>
+                                <ImportExportIcon />
+                                Export Policy Data
+                              </MenuItem>
+                              <MenuItem style={{ background: "#fff" }}>
+                                <ImportExportIcon />
+                                Export Simulation Data
+                              </MenuItem>
+                            </FormControl>
+                          </Popover>
+                        </TableCell>
+                      </TableRow>
+                    )) : <div>NO Data</div>}
                   </TableBody>
                 </Table>
                 <Menu></Menu>

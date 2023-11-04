@@ -47,7 +47,23 @@
             "pp": []
         }
     ],
-    "allUsers": [],
-    "addGroups": [],
-    "addUsers": []
+    "allUsers": [
+        {
+            "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
+            "name": "fin",
+            "emailid": "vv@tcs.com",
+            "enableordisable": true,
+            "orgainzationrole": null,
+            "ismanager": true,
+            "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
+            "managername": "kumaren",
+            "manageremailid": "kumar@tes.com",
+            "deleteddate": null,
+            "groups": [
+                "202cc509-af5c-4d37-8361-1a24ff213е4a",
+                "9e99c765-1230-4460-82b4-035c20771ed "
+            ]
+        }
+    ],
+    "addGroups": []
 }

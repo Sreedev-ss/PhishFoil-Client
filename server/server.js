@@ -13,40 +13,49 @@ const db = require('./db.json'); // Import your JSON data
 
 app.post('/login/authenticate', (req, res) => {
     const { username, password } = req.body;
-    console.log(username, password)
     const user = db.login.find(
         (u) => u.username === username && u.password === password
     );
     if (user) {
-        console.log(user);
         res.status(200).json(user);
     } else {
         res.status(401).json({ message: 'Invalid email or password' });
     }
 });
 
-app.get('/user/group/all/:clientid', async(req, res) => {
-    const clientid = req.params.clientid
-    console.log(clientid)
+app.get('/user/group/all/:clientid', async (req, res) => {
     const groups = await db.groups.filter((g) => g.clientid == clientid)
-    console.log(groups)
     res.json(groups)
 })
 
 app.post('/user/newgroup/:clientid', (req, res) => {
-    const groups = db.addGroups.push(req.body)
-    res.json(groups)
+    db.groups.push(req.body)
+    res.json(db.groups)
 })
 
-app.get('/user/users/all/:clientid', async(req, res) => {
+app.get('/user/users/all/:clientid', async (req, res) => {
     const clientid = req.params.clientid
-    const users = await db.users.filter((u) => u.clientid == clientid)
-    res.json(users)
+    res.json(db.allUsers)
 })
 
 app.post('/user/new/:clientid', (req, res) => {
-    const users = db.addUsers.push(req.body)
-    res.json(users)
+    console.log(req.body)
+    let data = {
+        name:req.body?.firstname+' '+req.body?.lastname,
+        emailid:req.body?.email,
+        managername:req.body?.manager,
+        manageremailid:req.body?.manager+''+'@gmail.com',
+        enableordisable: true,
+        orgainzationrole: null,
+        groups:req.body?.groups,
+        ismanager:true
+    }
+    db.allUsers.push(data)
+    res.json(db.allUsers)
+})
+
+app.use((req, res) => {
+    res.send({ code: 404, error: httpMsg[404] })
 })
 
 const PORT = process.env.PORT || 8081;
