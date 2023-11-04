@@ -57,6 +57,7 @@ import UpdateEmailTemplate from "layouts/updateEmailTemplate";
 import ViewSimulation from "layouts/viewSimulation";
 import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import LandingPageLibrary from "layouts/landingPageLibrary";
+import CourseLibrary from "layouts/uLearn/CourseLibrary";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -167,7 +168,7 @@ export default function App() {
       <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
       <Route exact path='/uphish/email-template-library' element={<EmailTemplateLibrary/>} />;
       <Route exact path='/uphish/landingPagelibrary' element={<LandingPageLibrary/>} />;
-      {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
+      <Route exact path='/ulearn/course-library' element={<CourseLibrary />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

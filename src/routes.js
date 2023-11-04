@@ -69,6 +69,8 @@ import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 
+import CourseLibrary from "layouts/uLearn/CourseLibrary";
+
 const routes = [
   {
     type: "collapse",
@@ -144,6 +146,53 @@ const routes = [
         key: "emailbuilder",
         route: "/uphish/email-template-builder",
         component: <EmailTable />,
+      },
+    ],
+  },
+
+  //ULearn Routes
+  {
+    type: "collapse",
+    name: "uLearn",
+    key: "ulearn",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [ // Define subroutes for Ulearn
+      {
+        type: "collapse",
+        name: "Courses Report",
+        key: "coursesReport",
+        route: "/ulearn/courses-report",
+        component: <ViewSimulation />,
+      },
+      {
+        type: "collapse",
+        name: "Gap Analysis Report",
+        key: "gapAnalysisReport",
+        route: "/ulearn/gap-analysis-report",
+        component: <Simulation />,
+      },
+      {
+        type: "collapse",
+        name: "Auto Enrol",
+        key: "autoEnrol",
+        route: "/ulearn/auto-enrol",
+        component: <LandingPageLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Course Library",
+        key: "coursesLibrary",
+        route: "/ulearn/course-library",
+        component: <CourseLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Course Builder",
+        key: "courseBuilder",
+        route: "/ulearn/course-builder",
+        component: <EmailTemplateLibrary />,
       },
     ],
   },
