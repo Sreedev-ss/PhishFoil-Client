@@ -43,6 +43,7 @@ function SignIn() {
   const [password, setPassword] = useState('')
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     if (localStorage.getItem("loginData")) {
       navigate("/users");
@@ -68,7 +69,9 @@ function SignIn() {
           clientid:res.data?.clientid
 
         }
-        localStorage.setItem("loginData",data)
+        const userData = JSON.stringify(data);
+
+        localStorage.setItem("loginData",userData)
         toast.success('Login Success')
         console.log(data)
         navigate("/users")
