@@ -35,7 +35,7 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const host = 'http://localhost:8081'
+const host = 'http://localhost:8081';
 
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);

@@ -79,6 +79,20 @@ const styleTable = {
   overflowY: "scroll",
 
 }
+
+const styleCSV = {
+  position: "absolute",
+  top: "30%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  maxHeight: "400px",
+  overflowY: "scroll",
+}
 const scrollableContentStyle = {
   overflowY: "auto",
   maxHeight: "300px",
@@ -187,7 +201,9 @@ function Users() {
   const [importUsersModal, setImportUsersModal] = useState(false);
   const [restoreUser, setRestoreUser] = useState(false);
   const [search, setSearch] = useState("");
-  const [allUserData, setAllUserData] = useState([])
+  const [allUserData, setAllUserData] = useState([]);
+  const [modalCSVOpen, setModalCSVOpen] = useState(false);
+  const [csvContents, setCsvContents] = useState(null);
 
   useEffect(() => {
     axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
@@ -220,6 +236,50 @@ function Users() {
   // useEffect(() => {
   //   toast.success('Page loaded')
   // },[]);
+
+  const handleCsvClick = () => {
+    setModalCSVOpen(true);
+  };
+
+  const closeCSVModal = () => {
+    setModalCSVOpen(false);
+  }
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      const contents = e.target.result;
+      
+      const lines = contents.split('\n');
+      
+      const header = lines[0].split(',').map((item) => item.trim()); 
+
+      const data = [];
+      for (let i = 1; i < lines.length; i++) {
+        const values = lines[i].split(',').map((item) => item.trim());
+        if(values.length === header.length) {
+
+          const entry = {};
+          for (let j = 0; j < header.length; j++) {
+            entry[header[j]] = values[j];
+          }
+          data.push(entry);
+        }
+      }
+
+      setCsvContents(data);
+    };
+
+    reader.readAsText(file);
+  };
+
+  const handleDeleteCSV = (index) => {
+    const updatedCsvContents = [...csvContents];
+    updatedCsvContents.splice(index, 1);
+    setCsvContents(updatedCsvContents);
+  }
 
 
 
@@ -1345,10 +1405,72 @@ function Users() {
                         <hr />
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                           <div style={{ display: "flex", alignItems: "center", marginTop: '40px' }}>
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                              <img style={{ width: "50px", marginRight: "70px" }} src={csvIcon} alt="csv Icon" />
-                              <Typography variant="body2" style={{ marginRight: '70px' }}>CSV</Typography>
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor:'pointer' }} onClick={handleCsvClick}>
+                              <img style={{ width: "50px", marginRight: "70px"  }} src={csvIcon} alt="csv Icon" />
+                              <Typography variant="body2" style={{ marginRight: '70px'}}>CSV</Typography>                          
                             </div>
+
+                            {modalCSVOpen && (
+                              <div className="modal">
+                                <div className="modal-content">
+                                  {/* Your modal content goes here */}
+                                  <Box sx={styleCSV}>
+                                  <label 
+                                      htmlFor="name" 
+                                      style={{fontSize:"13px"}}
+                                      >
+                                          Import Users & Groups via CSV
+                                  </label>
+                                <input type="file" onChange={handleFileChange} />
+
+                                {csvContents && csvContents.length > 0  ? (
+                                  <div>
+                                  <table style={{ marginBottom: '20px'}}>
+                                    <thead style={{background:'grey' }}>
+                                      <tr>
+                                        {Object.keys(csvContents[0]).map((header) => (
+                                          <th key={header}>{header}</th>
+                                        ))}
+                                        <th>Actions</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {csvContents.map((entry, index) => (
+                                        <tr key={index}>
+                                          {Object.values(entry).map((value, index) => (
+                                            <td key={index}>{value}</td>
+                                          ))}
+                                          <td>
+                                            <button onClick={() => handleDeleteCSV(index)}>
+                                              <DeleteIcon/>
+                                              {/* <span role="img" aria-label="Delete">🗑️</span> */}
+                                              
+                                            </button>
+                                          </td>
+                                        </tr>
+                                      ))}
+                                      {/* <tr><button>delete</button></tr> */}
+                                    </tbody>
+                                  </table>
+                                  <button onClick={closeCSVModal}>Close</button>
+                                  </div>
+                                ) : (
+                                  // <p>No CSV data loaded.</p>
+                                  <div>
+                                    {/* <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Import Users & Groups via CSV
+                                    </label>
+                                    <p>No CSV data loaded.</p> */}
+                                    <button onClick={closeCSVModal}>Close</button>
+                                  </div>
+                                )}                                                 
+                                  <button>Upload</button>
+                                </Box>
+                                                                  
+                                </div>
+                              </div>
+                            )}
+
                             <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                               <img style={{ width: "50px", marginRight: "60px" }} src={MicrosoftIcon} alt="Microsoft Icon" />
                               <Typography variant="body2" style={{ marginRight: '70px' }}>Microsoft</Typography>
