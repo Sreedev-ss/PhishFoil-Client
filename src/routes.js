@@ -70,6 +70,7 @@ import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
+import CourseBuilder from "layouts/uLearn/CourseBuilder";
 
 const routes = [
   {
@@ -192,7 +193,7 @@ const routes = [
         name: "Course Builder",
         key: "courseBuilder",
         route: "/ulearn/course-builder",
-        component: <EmailTemplateLibrary />,
+        component: <CourseBuilder />,
       },
     ],
   },
