@@ -56,5 +56,16 @@
             ]
         }
     ],
-    "addGroups": []
+    "createEmailTemplate": [],
+    "getAllTemplates": [
+        {
+            "templateid":"1b992e01-8be7-4730-b7b8-cc5144e74be0",   
+            "language":"english",
+            "templatename":"ola join account",                       
+            "category":"join the account",                     
+            "url":"jjjj",
+            "createdby":"",    
+            "clientid":""     
+        }
+    ]
 }

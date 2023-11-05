@@ -81,6 +81,44 @@ app.post('/user/new/:clientid', (req, res) => {
     res.json(db.allUsers)
 })
 
+// app.post('/uphish/email-template-builder/new/admin', (req, res) => {
+//     console.log(req.body);
+//     let data = {
+//         templatename: req.body?.templatename,
+//         language: req.body?.language,
+//         category: req.body?.category,
+//         subject: req.body?.subject,
+//         sendername: req.body?.sendername,
+//         emailid: req.body?.emailid,
+//         design: req.body?.design,
+//         html: req.body?.html,
+//     }
+//     db.createEmailTemplate.push(data)
+//     res.json(db.createEmailTemplate)
+// })
+
+app.post('/uphish/email-template-builder/new/:clientid/:detailid', (req, res) => {
+    console.log(req.body);
+    let data = {
+        templatename: req.body?.templatename,
+        language: req.body?.language,
+        category: req.body?.category,
+        subject: req.body?.subject,
+        sendername: req.body?.sendername,
+        emailid: req.body?.emailid,
+        domain: req.body?.domain,
+        design: req.body?.design,
+        html: req.body?.html,
+    }
+    db.createEmailTemplate.push(data)
+    res.json(db.createEmailTemplate)
+})
+
+app.get('/uphish/email-template-builder/all/:clientid', async (req, res) => {
+    const clientid = req.params.clientid
+    res.json(db.getAllTemplate)
+})
+
 app.use((req, res) => {
     res.send({ code: 404, error: httpMsg[404] })
 })

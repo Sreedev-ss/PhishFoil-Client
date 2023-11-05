@@ -22,8 +22,26 @@ import EmailEditor from "react-email-editor";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Chip from '@mui/material/Chip';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
+
 
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
+
+const host = 'http://localhost:8081';
+
+// const emailTemplateData = [
+//   {
+//     "templatename":"abode join my account",
+//     "subject":"join the account",
+//     "sendername":"lilly",
+//     "emailid":"fds@adobe.uk",
+//     "design":"gggggggggggggggggggggggggggggggggggggggggggg",    //string
+//     "html":"gggggggggggggggggggggggggggggggggggggggggggggg"      //string
+//     },
+// ];
 
 
 const createEmailTemplatePage = () => {
@@ -35,6 +53,110 @@ const createEmailTemplatePage = () => {
     const [checked, setChecked] = useState(false); 
     const [customSenderEmail, setCustomSenderEmail] = useState(false);
     const [selectedItems, setSelectedItems] = useState(['English']);
+
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+    const [allEmailTemplateData, setAllEmailTemplateData] = useState([]);
+    const [html, setHtml] = useState('');
+    const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+      templatename: '',
+      language: selectedItems,
+      category: '',
+      subject: '',
+      sendername: '',
+      emailid: '',
+      domain: '',
+      // sender: '',
+      // receipient: '',
+      design: '',
+      html: '',
+    });
+
+    const handleChangeEmailTemplate = (e) => {
+      const { name, value} = e.target;
+      // const file = e.target.files ? e.target?.files[0]: "";
+      const file = e.target.files ? e.target?.files[0]: null;
+      // setFormData({ ...formData, [name]: value, design: file });
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+        image: file,
+      }));
+      setError(null);
+    };
+
+    const removeImage = () => {
+      setFormData({ ...formData, image: null});
+    }
+
+    const isFormValid = () => {
+      const {
+        templatename,
+        language,
+        category,
+        html,
+      } = formData;
+      return (
+        templatename !== "" &&
+        language !== "" &&
+        category !== ""
+        //  &&
+        // html !== "" 
+      );
+    };
+
+    const handleSubmitEmailTemplate = async(e) => {
+      console.log('hi')
+      e.preventDefault();
+      if(!isFormValid()) {
+        setError("Please fill out all the required fields.");
+        console.log(formData)
+        console.log("all required");
+        return;
+      } else {
+        console.log(html,'submit')
+        // setFormData(...formData,{design : html?.design, html:html?.html })
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          design: html?.design,
+          html: html?.html,
+        }));
+        console.log(formData,'else handleSubmit')
+
+        try {
+          const res = await axios.post(`${host}/email-template-builder/new/admin`, formData);
+          console.log("response", res);
+          if(res.data) {
+            toast.success("Successfully created");
+            setAllEmailTemplateData(res.data);
+            setFormData({
+              templatename: '',
+              language: selectedItems,
+              category: '',
+              subject: '',
+              sendername: '',
+              emailid: '',
+              domain: '',
+              // sender: '',
+              // receipient: '',
+              design: '',
+              html: '',
+            })
+            
+
+            setTimeout(() => {
+              navigate('/uphish')
+            }, 1000)
+            setSuccess("Email Template Created Successfully");
+          }
+        } catch (err) {
+          console.log(err);
+          setError(err)
+        }
+      }
+    }
 
     const handleChange = () => {
         setChecked(!checked); 
@@ -67,10 +189,12 @@ const createEmailTemplatePage = () => {
 
     const emailEditorRef = useRef(null);
   
-    const exportHtml = () => {
+    const exportHtml = (e) => {
+      e.preventDefault()
       emailEditorRef.current.editor.exportHtml((data) => {
         const { design, html } = data;
-        console.log("exportHtml", html);
+        console.log("exportHtml", html, design);
+        setHtml(data)
       });
     };
     const onLoad = () => {};
@@ -85,9 +209,9 @@ const createEmailTemplatePage = () => {
         setCategory(event.target.value); 
     };
       
-    const handleChangeItems = (event) => {
-      setSelectedItems(event.target.value);
-  };
+  //   const handleChangesItems = (event) => {
+  //     setSelectedItem(event.target.value);
+  // };
     const handleLanguageChange = (event) => {
         const value = event.target.value;
 
@@ -105,6 +229,7 @@ const createEmailTemplatePage = () => {
       if (tabIndex === 0) {
         return (
           <form>
+            <ToastContainer />
             <Box
               display="grid"
               gap="15px"
@@ -120,18 +245,24 @@ const createEmailTemplatePage = () => {
               </Box>
               <TextField 
                 fullWidth 
+                name="templatename"
                 type="text" 
+                value={formData.templatename}
+                onChange={handleChangeEmailTemplate}
                 sx={{ gridColumn: "span 2" }} />
               <div>
               <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
-                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>Language (s)</Typography>
+                <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>Language(s)</Typography>
                 <Select
                     labelId="multiple-select-label"
                     id="multiple-select"
                     multiple
                     label='Select languages'
-                    value={selectedItems}
-                    onChange={handleChangeItems}
+                    name="language"
+                    value={formData.language}
+                    onChange={handleChangeEmailTemplate}
+                    // value={selectedItems}
+                    // onChange={handleChangeItems}
                     MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
                     renderValue={(selected) => (
                         <div>
@@ -164,10 +295,13 @@ const createEmailTemplatePage = () => {
                     <Select
                         labelId="category-label"
                         id="category-label"
-                        value={category}
+                        // value={category}
                         label="Status"
                         MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
-                        onChange={handleCategory}
+                        // onChange={handleCategory}
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChangeEmailTemplate}
                         endAdornment={  
                           <InputAdornment position="end">
                             <ExpandMoreIcon />
@@ -200,13 +334,35 @@ const createEmailTemplatePage = () => {
                 fullWidth 
                 type="file" 
                 sx={{ gridColumn: "span 2" }} 
+                name="image"
+                // value={formData.design}
+                accept="image/*"
+                onChange={handleChangeEmailTemplate}
               />
-            <Box>
-            <Button variant="contained" disabled>
-                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
-                Remove Image
-            </Button>
-            </Box>
+              { formData.image && (
+                <div>
+                  <img
+                  src={URL.createObjectURL(formData.image)}
+                  alt="Selected Image"
+                  style={{ maxWidth: '100px', maxHeight: '100px'}}
+                  />
+                  <Box></Box>
+                  <Button
+                    variant="contained"
+                    onClick={removeImage}
+                    style=
+                    {{ 
+                      marginLeft: '5px', 
+                      color:'#fff', 
+                      background: 'red' ,
+                    }}                          
+                  >
+                    <DeleteOutlineIcon />
+                      Remove Image
+                  </Button>
+                </div>
+              )}
+            <Box></Box>
             <Box></Box>
               <Box>
                 <label 
@@ -219,6 +375,9 @@ const createEmailTemplatePage = () => {
               <TextField 
                 fullWidth 
                 type="text" 
+                name="subject"
+                value={formData.subject}
+                onChange={handleChangeEmailTemplate}
                 sx={{ gridColumn: "span 2" }} 
               />
               <Box>
@@ -232,6 +391,9 @@ const createEmailTemplatePage = () => {
               <TextField 
                 fullWidth 
                 type="text" 
+                name="sendername"
+                value={formData.sendername}
+                onChange={handleChangeEmailTemplate}
                 sx={{ gridColumn: "span 2" }} 
               />
               <Box>
@@ -268,6 +430,9 @@ const createEmailTemplatePage = () => {
                 <TextField
                     fullWidth
                     type="text"
+                    name="emailid"
+                    value={formData.emailid}
+                    onChange={handleChangeEmailTemplate}
                     sx={{ gridColumn: "span 2" }}
                 />
                 <Box>
@@ -291,7 +456,13 @@ const createEmailTemplatePage = () => {
                         Sender:
                     </label>
                     </Box>
-                    <TextField fullWidth type="text" />
+                    <TextField 
+                      fullWidth 
+                      type="text" 
+                      name="sender"
+                      value={formData.sender}
+                      onChange={handleChangeEmailTemplate}
+                    />
                 </Grid>
                 <Grid
                     item xs={1}
@@ -317,6 +488,7 @@ const createEmailTemplatePage = () => {
                         onChange={handleChangeReceipient}
                         fullWidth
                         type="text"
+                        name="receipient"
                         sx={{
                         gridColumn: "span 2",
                         border: "1px solid #ccc",
@@ -354,12 +526,16 @@ const createEmailTemplatePage = () => {
                 </label>
               </Box>
               <TextField 
+                fullWidth
                 type="text" 
+                name="domain"
+                value={formData.domain}
+                onChange={handleChangeEmailTemplate}
                 sx={{ gridColumn: "span 2" }} 
                 style={{width:"500px", marginTop:'15px'}} 
               />
               
-              <Button 
+              {/* <Button 
               variant="contained" 
               sx={{
                 marginLeft:"6px", 
@@ -368,7 +544,7 @@ const createEmailTemplatePage = () => {
                 backgroundColor: 'blue',
                 }}>
                 + Add
-            </Button>
+            </Button> */}
             <Box>
                 <p 
                     style={{
@@ -390,12 +566,13 @@ const createEmailTemplatePage = () => {
                     >
                         Content:
                     </p>
-              <button onClick={exportHtml}></button>
+              <button name="html" onClick={exportHtml}>Add</button>
               <EmailEditor ref={emailEditorRef} onLoad={onLoad} onReady={onReady} />
             </div>
             <div style={{marginTop:'15px'}}>
             <Button 
                 variant="outlined" 
+                onClick={handleSubmitEmailTemplate}
                 sx={{
                     mx: 'auto',
                     borderColor: 'blue',
@@ -416,6 +593,14 @@ const createEmailTemplatePage = () => {
             >
             CANCEL
             </Button>
+            {success && (
+              <Typography
+                variant="success-message"
+                sx={{ fontSize: "12px", paddingX: "10px", textAlign: "center" }}
+              >
+                {success}
+              </Typography>
+            )}
             </div>
           </form>
         );
@@ -452,32 +637,46 @@ const createEmailTemplatePage = () => {
             </p>
         </div>
         <div>
-        <Box style={{marginTop:'15px'}}>
-            <label 
-                htmlFor="name" 
-                style={{fontSize:"13px"}}
-            >
-                Customer Access:
-            </label>
-            </Box>
-            <TextField 
-                fullWidth 
-                type="text" 
-                sx={{ gridColumn: "span 2" }} 
-                style={{marginTop:'15px', width:'900px'}} 
-            />
-            <p style={{
-                fontSize:'15px', 
-                marginTop:'8px', 
-                fontWeight:'lighter', 
-                color:'gray'}}
-                >
-                    This email template will be visible to the Customers selected
-            </p>
+            <div>
+              <FormControl sx={{ minWidth: 150 }}>
+                    <Typography 
+                      sx={{ fontSize: '', 
+                      marginBottom: "5px", 
+                      marginLeft: "2px", 
+                      marginTop:'15px',
+                      fontSize:"13px",
+                      }}
+                    >
+                      Customer Access:</Typography>
+                    <Select
+                        labelId="customer-label"
+                        id="customer-label"
+                        // value={category}
+                        label="Customers"
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                        // onChange={handleCategory}
+                        // name="customer"
+                        // value={formData.customer}
+                        onChange={handleChangeEmailTemplate}
+                        endAdornment={  
+                          <InputAdornment position="end">
+                            <ExpandMoreIcon />
+                          </InputAdornment>
+                        }
+                    >
+                        <MenuItem value={'Dastute'}>Dastute</MenuItem>
+                        <MenuItem value={'IBM'}>IBM</MenuItem>
+                        <MenuItem value={'IBM.COM'}>IBM.COM</MenuItem>
+                        <MenuItem value={'SysArc Infomatix Pvt Ltd'}>SysArc Infomatix Pvt Ltd</MenuItem>
+                        <MenuItem value={'TestNew,PVT.LTD'}>TestNew,PVT.LTD</MenuItem>
+                    </Select>
+                </FormControl>
+              </div>
         </div>
         <div style={{marginTop:'55px'}}>
             <Button 
-                variant="outlined" 
+                variant="outlined"
+                onClick={handleChangeEmailTemplate}
                 sx={{
                     mx: 'auto',
                     borderColor: 'blue',
@@ -514,7 +713,7 @@ const createEmailTemplatePage = () => {
           style={tabStyle}
         >
           <Tab
-            label="Landing Page"
+            label="Email Template"
             sx={{
               color: selectedTab === 0 ? "rgb(30, 123, 228)" : "inherit",
             }}

@@ -36,6 +36,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { AiOutlineArrowRight, AiOutlineSearch } from 'react-icons/ai';
+import axios from "axios";
 
 import EditIcon from "@mui/icons-material/Edit";
 import SendIcon  from '@mui/icons-material/Send';
@@ -66,9 +67,12 @@ const languageOptions = [
 ];
 
 import SoftButton from "components/SoftButton";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
+import createEmailTemplate from "layouts/createEmailTemplate";
+
+const host = 'http://localhost:8081';
 
 function emailTable() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,6 +85,18 @@ function emailTable() {
   const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedItems, setSelectedItems] = useState(['English']);
+
+  useEffect(() => {
+    axios.get(`${host}/uphish/email-template-builder/all/:clientid`).then((res) => {
+      if (res.data) {
+        setAllEmailTemplateData(res.data)
+      } else {
+        toast.error('Failed fetching users')
+      }
+    }).catch(e => {
+      console.log(e)
+    })
+  }, [])
 
   const openSendTestEmailModal = () => {
     setSendTestEmailModalOpen(true);
