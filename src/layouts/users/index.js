@@ -205,9 +205,10 @@ function Users() {
     excludefromautoenrol: '',
   });
 
-
+  const data = localStorage.getItem('loginData')
+  const { clientid } = JSON.parse(data)
   useEffect(() => {
-    axios.get(`${host}/user/group/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
+    axios.get(`${host}/user/group/all/${clientid}`).then((res) => {
       if (res.data) {
         setAllGroups(res.data)
         console.log(res.data, 'all')
@@ -220,18 +221,18 @@ function Users() {
   }, [])
 
   useEffect(() => {
-    axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
+    axios.get(`${host}/user/users/all/${clientid}`).then((res) => {
       if (res.data) {
-        if(status == 'Active'){
-          setAllUserData(res.data.filter((i)=>i.status == true))
-        }else if(status == 'Inactive'){
-          setAllUserData(res.data.filter((i)=>i.status == false))
-        }else if(status == 'All Users'){
+        if (status == 'Active') {
+          setAllUserData(res.data.filter((i) => i.enableordisable == true))
+        } else if (status == 'Inactive') {
+          setAllUserData(res.data.filter((i) => i.enableordisable == false))
+        } else if (status == 'All Users') {
           setAllUserData(res.data)
-        }else if(status == 'Managers'){
-          setAllUserData(res.data.filter((i)=>i.ismanager == true))
-        }else if(status == 'Group Managers'){
-          const groupManagers = res.data.filter(user=>allGroups.some(group => group['groupmanager'] == user.detailsid))
+        } else if (status == 'Managers') {
+          setAllUserData(res.data.filter((i) => i.ismanager == true))
+        } else if (status == 'Group Managers') {
+          const groupManagers = res.data.filter(user => allGroups.some(group => group['groupmanager'] == user.detailsid))
           setAllUserData(groupManagers)
         }
       } else {
@@ -343,7 +344,7 @@ function Users() {
       return;
     } else {
       try {
-        const res = await axios.post(`${host}/user/new/de24f5e0-382c-4657-b296-9fd673758c5a`, formData);
+        const res = await axios.post(`${host}/user/new/${clientid}`, formData);
         console.log("rrrrrrrrrr", res);
         if (res.data) {
           toast.success("Successfully created");
@@ -396,7 +397,7 @@ function Users() {
       setError("Group name is required");
     } else {
       try {
-        const res = await axios.post(`${host}/user/newgroup/de24f5e0-382c-4657-b296-9fd673758c5a`, addGroupData);
+        const res = await axios.post(`${host}/user/newgroup/${clientid}`, addGroupData);
         setAddGroupData({
           groupname: '',
           parentid: '',
@@ -1026,7 +1027,7 @@ function Users() {
                     ref={anchorRef}
                     aria-label="split button"
                   >
-                    <Button onClick={handleClickbtn}>Download Reports</Button>
+                    <Button onClick={(e)=>{handleClickbtn(e);handleToggle(e);}}>Download Reports</Button>
                     <Button
                       size="small"
                       aria-controls={open ? "split-button-menu" : undefined}

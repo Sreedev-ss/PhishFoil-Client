@@ -25,6 +25,7 @@ app.post('/login/authenticate', (req, res) => {
 
 app.get('/user/group/all/:clientid', async (req, res) => {
     const clientid = req.params.clientid
+    console.log(clientid)
     const groups = await db.groups.filter((g) => g.clientid == clientid)
     res.json(groups)
 })
