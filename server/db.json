@@ -13,7 +13,7 @@
         {
             "groupid": "202cc509-af5c-4d37-8361-1a2dff213e4a",
             "groupname": "Administration",
-            "groupmanager": null,
+            "groupmanager": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
             "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
             "isparentgroup": true,
             "parentid": null,
@@ -22,7 +22,7 @@
         {
             "groupid": "306c6438-1ce0-4b00-89f7-dc88ec33cd87",
             "groupname": "Sample",
-            "groupmanager": null,
+            "groupmanager": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa7",
             "clientid": "de24f5e0-382c-4657-b296-9fd673758c5a",
             "isparentgroup": true,
             "parentid": null,
@@ -42,8 +42,8 @@
         {
             "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
             "name": "fin",
-            "emailid": "vv@tcs.com",
-            "enableordisable": true,
+            "emailid": "vv123@tcs.com",
+            "status": true,
             "orgainzationrole": null,
             "ismanager": true,
             "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
@@ -52,7 +52,51 @@
             "deleteddate": null,
             "groups": [
                 "202cc509-af5c-4d37-8361-1a24ff213е4a",
-                "9e99c765-1230-4460-82b4-035c20771ed "
+                "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
+            ]
+        },
+        {
+            "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa7",
+            "name": "vino",
+            "emailid": "vv567@tcs.com",
+            "status": true,
+            "orgainzationrole": null,
+            "ismanager": true,
+            "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
+            "managername": "kumaren",
+            "manageremailid": "kumar@tes.com",
+            "deleteddate": null,
+            "groups": [
+                "202cc509-af5c-4d37-8361-1a24ff213е4a"
+            ]
+        },{
+            "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa8",
+            "name": "vijay",
+            "emailid": "vv24c@tcs.com",
+            "status": true,
+            "orgainzationrole": null,
+            "ismanager": false,
+            "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
+            "managername": "kumaren",
+            "manageremailid": "kumar@tes.com",
+            "deleteddate": null,
+            "groups": [
+                "202cc509-af5c-4d37-8361-1a24ff213е4a",
+                "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
+            ]
+        },{
+            "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa9",
+            "name": "ram",
+            "emailid": "vv234@tcs.com",
+            "status": false,
+            "orgainzationrole": null,
+            "ismanager": true,
+            "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
+            "managername": "kumaren",
+            "manageremailid": "kumar@tes.com",
+            "deleteddate": null,
+            "groups": [
+                "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
             ]
         }
     ],
