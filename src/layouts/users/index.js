@@ -54,6 +54,37 @@ import {
 
 import TextField from "@mui/material/TextField";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import csvIcon from '../../assets/images/csv.png';
+import MicrosoftIcon from '../../assets/images/microsoft.png';
+import GoogleIcon from '../../assets/images/google.png';
+import {
+  AiFillPlusCircle,
+  AiOutlineArrowDown,
+  AiOutlineArrowRight,
+  AiOutlinePlus,
+  AiOutlineReload,
+} from "react-icons/ai";
+import SoftButton from "components/SoftButton";
+import { useEffect, useRef, useState } from "react";
+import React from "react";
+import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+const items = ["Technical", "Administration", "Sample"];
+const courses = [
+  "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
+  "Home Network Security Awareness: Robs Router Routine(Beginner)",
+  "Security Email Use",
+];
+const options = ["Download Group Managers Reports", "Download Users Reports"];
 
 const style = {
   position: "absolute",
@@ -102,40 +133,6 @@ const scrollableContentStyle = {
   maxHeight: "300px",
 };
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-import csvIcon from '../../assets/images/csv.png';
-import MicrosoftIcon from '../../assets/images/microsoft.png';
-import GoogleIcon from '../../assets/images/google.png';
-
-import {
-  AiFillPlusCircle,
-  AiOutlineArrowDown,
-  AiOutlineArrowRight,
-  AiOutlinePlus,
-  AiOutlineReload,
-} from "react-icons/ai";
-
-import SoftButton from "components/SoftButton";
-import { useEffect, useRef, useState } from "react";
-import React from "react";
-import SendIcon from "@mui/icons-material/Send";
-import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-const items = ["Technical", "Administration", "Sample"];
-const courses = [
-  "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
-  "Home Network Security Awareness: Robs Router Routine(Beginner)",
-  "Security Email Use",
-];
-const options = ["Download Group Managers Reports", "Download Users Reports"];
 const item1 = [
   "Password Constrution Guidelines",
   "Phishing test policy",
@@ -149,30 +146,12 @@ const groupManagers = ["Vino", "Vijay", "Velayutham"];
 
 const host = 'http://localhost:8081';
 
-const usersData = [
-  {
-    detailsid: '6f138b0f-f277-4f0a-83ec-3baa7ce71aa6',
-    name: 'fin',
-    emailid: 'vv@tcs.com',
-    enableordisable: true,
-    orgainzationrole: null,
-    ismanager: true,
-    manager: '9e99c765-1230-446e-82bd-035c2e771edd',
-    managername: 'kumaren',
-    manageremailid: 'kumar@tes.com',
-    deleteddate: null,
-    groups: [
-      '202cc509-af5c-4d37-8361-1a24ff213е4a',
-      '9e99c765-1230-4460-82b4-035c20771ed',
-    ],
-  },
-];
 
 function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
   const [isGroupFormOpen, setGroupFormOpen] = useState(false);
-  const [status, setStatus] = useState("Active");
+  const [status, setStatus] = useState("All Users");
   const [subject, setSubject] = useState("All");
   const label = { inputProps: { "aria-label": "Switch demo" } };
 
@@ -210,19 +189,24 @@ function Users() {
   const [csvContents, setCsvContents] = useState(null);
   const [allGroups, setAllGroups] = useState([])
   const [parentGroup, setParentGroup] = useState("");
-  const [uploadedData, setUploadedData] = useState([]); 
+  const [uploadedData, setUploadedData] = useState([]);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [message, setMessage] = useState(null)
+
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    manageremail: '',
+    manager: '',
+    preferredlanguage: [],
+    groups: groupItems,
+    excludefromautoenrol: '',
+  });
+
 
   useEffect(() => {
-    axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
-      if (res.data) {
-        setAllUserData(res.data)
-      } else {
-        toast.error('Failed fetching users')
-      }
-    }).catch(e => {
-      console.log(e)
-    })
-
     axios.get(`${host}/user/group/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
       if (res.data) {
         setAllGroups(res.data)
@@ -235,27 +219,29 @@ function Users() {
     })
   }, [])
 
-  
- 
+  useEffect(() => {
+    axios.get(`${host}/user/users/all/de24f5e0-382c-4657-b296-9fd673758c5a`).then((res) => {
+      if (res.data) {
+        if(status == 'Active'){
+          setAllUserData(res.data.filter((i)=>i.status == true))
+        }else if(status == 'Inactive'){
+          setAllUserData(res.data.filter((i)=>i.status == false))
+        }else if(status == 'All Users'){
+          setAllUserData(res.data)
+        }else if(status == 'Managers'){
+          setAllUserData(res.data.filter((i)=>i.ismanager == true))
+        }else if(status == 'Group Managers'){
+          const groupManagers = res.data.filter(user=>allGroups.some(group => group['groupmanager'] == user.detailsid))
+          setAllUserData(groupManagers)
+        }
+      } else {
+        toast.error('Failed fetching users')
+      }
+    }).catch(e => {
+      console.log(e)
+    })
 
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null)
-
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    manageremail:'',
-    manager: '',
-    preferredlanguage: [],
-    groups: groupItems,
-    excludefromautoenrol: '',
-  });
-
-  // useEffect(() => {
-  //   toast.success('Page loaded')
-  // },[]);
+  }, [status])
 
   const handleCsvClick = () => {
     setModalCSVOpen(true);
@@ -271,15 +257,15 @@ function Users() {
 
     reader.onload = (e) => {
       const contents = e.target.result;
-      
+
       const lines = contents.split('\n');
-      
-      const header = lines[0].split(',').map((item) => item.trim()); 
+
+      const header = lines[0].split(',').map((item) => item.trim());
 
       const data = [];
       for (let i = 1; i < lines.length; i++) {
         const values = lines[i].split(',').map((item) => item.trim());
-        if(values.length === header.length) {
+        if (values.length === header.length) {
 
           const entry = {};
           for (let j = 0; j < header.length; j++) {
@@ -309,9 +295,9 @@ function Users() {
   const handleUpload = (event) => {
     setUploadedData(csvContents);
     console.log("csvContents upload data", csvContents);
-    if(csvContents.length){
-      csvContents.forEach(e=>{
-        console.log(e,'csv')
+    if (csvContents.length) {
+      csvContents.forEach(e => {
+        console.log(e, 'csv')
         setFormData(e)
         handleSubmitAddUser(event)
       })
@@ -344,12 +330,12 @@ function Users() {
       lastname !== "" &&
       email.match(emailRegex) &&
       manager !== "" &&
-      preferredlanguage !== "" 
+      preferredlanguage !== ""
     );
   }
 
   const handleSubmitAddUser = async (e) => {
-    console.log(formData,'formData i nsubmit')
+    console.log(formData, 'formData i nsubmit')
     e.preventDefault();
     if (!isFormValid()) {
       setError("Please fill out all the required fields.");
@@ -366,7 +352,7 @@ function Users() {
             firstname: '',
             lastname: '',
             email: '',
-            manageremail:'',
+            manageremail: '',
             manager: '',
             preferredlanguage: [],
             groups: groupItems,
@@ -619,7 +605,7 @@ function Users() {
     closeGapAnalysisModal();
   };
 
-  const handleChange = (event) => {
+  const handleStatusChange = (event) => {
     setStatus(event.target.value);
   };
 
@@ -740,6 +726,7 @@ function Users() {
       </div>
     );
   };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -900,7 +887,7 @@ function Users() {
                       id="demo-simple-select"
                       value={status}
                       label="Status"
-                      onChange={handleChange}
+                      onChange={handleStatusChange}
                     >
                       <MenuItem value={"Active"}>Active</MenuItem>
                       <MenuItem value={"Inactive"}>Inactive</MenuItem>
@@ -1481,9 +1468,9 @@ function Users() {
                         <hr />
                         <Typography id="modal-modal-title" variant="h6" component="h2">
                           <div style={{ display: "flex", alignItems: "center", marginTop: '40px' }}>
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor:'pointer' }} onClick={handleCsvClick}>
-                              <img style={{ width: "50px", marginRight: "200px"  }} src={csvIcon} alt="csv Icon" />
-                              <Typography variant="body2" style={{ marginRight: '200px'}}>CSV</Typography>                          
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", cursor: 'pointer' }} onClick={handleCsvClick}>
+                              <img style={{ width: "50px", marginRight: "200px" }} src={csvIcon} alt="csv Icon" />
+                              <Typography variant="body2" style={{ marginRight: '200px' }}>CSV</Typography>
                             </div>
 
                             {modalCSVOpen && (
@@ -1491,59 +1478,59 @@ function Users() {
                                 <div className="modal-content">
                                   {/* Your modal content goes here */}
                                   <Box sx={styleCSV}>
-                                  <label 
-                                      htmlFor="name" 
-                                      style={{fontSize:"16px"}}
-                                      >
-                                          Import Users & Groups via CSV
-                                  </label>
-                                  <br/>
-                                <input type="file" onChange={handleFileChange} />
+                                    <label
+                                      htmlFor="name"
+                                      style={{ fontSize: "16px" }}
+                                    >
+                                      Import Users & Groups via CSV
+                                    </label>
+                                    <br />
+                                    <input type="file" onChange={handleFileChange} />
 
-                                {csvContents && csvContents.length > 0  ? (
-                                  <div>
-                                  <table style={{ marginBottom: '20px'}}>
-                                    <thead style={{background:'grey' }}>
-                                      <tr>
-                                        {Object.keys(csvContents[0]).map((header) => (
-                                          <th key={header}>{header}</th>
-                                        ))}
-                                        <th>Actions</th>
-                                      </tr>
-                                    </thead>
-                                    <tbody>
-                                      {csvContents.map((entry, index) => (
-                                        <tr key={index}>
-                                          {Object.values(entry).map((value, index) => (
-                                            <td key={index}>{value}</td>
-                                          ))}
-                                          <td>
-                                            <button onClick={() => handleDeleteCSV(index)} >
-                                              <DeleteIcon style={{color:'red'}}/>
-                                              {/* <span role="img" aria-label="Delete">🗑️</span> */}
-                                              
-                                            </button>
-                                          </td>
-                                        </tr>
-                                      ))}
-                                      {/* <tr><button>delete</button></tr> */}
-                                    </tbody>
-                                  </table>
-                                  <button onClick={closeCSVModal}>Close</button>
-                                  </div>
-                                ) : (
-                                  // <p>No CSV data loaded.</p>
-                                  <div>
-                                    {/* <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                    {csvContents && csvContents.length > 0 ? (
+                                      <div>
+                                        <table style={{ marginBottom: '20px' }}>
+                                          <thead style={{ background: 'grey' }}>
+                                            <tr>
+                                              {Object.keys(csvContents[0]).map((header) => (
+                                                <th key={header}>{header}</th>
+                                              ))}
+                                              <th>Actions</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {csvContents.map((entry, index) => (
+                                              <tr key={index}>
+                                                {Object.values(entry).map((value, index) => (
+                                                  <td key={index}>{value}</td>
+                                                ))}
+                                                <td>
+                                                  <button onClick={() => handleDeleteCSV(index)} >
+                                                    <DeleteIcon style={{ color: 'red' }} />
+                                                    {/* <span role="img" aria-label="Delete">🗑️</span> */}
+
+                                                  </button>
+                                                </td>
+                                              </tr>
+                                            ))}
+                                            {/* <tr><button>delete</button></tr> */}
+                                          </tbody>
+                                        </table>
+                                        <button onClick={closeCSVModal}>Close</button>
+                                      </div>
+                                    ) : (
+                                      // <p>No CSV data loaded.</p>
+                                      <div>
+                                        {/* <label htmlFor="name" style={{ fontSize: "13px" }}>
                                       Import Users & Groups via CSV
                                     </label>
                                     <p>No CSV data loaded.</p> */}
-                                    <button onClick={closeCSVModal}>Close</button>
-                                  </div>
-                                )}                                                 
-                                  <button onClick={handleUpload}>Upload</button>
-                                </Box>
-                                                                  
+                                        <button onClick={closeCSVModal}>Close</button>
+                                      </div>
+                                    )}
+                                    <button onClick={handleUpload}>Upload</button>
+                                  </Box>
+
                                 </div>
                               </div>
                             )}
