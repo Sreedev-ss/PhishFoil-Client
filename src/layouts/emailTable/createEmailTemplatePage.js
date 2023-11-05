@@ -57,7 +57,7 @@ const createEmailTemplatePage = () => {
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const [allEmailTemplateData, setAllEmailTemplateData] = useState([]);
-    const [html, setHtml] = useState('');
+    const [html, setHtml] = useState({});
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -106,7 +106,7 @@ const createEmailTemplatePage = () => {
         // html !== "" 
       );
     };
-
+const [sampleHtml,setSample] = useState()
     const handleSubmitEmailTemplate = async(e) => {
       console.log('hi')
       e.preventDefault();
@@ -116,13 +116,14 @@ const createEmailTemplatePage = () => {
         console.log("all required");
         return;
       } else {
-        console.log(html,'submit')
+        console.log(typeof(html.design),'submit')
         // setFormData(...formData,{design : html?.design, html:html?.html })
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          design: html?.design,
-          html: html?.html,
-        }));
+        setSample({design:html.design})
+        console.log(sampleHtml,'sample')
+        setFormData({...formData,
+          design: html.design,
+          html: html.html,
+       } );
         console.log(formData,'else handleSubmit')
 
         try {
@@ -193,8 +194,16 @@ const createEmailTemplatePage = () => {
       e.preventDefault()
       emailEditorRef.current.editor.exportHtml((data) => {
         const { design, html } = data;
-        console.log("exportHtml", html, design);
-        setHtml(data)
+        const designElement = JSON.stringify(design)
+        let obj = {
+          design : '',
+          html : ''
+        }
+
+        obj.design=designElement
+        obj.html=html
+
+        setHtml(obj)
       });
     };
     const onLoad = () => {};
