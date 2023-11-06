@@ -1162,7 +1162,7 @@ function Users() {
                     ref={anchorRef}
                     aria-label="split button"
                   >
-                    <Button onClick={(e) => { handleClickbtn(e); handleToggle(e); }}>Download Reports</Button>
+                    <Button >Download Reports</Button>
 
                     <Button
                       size="small"

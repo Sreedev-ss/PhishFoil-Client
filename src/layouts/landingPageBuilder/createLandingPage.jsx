@@ -9,15 +9,132 @@ import EmailEditor from "react-email-editor";
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import { useNavigate } from "react-router-dom";
+const emails = ['Adobe', 'Amazone', 'Ameli', 'ANZ'];
+
+const host = 'http://localhost:8081';
+
+const data = localStorage.getItem('loginData')
+  const { clientid,detailsid } = JSON.parse(data)
 
 const CreateLandingPage = () => {
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedItems, setSelectedItems] = useState(['English']);
   const [category, setCategory] = useState("No Category");
+  const [clients, setClients] = useState([]);
+  const [selectedEmail, setSelectedEmail] = useState(['Adobe']);
+
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [allEmailTemplateData, setAllEmailTemplateData] = useState([]);
+  const [html, setHtml] = useState({});
+  const navigate = useNavigate();
+  
+
+  const [formData, setFormData] = useState({
+    templatename: '',
+    language: selectedItems,
+    category: '',
+    pagetitle: '',
+    emailtemplateid: '',
+    associatedEmailTemplate:selectedEmail,
+    design: '',
+    html: '',
+    clients:clients
+  });
+
+  const [file, setFile] = useState(null);
+  
+  const handleChangeEmailTemplate = (e) => {
+    const { name, value } = e.target;  
+    // setFormData({ ...formData, [name]: value, design: file });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+    setError(null);
+  };
+
+  const handleImageUpload = (e) => {
+    setFile(e.target.files[0])
+  }
+
+  const removeImage = () => {
+    setFile(null);
+  }
+  const isFormValid = () => {
+    const {
+      templatename,
+      language,
+      category,
+      html,
+    } = formData;
+    return (
+      templatename !== "" &&
+      language !== "" &&
+      category !== ""
+      //  &&
+      // html !== "" 
+    );
+  };
+  const [count, setCount] = useState(0)
+
+  const handleSubmitEmailTemplate = async (e) => {
+
+    e.preventDefault();
+
+    if (!isFormValid()) {
+      setError("Please fill out all the required fields.");
+      return;
+    } else {
+      console.log(html, 'submit')
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        design: html.design,
+        html: html.html,
+      }));
+      setCount(count + 1)
+      console.log(count.current)
+      try {
+        console.log(formData, 'else handleSubmit')
+        if (count != 0) {
+
+          const res = await axios.post(`${host}/landingPageTemplate/new/${clientid}/${detailsid}`, formData);
+          console.log("response", res);
+          if (res.data) {
+            toast.success("Successfully created");
+            setAllEmailTemplateData(res.data);
+            setFormData({
+              templatename: '',
+              language: selectedItems,
+              category: '',
+              emailid: '',
+              associatedEmailTemplate:selectedEmail,
+              // sender: '',
+              // receipient: '',
+              design: '',
+              html: '',
+            })
+            setTimeout(() => {
+              navigate('/uphish/landingPageBuilder')
+            }, 1000)
+            setSuccess("Landing Template Created Successfully");
+          }
+        }
+      } catch (err) {
+        console.log(err);
+        setError(err)
+      }
+    }
+  }
 
   const handleChangeItems = (event) => {
     setSelectedItems(event.target.value);
+};
+
+const handleChangeEmail= (event) => {
+  setSelectedEmail(event.target.value);
 };
 const handleCategory = (event) => {
   setCategory(event.target.value);
@@ -29,14 +146,39 @@ const handleDelete = (itemToDelete) => (event) => {
   const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
   setSelectedItems(updatedSelection);
 };
+
+const handleDeleteEmail = (itemToDelete) => (event) => {
+  console.log(itemToDelete);
+  event.preventDefault();
+  const updatedSelection = selectedEmail.filter((item) => item !== itemToDelete);
+  selectedEmail(updatedSelection);
+};
   const emailEditorRef = useRef(null);
 
-  const exportHtml = () => {
+  // const exportHtml = () => {
+  //   emailEditorRef.current.editor.exportHtml((data) => {
+  //     const { design, html } = data;
+  //     console.log("exportHtml", html);
+  //   });
+  // };
+  const exportHtml = (e) => {
+    e.preventDefault()
     emailEditorRef.current.editor.exportHtml((data) => {
       const { design, html } = data;
-      console.log("exportHtml", html);
+
+      const designElement = JSON.stringify(design)
+      let obj = {
+        design: '',
+        html: ''
+      }
+
+      obj.design = designElement
+      obj.html = html
+
+      setHtml(obj)
     });
   };
+
   const onLoad = () => {};
 
   const onReady = () => {};
@@ -60,19 +202,34 @@ const handleDelete = (itemToDelete) => (event) => {
             }}
           >
             <Box style={{marginTop:'15px'}}>
-              <label htmlFor="name" style={{fontSize:"13px"}}>Template Name:</label>
+              <label 
+              htmlFor="name" 
+              style={{fontSize:"13px"}}
+              name='templatename'
+              value={formData.templatename}
+              onChange={handleChangeEmailTemplate}
+              >
+                Template Name:</label>
             </Box>
             <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
             <div>
               <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
-                <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Language(s):</Typography>
+                <Typography 
+                sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}
+              //   name='language'
+              // value={formData.language}
+              // onChange={handleChangeEmailTemplate}
+                >Language(s):</Typography>
                 <Select
                     labelId="multiple-select-label"
                     id="multiple-select"
                     multiple
                     label='Select languages'
-                    value={selectedItems}
-                    onChange={handleChangeItems}
+                    // value={selectedItems}
+                    // onChange={handleChangeItems}
+                    name='language'
+              value={formData.language}
+              onChange={handleChangeEmailTemplate}
                     MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
                     renderValue={(selected) => (
                         <div>
@@ -101,7 +258,155 @@ const handleDelete = (itemToDelete) => (event) => {
               </div>
               <div>
               <FormControl sx={{ minWidth: 150 }}>
-                    <Typography sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}>Category:</Typography>
+                    <Typography 
+                    sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}
+              //       name='category'
+              // value={formData.category}
+              // onChange={handleChangeEmailTemplate}
+                    >Category:</Typography>
+                    <Select
+                        labelId="category-label"
+                        id="category-label"
+                        // value={category}
+                        label="Status"
+                        MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                        // onChange={handleCategory}
+                        name='category'
+                        value={formData.category}
+                        onChange={handleChangeEmailTemplate}
+                        endAdornment={  
+                          <InputAdornment position="end">
+                            <ExpandMoreIcon />
+                          </InputAdornment>
+                        }
+                    >
+                        <MenuItem value={'No Category'}>No Category</MenuItem>
+                        <MenuItem value={'Bills'}>Bills</MenuItem>
+                        <MenuItem value={'Cloud Services'}>Cloud Services</MenuItem>
+                        <MenuItem value={'Delivery'}>Delivery</MenuItem>
+                        <MenuItem value={'Finance'}>Finance</MenuItem>
+                        <MenuItem value={'Government'}>Government</MenuItem>
+                        <MenuItem value={'Internal'}>Internal</MenuItem>
+                        <MenuItem value={'News & Entertainment'}>News & Entertainment</MenuItem>
+                        <MenuItem value={'Shopping'}>Shopping</MenuItem>
+                        <MenuItem value={'Social Media'}>Social Media</MenuItem>
+                        <MenuItem value={'Travel'}>Travel</MenuItem>
+                    </Select>
+                </FormControl>
+              </div>
+
+            <Box>
+              <label 
+              htmlFor="name" 
+              style={{fontSize:"13px"}}
+              name='pagetitle'
+              value={formData.pagetitle}
+              onChange={handleChangeEmailTemplate}
+              >Page Title:</label>
+            </Box>
+            <TextField fullWidth  type="text" sx={{ gridColumn: "span 2" }} />            
+            <Box>
+              <label 
+              htmlFor="name" 
+              style={{fontSize:"13px"}}
+              >Title Image:</label>
+            </Box>
+            <TextField fullWidth variant="filled" name="image" type="file" sx={{ gridColumn: "span 2" }} accept="image/*"
+              onChange={handleImageUpload} />
+            {file && (
+              <div>
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Selected Image"
+                  style={{ maxWidth: '100px', maxHeight: '100px' }}
+                />
+                <Box></Box>
+                <Button
+                  variant="contained"
+                  onClick={removeImage}
+                  style=
+                  {{
+                    marginLeft: '5px',
+                    color: '#fff',
+                    background: 'red',
+                  }}
+                >
+                  <DeleteOutlineIcon />
+                  Remove Image
+                </Button>
+              </div>
+            )}
+            {/* <Button variant="contained" disabled>
+                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
+                Remove Image
+            </Button> */}
+            {/* <div></div>
+            <Box></Box> */}
+            {/* <Box>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Associated Email Template:</label>
+            </Box>
+            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} /> */}
+
+<div>
+            {/* <Box>
+              <label htmlFor="name" style={{fontSize:"13px"}}>Associated Email Template:</label>
+            </Box> */}
+              <FormControl sx={{ minWidth: 230, maxWidth: 330, height: 'auto' }}>
+                <Typography 
+                sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}
+              //   name='AssociatedEmailTemplate'
+              // value={formData.AssociatedEmailTemplate}
+              // onChange={handleChangeEmailTemplate}
+                >Associated Email Template:</Typography>
+                <Select
+                    labelId="multiple-select-label"
+                    id="multiple-select"
+                    multiple
+                    fullWidth
+                    label='Select AssociatedEmailTemplate'
+                    // value={selectedEmail}
+                    // onChange={handleChangeEmail}
+                    name='associatedEmailTemplate'
+                    value={formData.associatedEmailTemplate}
+                    onChange={handleChangeEmailTemplate}
+              // value={formData.associatedEmailTemplate}
+              // onChange={handleChangeEmailTemplate}
+                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                    renderValue={(selected) => (
+                        <div>
+                            {selected.map((item) => (
+                                <Chip
+                                    key={item}
+                                    label={item}
+                                    onDelete={handleDeleteEmail(item)}
+                                    sx={{
+                                        marginRight: '5px',
+                                        height: '20px', 
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    )}
+                >
+                    {emails.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            <Checkbox checked={selectedEmail.indexOf(item) > -1} />
+                            <ListItemText secondary={item} />
+                        </MenuItem>
+                    ))}
+                </Select>
+              </FormControl>
+              </div>
+            
+            
+              {/* <div>
+              <FormControl sx={{ minWidth: 150 }}>
+                    <Typography 
+                    sx={{ fontSize: '13px', marginBottom: "5px", marginLeft: "2px" }}
+                    name='category'
+              value={formData.category}
+              onChange={handleChangeEmailTemplate}
+                    >Category:</Typography>
                     <Select
                         labelId="category-label"
                         id="category-label"
@@ -128,25 +433,7 @@ const handleDelete = (itemToDelete) => (event) => {
                         <MenuItem value={'Travel'}>Travel</MenuItem>
                     </Select>
                 </FormControl>
-              </div>
-
-            <Box>
-              <label htmlFor="name" style={{fontSize:"13px"}}>Page Title:</label>
-            </Box>
-            <TextField fullWidth  type="text" sx={{ gridColumn: "span 2" }} />            
-            <Box>
-              <label htmlFor="name" style={{fontSize:"13px"}}>Title Image:</label>
-            </Box>
-            <TextField fullWidth type="file" sx={{ gridColumn: "span 2" }} />
-            <Button variant="contained" disabled>
-                <DeleteOutlineIcon style={{marginLeft:'10px'}}/>
-                Remove Image
-            </Button>
-            <Box></Box>
-            <Box>
-              <label htmlFor="name" style={{fontSize:"13px"}}>Associated Email Template:</label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+              </div> */}
           </Box>
           <Box>
             <label htmlFor="name" style={{fontSize:"13px"}}> 
@@ -154,10 +441,47 @@ const handleDelete = (itemToDelete) => (event) => {
             </label>
           </Box>
           <div>
-            <button onClick={exportHtml}></button>
+            <button name="html" onClick={exportHtml}>Add</button>
 
             <EmailEditor ref={emailEditorRef} onLoad={onLoad} onReady={onReady} />
           </div>
+
+          <div style={{ marginTop: '15px' }}>
+            <Button
+              variant="outlined"
+              onClick={handleSubmitEmailTemplate}
+              sx={{
+                mx: 'auto',
+                borderColor: 'blue',
+                color: 'blue',
+                margin: "10px"
+              }}
+            >
+              SAVE
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                mx: 'auto',
+                borderColor: 'red',
+                color: "red",
+                margin: "10px"
+              }}
+              onClick={()=>navigate('/uphish/landingPageBuilder')}
+            >
+              CANCEL
+            </Button>
+            {success && (
+              <Typography
+                variant="success-message"
+                sx={{ fontSize: "12px", paddingX: "10px", textAlign: "center" }}
+              >
+                {success}
+              </Typography>
+            )}
+          </div>
+
+
         </form>
       );
     } else {
@@ -190,11 +514,16 @@ const handleDelete = (itemToDelete) => (event) => {
             <div>
               <Button
                 variant="outlined"
+                onClick={handleChangeEmailTemplate}
                 style={{ border: "1px solid blue", marginRight: "10px", color: "blue" }}
               >
                 Save
               </Button>
-              <Button variant="outlined" style={{ border: "1px solid red", color: "red" }}>
+              <Button 
+              variant="outlined" 
+              style={{ border: "1px solid red", color: "red" }}
+              onClick={()=>navigate('/uphish/landingPageBuilder')}
+              >
                 Cancel
               </Button>
             </div>
