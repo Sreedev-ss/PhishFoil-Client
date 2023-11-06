@@ -86,8 +86,10 @@ function emailTable() {
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedItems, setSelectedItems] = useState(['English']);
 
+  const data = localStorage.getItem('loginData')
+  const { clientid } = JSON.parse(data)
   useEffect(() => {
-    axios.get(`${host}/uphish/email-template-builder/all/:clientid`).then((res) => {
+    axios.get(`${host}/uphish/email-template-builder/all/${clientid}`).then((res) => {
       if (res.data) {
         setAllEmailTemplateData(res.data)
       } else {
