@@ -805,18 +805,26 @@ function Users() {
 
 
   const CheckboxTree = ({ data, groups }) => {
+
     const [checked, setChecked] = useState({});
+    const [selectedGroups, setSelectedGroups] = useState([]);
 
-    const handleCheck = (name) => {
-      setChecked((prevChecked) => ({
-        ...prevChecked,
-        [name]: !prevChecked[name],
-      }));
+    // Handle checkbox selection
+    const handleCheckboxChange = (groupID) => {
+      if (selectedGroups.includes(groupID)) {
+        setSelectedGroups(selectedGroups.filter((id) => id !== groupID));
+      } else {
+        setSelectedGroups([...selectedGroups, groupID]);
+      }
     };
 
-    const getParent = (child) => {
-      return groups.find((item) => item.groupname === child.parentid);
-    };
+    // Filter users based on selected groups
+    const filteredUsers = allUserData.filter((user) =>
+      selectedGroups.every((groupID) => user.groups.includes(groupID))
+    );
+  
+    console.log(filteredUsers)
+
 
     return (
       <div>
@@ -825,13 +833,16 @@ function Users() {
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={checked[item.groupid] || false}
-                  onChange={() => handleCheck(item.groupid)}
+                  // checked={checked[item.groupid] || false}
+                  // onChange={() => handleCheck(item.groupid)}
+                  value={item.groupid}
+                  checked={selectedGroups.includes(item.groupid)}
+                  onChange={() => handleCheckboxChange(item.groupid)}
                 />
               }
               label={item.groupname}
             />
-            {item.isparentgroup && (
+            {item.isparentgroup && groups.filter((g) => g.parentid === item.groupname).length !== 0 && (
               <div style={{ marginLeft: '20px' }}>
                 <CheckboxTree data={groups.filter((g) => g.parentid === item.groupname)} groups={groups} />
               </div>
@@ -1141,7 +1152,8 @@ function Users() {
                     ref={anchorRef}
                     aria-label="split button"
                   >
-                    <Button>Download Reports</Button>
+                    <Button onClick={(e) => { handleClickbtn(e); handleToggle(e); }}>Download Reports</Button>
+
                     <Button
                       size="small"
                       aria-controls={open ? "split-button-menu" : undefined}
