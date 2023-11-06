@@ -121,6 +121,8 @@ app.get('/email-template-builder/all/:clientid', async (req, res) => {
     res.json(db.getAllTemplates)
 })
 
+// app.post('/user/delete/detailsId')
+
 app.use((req, res) => {
     res.send({ code: 404, error: 'No route found' })
 })

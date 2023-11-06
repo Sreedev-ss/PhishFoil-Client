@@ -15,6 +15,9 @@ import MarkEmailReadIcon from "@mui/icons-material/MarkEmailRead";
 import ImportExportIcon from "@mui/icons-material/ImportExport";
 import { Close, Language } from "@mui/icons-material";
 import { AiOutlineSearch } from "react-icons/ai";
+import * as XLSX from 'xlsx';
+import { writeFile } from 'xlsx';
+
 
 // Soft UI Dashboard React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -71,6 +74,7 @@ import {
   AiOutlinePlus,
   AiOutlineReload,
 } from "react-icons/ai";
+import { saveAs } from 'file-saver';
 import SoftButton from "components/SoftButton";
 import { useEffect, useRef, useState } from "react";
 import React from "react";
@@ -159,6 +163,9 @@ function Users() {
 
   const [open, setOpen] = React.useState(false);
 
+  // const options = ["Download Group Managers Reports", "Download Users Reports"];
+  
+
   //Add language
   const [addLangModalOpen, setAddLangModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState("");
@@ -192,7 +199,9 @@ function Users() {
   const [uploadedData, setUploadedData] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
+  
+
 
   const [formData, setFormData] = useState({
     firstname: '',
@@ -206,7 +215,7 @@ function Users() {
   });
 
   const data = localStorage.getItem('loginData')
-  const { clientid } = JSON.parse(data)
+  const { clientid, detailid } = JSON.parse(data)
   useEffect(() => {
     axios.get(`${host}/user/group/all/${clientid}`).then((res) => {
       if (res.data) {
@@ -450,8 +459,19 @@ function Users() {
   const closeDeleteUserModal = () => {
     setDeleteUser(false);
   };
-  const deleteUserModal = () => {
-    closeDeleteUserModal();
+  const deleteUserModal = (id) => {
+      axios.post(`${host}/user/delete/${id}`)
+      .then(response => {
+        if (response.status === 200) {  
+          closeDeleteUserModal();     
+        } else {         
+          console.error('Error deleting user');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
   };
 
   //Active
@@ -486,6 +506,7 @@ function Users() {
     closeSendPolicy();
   };
 
+  
   const handleChangeItems = (event) => {
     setSelectedItems(event.target.value);
   };
@@ -629,14 +650,108 @@ function Users() {
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(1);
 
-  const handleClickbtn = () => {
-    console.info(`You clicked ${options[selectedIndex]}`);
+  // const handleClickbtn = () => {
+  //   console.log("handleClickbtn called");
+  //   console.info(`You clicked ${options[selectedIndex]}`);
+  //   if (options[selectedIndex] === "Download Group Managers Reports") {
+  //     console.log('AllUserData', allUserData);
+  //     const data = [
+  //       ["Sl. No", "Name", "Email ID", "Manager Name"],
+  //       ...allUserData.map((item, index) => [
+  //         index + 1,
+  //         item.name,
+  //         item.emailid,
+  //         item.managername,
+  //       ]),
+  //     ];
+  //     console.log("Excel data:", data);
+
+  //     const ws = XLSX.utils.aoa_to_sheet(data);
+  //     const wb = XLSX.utils.book_new();
+  //     console.log("Workbook and Worksheet:", wb, ws);
+
+
+  //     XLSX.utils.book_append_sheet(wb, ws, "Group Managers Reports");
+  //     console.log("Workbook after appending sheet:", wb);
+
+  //     const excelBinaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+  //     const excelArrayBuffer = s2ab(excelBinaryString);
+
+  //     //XLSX.writeFile(wb, "group_managers_reports.xlsx");
+  //     // saveAs(new Blob([s2ab(XLSX.write(wb, { bookType: 'xlsx', type: 'blob' }))]), "group_managers_reports.xlsx");
+  //     saveAs(new Blob([excelArrayBuffer], { type: 'application/octet-stream' }), "group_managers_reports.xlsx");
+  //   }
+  // };
+
+  const handleDownloadGroupManagersReports = () => {
+      const data = [
+        ["Sl. No", "Name", "Email ID", "Manager Name"],
+        ...allUserData.map((item, index) => [
+          index + 1,
+          item.name,
+          item.emailid,
+          item.managername,
+        ]),
+      ];
+      console.log("Excel data:", data);
+
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      console.log("Workbook and Worksheet:", wb, ws);
+
+
+      XLSX.utils.book_append_sheet(wb, ws, "Group Managers Reports");
+      console.log("Workbook after appending sheet:", wb);
+
+      const excelBinaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+      const excelArrayBuffer = s2ab(excelBinaryString);
+      saveAs(new Blob([excelArrayBuffer], { type: 'application/octet-stream' }), "group_managers_reports.xlsx");
+    
   };
+
+  const handleDownloadUsersReports = () => {
+    const data = [
+      ["Sl. No", "Name", "Email ID"],
+      ...allUserData.map((item, index) => [
+        index + 1,
+        item.name,
+        item.emailid,
+        item.language,
+        item.isActive,
+        item.managername,
+        item.manageremail,
+        item.createdAt,
+        item.groups,
+      ]),
+    ];
+  
+    const ws = XLSX.utils.aoa_to_sheet(data);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Users Reports");
+
+    const excelBinaryString = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    const excelArrayBuffer = s2ab(excelBinaryString);
+  
+    saveAs(new Blob([excelArrayBuffer], { type: 'application/octet-stream' }), "users_reports.xlsx");
+  };
+  
+  
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setOpen(false);
+
+    if (options[index] === "Download Group Managers Reports") {
+      handleDownloadGroupManagersReports();
+    }  else if (options[index] === "Download Users Reports") {
+      handleDownloadUsersReports();
+    }
+
   };
+
+  
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -646,7 +761,6 @@ function Users() {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -1039,6 +1153,7 @@ function Users() {
                     aria-label="split button"
                   >
                     <Button onClick={(e) => { handleClickbtn(e); handleToggle(e); }}>Download Reports</Button>
+
                     <Button
                       size="small"
                       aria-controls={open ? "split-button-menu" : undefined}
@@ -1046,6 +1161,7 @@ function Users() {
                       aria-label="select merge strategy"
                       aria-haspopup="menu"
                       onClick={handleToggle}
+                      ref={anchorRef}
                     >
                       <AiOutlineArrowDown />
                     </Button>
@@ -1087,22 +1203,8 @@ function Users() {
                   </Popper>
                 </Stack>
                 <Stack spacing={2} margin={2} direction="row" justifyContent="flex-end">
-                  <div >
-                    {/* <Button
-                      variant="outline"
-                      style={{ border: "0.5px solid grey", color: "#585958" , marginRight: "10px" }}
-                      size="small"
-                      disabled
-                    >
-                      Action
-                    </Button> */}
-                    {/* <Button
-                      variant="outline"
-                      style={{ border: "0.5px solid grey", color: "#585958", marginRight: "10px" }}
-                      size="small"
-                    >
-                      <AiOutlineArrowDown /> Import Users
-                    </Button> */}
+                  <div >                 
+                    
                     <Button
                       variant="outline"
                       style={{
@@ -1165,24 +1267,7 @@ function Users() {
                               sx={{ gridColumn: "span 2" }}
                               value={formData.lastname}
                               onChange={handleChangeAddUser}
-                            />
-
-                            {/* <Box style={{ marginTop: "15px" }}>
-                              <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                Add user via Email or User ID?
-                              </label>
-                            </Box>
-                            <TextField
-                              select
-                              value={country}
-                              onChange={handleChanges}
-                              fullWidth
-                              type="text"
-                              sx={{ gridColumn: "span 2" }}
-                            >
-                              <MenuItem value="IN">Email</MenuItem>
-                              <MenuItem value="US">UserID</MenuItem>
-                            </TextField> */}
+                            />                          
 
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
@@ -1282,13 +1367,6 @@ function Users() {
                                 </Select>
                               </FormControl>
                             </div>
-
-                            {/* <TextField
-                                  fullWidth
-                                  variant="filled"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                /> */}
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
                                 Exclude user from Auto Enrol:
@@ -1321,126 +1399,7 @@ function Users() {
                           </Box>
                         </Box>
                       </Modal>
-
-                      <MenuItem onClick={openAddLangModal}>Group</MenuItem>
-
-                      {/* <Modal
-                        open={addLangModalOpen}
-                        onClose={closeAddLangModal}
-                        aria-labelledby="send-test-email-modal-title"
-                        aria-describedby="send-test-email-modal-description"
-                      >
-                        <Box sx={style}>
-                          <IconButton
-                            aria-label="Close"
-                            sx={{
-                              position: "absolute",
-                              top: 0,
-                              right: 0,
-                            }}
-                            onClick={closeAddLangModal}
-                          >
-                            <HighlightOffOutlinedIcon style={{ fontSize: "medium" }} />
-                          </IconButton>
-                          <Typography id="send-test-email-modal-title" variant="h6" component="h2">
-                            Add Group
-                          </Typography>
-
-                          <form>
-                            <Box style={{ marginTop: "15px" }}>
-                              <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                Group Name:
-                              </label>
-                            </Box>
-                            <TextField
-                              fullWidth
-                              type="text"
-                              sx={{ gridColumn: "span 2" }}
-                              value={addGroupData.groupname}
-                              onChange={handleChangeAddGroup}
-                            />
-
-                            <Box style={{ marginTop: "15px" }}>
-                              <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                Parent Group
-                              </label>
-                            </Box>
-                            <TextField
-                              select
-                              value={manager}
-                              onChange={handleManagerChanges}
-                              fullWidth
-                              type="text"
-                              sx={{ gridColumn: "span 2" }}
-                            >
-                              <MenuItem value="Administration">Administration</MenuItem>
-                              <MenuItem value="Technical">Technical</MenuItem>
-                              <MenuItem value="Sample">Sample</MenuItem>
-                            </TextField>
-
-                            <div>
-                              <FormControl sx={{ width: "330px", height: "auto" }}>
-                                <Typography
-                                  sx={{
-                                    fontSize: "",
-                                    marginBottom: "5px",
-                                    marginLeft: "2px",
-                                    marginTop: "15px",
-                                  }}
-                                >
-                                  Group Manager(s) :
-                                </Typography>
-                                <Select
-                                  labelId="multiple-select-label"
-                                  id="multiple-select"
-                                  multiple
-                                  label="Select Groups"
-                                  value={groupManager}
-                                  onChange={handleGroupManagers}
-                                  MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
-                                  renderValue={(selected) => (
-                                    <div>
-                                      {selected.map((item) => (
-                                        <Chip
-                                          key={item}
-                                          label={item}
-                                          onDelete={handletheDelete(item)}
-                                          sx={{
-                                            marginRight: "5px",
-                                            height: "20px",
-                                          }}
-                                        />
-                                      ))}
-                                    </div>
-                                  )}
-                                >
-                                  {groupManagers.map((item) => (
-                                    <MenuItem key={item} value={item}>
-                                      <Checkbox checked={groupManager.indexOf(item) > -1} />
-                                      <ListItemText secondary={item} />
-                                    </MenuItem>
-                                  ))}
-                                </Select>
-                              </FormControl>
-                            </div>
-                          </form>
-                          <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
-                            <Button
-                              variant="contained"
-                              style={{
-                                border: "0.5px solid #1C7AE4",
-                                color: "white",
-                                backgroundColor: "#1b7ae4",
-                                marginTop: "15px",
-                              }}
-                            >
-                              Create Group
-                            </Button>
-                            <p style={{ fontSize: "12px", paddingX: "20px" }}>{message ? message : null}</p>
-                            <p style={{ fontSize: "12px", paddingX: "20px", color: "red" }}>{error ? error : null}</p>
-                          </Box>
-                        </Box>
-                      </Modal> */}
+                      <MenuItem onClick={openAddLangModal}>Group</MenuItem>                     
                     </Menu>
                   </div>
 
@@ -1525,18 +1484,12 @@ function Users() {
                                                 </td>
                                               </tr>
                                             ))}
-                                            {/* <tr><button>delete</button></tr> */}
                                           </tbody>
                                         </table>
                                         <button onClick={closeCSVModal}>Close</button>
                                       </div>
                                     ) : (
-                                      // <p>No CSV data loaded.</p>
                                       <div>
-                                        {/* <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                      Import Users & Groups via CSV
-                                    </label>
-                                    <p>No CSV data loaded.</p> */}
                                         <button onClick={closeCSVModal}>Close</button>
                                       </div>
                                     )}
@@ -1559,22 +1512,6 @@ function Users() {
                         </Typography>
                       </Box>
                     </Modal>
-
-                    {/* <Button
-                    variant="outline"
-                    style={{
-                      border: "0.5px solid #1C7AE4",
-                      color: "white",
-                      backgroundColor: "#1b7ae4",
-                    }}
-                    size="small"
-                    onClick={openGroupForm}
-                  >
-                    <AiOutlinePlus /> Add
-                  </Button> */}
-                    {/* <Dialog open={isGroupFormOpen} onClose={closeGroupForm}> */}
-                    {/* Group form content here */}
-                    {/* </Dialog> */}
                   </Stack>
                 </Stack>
               </Stack>
@@ -1743,11 +1680,6 @@ function Users() {
                                     type="text"
                                     sx={{ gridColumn: "span 2" }}
                                   />
-                                  {/* <Box style={{ marginTop: "15px" }}>
-                                  <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                    Group(s) :
-                                  </label>
-                                </Box> */}
                                   <div>
                                     <FormControl sx={{ width: "330px", height: "auto" }}>
                                       <Typography
@@ -1793,13 +1725,6 @@ function Users() {
                                       </Select>
                                     </FormControl>
                                   </div>
-
-                                  {/* <TextField
-                                  fullWidth
-                                  variant="filled"
-                                  type="text"
-                                  sx={{ gridColumn: "span 2" }}
-                                /> */}
                                   <Box style={{ marginTop: "15px" }}>
                                     <label htmlFor="name" style={{ fontSize: "13px" }}>
                                       Exclude user from Auto Enrol:
@@ -1895,7 +1820,7 @@ function Users() {
                                     </Button>
                                     <Button
                                       variant="outlined"
-                                      onClick={deleteUserModal}
+                                      onClick={()=>deleteUserModal(item.detailsid)}
                                       style={{ marginRight: "5px", color: "black" }}
                                     >
                                       Yes
@@ -2578,5 +2503,15 @@ function Users() {
     </DashboardLayout>
   );
 }
+
+function s2ab(s) {
+  const buf = new ArrayBuffer(s.length);
+  const view = new Uint8Array(buf);
+  for (let i = 0; i < s.length; i++) {
+    view[i] = s.charCodeAt(i) & 0xFF;
+  }
+  return buf;
+}
+
 
 export default Users;
