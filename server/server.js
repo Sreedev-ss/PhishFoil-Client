@@ -120,6 +120,8 @@ app.get('/uphish/email-template-builder/all/:clientid', async (req, res) => {
     res.json(db.getAllTemplate)
 })
 
+// app.post('/user/delete/detailsId')
+
 app.use((req, res) => {
     res.send({ code: 404, error: httpMsg[404] })
 })

@@ -199,7 +199,9 @@ function Users() {
   const [uploadedData, setUploadedData] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null);
+  
+
 
   const [formData, setFormData] = useState({
     firstname: '',
@@ -213,7 +215,7 @@ function Users() {
   });
 
   const data = localStorage.getItem('loginData')
-  const { clientid } = JSON.parse(data)
+  const { clientid, detailid } = JSON.parse(data)
   useEffect(() => {
     axios.get(`${host}/user/group/all/${clientid}`).then((res) => {
       if (res.data) {
@@ -457,8 +459,19 @@ function Users() {
   const closeDeleteUserModal = () => {
     setDeleteUser(false);
   };
-  const deleteUserModal = () => {
-    closeDeleteUserModal();
+  const deleteUserModal = (id) => {
+      axios.post(`${host}/user/delete/${id}`)
+      .then(response => {
+        if (response.status === 200) {  
+          closeDeleteUserModal();     
+        } else {         
+          console.error('Error deleting user');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+
   };
 
   //Active
@@ -493,6 +506,7 @@ function Users() {
     closeSendPolicy();
   };
 
+  
   const handleChangeItems = (event) => {
     setSelectedItems(event.target.value);
   };
@@ -1794,7 +1808,7 @@ function Users() {
                                     </Button>
                                     <Button
                                       variant="outlined"
-                                      onClick={deleteUserModal}
+                                      onClick={()=>deleteUserModal(item.detailsid)}
                                       style={{ marginRight: "5px", color: "black" }}
                                     >
                                       Yes
