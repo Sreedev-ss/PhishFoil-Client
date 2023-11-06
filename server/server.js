@@ -116,6 +116,21 @@ app.post('/email-template-builder/new/:clientid/:detailid', (req, res) => {
     res.json(db.createEmailTemplate)
 })
 
+app.post('/landingPageTemplate/new/${clientid}/${detailsid}', (req, res) => {
+    let data = {
+        templatename: req.body?.templatename,
+        language: req.body?.language,
+        category: req.body?.category,
+        pagetitle: req.body?.pagetitle,
+        emailtemplateid: req.body?.emailtemplateid,
+        associatedEmailTemplate: req.body?.associatedEmailTemplate,
+        design: req.body?.design,
+        html: req.body?.html,
+    }
+    db.createLandingTemplate.push(data)
+    res.json(db.createLandingTemplate)
+})
+
 app.get('/email-template-builder/all/:clientid', async (req, res) => {
     const clientid = req.params.clientid
     res.json(db.getAllTemplates)
