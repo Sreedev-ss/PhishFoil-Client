@@ -154,6 +154,7 @@ function LandingPageBuilder() {
     setAnchorEl(event.currentTarget);
   };
 
+  
   const handleDelete = (itemToDelete) => (event) => {
     console.log(itemToDelete);
     event.preventDefault();
