@@ -75,6 +75,7 @@ app.post('/user/new/:clientid', (req, res) => {
         managername: req.body?.manager,
         manageremailid: req.body?.manageremailid ? req.body?.managerEmailid : req.body?.manager + '' + '@gmail.com',
         enableordisable: true,
+        preferredlanguage:req.body?.preferredlanguage,
         orgainzationrole: null,
         groups: req.body?.groups,
         ismanager: true
@@ -99,7 +100,7 @@ app.post('/email-template-builder/new/admin', (req, res) => {
     res.json(db.createEmailTemplate)
 })
 
-app.post('/email-template-builder/new/:clientid/:detailid', (req, res) => {
+app.post('/email-template-builder/new/:clientid/:detailsid', (req, res) => {
     console.log(req.body);
     let data = {
         templatename: req.body?.templatename,
@@ -116,6 +117,32 @@ app.post('/email-template-builder/new/:clientid/:detailid', (req, res) => {
     res.json(db.createEmailTemplate)
 })
 
+app.post('/user/disable/:detailsid',async(req,res)=>{
+    const clientid = req.params.detailsid
+    const indexToUpdate = db.allUsers.findIndex((item) => item.detailsid === clientid);
+
+    if (indexToUpdate !== -1) {
+        // If the ID is found, update the enableordisable property
+        db.allUsers[indexToUpdate].enableordisable = false;
+      }
+res.json(db.allUsers)
+
+})
+app.post('/user/restore/:detailsid',async(req,res)=>{
+    const clientid = req.params.detailsid
+    const indexToUpdate = db.allUsers.findIndex((item) => item.detailsid === clientid);
+
+    if (indexToUpdate !== -1) {
+        // If the ID is found, update the enableordisable property
+        db.allUsers[indexToUpdate].enableordisable = true;
+      }
+res.json(db.allUsers)
+
+})
+
+app.get('/email-template-builder/all/:detailsid', async (req, res) => {
+    const clientid = req.params.detailsid
+    
 app.post('/landingPageTemplate/new/${clientid}/${detailsid}', (req, res) => {
     let data = {
         templatename: req.body?.templatename,
@@ -136,7 +163,15 @@ app.get('/email-template-builder/all/:clientid', async (req, res) => {
     res.json(db.getAllTemplates)
 })
 
-// app.post('/user/delete/detailsId')
+app.post('/user/delete/:detailsid', async(req,res)=>{
+    const clientid = req.params.detailsid
+
+    const findIndex = db.allUsers.findIndex(item => item.detailsid == clientid);
+    if(findIndex !== -1){
+        db.allUsers.splice(findIndex,1)
+    }
+    res.json(db.allUsers)
+})
 
 app.use((req, res) => {
     res.send({ code: 404, error: 'No route found' })
