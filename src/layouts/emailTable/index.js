@@ -148,9 +148,27 @@ function emailTable() {
     setDeleteEmailTempModalOpen(false);
   };
 
-  const deleteEmailTemp = () => {
+  // const deleteEmailTemp = () => {
+  //   closeDeleteEmailTempModal();
+  // };
+  const deleteEmailTemp = (id) => {
+    console.log(id,"idddddddddddddd");
+    axios.post(`${host}/emailtemplate/delete/${id}`)
+    .then(res => {
+      if(res.status === 200) {
+        console.log(res);
+        setAllEmailTemplateData(res.data)
+        closeDeleteEmailTempModal()
+      } else {
+        console.error('Error deleting template');
+      }
+    })
+    .catch(error => {
+      console.error('Error:' , error);
+    })
     closeDeleteEmailTempModal();
   };
+
     const handleDelete = (itemToDelete) => (event) => {
       console.log(itemToDelete);
       event.preventDefault();
@@ -191,12 +209,19 @@ function emailTable() {
   const openAnchor = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
+  
+  const [popover, setPopover] = useState({ index: '', bool: false })
+  const handleClickPopOver = (index) => {
+    setPopover({ index: index, bool: !popover.bool })
+    console.log(popover, 'popover')
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <SoftBox py={3}>
         <SoftBox mb={3}>
-          <Card>
+          <Card sx={{minHeight:'100vh'}}>
             <SoftBox 
               display="flex" 
               flexDirection="row" 
@@ -305,7 +330,7 @@ function emailTable() {
                 },
               }}
             >
-              <TableContainer component={Paper}>
+              <TableContainer component={Paper} sx={{minHeight:'100vh'}}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
                     <TableRow sx={{ width: "20px" }}>
@@ -320,7 +345,7 @@ function emailTable() {
                    
                     <TableRow
                     key={index}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 },position:'relative' }}
                     >
                       <TableCell>{index+1}</TableCell>
                       <TableCell style={{fontSize:"13px", color:"#209ce8"}}>{t.templatename}</TableCell>
@@ -332,22 +357,16 @@ function emailTable() {
                       </TableCell>
                       <TableCell>
                         <SoftButton
-                          onClick={handleClick}
+                          onClick={() => handleClickPopOver(index)}
                           variant="outlined"
                           color="info"
                         >
                           <AiOutlineArrowRight />
                         </SoftButton>
-                        <Popover
-                          id={id}
-                          open={openAnchor}
-                          anchorEl={anchorEl}
-                          onClose={handleClose}
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                          }}
-                        >
+                        {index == popover.index && popover.bool && <div style={{ position: 'absolute', backgroundColor: 'white', zIndex: 100 }}
+                            key={index}
+                          >
+                           
                           {/* edit-email-template */}
                           <MenuItem component={Link} to="/edit-email-template" style={{background:'#fff'}}>
                             <EditIcon />
@@ -583,12 +602,13 @@ function emailTable() {
                           </Modal>
 
                           {/* Delete-Email-Temp */}
-                          <MenuItem onClick={openDeleteEmailTempModal} style={{background:'#fff'}}>
+                          <MenuItem key={index} onClick={openDeleteEmailTempModal} style={{background:'#fff'}}>
                             <DeleteOutlineOutlinedIcon style={{fontSize:'15px'}} />
                             delete Email Template
                           </MenuItem>
 
                           <Modal
+                            key={index}
                             open={deleteEmailTempModalOpen}
                             onClose={closeDeleteEmailTempModal}
                             aria-labelledby="send-test-email-modal-title"
@@ -638,7 +658,7 @@ function emailTable() {
                                 </Button>
                                 <Button 
                                   variant="outlined" 
-                                  onClick={deleteEmailTemp} 
+                                  onClick={()=>deleteEmailTemp(t.templateid)} 
                                   style={{ marginRight:'5px', color:'black'}}
                                 >
                                   Yes
@@ -646,7 +666,7 @@ function emailTable() {
                               </Box>                              
                             </Box>
                           </Modal>                          
-                        </Popover>
+                        </div>}
                       </TableCell>
                     </TableRow>
                        

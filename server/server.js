@@ -103,6 +103,7 @@ app.post('/email-template-builder/new/admin', (req, res) => {
 app.post('/emailtemplate/new/:clientid/:detailsid', (req, res) => {
     console.log(req.body);
     let data = {
+        templateid:  generateRandomId(10),
         templatename: req.body?.templatename,
         language: req.body?.language,
         category: req.body?.category,
@@ -173,6 +174,16 @@ app.post('/user/delete/:detailsid', async(req,res)=>{
         db.allUsers.splice(findIndex,1)
     }
     res.json(db.allUsers)
+})
+
+app.post('/emailtemplate/delete/:templateid', async(req,res)=>{
+    const clientid = req.params.templateid
+
+    const findIndex = db.createEmailTemplate.findIndex(item => item.templateid == clientid);
+    if(findIndex !== -1){
+        db.createEmailTemplate.splice(findIndex,1)
+    }
+    res.json(db.createEmailTemplate)
 })
 
 app.use((req, res) => {
