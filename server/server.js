@@ -116,9 +116,9 @@ app.post('/email-template-builder/new/:clientid/:detailid', (req, res) => {
     res.json(db.createEmailTemplate)
 })
 
-app.get('/uphish/email-template-builder/all/:clientid', async (req, res) => {
+app.get('/email-template-builder/all/:clientid', async (req, res) => {
     const clientid = req.params.clientid
-    res.json(db.getAllTemplate)
+    res.json(db.getAllTemplates)
 })
 
 app.use((req, res) => {

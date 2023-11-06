@@ -51,7 +51,7 @@
             "manageremailid": "kumar@tes.com",
             "deleteddate": null,
             "groups": [
-                "202cc509-af5c-4d37-8361-1a24ff213е4a",
+                "202cc509-af5c-4d37-8361-1a2dff213e4a",
                 "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
             ]
         },
@@ -67,7 +67,7 @@
             "manageremailid": "kumar@tes.com",
             "deleteddate": null,
             "groups": [
-                "202cc509-af5c-4d37-8361-1a24ff213е4a"
+                "202cc509-af5c-4d37-8361-1a2dff213e4a"
             ]
         },{
             "detailsid": "6f138b0f-f277-4f0a-83ec-3baa7ce71aa8",
@@ -81,7 +81,7 @@
             "manageremailid": "kumar@tes.com",
             "deleteddate": null,
             "groups": [
-                "202cc509-af5c-4d37-8361-1a24ff213е4a",
+                "202cc509-af5c-4d37-8361-1a2dff213e4a",
                 "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
             ]
         },{
@@ -96,7 +96,8 @@
             "manageremailid": "kumar@tes.com",
             "deleteddate": null,
             "groups": [
-                "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6"
+                "6f138b0f-f277-4f0a-83ec-3baa7ce71aa6",
+                "306c6438-1ce0-4b00-89f7-dc88ec33cd87"
             ]
         }
     ],
@@ -104,7 +105,7 @@
     "getAllTemplates": [
         {
             "templateid":"1b992e01-8be7-4730-b7b8-cc5144e74be0",   
-            "language":"english",
+            "language":["english","spanish"],
             "templatename":"ola join account",                       
             "category":"join the account",                     
             "url":"jjjj",

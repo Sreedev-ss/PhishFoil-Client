@@ -71,6 +71,8 @@ import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import createEmailTemplate from "layouts/createEmailTemplate";
+import { ToastContainer,toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const host = 'http://localhost:8081';
 
@@ -85,14 +87,16 @@ function emailTable() {
   const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [selectedItems, setSelectedItems] = useState(['English']);
+  const [emailTemplateData,setAllEmailTemplateData] = useState([])
 
   const data = localStorage.getItem('loginData')
   const { clientid } = JSON.parse(data)
   useEffect(() => {
-    axios.get(`${host}/uphish/email-template-builder/all/${clientid}`).then((res) => {
+    axios.get(`${host}/email-template-builder/all/${clientid}`).then((res) => {
       if (res.data) {
         setAllEmailTemplateData(res.data)
       } else {
+        console.log(res)
         toast.error('Failed fetching users')
       }
     }).catch(e => {
@@ -312,16 +316,19 @@ function emailTable() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
+                    {emailTemplateData ? emailTemplateData.map((t,index)=>(
+                   
                     <TableRow
+                    key={index}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell>1</TableCell>
-                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>Argentina | AFIP | TEST</TableCell>
-                      <TableCell style={{fontSize:"13px"}}>Government</TableCell>
+                      <TableCell>{index+1}</TableCell>
+                      <TableCell style={{fontSize:"13px", color:"#209ce8"}}>{t.templatename}</TableCell>
+                      <TableCell style={{fontSize:"13px"}}>{t.category}</TableCell>
                       <TableCell style={{fontSize:"13px"}}>
-                        <ul>Spanish</ul>
-                        <ul>Spanish(Argentina)</ul>
-                        <ul>Swedish</ul>
+                        {t.language.map((i,index)=>(
+                        <ul key={index}>{i}</ul>
+                        ))}
                       </TableCell>
                       <TableCell>
                         <SoftButton
@@ -642,6 +649,8 @@ function emailTable() {
                         </Popover>
                       </TableCell>
                     </TableRow>
+                       
+                      )):<div>No Data</div>}
                   </TableBody>                  
                 </Table>
                 <Menu
