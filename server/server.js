@@ -100,7 +100,7 @@ app.post('/email-template-builder/new/admin', (req, res) => {
     res.json(db.createEmailTemplate)
 })
 
-app.post('/email-template-builder/new/:clientid/:detailsid', (req, res) => {
+app.post('/emailtemplate/new/:clientid/:detailsid', (req, res) => {
     console.log(req.body);
     let data = {
         templatename: req.body?.templatename,
@@ -113,8 +113,8 @@ app.post('/email-template-builder/new/:clientid/:detailsid', (req, res) => {
         design: req.body?.design,
         html: req.body?.html,
     }
-    db.createEmailTemplate.push(data)
-    res.json(db.createEmailTemplate)
+    db.getAllTemplates.push(data)
+    res.json(db.getAllTemplates)
 })
 
 app.post('/user/disable/:detailsid',async(req,res)=>{
@@ -140,8 +140,9 @@ res.json(db.allUsers)
 
 })
 
-app.get('/email-template-builder/all/:detailsid', async (req, res) => {
-    const clientid = req.params.detailsid
+// app.get('/emailTempla/all/:detailsid', async (req, res) => {
+//     const clientid = req.params.detailsid
+// })
     
 app.post('/landingPageTemplate/new/${clientid}/${detailsid}', (req, res) => {
     let data = {
@@ -158,8 +159,9 @@ app.post('/landingPageTemplate/new/${clientid}/${detailsid}', (req, res) => {
     res.json(db.createLandingTemplate)
 })
 
-app.get('/email-template-builder/all/:clientid', async (req, res) => {
+app.get('/emailtemplate/all/:clientid', async (req, res) => {
     const clientid = req.params.clientid
+    console.log(db.getAllTemplates)
     res.json(db.getAllTemplates)
 })
 

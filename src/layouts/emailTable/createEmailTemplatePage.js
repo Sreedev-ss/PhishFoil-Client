@@ -90,9 +90,12 @@ const createEmailTemplatePage = () => {
     }));
     setError(null);
   };
+  const imageData = new FormData()
 
   const handleImageUpload = (e) => {
-    setFile(e.target.files[0])
+    setFile(e.target.files[0]);
+    imageData.append("file",file)
+
   }
 
   const removeImage = () => {
@@ -129,14 +132,15 @@ const createEmailTemplatePage = () => {
         ...prevFormData,
         design: html.design,
         html: html.html,
+        image:imageData
       }));
       setCount(count + 1)
       console.log(count.current)
       try {
         console.log(formData, 'else handleSubmit')
         if (count != 0) {
-
-          const res = await axios.post(`${host}/email-template-builder/new/${clientid}/${detailsid}`, formData);
+          
+          const res = await axios.post(`${host}/emailtemplate/new/${clientid}/${detailsid}`, formData);
           console.log("response", res);
           if (res.data) {
             toast.success("Successfully created");
