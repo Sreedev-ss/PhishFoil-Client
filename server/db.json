@@ -46,6 +46,7 @@
             "enableordisable": true,
             "orgainzationrole": null,
             "ismanager": true,
+            "preferredlanguage":"english",
             "manager": "9e99c765-1230-446e-82bd-035c2e771edd",
             "managername": "kumaren",
             "manageremailid": "kumar@tes.com",
