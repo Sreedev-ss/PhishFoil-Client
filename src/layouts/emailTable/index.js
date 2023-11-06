@@ -92,7 +92,7 @@ function emailTable() {
   const data = localStorage.getItem('loginData')
   const { clientid } = JSON.parse(data)
   useEffect(() => {
-    axios.get(`${host}/email-template-builder/all/${clientid}`).then((res) => {
+    axios.get(`${host}/emailtemplate/all/${clientid}`).then((res) => {
       if (res.data) {
         setAllEmailTemplateData(res.data)
       } else {
@@ -316,7 +316,7 @@ function emailTable() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {emailTemplateData ? emailTemplateData.map((t,index)=>(
+                    {emailTemplateData ? emailTemplateData?.map((t,index)=>(
                    
                     <TableRow
                     key={index}
