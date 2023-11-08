@@ -90,9 +90,9 @@ function emailTable() {
   const [emailTemplateData,setAllEmailTemplateData] = useState([])
 
   const data = localStorage.getItem('loginData')
-  const { clientid } = JSON.parse(data)
+  const loginData = JSON.parse(data)
   useEffect(() => {
-    axios.get(`${host}/emailtemplate/all/${clientid}`).then((res) => {
+    axios.get(`${host}/emailtemplate/all/${loginData?.clientid}`).then((res) => {
       if (res.data) {
         setAllEmailTemplateData(res.data)
       } else {
