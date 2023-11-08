@@ -62,6 +62,7 @@ import CourseBuilder from "layouts/uLearn/CourseBuilder";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
+import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -177,6 +178,7 @@ export default function App() {
       <Route exact path='/autoenrol/courseslidedelay' element={<CourseSlideDelay />} />;
       <Route exact path='/autoenrol/coursereminderemails' element={<CourseReminderEmails />} />;
       <Route exact path='/autoenrol/gapanalysisreminderemails' element={<GapAnalysisReminderEmails />} />;
+      <Route exact path='/autoenrol/minimumpasscore' element={<MinimumPassCore />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

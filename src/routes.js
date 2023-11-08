@@ -71,6 +71,7 @@ import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
+import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -182,6 +183,13 @@ const routes = [
         key: "gapanalysisreminderemails",
         route: "/autoenrol/gapanalysisreminderemails",
         component: <GapAnalysisReminderEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Minimum Pass Score",
+        key: "minimumpasscore",
+        route: "/autoenrol/minimumpasscore",
+        component: <MinimumPassCore />,
       },
      
     ],
