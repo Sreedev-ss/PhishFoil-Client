@@ -71,6 +71,7 @@ import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
 
 
 const routes = [
@@ -165,6 +166,13 @@ const routes = [
         key: "courseslidedelay",
         route: "/autoenrol/courseslidedelay",
         component: <CourseSlideDelay />,
+      },
+      {
+        type: "collapse",
+        name: "Auto Phish",
+        key: "courseslidedelay",
+        route: "/autoenrol/autoPhish",
+        component: <AutoPhish />,
       },
      
     ],
