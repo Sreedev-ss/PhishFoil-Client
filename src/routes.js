@@ -69,6 +69,8 @@ import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
+import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
+
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
@@ -166,6 +168,28 @@ const routes = [
         key: "courseslidedelay",
         route: "/autoenrol/courseslidedelay",
         component: <CourseSlideDelay />,
+      },
+      {
+        type: "collapse",
+
+        name: "Auto Phish",
+        key: "courseslidedelay",
+        route: "/autoenrol/autoPhish",
+        component: <AutoPhish />,
+      },
+      { 
+        name: "Course Reminder Emails",
+        key: "coursereminderemails",
+        route: "/autoenrol/coursereminderemails",
+        component: <CourseReminderEmails />,
+
+      },
+      {
+        type: "collapse",
+        name: "Course Reminder Emails",
+        key: "coursereminderemails",
+        route: "/autoenrol/coursereminderemails",
+        component: <CourseReminderEmails />,
       },
       {
         type: "collapse",
