@@ -114,38 +114,10 @@ const style = {
                     marginTop:'9px', 
                     fontWeight:'lighter'
                 }}
+                onClick={openContinueModal}
                 >
                 <MailOutlineIcon style={{marginRight:'3px'}}/>
                     Send a one off reminder now
-            </Button>
-            <p 
-                style=
-                {{
-                    fontSize:'15px', 
-                    color:'gray', 
-                    fontFamily:'lighter', 
-                    marginTop:'4px'
-                    }}
-                    >
-                        Please note that one off reminders will only be sent 
-                        to those enrolled on an outstanding course 7 or more days ago
-            </p>
-        <div>
-            <Button 
-                variant="contained" 
-                style=
-                {{
-                    float:'inline-end', 
-                    marginTop:'60px', 
-                    color:'#fff', 
-                    background:'rgb(30, 123, 228)',
-                    marginRight:'115px',
-                    fontWeight:'lighter'
-                }}
-                onClick={openContinueModal}
-            >
-                <SaveIcon style={{marginRight:'3px'}}/>
-                    Save
             </Button>
             <Modal
             open={continueModalOpen}
@@ -204,6 +176,36 @@ const style = {
                 </Box>
             </Box>
             </Modal>
+            <p 
+                style=
+                {{
+                    fontSize:'15px', 
+                    color:'gray', 
+                    fontFamily:'lighter', 
+                    marginTop:'4px'
+                    }}
+                    >
+                        Please note that one off reminders will only be sent 
+                        to those enrolled on an outstanding course 7 or more days ago
+            </p>
+        <div>
+            <Button 
+                variant="contained" 
+                style=
+                {{
+                    float:'inline-end', 
+                    marginTop:'60px', 
+                    color:'#fff', 
+                    background:'rgb(30, 123, 228)',
+                    marginRight:'115px',
+                    fontWeight:'lighter'
+                }}
+                
+            >
+                <SaveIcon style={{marginRight:'3px'}}/>
+                    Save
+            </Button>
+            
         </div>
       </DashboardLayout>
     );
