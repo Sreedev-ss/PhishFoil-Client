@@ -45,7 +45,7 @@ const host = 'http://localhost:8081';
 // ];
 
 const data = localStorage.getItem('loginData')
-  const { clientid,detailsid } = JSON.parse(data)
+  const loginData = JSON.parse(data)
 
 const createEmailTemplatePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -140,7 +140,7 @@ const createEmailTemplatePage = () => {
         console.log(formData, 'else handleSubmit')
         if (count != 0) {
           
-          const res = await axios.post(`${host}/emailtemplate/new/${clientid}/${detailsid}`, formData);
+          const res = await axios.post(`${host}/emailtemplate/new/${loginData.clientid}/${loginData.detailsid}`, formData);
           console.log("response", res);
           if (res.data) {
             toast.success("Successfully created");

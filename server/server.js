@@ -178,12 +178,13 @@ app.post('/user/delete/:detailsid', async(req,res)=>{
 
 app.post('/emailtemplate/delete/:templateid', async(req,res)=>{
     const clientid = req.params.templateid
-
-    const findIndex = db.createEmailTemplate.findIndex(item => item.templateid == clientid);
+    console.log(clientid)
+    const findIndex = db.getAllTemplates.findIndex(item => item.templateid == clientid);
+    console.log(findIndex)
     if(findIndex !== -1){
-        db.createEmailTemplate.splice(findIndex,1)
+        db.getAllTemplates.splice(findIndex,1)
     }
-    res.json(db.createEmailTemplate)
+    res.json(db.getAllTemplates)
 })
 
 app.use((req, res) => {
