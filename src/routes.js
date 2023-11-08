@@ -70,6 +70,7 @@ import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
+import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -174,6 +175,13 @@ const routes = [
         key: "coursereminderemails",
         route: "/autoenrol/coursereminderemails",
         component: <CourseReminderEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Gap Analysis Reminder Emails",
+        key: "gapanalysisreminderemails",
+        route: "/autoenrol/gapanalysisreminderemails",
+        component: <GapAnalysisReminderEmails />,
       },
      
     ],
