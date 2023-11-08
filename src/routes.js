@@ -68,9 +68,10 @@ import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage";
 import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
-
+import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+
 
 const routes = [
   // {
@@ -150,6 +151,25 @@ const routes = [
       },
     ],
   },
+  {
+    type: "collapse",
+    name: "Auto Enrol",
+    key: "autoenrol",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [ // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Course Slide Delay",
+        key: "courseslidedelay",
+        route: "/autoenrol/courseslidedelay",
+        component: <CourseSlideDelay />,
+      },
+     
+    ],
+  },
+ 
 
   //ULearn Routes
   {
