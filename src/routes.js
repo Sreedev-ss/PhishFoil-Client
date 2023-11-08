@@ -69,6 +69,8 @@ import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
+import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
+
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
 
@@ -165,6 +167,13 @@ const routes = [
         key: "courseslidedelay",
         route: "/autoenrol/courseslidedelay",
         component: <CourseSlideDelay />,
+      },
+      {
+        type: "collapse",
+        name: "Course Reminder Emails",
+        key: "coursereminderemails",
+        route: "/autoenrol/coursereminderemails",
+        component: <CourseReminderEmails />,
       },
      
     ],

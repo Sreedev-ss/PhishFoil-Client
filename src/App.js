@@ -60,6 +60,7 @@ import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
+import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -173,6 +174,7 @@ export default function App() {
       <Route exact path='/ulearn/course-library' element={<CourseLibrary />} />;
       <Route exact path='/ulearn/course-builder' element={<CourseBuilder />} />;
       <Route exact path='/autoenrol/courseslidedelay' element={<CourseSlideDelay />} />;
+      <Route exact path='/autoenrol/coursereminderemails' element={<CourseReminderEmails />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
