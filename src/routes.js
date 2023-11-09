@@ -68,10 +68,40 @@ import CloneLandingPage from "layouts/landingPageBuilder/data/cloneLandingPage";
 import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
+import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
+import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
+import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
+import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
+import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
+import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
+import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
+import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
+import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
+import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+
 import CourseReport from "layouts/uLearn/CourseReport";
+
+import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
+import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
+import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
+import CompromiseMessage from "layouts/autoenrol/components/uPhishComponents/CompromiseMessage";
+import MessageInjection from "layouts/autoenrol/components/uPhishComponents/MessageInjection";
+import PhishAlertButton from "layouts/autoenrol/components/uPhishComponents/PhishAlertButton";
+import DefaultSetting from "layouts/autoenrol/components/emailComponents/DefaultSetting";
+import PreferredDomain from "layouts/autoenrol/components/PreferredDomain";
+import AllowListing from "layouts/autoenrol/components/emailComponents/AllowListing";
+import SimulationTests from "layouts/autoenrol/components/emailComponents/SimulationTests";
+import GapAnalysis from "layouts/autoenrol/components/emailComponents/GapAnalysis";
+import Courses from "layouts/autoenrol/components/emailComponents/Courses";
+import WeeklySummeryEmails from "layouts/autoenrol/components/emailComponents/WeeklySummaryEmails";
+import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents/GoogleWorkspaceSyncResult";
+import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
+import Policies from "layouts/autoenrol/components/emailComponents/Policies";
+
+
 
 const routes = [
   // {
@@ -161,6 +191,219 @@ const routes = [
       },
     ],
   },
+  {
+    type: "collapse",
+    name: "Auto Enrol",
+    key: "autoenrol",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [ // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Course Slide Delay",
+        key: "courseslidedelay",
+        route: "/autoenrol/courseslidedelay",
+        component: <CourseSlideDelay />,
+      },
+      {
+        type: "collapse",
+
+        name: "Auto Phish",
+        key: "courseslidedelay",
+        route: "/autoenrol/autoPhish",
+        component: <AutoPhish />,
+      },
+      { 
+        name: "Course Reminder Emails",
+        key: "coursereminderemails",
+        route: "/autoenrol/coursereminderemails",
+        component: <CourseReminderEmails />,
+
+      },
+      {
+        type: "collapse",
+
+        name: "Working Hours",
+        key: "workingHours",
+        route: "/autoenrol/workingHours",
+        component: <WorkingHours />,
+      },
+      {
+        type: "collapse",
+        name: "Prefered Top Level Domain",
+        key: "preferedTopLevelDomain",
+        route: "/autoenrol/preferedTopLevelDomain",
+        component: <PreferedTopLevelDomain />,
+      },
+      {
+        type: "collapse",
+
+        name: "Compromise Message",
+        key: "compromiseMessage",
+        route: "/autoenrol/compromiseMessage",
+        component: <CompromiseMessage />,
+      },
+      {
+        type: "collapse",
+
+        name: " Message Injection",
+        key: "messageInjection",
+        route: "/autoenrol/messageInjection",
+        component: <MessageInjection />,
+      },
+      {
+        type: "collapse",
+
+        name: "Phish Alert Button",
+        key: "phishAlertButton",
+        route: "/autoenrol/phishAlertButton",
+        component: <PhishAlertButton />,
+      },
+      // {
+      //   type: "collapse",
+      //   name: "Course Reminder Emails",
+      //   key: "coursereminderemails",
+      //   route: "/autoenrol/coursereminderemails",
+      //   component: <CourseReminderEmails />,
+      // },
+      // {
+      //   type: "collapse",
+      //   name: "Auto Phish",
+      //   key: "courseslidedelay",
+      //   route: "/autoenrol/autoPhish",
+      //   component: <AutoPhish />,
+      // },
+
+      { type:"collapse",
+        name: "Preferred Domain",
+        key: "preferreddomain",
+        route: "/settings/domain",
+        component: <PreferredDomain />,
+      },
+      {
+        type: "collapse",
+        name: "Default Setting",
+        key: "defaultsettingsemail",
+        route: "/emails/default",
+        component: <DefaultSetting />,
+      },
+      {
+        type: "collapse",
+        name: "Allow Listing",
+        key: "allowlistingemail",
+        route: "/emails/allowlisting",
+        component: <AllowListing />,
+      },
+      {
+        type: "collapse",
+        name: "Simulation Tests",
+        key: "simulationtestsemail",
+        route: "/emails/simulation-tests",
+        component: <SimulationTests />,
+      },
+      {
+        type: "collapse",
+        name: "Gap Analysis",
+        key: "gapanalysisemail",
+        route: "/emails/gap-analysis",
+        component: <GapAnalysis />,
+      },
+      {
+        type: "collapse",
+        name: "Courses",
+        key: "coursesemail",
+        route: "/emails/courses",
+        component: <Courses />,
+      },
+      {
+        type: "collapse",
+        name: "Weekly Summary",
+        key: "weeklysummaryemails",
+        route: "/emails/weekly-summary",
+        component: <WeeklySummeryEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Google Workspace Sync Summary",
+        key: "googleworkspaceemail",
+        route: "/emails/google-workspace",
+        component: <GoogleWorkspaceSummary />,
+      },
+      {
+        type: "collapse",
+        name: "Microsoft 365 Sync Summary",
+        key: "microsoftsyncsummaryemail",
+        route: "/emails/office-365",
+        component: <Microsoft365SyncSummary />,
+      },
+      {
+        type: "collapse",
+        name: "Policies",
+        key: "policiesemail",
+        route: "/emails/policies",
+        component: <Policies />,
+      },
+      {
+        type: "collapse",
+        name: "Gap Analysis Reminder Emails",
+        key: "gapanalysisreminderemails",
+        route: "/autoenrol/gapanalysisreminderemails",
+        component: <GapAnalysisReminderEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Minimum Pass Score",
+        key: "minimumpasscore",
+        route: "/autoenrol/minimumpasscore",
+        component: <MinimumPassCore />,
+      },
+      {
+        type: "collapse",
+        name: "Video Playback",
+        key: "videoplayback",
+        route: "/autoenrol/videoplayback",
+        component: <VideoPlayback />,
+      },
+      {
+        type: "collapse",
+        name: "Compulsory Courses",
+        key: "compulsorycourses",
+        route: "/autoenrol/compulsorycourses",
+        component: <CompulsoryCourses />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report Component",
+        key: "riskreportcomponent",
+        route: "/autoenrol/riskreportcomponent",
+        component: <RiskReportComponent />,
+      },
+      {
+        type: "collapse",
+        name: "End User Portal",
+        key: "enduserportal",
+        route: "/autoenrol/enduserportal",
+        component: <EndUserPortal />,
+      },
+      {
+        type: "collapse",
+        name: "User ID Access",
+        key: "useridaccess",
+        route: "/autoenrol/userIdaccess",
+        component: <UserIdAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Language Component",
+        key: "languagecomponent",
+        route: "/autoenrol/languagecomponent",
+        component: <LanguageComponent />,
+      },
+     
+    ],
+  },
+ 
 
   //ULearn Routes
   {
