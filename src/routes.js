@@ -245,7 +245,7 @@ const routes = [
         key: "phishAlertButton",
         route: "/autoenrol/phishAlertButton",
         component: <PhishAlertButton />,
-      }
+      },
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -260,6 +260,8 @@ const routes = [
       //   route: "/autoenrol/autoPhish",
       //   component: <AutoPhish />,
       // },
+
+      { type:"collapse",
         name: "Preferred Domain",
         key: "preferreddomain",
         route: "/settings/domain",
