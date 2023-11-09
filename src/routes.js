@@ -101,6 +101,7 @@ import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents
 import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
+import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 
 
 
@@ -407,6 +408,13 @@ const routes = [
         key: "timezone",
         route: "/autoenrol/timezone",
         component: <TimeZone />,
+      },
+      {
+        type: "collapse",
+        name: "Auto Enrol",
+        key: "autoEnrol",
+        route: "/autoenrol/autoEnrol",
+        component: <AutoEnrol />,
       },
      
     ],
