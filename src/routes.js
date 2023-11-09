@@ -264,7 +264,7 @@ const routes = [
         component: <Policies />,
       },
       {
-        type: "collapse"
+        type: "collapse",
         name: "Gap Analysis Reminder Emails",
         key: "gapanalysisreminderemails",
         route: "/autoenrol/gapanalysisreminderemails",
