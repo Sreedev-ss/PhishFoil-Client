@@ -81,6 +81,12 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
+import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
+import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
+import CompromiseMessage from "layouts/autoenrol/components/uPhishComponents/CompromiseMessage";
+import MessageInjection from "layouts/autoenrol/components/uPhishComponents/MessageInjection";
+import PhishAlertButton from "layouts/autoenrol/components/uPhishComponents/PhishAlertButton";
 import DefaultSetting from "layouts/autoenrol/components/emailComponents/DefaultSetting";
 import PreferredDomain from "layouts/autoenrol/components/PreferredDomain";
 import AllowListing from "layouts/autoenrol/components/emailComponents/AllowListing";
@@ -188,13 +194,72 @@ const routes = [
       },
       {
         type: "collapse",
+
+        name: "Auto Phish",
+        key: "courseslidedelay",
+        route: "/autoenrol/autoPhish",
+        component: <AutoPhish />,
+      },
+      { 
         name: "Course Reminder Emails",
         key: "coursereminderemails",
         route: "/autoenrol/coursereminderemails",
         component: <CourseReminderEmails />,
+
       },
       {
         type: "collapse",
+
+        name: "Working Hours",
+        key: "workingHours",
+        route: "/autoenrol/workingHours",
+        component: <WorkingHours />,
+      },
+      {
+        type: "collapse",
+        name: "Prefered Top Level Domain",
+        key: "preferedTopLevelDomain",
+        route: "/autoenrol/preferedTopLevelDomain",
+        component: <PreferedTopLevelDomain />,
+      },
+      {
+        type: "collapse",
+
+        name: "Compromise Message",
+        key: "compromiseMessage",
+        route: "/autoenrol/compromiseMessage",
+        component: <CompromiseMessage />,
+      },
+      {
+        type: "collapse",
+
+        name: " Message Injection",
+        key: "messageInjection",
+        route: "/autoenrol/messageInjection",
+        component: <MessageInjection />,
+      },
+      {
+        type: "collapse",
+
+        name: "Phish Alert Button",
+        key: "phishAlertButton",
+        route: "/autoenrol/phishAlertButton",
+        component: <PhishAlertButton />,
+      }
+      // {
+      //   type: "collapse",
+      //   name: "Course Reminder Emails",
+      //   key: "coursereminderemails",
+      //   route: "/autoenrol/coursereminderemails",
+      //   component: <CourseReminderEmails />,
+      // },
+      // {
+      //   type: "collapse",
+      //   name: "Auto Phish",
+      //   key: "courseslidedelay",
+      //   route: "/autoenrol/autoPhish",
+      //   component: <AutoPhish />,
+      // },
         name: "Preferred Domain",
         key: "preferreddomain",
         route: "/settings/domain",
