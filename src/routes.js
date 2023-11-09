@@ -74,6 +74,7 @@ import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnCompon
 import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
 import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
 import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
+import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -206,6 +207,13 @@ const routes = [
         key: "compulsorycourses",
         route: "/autoenrol/compulsorycourses",
         component: <CompulsoryCourses />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report Component",
+        key: "riskreportcomponent",
+        route: "/autoenrol/riskreportcomponent",
+        component: <RiskReportComponent />,
       },
      
     ],
