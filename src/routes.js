@@ -81,6 +81,9 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+
+import CourseReport from "layouts/uLearn/CourseReport";
+
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
 import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
 import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
@@ -98,6 +101,7 @@ import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents
 import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
+
 
 
 const routes = [
@@ -121,12 +125,22 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Home",
+    key: "home",
+    route: "/home",
+    icon: <Office size="12px" />,
+    component: <Users />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Uphish",
     key: "uphish",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
-    subroutes: [ // Define subroutes for Uphish
+    subroutes: [
+      // Define subroutes for Uphish
       {
         type: "collapse",
         name: "View Simulation",
@@ -407,13 +421,14 @@ const routes = [
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
-    subroutes: [ // Define subroutes for Ulearn
+    subroutes: [
+      // Define subroutes for Ulearn
       {
         type: "collapse",
         name: "Courses Report",
         key: "coursesReport",
         route: "/ulearn/courses-report",
-        component: <ViewSimulation />,
+        component: <CourseReport />,
       },
       {
         type: "collapse",
@@ -459,7 +474,6 @@ const routes = [
     noCollapse: true,
   },
 
-
   //Clone
   {
     route: "/cloneLandingPage",
@@ -488,7 +502,6 @@ const routes = [
     component: <CloneSimulation />,
     noCollapse: true,
   },
-
 
   { type: "title", title: "Account Pages", key: "account-pages" },
   {
