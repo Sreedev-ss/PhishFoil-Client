@@ -25,6 +25,7 @@ import Icon from "@mui/material/Icon";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
+import Home from "./layouts/Home";
 
 // Soft UI Dashboard React examples
 import Sidenav from "examples/Sidenav";
@@ -59,6 +60,7 @@ import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+import CourseReport from "layouts/uLearn/CourseReport";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -163,19 +165,19 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
-      <Route exact path='/uphish/simulations' element={<ViewSimulation/>} />;
-      <Route exact path='/uphish/create-simulation' element={<CreateSimulation />} />;
-      <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
-      <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
-      <Route exact path='/uphish/email-template-library' element={<EmailTemplateLibrary/>} />;
-      <Route exact path='/uphish/landingPagelibrary' element={<LandingPageLibrary/>} />;
-      <Route exact path='/ulearn/course-library' element={<CourseLibrary />} />;
-      <Route exact path='/ulearn/course-builder' element={<CourseBuilder />} />;
-        {getRoutes(routes)}
+        <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
+        <Route exact path="/uphish/create-simulation" element={<CreateSimulation />} />;
+        <Route exact path="/uphish/landingPageBuilder" element={<LandingPageBuilder />} />;
+        <Route exact path="/uphish/email-template-builder" element={<EmailTable />} />;
+        <Route exact path="/uphish/email-template-library" element={<EmailTemplateLibrary />} />;
+        <Route exact path="/uphish/landingPagelibrary" element={<LandingPageLibrary />} />;
+        <Route exact path="/ulearn/course-library" element={<CourseLibrary />} />;
+        <Route exact path="/ulearn/course-builder" element={<CourseBuilder />} />;
+        <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
+        <Route exact path="layouts/home" element={<Home />} />;
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
-        
       </Routes>
     </ThemeProvider>
   );

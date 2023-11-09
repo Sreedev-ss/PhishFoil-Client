@@ -1,0 +1,58 @@
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: none;
+  overflow: hidden;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  /* Remove bottom border */
+}
+
+.tab.active {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  /* Remove bottom border */
+}
+
+.tab.active.course {
+  border-bottom: none;
+  /* Remove bottom border for the "Course" tab */
+}
+
+.tab:hover {
+  color: #007bff;
+}
+
+.tab-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.tab-pane {
+  flex: 1;
+  display: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-left: none;
+  /* Remove top border */
+}
+
+.tab-pane.active {
+  display: block;
+}
