@@ -81,6 +81,16 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+import DefaultSetting from "layouts/autoenrol/components/emailComponents/DefaultSetting";
+import PreferredDomain from "layouts/autoenrol/components/PreferredDomain";
+import AllowListing from "layouts/autoenrol/components/emailComponents/AllowListing";
+import SimulationTests from "layouts/autoenrol/components/emailComponents/SimulationTests";
+import GapAnalysis from "layouts/autoenrol/components/emailComponents/GapAnalysis";
+import Courses from "layouts/autoenrol/components/emailComponents/Courses";
+import WeeklySummeryEmails from "layouts/autoenrol/components/emailComponents/WeeklySummaryEmails";
+import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents/GoogleWorkspaceSyncResult";
+import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
+import Policies from "layouts/autoenrol/components/emailComponents/Policies";
 
 
 const routes = [
@@ -185,6 +195,76 @@ const routes = [
       },
       {
         type: "collapse",
+        name: "Preferred Domain",
+        key: "preferreddomain",
+        route: "/settings/domain",
+        component: <PreferredDomain />,
+      },
+      {
+        type: "collapse",
+        name: "Default Setting",
+        key: "defaultsettingsemail",
+        route: "/emails/default",
+        component: <DefaultSetting />,
+      },
+      {
+        type: "collapse",
+        name: "Allow Listing",
+        key: "allowlistingemail",
+        route: "/emails/allowlisting",
+        component: <AllowListing />,
+      },
+      {
+        type: "collapse",
+        name: "Simulation Tests",
+        key: "simulationtestsemail",
+        route: "/emails/simulation-tests",
+        component: <SimulationTests />,
+      },
+      {
+        type: "collapse",
+        name: "Gap Analysis",
+        key: "gapanalysisemail",
+        route: "/emails/gap-analysis",
+        component: <GapAnalysis />,
+      },
+      {
+        type: "collapse",
+        name: "Courses",
+        key: "coursesemail",
+        route: "/emails/courses",
+        component: <Courses />,
+      },
+      {
+        type: "collapse",
+        name: "Weekly Summary",
+        key: "weeklysummaryemails",
+        route: "/emails/weekly-summary",
+        component: <WeeklySummeryEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Google Workspace Sync Summary",
+        key: "googleworkspaceemail",
+        route: "/emails/google-workspace",
+        component: <GoogleWorkspaceSummary />,
+      },
+      {
+        type: "collapse",
+        name: "Microsoft 365 Sync Summary",
+        key: "microsoftsyncsummaryemail",
+        route: "/emails/office-365",
+        component: <Microsoft365SyncSummary />,
+      },
+      {
+        type: "collapse",
+        name: "Policies",
+        key: "policiesemail",
+        route: "/emails/policies",
+        component: <Policies />,
+      },
+      {
+        type: "collapse"
         name: "Gap Analysis Reminder Emails",
         key: "gapanalysisreminderemails",
         route: "/autoenrol/gapanalysisreminderemails",
