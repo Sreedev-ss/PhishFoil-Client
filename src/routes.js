@@ -70,6 +70,14 @@ import CloneSimulation from "layouts/viewSimulation/data/cloneSimulation";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
+import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
+import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
+import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
+import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
+import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
+import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
+import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
+import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -254,6 +262,62 @@ const routes = [
         key: "policiesemail",
         route: "/emails/policies",
         component: <Policies />,
+      },
+      {
+        type: "collapse"
+        name: "Gap Analysis Reminder Emails",
+        key: "gapanalysisreminderemails",
+        route: "/autoenrol/gapanalysisreminderemails",
+        component: <GapAnalysisReminderEmails />,
+      },
+      {
+        type: "collapse",
+        name: "Minimum Pass Score",
+        key: "minimumpasscore",
+        route: "/autoenrol/minimumpasscore",
+        component: <MinimumPassCore />,
+      },
+      {
+        type: "collapse",
+        name: "Video Playback",
+        key: "videoplayback",
+        route: "/autoenrol/videoplayback",
+        component: <VideoPlayback />,
+      },
+      {
+        type: "collapse",
+        name: "Compulsory Courses",
+        key: "compulsorycourses",
+        route: "/autoenrol/compulsorycourses",
+        component: <CompulsoryCourses />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report Component",
+        key: "riskreportcomponent",
+        route: "/autoenrol/riskreportcomponent",
+        component: <RiskReportComponent />,
+      },
+      {
+        type: "collapse",
+        name: "End User Portal",
+        key: "enduserportal",
+        route: "/autoenrol/enduserportal",
+        component: <EndUserPortal />,
+      },
+      {
+        type: "collapse",
+        name: "User ID Access",
+        key: "useridaccess",
+        route: "/autoenrol/userIdaccess",
+        component: <UserIdAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Language Component",
+        key: "languagecomponent",
+        route: "/autoenrol/languagecomponent",
+        component: <LanguageComponent />,
       },
      
     ],

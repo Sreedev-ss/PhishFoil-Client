@@ -71,6 +71,14 @@ import WeeklySummeryEmails from "layouts/autoenrol/components/emailComponents/We
 import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents/GoogleWorkspaceSyncResult";
 import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
+import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
+import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
+import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
+import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
+import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
+import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
+import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
+import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -195,6 +203,25 @@ export default function App() {
         <Route exact path='/emails/google-workspace' element={<GoogleWorkspaceSummary />} />;
         <Route exact path='/emails/office-365' element={<Microsoft365SyncSummary />} />;
         <Route exact path='/emails/policies' element={<Policies />} />;
+      <Route exact path='/uphish/simulations' element={<ViewSimulation/>} />;
+      <Route exact path='/uphish/create-simulation' element={<CreateSimulation />} />;
+      <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
+      <Route exact path='/uphish/email-template-builder' element={<EmailTable/>} />;
+      <Route exact path='/uphish/email-template-library' element={<EmailTemplateLibrary/>} />;
+      <Route exact path='/uphish/landingPagelibrary' element={<LandingPageLibrary/>} />;
+      <Route exact path='/ulearn/course-library' element={<CourseLibrary />} />;
+      <Route exact path='/ulearn/course-builder' element={<CourseBuilder />} />;
+      <Route exact path='/autoenrol/courseslidedelay' element={<CourseSlideDelay />} />;
+      <Route exact path='/autoenrol/coursereminderemails' element={<CourseReminderEmails />} />;
+      <Route exact path='/autoenrol/gapanalysisreminderemails' element={<GapAnalysisReminderEmails />} />;
+      <Route exact path='/autoenrol/minimumpasscore' element={<MinimumPassCore />} />;
+      <Route exact path='/autoenrol/videoplayback' element={<VideoPlayback />} />;
+      <Route exact path='/autoenrol/compulsorycourses' element={<CompulsoryCourses />} />;
+      <Route exact path='/autoenrol/riskreportcomponent' element={<RiskReportComponent />} />;
+      <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
+      <Route exact path='/autoenrol/useridaccess' element={<UserIdAccess />} />;
+      <Route exact path='/autoenrol/languagecomponent' element={<LanguageComponent />} />;
+
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
