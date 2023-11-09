@@ -25,12 +25,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import DownloadIcon from "@mui/icons-material/Download";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import SaveIcon from "@mui/icons-material/Save";
-import {
- 
-  AiOutlinePlus,
-
-} from "react-icons/ai";
-
+import { AiOutlinePlus, AiOutlineDelete,AiOutlineReload } from "react-icons/ai";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 const style = {
@@ -112,76 +107,136 @@ const PhishAlertButton = () => {
               Download Add-in Manifest XML
             </Button>
           </div>
-
-          <Box
-            // display="grid"
-            marginTop="30px"
-            gap="15px"
-            width="590px"
-            sx={{
-              fontSize: "16px",
-            }}
-          >
-            <Box style={{ marginTop: "15px" }}>
-              <label htmlFor="name" style={{ fontSize: "13px" }} name="templatename">
-                Add-in Display Name:
-              </label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ marginTop: "1px", gridColumn: "span 2" }} />
-            {/* <Button 
-            variant="contained" 
-            style=
-            {{
-                float:'inline-end', 
-                marginTop:'60px', 
-                color:'#fff', 
-                background:'rgb(30, 123, 228)',
-                marginRight:'100px',
-                fontWeight:'lighter'
-            }}
-        >
-            <RestartAltIcon style={{marginRight:'3px'}}/>
-              Reset
-        </Button> */}
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Action Label :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
             <p style={style}>This is also the name of the option mobile and web users will see.</p>
-
-            <Box style={{ marginTop: "15px" }}>
-              <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
-                Action Label:
-              </label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+          </Box>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Add-in Version Number :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
+            <p style={style}>
+              You must change this value if youre generating a new manifest file to update an
+              existing installion..
+            </p>
+          </Box>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Action Label :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
             <p style={style}>
               This is the name of the command button that appears in the ribbon on Outlook on
               Windows.
             </p>
-            <Box style={{ marginTop: "15px" }}>
-              <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
-                Action Tooltip:
-              </label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+          </Box>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Action Tooltip :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
             <p style={style}>
               This text is shown on the tooltip when hovering over the command button that appears
-              in Outlooks ribbon on Windows..
+              in Outlooks ribbon on Windows.
             </p>
-            <Box style={{ marginTop: "15px" }}>
-              <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
-                Group Label:
-              </label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
-            <p style={style}>
-              This is the name ribbon group for the add-in on Outlook on Windows..
+          </Box>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Group Label :
             </p>
-            <Box style={{ marginTop: "15px" }}>
-              <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
-                Provider Name:
-              </label>
-            </Box>
-            <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
+            <p style={style}>This is the name ribbon group for the add-in on Outlook on Windows.</p>
+          </Box>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Provider Name :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <TextField fullWidth />
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+            </div>
             <p style={style}>This will appear as the developer in the add-in details.</p>
           </Box>
+
           <div style={{ marginTop: "30px" }}>
             <Switch {...label} defaultChecked />
             <span
@@ -201,6 +256,35 @@ const PhishAlertButton = () => {
               </li>
             </div>
           </div>
+          <Box>
+            <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+              * Icon (64x64) :
+            </p>
+            <div style={{ display: "flex", gap: 5 }}>
+              <Button
+                variant="contained"
+                style={{
+                  color: "#fff",
+                  background: "rgb(30, 123, 228)",
+                  // fontWeight: 'lighter'
+                }}
+              >
+                <RestartAltIcon style={{ marginRight: "5px" }} />
+                Reset
+              </Button>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#ff4d4f",
+                  borderColor: "#ff4d4f",
+                  color: "#fff", // Set text color to white
+                }}
+              >
+                <AiOutlineDelete style={{ marginRight: "3px" }} />
+                Remove Image
+              </Button>
+            </div>
+          </Box>
         </form>
       );
     } else {
@@ -256,12 +340,19 @@ const PhishAlertButton = () => {
                   <AiOutlinePlus /> Add
                 </Button>
               </div>
-              <p style={{ fontSize: "15px", color: "gray" }}>
-                This landing page will be visible to the Customers selected
-              </p>
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#ff4d4f",
+                  borderColor: "#ff4d4f",
+                  color: "#fff", // Set text color to white
+                }}
+              >
+                Remove all
+              </Button>
             </div>
             <div>
-              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Subject:</p>
+              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Recipients:</p>
               <div
                 style={{
                   display: "flex",
@@ -297,14 +388,59 @@ const PhishAlertButton = () => {
                 <li>%message_id% - Message ID</li>
                 <li>%company_name% - Company Name</li>
               </div>
-              <Box style={{ marginTop: "15px" }}>
+
+              <Box sx={{marginTop:2}}>
+                <p style={{ fontSize: "14px", marginBottom: "10px" }}>*Forwarded Email Sender Name :</p>
+                <div style={{ display: "flex", gap: 5 }}>
+                  <TextField fullWidth />
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <AiOutlineReload style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div>
+              </Box>
+              <Box sx={{ marginTop: 2 }}>
+                <p style={{ fontSize: "14px", marginBottom: "10px" }}>* Forwarded Email Sender Address :</p>
+                <div style={{ display: "flex", gap: 5, alignItems: "center" }}>
+                  <TextField defaultValue="noreply" />
+                  <p style={{ fontSize: "14px" }}>@</p>
+                  <TextField />
+                  <p style={{ fontSize: "14px" }}>.usecure.io</p>
+                  <div style={{ display: "flex", gap: 5 }}>
+                  <TextField fullWidth />
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <AiOutlineReload style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div>
+                </div>
+                <p style={{ fontSize: "13px", color: "gray", fontFamily: "sans-serif" }}>
+                  You can set the email address domain from the Preferred Domain settings page.
+                </p>
+              </Box>
+
+              {/* <Box style={{ marginTop: "15px" }}>
                 <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
                   Forwarded Email Sender Name
                 </label>
               </Box>
-              <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+              <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} /> */}
 
-              <Box style={{ marginTop: "15px" }}>
+              {/* <Box style={{ marginTop: "15px" }}>
                 <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
                   Forwarded Email Sender Address
                 </label>
@@ -312,7 +448,7 @@ const PhishAlertButton = () => {
               <TextField required id="outlined-required" fullWidth />
               <p style={style}>
                 You can set the email address domain from the Preferred Domain settings page.
-              </p>
+              </p> */}
             </div>
             <div style={{ marginTop: "30px" }}>
               <Switch {...label} defaultChecked />

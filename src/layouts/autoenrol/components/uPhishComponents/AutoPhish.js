@@ -37,6 +37,11 @@ const AutoPhish = () => {
   const [openCourse, setOpenCourse] = useState(false);
   const [course, setCourse] = useState("Phishing(beginner");
 
+  const [isSettingEnabled, setIsSettingEnabled] = useState(true);
+  const handleSwitchChange = () => {
+    setIsSettingEnabled(!isSettingEnabled);
+};
+
   const handleType = (event) => {
     setType(event.target.value);
   };
@@ -123,7 +128,7 @@ const AutoPhish = () => {
           Simulation page.
         </p>
         <div style={{ marginTop: "30px" }}>
-          <Switch {...label} defaultChecked />
+          <Switch {...label}  defaultChecked onChange={handleSwitchChange}/>
           <span
             style={{
               fontSize: "15px",
@@ -134,6 +139,8 @@ const AutoPhish = () => {
             Enable Auto Phish
           </span>
         </div>
+        
+        {isSettingEnabled && (
         <div style={{ marginTop: "20px", fontSize: "15px" }}>
           <form>
             <Box
@@ -492,6 +499,7 @@ const AutoPhish = () => {
             </div>
           </form>
         </div>
+        )}
       </Box>
 
       <Button

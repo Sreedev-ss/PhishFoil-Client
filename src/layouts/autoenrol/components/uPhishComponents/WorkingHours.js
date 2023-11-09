@@ -4,14 +4,27 @@ import {
     Button,
     TextField,
   } from "@mui/material";
-  
+  import React, { useState } from 'react';
   import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-  import React from "react";
   import SaveIcon from '@mui/icons-material/Save';
+  import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
   
   const WorkingHours = () => {
 
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
+    const [value, setValue] = useState(0);
+
+    const handleIncrement = () => {
+      setValue(value + 1);
+    };
+  
+    const handleDecrement = () => {
+      if (value > 0) {
+        setValue(value - 1);
+      }
+    };
 
     return (
       <DashboardLayout>
@@ -51,7 +64,24 @@ import {
               Set your working hours
         </p>
        
-          <TextField fullWidth type="text" sx={{ gridColumn: "span 2" }} />
+        
+
+          <TextField
+      variant="outlined"
+      value={value}
+      InputProps={{
+        endAdornment: (
+          <React.Fragment>
+            <IconButton onClick={handleIncrement} size="small">
+              <AddIcon />
+            </IconButton>
+            <IconButton onClick={handleDecrement} size="small">
+              <RemoveIcon />
+            </IconButton>
+          </React.Fragment>
+        ),
+      }}
+    />
         <Button 
             variant="contained" 
             style=
