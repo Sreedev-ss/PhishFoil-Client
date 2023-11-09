@@ -72,6 +72,7 @@ import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/Cour
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
 import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
+import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -190,6 +191,13 @@ const routes = [
         key: "minimumpasscore",
         route: "/autoenrol/minimumpasscore",
         component: <MinimumPassCore />,
+      },
+      {
+        type: "collapse",
+        name: "Video Playback",
+        key: "videoplayback",
+        route: "/autoenrol/videoplayback",
+        component: <VideoPlayback />,
       },
      
     ],
