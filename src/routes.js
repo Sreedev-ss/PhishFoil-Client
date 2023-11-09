@@ -73,6 +73,7 @@ import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/
 import GapAnalysisReminderEmails from "layouts/autoenrol/components/uLearnComponents/GapAnalysisReminderEmails";
 import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/MinimumPassCore";
 import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
+import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -198,6 +199,13 @@ const routes = [
         key: "videoplayback",
         route: "/autoenrol/videoplayback",
         component: <VideoPlayback />,
+      },
+      {
+        type: "collapse",
+        name: "Compulsory Courses",
+        key: "compulsorycourses",
+        route: "/autoenrol/compulsorycourses",
+        component: <CompulsoryCourses />,
       },
      
     ],
