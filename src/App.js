@@ -66,6 +66,7 @@ import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/Minim
 import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
 import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
 import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
+import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -185,6 +186,8 @@ export default function App() {
       <Route exact path='/autoenrol/videoplayback' element={<VideoPlayback />} />;
       <Route exact path='/autoenrol/compulsorycourses' element={<CompulsoryCourses />} />;
       <Route exact path='/autoenrol/riskreportcomponent' element={<RiskReportComponent />} />;
+      <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
+
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

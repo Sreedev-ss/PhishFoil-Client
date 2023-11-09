@@ -75,6 +75,7 @@ import MinimumPassCore from "layouts/autoenrol/components/uLearnComponents/Minim
 import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPlayback";
 import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
 import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
+import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -214,6 +215,13 @@ const routes = [
         key: "riskreportcomponent",
         route: "/autoenrol/riskreportcomponent",
         component: <RiskReportComponent />,
+      },
+      {
+        type: "collapse",
+        name: "End User Portal",
+        key: "enduserportal",
+        route: "/autoenrol/enduserportal",
+        component: <EndUserPortal />,
       },
      
     ],
