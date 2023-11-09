@@ -26,7 +26,7 @@ const style = {
     maxHeight: "400px",
   };
 
-  const CourseReminderEmails = () => {
+  const GapAnalysisReminderEmails = () => {
 
     const [reminder, setReminder] = useState("");
     const [continueModalOpen, setCountinueModalOpen] = useState(false)
@@ -55,7 +55,7 @@ const style = {
                 fontSize:"1.6rem"
                 }}
             >
-                Course Reminders
+                Gap Analysis Reminders
         </Typography>
         <div style={{marginTop:'17px'}}>
               <Box>
@@ -63,7 +63,7 @@ const style = {
                     htmlFor="name" 
                     style={{ fontSize: "13px" }}
                     >
-                        How often would you like us to send course reminder emails to your users?:
+                        How often would you like us to send gap analysis reminder emails to your users?:
                 </label>
               </Box>
               <TextField
@@ -147,8 +147,8 @@ const style = {
                         marginLeft:'15px'
                         }}
                     >
-                        Please note that one off reminders will only be sent to those enrolled on an 
-                        outstanding course 7 or more days ago
+                        Please note that one off gap analysis reminders will only be
+                        sent to those with an outstanding questionnaire sent out 2 or more days ago
                 </p>
                 </Typography>
                 <Box
@@ -185,8 +185,8 @@ const style = {
                     marginTop:'4px'
                     }}
                     >
-                        Please note that one off reminders will only be sent 
-                        to those enrolled on an outstanding course 7 or more days ago
+                        Please note that one off gap analysis reminders will only be 
+                        sent to those with an outstanding questionnaire sent out 2 or more days ago
             </p>
         <div>
             <Button 
@@ -200,7 +200,7 @@ const style = {
                     marginRight:'115px',
                     fontWeight:'lighter'
                 }}
-                
+               
             >
                 <SaveIcon style={{marginRight:'3px'}}/>
                     Save
@@ -211,4 +211,4 @@ const style = {
     );
 };
   
-  export default CourseReminderEmails;
+  export default GapAnalysisReminderEmails;
