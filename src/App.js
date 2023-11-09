@@ -62,6 +62,11 @@ import CourseBuilder from "layouts/uLearn/CourseBuilder";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
+import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
+import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
+import CompromiseMessage from "layouts/autoenrol/components/uPhishComponents/CompromiseMessage";
+import MessageInjection from "layouts/autoenrol/components/uPhishComponents/MessageInjection";
+import PhishAlertButton from "layouts/autoenrol/components/uPhishComponents/PhishAlertButton";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -177,6 +182,11 @@ export default function App() {
       <Route exact path='/autoenrol/courseslidedelay' element={<CourseSlideDelay />} />;
       <Route exact path='/autoenrol/coursereminderemails' element={<CourseReminderEmails />} />;
       <Route exact path='/autoenrol/autoPhish' element={<AutoPhish />} />;
+      <Route exact path='/autoenrol/workingHours' element={<WorkingHours />} />;
+      <Route exact path='/autoenrol/preferedTopLevelDomain' element={<PreferedTopLevelDomain />} />;
+      <Route exact path='/autoenrol/compromiseMessage' element={<CompromiseMessage />} />;
+      <Route exact path='/autoenrol/messageInjection' element={<MessageInjection />} />;
+      <Route exact path='/autoenrol/phishAlertButton' element={<PhishAlertButton />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
