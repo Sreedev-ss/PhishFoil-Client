@@ -77,6 +77,7 @@ import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/Com
 import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
+import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -230,6 +231,13 @@ const routes = [
         key: "useridaccess",
         route: "/autoenrol/userIdaccess",
         component: <UserIdAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Language Component",
+        key: "languagecomponent",
+        route: "/autoenrol/languagecomponent",
+        component: <LanguageComponent />,
       },
      
     ],

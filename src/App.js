@@ -68,6 +68,7 @@ import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/Com
 import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
+import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -189,6 +190,7 @@ export default function App() {
       <Route exact path='/autoenrol/riskreportcomponent' element={<RiskReportComponent />} />;
       <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
       <Route exact path='/autoenrol/useridaccess' element={<UserIdAccess />} />;
+      <Route exact path='/autoenrol/languagecomponent' element={<LanguageComponent />} />;
 
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />
