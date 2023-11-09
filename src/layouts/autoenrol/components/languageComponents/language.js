@@ -167,7 +167,7 @@ const LanguageComponent = () => {
                     fontWeight:'lighter'
                 }}               
             >
-                <SaveIcon style={{marginRight:'3px'}}/>
+                <SaveIcon style={{marginRight:'3px'}} />
                     Save
             </Button>
         </div>

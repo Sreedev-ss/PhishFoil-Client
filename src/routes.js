@@ -97,6 +97,7 @@ import WeeklySummeryEmails from "layouts/autoenrol/components/emailComponents/We
 import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents/GoogleWorkspaceSyncResult";
 import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
+import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 
 
 const routes = [
@@ -385,6 +386,13 @@ const routes = [
         key: "languagecomponent",
         route: "/autoenrol/languagecomponent",
         component: <LanguageComponent />,
+      },
+      {
+        type: "collapse",
+        name: "Time Zone",
+        key: "timezone",
+        route: "/autoenrol/timezone",
+        component: <TimeZone />,
       },
      
     ],

@@ -85,6 +85,7 @@ import RiskReportComponent from "layouts/autoenrol/components/riskReportComponen
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
 import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
+import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -233,6 +234,7 @@ export default function App() {
       <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
       <Route exact path='/autoenrol/useridaccess' element={<UserIdAccess />} />;
       <Route exact path='/autoenrol/languagecomponent' element={<LanguageComponent />} />;
+      <Route exact path='/autoenrol/timezone' element={<TimeZone />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
