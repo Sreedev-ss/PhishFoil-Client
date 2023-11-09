@@ -110,7 +110,7 @@ const EndUserPortal = () => {
                             }}
                             >
                         <FileCopyIcon style={{color:'#fff'}}/> 
-                            {isCopied ? 'Copy to Clipboard' : 'Link Copied'}
+                            {isCopied ? 'Link Copied' : 'Copy to Clipboard'}
                     </Button>
                     <p style={{fontSize:'14px', color:'gray', fontWeight:'lighter', marginTop:'45px'}}>
                         In the event a user is unable to receive the magic link email, you can use the button 

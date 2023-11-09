@@ -76,6 +76,7 @@ import VideoPlayback from "layouts/autoenrol/components/uLearnComponents/VideoPl
 import CompulsoryCourses from "layouts/autoenrol/components/uLearnComponents/CompulsoryCourses";
 import RiskReportComponent from "layouts/autoenrol/components/riskReportComponents/RiskReportComponents";
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
+import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
@@ -222,6 +223,13 @@ const routes = [
         key: "enduserportal",
         route: "/autoenrol/enduserportal",
         component: <EndUserPortal />,
+      },
+      {
+        type: "collapse",
+        name: "User ID Access",
+        key: "useridaccess",
+        route: "/autoenrol/userIdaccess",
+        component: <UserIdAccess />,
       },
      
     ],
