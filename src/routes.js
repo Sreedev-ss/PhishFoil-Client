@@ -81,6 +81,9 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+
+import CourseReport from "layouts/uLearn/CourseReport";
+
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
 import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
 import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
@@ -100,6 +103,12 @@ import Policies from "layouts/autoenrol/components/emailComponents/Policies";
 import PolicyReminderEmails from "layouts/autoenrol/components/uPolicyComponents/PolicyRemiinderEmails";
 import Microsoft365 from "layouts/autoenrol/components/microsoft365/Microsoft365";
 import WeeklySummary from "layouts/autoenrol/components/weeklySummary/WeeklySummary";
+import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
+import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
+import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
+import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
+import Reports from "layouts/autoenrol/components/emailComponents/Reports";
+import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 
 
 const routes = [
@@ -123,12 +132,22 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Home",
+    key: "home",
+    route: "/home",
+    icon: <Office size="12px" />,
+    component: <Users />,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Uphish",
     key: "uphish",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
-    subroutes: [ // Define subroutes for Uphish
+    subroutes: [
+      // Define subroutes for Uphish
       {
         type: "collapse",
         name: "View Simulation",
@@ -346,6 +365,20 @@ const routes = [
       },
       {
         type: "collapse",
+        name: "Reports",
+        key: "reportsemail",
+        route: "/emails/reports",
+        component: <Reports />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report",
+        key: "riskreportemail",
+        route: "/emails/risk-report",
+        component: <RiskReport />,
+      },
+      {
+        type: "collapse",
         name: "Gap Analysis Reminder Emails",
         key: "gapanalysisreminderemails",
         route: "/autoenrol/gapanalysisreminderemails",
@@ -414,6 +447,34 @@ const routes = [
         route: "/autoenrol/languagecomponent",
         component: <LanguageComponent />,
       },
+      {
+        type: "collapse",
+        name: "Time Zone",
+        key: "timezone",
+        route: "/autoenrol/timezone",
+        component: <TimeZone />,
+      },
+      {
+        type: "collapse",
+        name: "Auto Enrol",
+        key: "autoEnrol",
+        route: "/autoenrol/autoEnrol",
+        component: <AutoEnrol />,
+      },
+      {
+        type: "collapse",
+        name: "Product Names",
+        key: "productnames",
+        route: "/autoenrol/productnames",
+        component: <ProductNames />,
+      },
+      {
+        type: "collapse",
+        name: "Google Workspace",
+        key: "googleworkspace",
+        route: "/autoenrol/googleworkspace",
+        component: <GoogleWorkspace />,
+      },
      
     ],
   },
@@ -427,13 +488,14 @@ const routes = [
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
-    subroutes: [ // Define subroutes for Ulearn
+    subroutes: [
+      // Define subroutes for Ulearn
       {
         type: "collapse",
         name: "Courses Report",
         key: "coursesReport",
         route: "/ulearn/courses-report",
-        component: <ViewSimulation />,
+        component: <CourseReport />,
       },
       {
         type: "collapse",
@@ -479,7 +541,6 @@ const routes = [
     noCollapse: true,
   },
 
-
   //Clone
   {
     route: "/cloneLandingPage",
@@ -508,7 +569,6 @@ const routes = [
     component: <CloneSimulation />,
     noCollapse: true,
   },
-
 
   { type: "title", title: "Account Pages", key: "account-pages" },
   {

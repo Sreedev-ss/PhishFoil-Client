@@ -25,6 +25,7 @@ import Icon from "@mui/material/Icon";
 
 // Soft UI Dashboard React components
 import SoftBox from "components/SoftBox";
+import Home from "./layouts/Home";
 
 // Soft UI Dashboard React examples
 import Sidenav from "examples/Sidenav";
@@ -59,6 +60,7 @@ import EmailTemplateLibrary from "layouts/EmailTemplateLibrary";
 import LandingPageLibrary from "layouts/landingPageLibrary";
 import CourseLibrary from "layouts/uLearn/CourseLibrary";
 import CourseBuilder from "layouts/uLearn/CourseBuilder";
+import CourseReport from "layouts/uLearn/CourseReport";
 import CourseSlideDelay from "layouts/autoenrol/components/uLearnComponents/CourseSlideDelay";
 import CourseReminderEmails from "layouts/autoenrol/components/uLearnComponents/CourseReminderEmails";
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
@@ -88,6 +90,12 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 import PolicyReminderEmails from "layouts/autoenrol/components/uPolicyComponents/PolicyRemiinderEmails";
 import Microsoft365 from "layouts/autoenrol/components/microsoft365/Microsoft365";
 import WeeklySummary from "layouts/autoenrol/components/weeklySummary/WeeklySummary";
+import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
+import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
+import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
+import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
+import Reports from "layouts/autoenrol/components/emailComponents/Reports";
+import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -192,6 +200,21 @@ export default function App() {
       )}
       {layout === "vr" && <Configurator />}
       <Routes>
+
+        <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
+        <Route exact path="/uphish/create-simulation" element={<CreateSimulation />} />;
+        <Route exact path="/uphish/landingPageBuilder" element={<LandingPageBuilder />} />;
+        <Route exact path="/uphish/email-template-builder" element={<EmailTable />} />;
+        <Route exact path="/uphish/email-template-library" element={<EmailTemplateLibrary />} />;
+        <Route exact path="/uphish/landingPagelibrary" element={<LandingPageLibrary />} />;
+        <Route exact path="/ulearn/course-library" element={<CourseLibrary />} />;
+        <Route exact path="/ulearn/course-builder" element={<CourseBuilder />} />;
+        <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
+        <Route exact path="layouts/home" element={<Home />} />;
+        <Route path="*" element={<Navigate to="/dashboard" />} />
+        {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
+        {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
+
         <Route exact path='/uphish/simulations' element={<ViewSimulation />} />;
         <Route exact path='/uphish/create-simulation' element={<CreateSimulation />} />;
         <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder />} />;
@@ -212,6 +235,8 @@ export default function App() {
         <Route exact path='/emails/google-workspace' element={<GoogleWorkspaceSummary />} />;
         <Route exact path='/emails/office-365' element={<Microsoft365SyncSummary />} />;
         <Route exact path='/emails/policies' element={<Policies />} />;
+        <Route exact path='/emails/reports' element={<Reports />} />;
+        <Route exact path='/emails/risk-report' element={<RiskReport />} />;
       <Route exact path='/uphish/simulations' element={<ViewSimulation/>} />;
       <Route exact path='/uphish/create-simulation' element={<CreateSimulation />} />;
       <Route exact path='/uphish/landingPageBuilder' element={<LandingPageBuilder/>} />;
@@ -239,9 +264,12 @@ export default function App() {
       <Route exact path='/autoenrol/policyReminderEmails' element={<PolicyReminderEmails />} />;
       <Route exact path='/autoenrol/microsoft365' element={<Microsoft365 />} />;
       <Route exact path='/autoenrol/weeklySummary' element={<WeeklySummary />} />;
-      
+      <Route exact path='/autoenrol/timezone' element={<TimeZone />} />;
+      <Route exact path='/autoenrol/autoEnrol' element={<AutoEnrol />} />;
+      <Route exact path='/autoenrol/productnames' element={<ProductNames />} />;
+      <Route exact path='/autoenrol/googleworkspace' element={<GoogleWorkspace />} />;
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />;
+        <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
 
