@@ -102,6 +102,7 @@ import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponent
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
+import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
 
 
 
@@ -415,6 +416,13 @@ const routes = [
         key: "autoEnrol",
         route: "/autoenrol/autoEnrol",
         component: <AutoEnrol />,
+      },
+      {
+        type: "collapse",
+        name: "Product Names",
+        key: "productnames",
+        route: "/autoenrol/productnames",
+        component: <ProductNames />,
       },
      
     ],
