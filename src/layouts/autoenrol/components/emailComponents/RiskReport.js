@@ -42,7 +42,7 @@ const languages = [
     'Vietnamese',
 ];
 
-const Policies = () => {
+const RiskReport = () => {
     const [language, selectedLanguage] = useState('English (UK)')
     const [image, setImage] = useState(null);
     const [isOpenHeader, setIsOpenHeader] = useState(false);
@@ -91,10 +91,10 @@ const Policies = () => {
                                 fontSize: "1.3rem"
                             }}
                         >
-                          Policy Emails
+                          Risk Report Notification Emails
                         </Typography>
                         <div style={{ marginTop: 20 }}>
-                            <p style={{ fontSize: '14px', color: 'gray', marginBottom: '10px', fontFamily: "sans-serif" }}>Configure the sender, subject and theme of policy invite and reminder emails.</p>
+                            <p style={{ fontSize: '14px', color: 'gray', marginBottom: '10px', fontFamily: "sans-serif" }}>Configure the sender, subject and theme of the notifications that you receive as your prospects/customers complete the risk report process.</p>
                         </div>
                         <div>
                             <FormControl sx={{ width: 180, float: 'inline-end' }}>
@@ -134,7 +134,7 @@ const Policies = () => {
                         <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Sender Email Address :</p>
                         <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
                             <TextField
-                                defaultValue='noreply'
+                                defaultValue='riskreport'
                             />
                             <p style={{ fontSize: '14px' }}>@</p>
                             <TextField
@@ -145,11 +145,11 @@ const Policies = () => {
                         </p>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Invite Subject - Single Policy :</p>
+                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Subject :</p>
                         <div style={{ display: 'flex', gap: 5 }}>
                             <TextField
                                 fullWidth
-                                defaultValue='Invite to complete your business policy: %policy_name%'
+                                defaultValue='Risk Report for %company_name% - %status%'
                             />
                             <Button
                                 variant="contained"
@@ -165,69 +165,7 @@ const Policies = () => {
                             </Button>
                         </div>
                     </Box>
-                    <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Invite Subject - Multiple Policies :</p>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                            <TextField
-                                fullWidth
-                                defaultValue='Invite to complete your business policies'
-                            />
-                            <Button
-                                variant="contained"
-                                style=
-                                {{
-                                    color: '#fff',
-                                    background: 'rgb(30, 123, 228)',
-                                    // fontWeight: 'lighter'
-                                }}
-                            >
-                                <AiOutlineReload style={{ marginRight: '5px' }} />
-                                Reset
-                            </Button>
-                        </div>
-                    </Box>
-                    <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Reminder Subject - Multiple Policies :</p>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                            <TextField
-                                fullWidth
-                                defaultValue="Reminder: Complete your business policies"
-                            />
-                            <Button
-                                variant="contained"
-                                style=
-                                {{
-                                    color: '#fff',
-                                    background: 'rgb(30, 123, 228)',
-                                    // fontWeight: 'lighter'
-                                }}
-                            >
-                                <AiOutlineReload style={{ marginRight: '5px' }} />
-                                Reset
-                            </Button>
-                        </div>
-                    </Box>
-                    <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Reminder Subject - Single Policy :</p>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                            <TextField
-                                fullWidth
-                                defaultValue="Reminder: Complete your business policy: %policy_name%"
-                            />
-                            <Button
-                                variant="contained"
-                                style=
-                                {{
-                                    color: '#fff',
-                                    background: 'rgb(30, 123, 228)',
-                                    // fontWeight: 'lighter'
-                                }}
-                            >
-                                <AiOutlineReload style={{ marginRight: '5px' }} />
-                                Reset
-                            </Button>
-                        </div>
-                    </Box>
+                  
                     <Box sx={{ marginTop: 2, alignItems: 'start' }}>
                         {!defaultChecked && !headerChecked && <Box>
                             <div
@@ -376,4 +314,4 @@ const Policies = () => {
 
 }
 
-export default Policies
+export default RiskReport
