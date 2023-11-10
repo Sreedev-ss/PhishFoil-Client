@@ -112,6 +112,7 @@ import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
+import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 
 const routes = [
   // {
@@ -140,6 +141,33 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Home />,
     noCollapse: true,
+  },
+  // {
+  //   type: "collapse",
+  //   name: "uPolicy",
+  //   key: "upolicy",
+  //   route: "/upolicy",
+  //   icon: <Office size="12px" />,
+  //   component: <UPolicy />,
+  //   noCollapse: true,
+  // },
+  {
+    type: "collapse",
+    name: "uPolicy",
+    key: "upolicy",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Template Library",
+        key: "templatelibrary",
+        route: "/uPolicy/templatelibrary",
+        component: <TemplateLibrary />,
+      },
+    ],
   },
   {
     type: "collapse",

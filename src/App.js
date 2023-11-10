@@ -98,6 +98,7 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -280,6 +281,9 @@ export default function App() {
         <Route exact path="/autoenrol/googleworkspace" element={<GoogleWorkspace />} />;
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
+
+        <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
+
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

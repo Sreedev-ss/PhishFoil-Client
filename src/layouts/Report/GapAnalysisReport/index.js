@@ -37,6 +37,7 @@ const style = {
   p: 4,
 };
 
+
 const languageOptions = ["English", "Spanish", "French", "German"];
 
 const GapAnalysisReport = () => {
