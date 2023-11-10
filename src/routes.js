@@ -112,6 +112,7 @@ import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
+import Ubreach from "layouts/ubreach";
 
 const routes = [
   // {
@@ -139,6 +140,16 @@ const routes = [
     route: "/home",
     icon: <Office size="12px" />,
     component: <Home />,
+    noCollapse: true,
+  },
+
+  {
+    type: "collapse",
+    name: "uBreach",
+    key: "ubreach",
+    route: "/ubreach",
+    icon: <Office size="12px" />,
+    component: <Ubreach />,
     noCollapse: true,
   },
   {
