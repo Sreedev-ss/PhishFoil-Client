@@ -90,6 +90,7 @@ import LanguageComponent from "layouts/autoenrol/components/languageComponents/l
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
+import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -256,6 +257,7 @@ export default function App() {
       <Route exact path='/autoenrol/timezone' element={<TimeZone />} />;
       <Route exact path='/autoenrol/autoEnrol' element={<AutoEnrol />} />;
       <Route exact path='/autoenrol/productnames' element={<ProductNames />} />;
+      <Route exact path='/autoenrol/googleworkspace' element={<GoogleWorkspace />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
