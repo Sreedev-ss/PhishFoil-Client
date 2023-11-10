@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Box, Button, Card, FormControl, FormControlLabel, FormGroup, MenuItem, Select, Switch, TextField, Typography } from '@mui/material'
 import SoftBox from 'components/SoftBox'
 import DashboardLayout from 'examples/LayoutContainers/DashboardLayout'
@@ -42,7 +43,7 @@ const languages = [
     'Vietnamese',
 ];
 
-const Policies = () => {
+const Reports = () => {
     const [language, selectedLanguage] = useState('English (UK)')
     const [image, setImage] = useState(null);
     const [isOpenHeader, setIsOpenHeader] = useState(false);
@@ -91,10 +92,10 @@ const Policies = () => {
                                 fontSize: "1.3rem"
                             }}
                         >
-                          Policy Emails
+                          Report Emails
                         </Typography>
                         <div style={{ marginTop: 20 }}>
-                            <p style={{ fontSize: '14px', color: 'gray', marginBottom: '10px', fontFamily: "sans-serif" }}>Configure the sender, subject and theme of policy invite and reminder emails.</p>
+                            <p style={{ fontSize: '14px', color: 'gray', marginBottom: '10px', fontFamily: "sans-serif" }}>Configure the sender, subject and theme of report emails.</p>
                         </div>
                         <div>
                             <FormControl sx={{ width: 180, float: 'inline-end' }}>
@@ -134,7 +135,7 @@ const Policies = () => {
                         <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Sender Email Address :</p>
                         <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
                             <TextField
-                                defaultValue='noreply'
+                                defaultValue='policies'
                             />
                             <p style={{ fontSize: '14px' }}>@</p>
                             <TextField
@@ -145,11 +146,11 @@ const Policies = () => {
                         </p>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Invite Subject - Single Policy :</p>
+                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Report Subject :</p>
                         <div style={{ display: 'flex', gap: 5 }}>
                             <TextField
                                 fullWidth
-                                defaultValue='Invite to complete your business policy: %policy_name%'
+                                defaultValue='%report_type% - %report_start% to %report_end%'
                             />
                             <Button
                                 variant="contained"
@@ -164,13 +165,22 @@ const Policies = () => {
                                 Reset
                             </Button>
                         </div>
+                        <p style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>The following tokens are available:</p>
+                        <ul style={{marginLeft:'20px'}}>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_name% - The name of the associated scheduled report. Other reports will replace this token with "Custom Report".</li>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_type% - The report's type e.g. "Performance Report"</li>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_long_period% - The long period name e.g. January 2023, First Quarter 2023. Reports with a custom date range will use "Custom Period".</li>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_short_period% - The short period name for the period the report covers e.g. Jan 2023, Q1 2023. Reports with a custom date range will use "Custom Period".</li>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_start% - The start date of the report</li>
+                            <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%report_end% - The end date of the report</li>
+                        </ul>
                     </Box>
                     <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Invite Subject - Multiple Policies :</p>
+                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Customer Report Subject :</p>
                         <div style={{ display: 'flex', gap: 5 }}>
                             <TextField
                                 fullWidth
-                                defaultValue='Invite to complete your business policies'
+                                defaultValue='%company_name% - %report_type% - %report_start% to %report_end%'
                             />
                             <Button
                                 variant="contained"
@@ -185,48 +195,11 @@ const Policies = () => {
                                 Reset
                             </Button>
                         </div>
-                    </Box>
-                    <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Reminder Subject - Multiple Policies :</p>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                            <TextField
-                                fullWidth
-                                defaultValue="Reminder: Complete your business policies"
-                            />
-                            <Button
-                                variant="contained"
-                                style=
-                                {{
-                                    color: '#fff',
-                                    background: 'rgb(30, 123, 228)',
-                                    // fontWeight: 'lighter'
-                                }}
-                            >
-                                <AiOutlineReload style={{ marginRight: '5px' }} />
-                                Reset
-                            </Button>
-                        </div>
-                    </Box>
-                    <Box sx={{ marginTop: 2 }}>
-                        <p style={{ fontSize: '14px', marginBottom: '10px' }}>* Reminder Subject - Single Policy :</p>
-                        <div style={{ display: 'flex', gap: 5 }}>
-                            <TextField
-                                fullWidth
-                                defaultValue="Reminder: Complete your business policy: %policy_name%"
-                            />
-                            <Button
-                                variant="contained"
-                                style=
-                                {{
-                                    color: '#fff',
-                                    background: 'rgb(30, 123, 228)',
-                                    // fontWeight: 'lighter'
-                                }}
-                            >
-                                <AiOutlineReload style={{ marginRight: '5px' }} />
-                                Reset
-                            </Button>
-                        </div>
+                        <p style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>This subject will be used when one of your customer's reports is sent to an email address matching a User or Admin User on your NFR.</p>
+                        <p style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>It uses the same tokens as the Report Subject in addition to the following:</p>
+                        <ul style={{marginLeft:'20px'}}>
+                        <li style={{ fontSize: '13px', color: 'gray', fontFamily: "sans-serif" }}>%company_name% - Customer Name</li>
+                        </ul>
                     </Box>
                     <Box sx={{ marginTop: 2, alignItems: 'start' }}>
                         {!defaultChecked && !headerChecked && <Box>
@@ -376,4 +349,4 @@ const Policies = () => {
 
 }
 
-export default Policies
+export default Reports

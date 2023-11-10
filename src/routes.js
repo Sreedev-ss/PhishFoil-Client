@@ -104,6 +104,8 @@ import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
 import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
+import Reports from "layouts/autoenrol/components/emailComponents/Reports";
+import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 
 
 
@@ -347,6 +349,20 @@ const routes = [
         key: "policiesemail",
         route: "/emails/policies",
         component: <Policies />,
+      },
+      {
+        type: "collapse",
+        name: "Reports",
+        key: "reportsemail",
+        route: "/emails/reports",
+        component: <Reports />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report",
+        key: "riskreportemail",
+        route: "/emails/risk-report",
+        component: <RiskReport />,
       },
       {
         type: "collapse",
