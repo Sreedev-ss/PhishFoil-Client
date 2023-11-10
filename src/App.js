@@ -85,6 +85,9 @@ import RiskReportComponent from "layouts/autoenrol/components/riskReportComponen
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
 import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
+import PolicyReminderEmails from "layouts/autoenrol/components/uPolicyComponents/PolicyRemiinderEmails";
+import Microsoft365 from "layouts/autoenrol/components/microsoft365/Microsoft365";
+import WeeklySummary from "layouts/autoenrol/components/weeklySummary/WeeklySummary";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -233,6 +236,10 @@ export default function App() {
       <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
       <Route exact path='/autoenrol/useridaccess' element={<UserIdAccess />} />;
       <Route exact path='/autoenrol/languagecomponent' element={<LanguageComponent />} />;
+      <Route exact path='/autoenrol/policyReminderEmails' element={<PolicyReminderEmails />} />;
+      <Route exact path='/autoenrol/microsoft365' element={<Microsoft365 />} />;
+      <Route exact path='/autoenrol/weeklySummary' element={<WeeklySummary />} />;
+      
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/dashboard" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

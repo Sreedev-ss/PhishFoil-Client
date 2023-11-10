@@ -397,7 +397,436 @@ const PhishAlertButton = () => {
                     Reset
                   </Button>
                 </div>
+
+
+
+                
               </Box>
+
+
+              <Box>
+                <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+                  * Icon (16x16) :
+                </p>
+                <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                  {!headerChecked && (
+                    <Box>
+                      <div
+                        style={{
+                          width: "370px",
+                          height: "140px",
+                          border: "1px solid #ccc",
+                          position: "relative",
+                          overflow: "hidden",
+                          border: "1px dotted grey",
+                          width: "200px",
+                          height: "200px",
+                        }}
+                      >
+                        <label
+                          htmlFor="imageInput"
+                          style={{ cursor: "pointer", display: "block", height: "100%" }}
+                        >
+                          {image ? (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                              }}
+                            >
+                              <img
+                                src={image}
+                                alt="Preview"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100%",
+                                  width: "auto",
+                                  height: "auto",
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "45%",
+                                color: "grey",
+                                fontSize: "small",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                textAlign: "center",
+                              }}
+                            >
+                              + <br /> Upload
+                            </div>
+                          )}
+                        </label>
+                        <input
+                          id="imageInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                      <Button
+                        onClick={handleRemoveImage}
+                        variant="contained"
+                        disabled={image ? false : true}
+                        style={{
+                          marginTop: "10px",
+                          backgroundColor: "#ff4c4f",
+                          color: "#ffff",
+                          marginRight: "115px",
+                        }}
+                      >
+                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                        Remove Image
+                      </Button>
+
+                      {!image && (
+                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                          This is a required field
+                        </p>
+                      )}
+                    </Box>
+                  )}
+                </Box>
+
+                <div style={{ display: "flex", gap: 5 }}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <RestartAltIcon style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div>
+              </Box>
+
+              <Box>
+                <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+                  * Icon (25x25) :
+                </p>
+                <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                  {!headerChecked && (
+                    <Box>
+                      <div
+                        style={{
+                          width: "370px",
+                          height: "140px",
+                          border: "1px solid #ccc",
+                          position: "relative",
+                          overflow: "hidden",
+                          border: "1px dotted grey",
+                          width: "200px",
+                          height: "200px",
+                        }}
+                      >
+                        <label
+                          htmlFor="imageInput"
+                          style={{ cursor: "pointer", display: "block", height: "100%" }}
+                        >
+                          {image ? (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                              }}
+                            >
+                              <img
+                                src={image}
+                                alt="Preview"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100%",
+                                  width: "auto",
+                                  height: "auto",
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "45%",
+                                color: "grey",
+                                fontSize: "small",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                textAlign: "center",
+                              }}
+                            >
+                              + <br /> Upload
+                            </div>
+                          )}
+                        </label>
+                        <input
+                          id="imageInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                      <Button
+                        onClick={handleRemoveImage}
+                        variant="contained"
+                        disabled={image ? false : true}
+                        style={{
+                          marginTop: "10px",
+                          backgroundColor: "#ff4c4f",
+                          color: "#ffff",
+                          marginRight: "115px",
+                        }}
+                      >
+                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                        Remove Image
+                      </Button>
+
+                      {!image && (
+                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                          This is a required field
+                        </p>
+                      )}
+                    </Box>
+                  )}
+                </Box>
+
+                <div style={{ display: "flex", gap: 5 }}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <RestartAltIcon style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div> 
+              </Box>
+              <Box>
+                <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+                  * Icon (32x32):
+                </p>
+                <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                  {!headerChecked && (
+                    <Box>
+                      <div
+                        style={{
+                          width: "370px",
+                          height: "140px",
+                          border: "1px solid #ccc",
+                          position: "relative",
+                          overflow: "hidden",
+                          border: "1px dotted grey",
+                          width: "200px",
+                          height: "200px",
+                        }}
+                      >
+                        <label
+                          htmlFor="imageInput"
+                          style={{ cursor: "pointer", display: "block", height: "100%" }}
+                        >
+                          {image ? (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                              }}
+                            >
+                              <img
+                                src={image}
+                                alt="Preview"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100%",
+                                  width: "auto",
+                                  height: "auto",
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "45%",
+                                color: "grey",
+                                fontSize: "small",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                textAlign: "center",
+                              }}
+                            >
+                              + <br /> Upload
+                            </div>
+                          )}
+                        </label>
+                        <input
+                          id="imageInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                      <Button
+                        onClick={handleRemoveImage}
+                        variant="contained"
+                        disabled={image ? false : true}
+                        style={{
+                          marginTop: "10px",
+                          backgroundColor: "#ff4c4f",
+                          color: "#ffff",
+                          marginRight: "115px",
+                        }}
+                      >
+                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                        Remove Image
+                      </Button>
+
+                      {!image && (
+                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                          This is a required field
+                        </p>
+                      )}
+                    </Box>
+                  )}
+                </Box>
+
+                <div style={{ display: "flex", gap: 5 }}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <RestartAltIcon style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div>
+              </Box>
+              <Box>
+                <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
+                  * Icon (48x48) :
+                </p>
+                <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                  {!headerChecked && (
+                    <Box>
+                      <div
+                        style={{
+                          width: "370px",
+                          height: "140px",
+                          border: "1px solid #ccc",
+                          position: "relative",
+                          overflow: "hidden",
+                          border: "1px dotted grey",
+                          width: "200px",
+                          height: "200px",
+                        }}
+                      >
+                        <label
+                          htmlFor="imageInput"
+                          style={{ cursor: "pointer", display: "block", height: "100%" }}
+                        >
+                          {image ? (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                              }}
+                            >
+                              <img
+                                src={image}
+                                alt="Preview"
+                                style={{
+                                  maxWidth: "100%",
+                                  maxHeight: "100%",
+                                  width: "auto",
+                                  height: "auto",
+                                }}
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "45%",
+                                color: "grey",
+                                fontSize: "small",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                                textAlign: "center",
+                              }}
+                            >
+                              + <br /> Upload
+                            </div>
+                          )}
+                        </label>
+                        <input
+                          id="imageInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageChange}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                      <Button
+                        onClick={handleRemoveImage}
+                        variant="contained"
+                        disabled={image ? false : true}
+                        style={{
+                          marginTop: "10px",
+                          backgroundColor: "#ff4c4f",
+                          color: "#ffff",
+                          marginRight: "115px",
+                        }}
+                      >
+                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                        Remove Image
+                      </Button>
+
+                      {!image && (
+                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                          This is a required field
+                        </p>
+                      )}
+                    </Box>
+                  )}
+                </Box>
+
+                <div style={{ display: "flex", gap: 5 }}>
+                  <Button
+                    variant="contained"
+                    style={{
+                      color: "#fff",
+                      background: "rgb(30, 123, 228)",
+                      // fontWeight: 'lighter'
+                    }}
+                  >
+                    <RestartAltIcon style={{ marginRight: "5px" }} />
+                    Reset
+                  </Button>
+                </div>
+                
+              </Box>
+
             </div>
           )}
         </form>
@@ -431,7 +860,7 @@ const PhishAlertButton = () => {
               </div>
             </div>
             <div>
-              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Subject:</p>
+              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Recipients:</p>
               <div
                 style={{
                   display: "flex",
@@ -468,7 +897,7 @@ const PhishAlertButton = () => {
               </Button>
             </div>
             <div>
-              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Recipients:</p>
+              <p style={{ marginTop: "20px", fontSize: "15px" }}>Forwarded Email Subject:</p>
               <div
                 style={{
                   display: "flex",
