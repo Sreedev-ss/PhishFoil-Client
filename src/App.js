@@ -87,6 +87,9 @@ import RiskReportComponent from "layouts/autoenrol/components/riskReportComponen
 import EndUserPortal from "layouts/autoenrol/components/enterUserPortal/EndUserPortal";
 import UserIdAccess from "layouts/autoenrol/components/userIDAccess/UserIdAccess";
 import LanguageComponent from "layouts/autoenrol/components/languageComponents/language";
+import PolicyReminderEmails from "layouts/autoenrol/components/uPolicyComponents/PolicyRemiinderEmails";
+import Microsoft365 from "layouts/autoenrol/components/microsoft365/Microsoft365";
+import WeeklySummary from "layouts/autoenrol/components/weeklySummary/WeeklySummary";
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
@@ -258,6 +261,9 @@ export default function App() {
       <Route exact path='/autoenrol/enduserportal' element={<EndUserPortal />} />;
       <Route exact path='/autoenrol/useridaccess' element={<UserIdAccess />} />;
       <Route exact path='/autoenrol/languagecomponent' element={<LanguageComponent />} />;
+      <Route exact path='/autoenrol/policyReminderEmails' element={<PolicyReminderEmails />} />;
+      <Route exact path='/autoenrol/microsoft365' element={<Microsoft365 />} />;
+      <Route exact path='/autoenrol/weeklySummary' element={<WeeklySummary />} />;
       <Route exact path='/autoenrol/timezone' element={<TimeZone />} />;
       <Route exact path='/autoenrol/autoEnrol' element={<AutoEnrol />} />;
       <Route exact path='/autoenrol/productnames' element={<ProductNames />} />;

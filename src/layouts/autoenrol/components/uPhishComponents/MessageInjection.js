@@ -23,6 +23,14 @@ const style = {
   p: 4,
   maxHeight: "400px",
 };
+const dividerStyle = {
+  color: 'rgb(30, 123, 228)',
+  fontSize: '18px', // Adjust the font size as needed
+  textAlign: 'center',
+  fontWeight: 'bold', // Adjust the font weight as needed
+  // margin: '16px 0',
+  marginTop:"50px" // Adjust the margin as needed
+};
 
 const MessageInjection = () => {
   const [reminder, setReminder] = useState("");
@@ -63,7 +71,7 @@ const MessageInjection = () => {
           </label>
         </Box>
         <div style={{ width: "100%", marginTop: "theme.spacing(2)" }}></div>
-        <Divider>Microsoft</Divider>
+        <Divider style={dividerStyle}>Microsoft</Divider>
         <div style={{ marginTop: "37px" }}>
           <Box>
             <label
@@ -94,7 +102,10 @@ const MessageInjection = () => {
           Sign in with Microsoft
         </Button>
       </div>
-      <Divider>Google Workspace</Divider>
+      <div>
+
+      <Divider style={dividerStyle}>Google Workspace</Divider>
+      </div>
       <div style={{ marginTop: "37px" }}>
         <Box>
           <label

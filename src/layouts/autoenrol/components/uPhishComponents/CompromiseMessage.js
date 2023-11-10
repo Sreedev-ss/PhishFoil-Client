@@ -1,15 +1,18 @@
-import { Typography, Button, TextField, MenuItem, Modal } from "@mui/material";
+import { Typography, Button, TextField, Box, MenuItem, Modal } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React, { useState } from "react";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box } from "@mui/system";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import { AiOutlineDelete, AiOutlineReload } from "react-icons/ai";
+import { ChromePicker } from "react-color";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { Email, ResetTv } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -25,7 +28,22 @@ const style = {
 const CompromiseMessage = () => {
   const [reminder, setReminder] = useState("");
   const [continueModalOpen, setCountinueModalOpen] = useState(false);
-  const [file, setFile] = useState(null);
+  const [image, setImage] = useState(null);
+  
+  const [headerChecked, setHeaderChecked] = useState(false);
+  
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveImage = () => setImage(null);
 
   const handleImageUpload = (e) => {
     setFile(e.target.files[0]);
@@ -79,52 +97,97 @@ const CompromiseMessage = () => {
           </label>
         </Box>
       </div>
-      <div>
-        <TextField
-          fullWidth
-          variant="filled"
-          name="image"
-          type="file"
-          sx={{ gridColumn: "span 2", width: "300px" }}
-          accept="image/*"
-          onChange={handleImageUpload}
-        />
-        {file && (
-          <div>
-            <img
-              src={URL.createObjectURL(file)}
-              alt="Selected Image"
-              style={{ maxWidth: "100px", marginTop: "20px", maxHeight: "100px" }}
-            />
-            <Box></Box>
-            <Button
-              variant="contained"
-              onClick={removeImage}
+
+      <Box sx={{ marginTop: 2, alignItems: "start" }}>
+        {!headerChecked && (
+          <Box>
+            <div
               style={{
-                marginLeft: "5px",
-                color: "#fff",
-                background: "red",
-                marginTop: "20px",
+                width: "370px",
+                height: "140px",
+                border: "1px solid #ccc",
+                position: "relative",
+                overflow: "hidden",
               }}
             >
-              <DeleteOutlineIcon />
+              <label
+                htmlFor="imageInput"
+                style={{ cursor: "pointer", display: "block", height: "100%" }}
+              >
+                {image ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt="Preview"
+                      style={{ maxWidth: "100%", maxHeight: "100%", width: "auto", height: "auto" }}
+                    />
+                  </div>
+                ) : (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "45%",
+                      color: "grey",
+                      fontSize: "small",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                      textAlign: "center",
+                    }}
+                  >
+                    + <br /> Upload
+                  </div>
+                )}
+              </label>
+              <input
+                id="imageInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                style={{ display: "none" }}
+              />
+            </div>
+            <Button
+              onClick={handleRemoveImage}
+              variant="contained"
+              disabled={image ? false : true}
+              style={{
+                marginTop: "10px",
+                backgroundColor: "#ff4c4f",
+                color: "#ffff",
+                marginRight: "115px",
+              }}
+            >
+              <AiOutlineDelete style={{ marginRight: "3px" }} />
               Remove Image
             </Button>
-          </div>
+            {!image && (
+              <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                This is a required field
+              </p>
+            )}
+          </Box>
         )}
-      </div>
+      </Box>
+    
       <Box
         display="grid"
         gap="15px"
         width="590px"
         sx={{
           fontSize: "16px",
-          marginTop:"30px"
+          marginTop: "30px",
         }}
       >
-        {" "}
+      
         <label htmlFor="name" style={{ fontSize: "13px" }} name="pagetitle">
-          {" "}
+    
           Set your compromise message
         </label>
         <TextareaAutosize

@@ -100,13 +100,15 @@ import WeeklySummeryEmails from "layouts/autoenrol/components/emailComponents/We
 import GoogleWorkspaceSummary from "layouts/autoenrol/components/emailComponents/GoogleWorkspaceSyncResult";
 import Microsoft365SyncSummary from "layouts/autoenrol/components/emailComponents/Microsoft365SyncSummary";
 import Policies from "layouts/autoenrol/components/emailComponents/Policies";
+import PolicyReminderEmails from "layouts/autoenrol/components/uPolicyComponents/PolicyRemiinderEmails";
+import Microsoft365 from "layouts/autoenrol/components/microsoft365/Microsoft365";
+import WeeklySummary from "layouts/autoenrol/components/weeklySummary/WeeklySummary";
 import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
 import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
-
 
 
 const routes = [
@@ -266,6 +268,17 @@ const routes = [
         route: "/autoenrol/phishAlertButton",
         component: <PhishAlertButton />,
       },
+
+      // Upolicy
+
+      {
+        type: "collapse",
+
+        name: "Policy Reminder Emails",
+        key: "policyReminderEmails",
+        route: "/autoenrol/policyReminderEmails",
+        component: <PolicyReminderEmails />,
+      },
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -412,6 +425,20 @@ const routes = [
         key: "useridaccess",
         route: "/autoenrol/userIdaccess",
         component: <UserIdAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Microsoft365",
+        key: "microsoft365",
+        route: "/autoenrol/microsoft365",
+        component: <Microsoft365 />,
+      },
+      {
+        type: "collapse",
+        name: "Weekly Summary",
+        key: "weeklySummary",
+        route: "/autoenrol/weeklySummary",
+        component: <WeeklySummary />,
       },
       {
         type: "collapse",
