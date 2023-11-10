@@ -104,6 +104,7 @@ import TimeZone from "layouts/autoenrol/components/timeZone/TimeZone";
 import AutoEnrol from "layouts/autoenrol/components/uLearnComponents/AutoEnrol";
 import ProductNames from "layouts/autoenrol/components/productNames/ProductNames";
 import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/GoogleWorkspace";
+import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 
 
 
@@ -431,6 +432,13 @@ const routes = [
         key: "googleworkspace",
         route: "/autoenrol/googleworkspace",
         component: <GoogleWorkspace />,
+      },
+      {
+        type: "collapse",
+        name: "Report Settings",
+        key: "reportsettings",
+        route: "/autoenrol/reportsettings",
+        component: <ReportSettings />,
       },
      
     ],
