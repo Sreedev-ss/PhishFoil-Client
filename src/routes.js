@@ -110,7 +110,8 @@ import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/Google
 import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
-
+import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import Home from "layouts/Home";
 
 const routes = [
   // {
@@ -137,8 +138,26 @@ const routes = [
     key: "home",
     route: "/home",
     icon: <Office size="12px" />,
-    component: <Users />,
+    component: <Home />,
     noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "Report",
+    key: "report",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Gap Analysis Report",
+        key: "gapanalysisreport",
+        route: "/Report/GapAnalysisReport",
+        component: <GapAnalysisReport />,
+      },
+    ],
   },
   {
     type: "collapse",
@@ -207,7 +226,8 @@ const routes = [
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
-    subroutes: [ // Define subroutes for Uphish
+    subroutes: [
+      // Define subroutes for Uphish
       {
         type: "collapse",
         name: "Course Slide Delay",
@@ -223,12 +243,11 @@ const routes = [
         route: "/autoenrol/autoPhish",
         component: <AutoPhish />,
       },
-      { 
+      {
         name: "Course Reminder Emails",
         key: "coursereminderemails",
         route: "/autoenrol/coursereminderemails",
         component: <CourseReminderEmails />,
-
       },
       {
         type: "collapse",
@@ -295,7 +314,8 @@ const routes = [
       //   component: <AutoPhish />,
       // },
 
-      { type:"collapse",
+      {
+        type: "collapse",
         name: "Preferred Domain",
         key: "preferreddomain",
         route: "/settings/domain",
@@ -483,10 +503,8 @@ const routes = [
         route: "/autoenrol/reportsettings",
         component: <ReportSettings />,
       },
-     
     ],
   },
- 
 
   //ULearn Routes
   {
