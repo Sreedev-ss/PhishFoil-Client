@@ -5,15 +5,14 @@ import DashboardNavbar from 'examples/Navbars/DashboardNavbar'
 import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import ReportTableDisplay from 'layouts/uPolicy/ReportTableData/index';
+import TemplateBuilderData from '../uPolicy/ReportTableData/templateBuildData'
 
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import 'react-circular-progressbar/dist/styles.css';
-import { Stack } from '@mui/system';
+import { Stack } from '@mui/system'
 
-
-const TemplateLibrary = () => {
+const TemplateBuilder = () => {
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const [isUserFormOpen, setUserFormOpen] = useState(false);
 
@@ -54,7 +53,7 @@ const TemplateLibrary = () => {
                                 fontWeight: "bold" 
                             }}
                         >
-                        uPolicy - Template Library
+                        uPolicy - Template Builder
                         </Typography>
                         <div>                        
                             <Button
@@ -129,7 +128,7 @@ const TemplateLibrary = () => {
 
                                 }}
                                 >
-                                <ReportTableDisplay />
+                                <TemplateBuilderData />
                                 </div>
                             </div>
                         </SoftBox>
@@ -140,6 +139,6 @@ const TemplateLibrary = () => {
     )
 }
 
-export default TemplateLibrary;
+export default TemplateBuilder;
 
 

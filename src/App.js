@@ -99,6 +99,7 @@ import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -283,6 +284,7 @@ export default function App() {
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
 
         <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
+        <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
 
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
