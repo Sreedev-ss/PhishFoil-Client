@@ -114,6 +114,7 @@ import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 
 const routes = [
   // {
@@ -176,6 +177,13 @@ const routes = [
         key: "templatelibrary",
         route: "/uPolicy/templatelibrary",
         component: <TemplateLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Template Builder",
+        key: "templatebuilder",
+        route: "/uPolicy/templatebuilder",
+        component: <TemplateBuilder />,
       },
     ],
   },

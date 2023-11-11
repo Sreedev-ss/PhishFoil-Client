@@ -8,34 +8,17 @@ import { Box } from "@mui/system";
 const columns = [
   { field: "id", headerName: "id", width: 80 },
   { field: "Name", headerName: "Name", width: 380 },
-  { field: "Type", headerName: "Type", width: 380 },
+  { field: "Status", headerName: "Status", width: 380 },
   { field: "Category", headerName: "Category", width: 380 },
 ];
 
 const rows = [
   {
     id: 1,
-    Name: "Acceptable Encryption Policy",
+    Name: "sample",
     Type: "Core",
-    Category: "Essential",
-  },
-  {
-    id: 2,
-    Name: "Acceptable Use Policy",
-    Type: "Core",
-    Category: "Encryption",
-  },
-  {
-    id: 3,
-    Name: "Anti-Malware Policy",
-    Type: "Core",
-    Category: "Other",
-  },
-  {
-    id: 4,
-    Name: "Anti-Social-Engineering Policy",
-    Type: "Core",
-    Category: "Essential",
+    Status: "Live",
+    Category: "Compliance",
   },
 
 ];
@@ -115,3 +98,5 @@ export default function ReportTableData() {
     </div>
   );
 }
+
+
