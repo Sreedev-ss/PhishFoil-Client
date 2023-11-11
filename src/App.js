@@ -97,6 +97,7 @@ import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/Google
 import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
+import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
@@ -253,6 +254,7 @@ export default function App() {
         <Route exact path="/autoenrol/coursereminderemails" element={<CourseReminderEmails />} />;
         <Route exact path="/autoenrol/autoPhish" element={<AutoPhish />} />;
         <Route exact path="/autoenrol/workingHours" element={<WorkingHours />} />;
+        <Route exact path="/autoenrol/externalpolicyaccess" element={<ExternalPolicyAccess />} />;
         <Route
           exact
           path="/autoenrol/preferedTopLevelDomain"

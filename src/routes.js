@@ -110,6 +110,7 @@ import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/Google
 import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
+import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Ubreach from "layouts/ubreach";
@@ -548,6 +549,13 @@ const routes = [
         key: "reportsettings",
         route: "/autoenrol/reportsettings",
         component: <ReportSettings />,
+      },
+      {
+        type: "collapse",
+        name: "External Policy Access",
+        key: "externalpolicyaccess",
+        route: "/autoenrol/externalpolicyaccess",
+        component: <ExternalPolicyAccess />,
       },
     ],
   },
