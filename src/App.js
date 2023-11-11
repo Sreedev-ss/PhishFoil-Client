@@ -98,6 +98,7 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
+import DefaultPolicySignatureSettings from "layouts/autoenrol/components/uPolicyComponents/DefaultPolicySignatureSettings";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Theme from "layouts/autoenrol/components/Theme/Theme";
 import Customers from "layouts/uService/Customers";
@@ -264,6 +265,7 @@ export default function App() {
         <Route exact path="/autoenrol/autoPhish" element={<AutoPhish />} />;
         <Route exact path="/autoenrol/workingHours" element={<WorkingHours />} />;
         <Route exact path="/autoenrol/externalpolicyaccess" element={<ExternalPolicyAccess />} />;
+        <Route exact path="/autoenrol/defaultpolicysignaturesettings" element={<DefaultPolicySignatureSettings />} />;
         <Route
           exact
           path="/autoenrol/preferedTopLevelDomain"

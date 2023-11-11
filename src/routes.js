@@ -111,6 +111,7 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
+import DefaultPolicySignatureSettings from "layouts/autoenrol/components/uPolicyComponents/DefaultPolicySignatureSettings";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Theme from "assets/theme";
@@ -593,6 +594,13 @@ const routes = [
         key: "externalpolicyaccess",
         route: "/autoenrol/externalpolicyaccess",
         component: <ExternalPolicyAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Default Policy Signature Settings",
+        key: "defaultpolicysignaturesettings",
+        route: "/autoenrol/defaultpolicysignaturesettings",
+        component: <DefaultPolicySignatureSettings />,
       },
     ],
   },
