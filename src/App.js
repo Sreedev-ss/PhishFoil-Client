@@ -98,6 +98,8 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import Theme from "layouts/autoenrol/components/Theme/Theme";
+import Customers from "layouts/uService/Customers";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -213,6 +215,13 @@ export default function App() {
         <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
         <Route exact path="layouts/home" element={<Home />} />;
         <Route path="*" element={<Navigate to="/dashboard" />} />
+
+        
+        <Route exact path="/autoenrol/coursereminderemails" element={<CourseReminderEmails />} />
+
+         {/* USERVICE */}
+        <Route exact path="/uService/customers" element={<Customers />} />;
+
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
         <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
@@ -280,6 +289,7 @@ export default function App() {
         <Route exact path="/autoenrol/googleworkspace" element={<GoogleWorkspace />} />;
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
+        <Route exact path="/autoenrol/theme" element={<Theme />} />
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

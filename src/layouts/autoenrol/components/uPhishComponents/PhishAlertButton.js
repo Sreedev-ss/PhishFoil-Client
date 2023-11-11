@@ -396,14 +396,8 @@ const PhishAlertButton = () => {
                     <RestartAltIcon style={{ marginRight: "5px" }} />
                     Reset
                   </Button>
-                </div>
-
-
-
-                
+                </div>      
               </Box>
-
-
               <Box>
                 <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
                   * Icon (16x16) :
