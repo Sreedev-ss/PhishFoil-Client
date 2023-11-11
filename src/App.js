@@ -98,6 +98,7 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 
 export default function App() {
@@ -213,6 +214,7 @@ export default function App() {
         <Route exact path="/ulearn/course-builder" element={<CourseBuilder />} />;
         <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
         <Route exact path="layouts/home" element={<Home />} />;
+        <Route exact path="layouts/ubreach" element={<Ubreach />} />;
         <Route path="*" element={<Navigate to="/dashboard" />} />
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
