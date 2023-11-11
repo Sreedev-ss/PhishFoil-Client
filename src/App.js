@@ -105,6 +105,7 @@ import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
+import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -300,6 +301,7 @@ export default function App() {
         <Route exact path="/autoenrol/theme" element={<Theme />} />
         <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
         <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
+        <Route exact path="/uPolicy/viewpolicies" element={<ViewPolicies />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

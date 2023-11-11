@@ -119,6 +119,7 @@ import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
+import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 
 const routes = [
   // {
@@ -197,6 +198,13 @@ const routes = [
         key: "templatebuilder",
         route: "/uPolicy/templatebuilder",
         component: <TemplateBuilder />,
+      },
+      {
+        type: "collapse",
+        name: "View Policies",
+        key: "viewpolicies",
+        route: "/uPolicy/viewpolicies",
+        component: <ViewPolicies />,
       },
     ],
   },
