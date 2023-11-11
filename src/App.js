@@ -98,6 +98,8 @@ import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSe
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import Theme from "layouts/autoenrol/components/Theme/Theme";
+import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
@@ -217,6 +219,13 @@ export default function App() {
         <Route exact path="layouts/home" element={<Home />} />;
         <Route exact path="layouts/ubreach" element={<Ubreach />} />;
         <Route path="*" element={<Navigate to="/dashboard" />} />
+
+        
+        <Route exact path="/autoenrol/coursereminderemails" element={<CourseReminderEmails />} />
+
+         {/* USERVICE */}
+        <Route exact path="/uService/customers" element={<Customers />} />;
+
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
         <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
@@ -284,10 +293,9 @@ export default function App() {
         <Route exact path="/autoenrol/googleworkspace" element={<GoogleWorkspace />} />;
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
-
+        <Route exact path="/autoenrol/theme" element={<Theme />} />
         <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
         <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
-
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
