@@ -160,6 +160,7 @@ const routes = [
   //   component: <UPolicy />,
   //   noCollapse: true,
   // },
+  },
   {
     type: "collapse",
     name: "uPolicy",
