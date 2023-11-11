@@ -1,21 +1,27 @@
-import { Typography, Button, TextField, MenuItem, Switch, Modal } from "@mui/material";
-
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {
+  Typography,
+  Button,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  Switch,
+  Modal,
+} from "@mui/material";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React, { useState } from "react";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box } from "@mui/system";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import Divider from "@mui/material/Divider";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 const style = {
   position: "absolute",
   top: "30%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "40%",
+  width: "30%",
   bgcolor: "background.paper",
   p: 4,
   maxHeight: "400px",
@@ -29,17 +35,29 @@ const styles = {
 };
 const dividerStyle = {
   color: "rgb(30, 123, 228)",
-  fontSize: "18px", // Adjust the font size as needed
+// color:'blue',
+  fontSize: "18px",
   textAlign: "center",
-  fontWeight: "bold", // Adjust the font weight as needed
-  // margin: '16px 0',
-  marginTop: "50px", // Adjust the margin as needed
+  marginTop: "50px",
 };
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 const WeeklySummary = () => {
   const [reminder, setReminder] = useState("");
   const [continueModalOpen, setCountinueModalOpen] = useState(false);
+
+  const[OpenModal, setOpenModal] = useState(false);
+
+  const ModalOpen = ()=> {
+    setOpenModal(true);
+  }
+  const CloseModal = () => {
+    setOpenModal(false);
+  }
+  const removeCloseModal = () => {
+    CloseModal();
+  }
+
 
   const handleChangedReminders = (event) => {
     setReminder(event.target.value);
@@ -93,7 +111,7 @@ const WeeklySummary = () => {
       <div>
         <Divider style={dividerStyle}>Report Audience</Divider>
       </div>
-      <div style={{marginTop:"50px"}}>
+      <div style={{ marginTop: "50px" }}>
         <p style={styles}>
           Please select the user types that the Weekly Summary report will be sent to. You must
           select at least one to enable the Weekly Summary report.
@@ -139,12 +157,8 @@ const WeeklySummary = () => {
       <div>
         <Divider style={dividerStyle}>Send Weekly Summary Manually</Divider>
       </div>
-      <div style={{marginTop:"50px"}}>
-      <p
-              style={
-               styles
-              }
-            >
+      <div style={{ marginTop: "50px" }}>
+        <p style={styles}>
           You can use the button below to send the Weekly Summary report manually. You should only
           use this option if you want to send a one off report or reissue the report because a
           recent send out failed.
@@ -180,6 +194,67 @@ const WeeklySummary = () => {
               color: "black",
             }}
           >
+            Send Weekly Summary Manually
+            <p
+              style={{
+                marginTop: "5px",
+                color: "gray",
+                fontSize: "13px",
+                marginLeft: "15px",
+              }}
+            >
+              Please select the user types you wish to send the Weekly Summary report to.
+            </p>
+          </Typography>
+
+          <FormGroup>
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Admin Users" />
+            <FormControlLabel control={<Checkbox defaultChecked />} label="Group Managers" />
+            <FormControlLabel control={<Checkbox defaultChecked />} label="User Managers" />
+            {/* <FormControlLabel required control={<Checkbox />} label="Required" /> */}
+            {/* <FormControlLabel disabled control={<Checkbox />} label="Disabled" /> */}
+          </FormGroup>
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              mt: 2,
+              gap: 2,
+            }}
+          >
+            <Button
+              variant="contained"
+              style={{
+                color: "#fff",
+                background: "rgb(30, 123, 228)",
+                marginTop: "9px",
+                fontWeight: "lighter",
+              }}
+              onClick={ModalOpen}
+            >
+              <MailOutlineIcon style={{ marginRight: "3px" }} />
+              Send Weekly Summary now
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
+      <Modal
+        open={OpenModal}
+        onClose={CloseModal}
+        aria-labelledby="send-test-email-modal-title"
+        aria-describedby="send-test-email-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="send-test-email-modal-title"
+            variant="h6"
+            component="h2"
+            style={{
+              fontWeight: "lighter",
+              color: "black",
+            }}
+          >
             <HelpOutlineIcon style={{ color: "orange" }} />
             Are you sure you wish to continue?
             <p
@@ -202,12 +277,12 @@ const WeeklySummary = () => {
               gap: 2,
             }}
           >
-            <Button variant="contained" onClick={removeContinueModal} style={{ color: "#fff" }}>
+            <Button variant="contained" onClick={removeCloseModal} style={{ color: "#fff" }}>
               No
             </Button>
             <Button
               variant="outlined"
-              onClick={closeContinueModal}
+              onClick={CloseModal}
               style={{ marginRight: "5px", color: "black" }}
             >
               Yes
@@ -215,7 +290,7 @@ const WeeklySummary = () => {
           </Box>
         </Box>
       </Modal>
-  
+
       <div>
         <Button
           variant="contained"

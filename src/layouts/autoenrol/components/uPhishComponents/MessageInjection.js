@@ -24,12 +24,11 @@ const style = {
   maxHeight: "400px",
 };
 const dividerStyle = {
-  color: 'rgb(30, 123, 228)',
-  fontSize: '18px', // Adjust the font size as needed
-  textAlign: 'center',
-  fontWeight: 'bold', // Adjust the font weight as needed
-  // margin: '16px 0',
-  marginTop:"50px" // Adjust the margin as needed
+  color: "rgb(30, 123, 228)",
+  fontSize: "18px",
+  textAlign: "center",
+  fontWeight: "bold",
+  marginTop: "50px",
 };
 
 const MessageInjection = () => {
@@ -103,8 +102,7 @@ const MessageInjection = () => {
         </Button>
       </div>
       <div>
-
-      <Divider style={dividerStyle}>Google Workspace</Divider>
+        <Divider style={dividerStyle}>Google Workspace</Divider>
       </div>
       <div style={{ marginTop: "37px" }}>
         <Box>
@@ -127,10 +125,94 @@ const MessageInjection = () => {
           marginTop: "9px",
           fontWeight: "lighter",
         }}
+        onClick={openContinueModal}
       >
         <GoogleIcon style={{ marginRight: "3px" }} />
         Configure Service Account
       </Button>
+      <Modal
+        open={continueModalOpen}
+        onClose={closeContinueModal}
+        aria-labelledby="send-test-email-modal-title"
+        aria-describedby="send-test-email-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="send-test-email-modal-title"
+            variant="h6"
+            component="h2"
+            style={{
+              fontWeight: "lighter",
+              color: "black",
+            }}
+          >
+            Configure Your Google Service Account
+            <p
+              style={{
+                marginTop: "5px",
+                color: "gray",
+                fontSize: "13px",
+                marginLeft: "15px",
+              }}
+            >
+              * Upload Service Account JSON Credentials :
+            </p>
+          </Typography>
+          <div
+            style={{
+              backgroundColor: "#e6f7ff",
+              marginTop: "10px",
+              padding: "10px",
+              border: "1px solid #91d5ff",
+              fontSize: "15px",
+              fontWeight: "lighter",
+              color: "gray",
+              fontFamily: "sans-serif",
+            }}
+          >
+            <p>
+              You need to upload a JSON file containing the credentials for a key on your service
+              account.
+            </p>
+          </div>
+      
+
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              mt: 2,
+              gap: 2,
+            }}
+          >
+            <Button
+              variant="contained"
+              onClick={removeContinueModal}
+              style={{
+                color: "#fff",
+                background: "rgb(30, 123, 228)",
+                marginTop: "9px",
+                fontWeight: "lighter",
+                
+              }}
+            >
+              Continue
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={closeContinueModal}
+              style={{
+                color: "black",
+                background: "#fff",
+                marginTop: "9px",
+                fontWeight: "lighter",
+              }}
+            >
+              Cancel
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </DashboardLayout>
   );
 };

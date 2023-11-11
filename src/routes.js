@@ -113,6 +113,8 @@ import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport"
 import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
+import Theme from "assets/theme";
+import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
@@ -136,6 +138,15 @@ const routes = [
     component: <Users />,
     noCollapse: true,
   },
+  {
+  type: "collapse",
+  name: "Customers",
+  key: "customers",
+  route: "/customers",
+  icon: <Office size="12px" />,
+  component: <Customers />,
+  noCollapse: true,
+},
   {
     type: "collapse",
     name: "Home",
@@ -266,6 +277,25 @@ const routes = [
       },
     ],
   },
+  {
+    type: "collapse",
+    name: "Auto Enrol",
+    key: "autoenrol",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Course Slide Delay",
+        key: "courseslidedelay",
+        route: "/autoenrol/courseslidedelay",
+        component: <CourseSlideDelay />,
+      },
+    ],
+    },
+
   {
     type: "collapse",
     name: "Auto Enrol",
@@ -500,6 +530,13 @@ const routes = [
         key: "microsoft365",
         route: "/autoenrol/microsoft365",
         component: <Microsoft365 />,
+      },
+      {
+        type: "collapse",
+        name: "Theme",
+        key: "theme",
+        route: "/autoenrol/theme",
+        component: <Theme />,
       },
       {
         type: "collapse",
