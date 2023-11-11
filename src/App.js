@@ -100,6 +100,9 @@ import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport"
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Theme from "layouts/autoenrol/components/Theme/Theme";
 import Customers from "layouts/uService/Customers";
+import Ubreach from "layouts/ubreach";
+import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -214,6 +217,7 @@ export default function App() {
         <Route exact path="/ulearn/course-builder" element={<CourseBuilder />} />;
         <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
         <Route exact path="layouts/home" element={<Home />} />;
+        <Route exact path="layouts/ubreach" element={<Ubreach />} />;
         <Route path="*" element={<Navigate to="/dashboard" />} />
 
         
@@ -290,6 +294,8 @@ export default function App() {
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
         <Route exact path="/autoenrol/theme" element={<Theme />} />
+        <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
+        <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

@@ -23,7 +23,7 @@ import { useRef, useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
 
 import PieChartWithCenterLabel from "layouts/uLearn/CourseReport/PieChart";
-import ReportTableDisplay from "../ReportTableDisplay";
+import BreachTableDisplay from "./BreachTabledisplay";
 
 const style = {
   position: "absolute",
@@ -37,10 +37,9 @@ const style = {
   p: 4,
 };
 
-
 const languageOptions = ["English", "Spanish", "French", "German"];
 
-const GapAnalysisReport = () => {
+const Ubreach = () => {
   const [report, setReport] = useState(true);
   const [uPolicyReport, setUPolicyReport] = useState(false);
   const [uPolicyChartBar, setUPolicyChartBar] = useState(false);
@@ -61,9 +60,21 @@ const GapAnalysisReport = () => {
               backgroundColor: "white",
             }}
           >
-            <Typography sx={{ fontSize: "large", color: "black", fontWeight: "bold" }}>
-              uLearn - Gap Analysis Report
-            </Typography>
+            <div
+              style={{
+                display: "flex",
+                gap: "5px",
+                alignItems: "center",
+                padding: "15px",
+                height: "5rem",
+                backgroundColor: "white",
+              }}
+            >
+              <h5 style={{ margin: "5px" }}>uBreach</h5>
+              <span style={{ margin: "0px" }}>
+                <AiFillInfoCircle />
+              </span>
+            </div>
             <FormGroup>
               <FormControlLabel control={<Switch />} label="Hide Inactive Users" />
             </FormGroup>
@@ -92,24 +103,28 @@ const GapAnalysisReport = () => {
                   paddingRight: 15,
                 }}
               >
-                <Typography
-                  sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "0px" }}
-                >
-                  Average Time Taken
-                </Typography>
+                <h5 style={{ margin: "0px" }}>Total Breaches</h5>
                 <span>
                   <AiFillInfoCircle />
                 </span>
               </div>
 
-              <div>
-                <h1>7 Minutes</h1>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                }}
+              >
+                <h1>0</h1>
               </div>
               <div>
                 <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}></h5>
               </div>
               <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
-              <h6 style={{ fontWeight: 400 }}>From Enrolment - 21 Days</h6>
+              <h6 style={{ fontWeight: 400 }}>Services appeared in - 0</h6>
             </div>
 
             <div
@@ -134,22 +149,63 @@ const GapAnalysisReport = () => {
                   paddingRight: 15,
                 }}
               >
-                <h5 style={{ margin: "0px" }}>Started</h5>
+                <h5 style={{ margin: "0px" }}>Latest Breach</h5>
+                {/* <span>
+                  <AiFillInfoCircle />
+                </span> */}
+              </div>
+
+              <div>
+                <h1>No Breaches Found</h1>
+              </div>
+
+              <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
+              <h6 style={{ fontWeight: 400 }}>Latest Breached Service - N/A</h6>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: 300,
+                height: 290,
+                padding: 10,
+                backgroundColor: "white",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 25,
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}
+              >
+                <h5 style={{ margin: "0px" }}>Total Breaches</h5>
                 <span>
                   <AiFillInfoCircle />
                 </span>
               </div>
 
-              <div style={{ width: 150, height: "100%" }}>
-                <ReviewsBar score={37} report={report} />
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
+                  justifyContent: "center",
+                }}
+              >
+                <h1>8</h1>
               </div>
               <div>
-                <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
-                  of courses have been started
-                </h5>
+                <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}></h5>
               </div>
               <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
-              <h6 style={{ fontWeight: 400 }}>Total - 3</h6>
+              <h6 style={{ fontWeight: 400 }}>Users not breached - 8</h6>
             </div>
             <div
               style={{
@@ -173,165 +229,29 @@ const GapAnalysisReport = () => {
                   paddingRight: 15,
                 }}
               >
-                <h5 style={{ margin: "0px" }}>Completed</h5>
+                <h5 style={{ margin: "0px" }}>Breached</h5>
                 <span>
                   <AiFillInfoCircle />
                 </span>
               </div>
-              <div style={{ width: 150, height: "100%" }}>
-                <ReviewsBar score={37} report={report} />
-              </div>
-              <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
-                of courses have been started
-              </h5>
-              <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
-              <h6 style={{ fontWeight: 400 }}>Total - 3</h6>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                width: 300,
-                height: 290,
-                padding: 10,
-                backgroundColor: "white",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: 25,
-              }}
-            >
               <div
                 style={{
-                  width: "100%",
                   display: "flex",
-                  justifyContent: "space-between",
-                  paddingLeft: 15,
-                  paddingRight: 15,
+                  alignItems: "center",
+                  width: 150,
+                  height: "100%",
+                  justifyContent: "center",
                 }}
               >
-                <h5 style={{ margin: "0px" }}>Average Score</h5>
-                <span>
-                  <AiFillInfoCircle />
-                </span>
+                <ReviewsBar score={0} />
               </div>
-              <div style={{ width: 150, height: "100%" }}>
-                <ReviewsBar score={43} report={report} />
-              </div>
-              <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
+              {/* <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
                 is the average score for all courses
-              </h5>
+              </h5> */}
               <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
-              <h6 style={{ fontWeight: 400 }}>Total Courses Enrolled - 8</h6>
+              <h6 style={{ fontWeight: 400 }}>Total Users Breached - 0</h6>
             </div>
           </div>
-
-          <Grid container spacing={2}>
-            <Grid item xs={6} md={8}>
-              <React.Fragment>
-                <Card sx={{ marginTop: 3 }}>
-                  <SoftBox
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="end"
-                    alignItems="flex-end"
-                    p={3}
-                  ></SoftBox>
-                  <SoftBox
-                    sx={{
-                      "& .MuiTableRow-root:not(:last-child)": {
-                        "& td": {
-                          borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                            `${borderWidth[1]} solid ${borderColor}`,
-                        },
-                      },
-                    }}
-                  >
-                    <div
-                      style={{
-                        gap: "5px",
-                        padding: "15px",
-                        backgroundColor: "white",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          fontSize: "large",
-                          color: "black",
-                          fontWeight: "bold",
-                          margin: "0px",
-                        }}
-                      >
-                        Number of completed courses vs Score
-                      </Typography>
-                      <div
-                        style={{
-                          width: "100%",
-                          height: 700,
-                        }}
-                      >
-                        <ChartBar uPolicyChartBar={uPolicyChartBar} />
-                      </div>
-                    </div>
-                  </SoftBox>
-                </Card>
-              </React.Fragment>
-            </Grid>
-
-            <Grid item xs={6} md={4}>
-              <React.Fragment>
-                <div>
-                  <Card sx={{ marginTop: 3 }}>
-                    <SoftBox
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="end"
-                      alignItems="flex-end"
-                      p={3}
-                    ></SoftBox>
-                    <SoftBox
-                      sx={{
-                        "& .MuiTableRow-root:not(:last-child)": {
-                          "& td": {
-                            borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                              `${borderWidth[1]} solid ${borderColor}`,
-                          },
-                        },
-                      }}
-                    >
-                      <div
-                        style={{
-                          gap: "5px",
-                          padding: "15px",
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontSize: "large",
-                            color: "black",
-                            fontWeight: "bold",
-                            margin: "0px",
-                          }}
-                        >
-                          Course Participation
-                        </Typography>
-                        <div
-                          style={{
-                            display: "flex",
-                            alignItems: "Center",
-                            width: "100%",
-                            height: 700,
-                          }}
-                        >
-                          <PieChartWithCenterLabel uPolicyReport={uPolicyReport} />
-                        </div>
-                      </div>
-                    </SoftBox>
-                  </Card>
-                </div>
-              </React.Fragment>
-            </Grid>
-          </Grid>
 
           <Card sx={{ marginTop: 3 }}>
             <SoftBox
@@ -361,7 +281,7 @@ const GapAnalysisReport = () => {
                     marginRight: 30,
                   }}
                 >
-                  <ReportTableDisplay />
+                  <BreachTableDisplay />
                 </div>
               </div>
             </SoftBox>
@@ -372,4 +292,4 @@ const GapAnalysisReport = () => {
   );
 };
 
-export default GapAnalysisReport;
+export default Ubreach;

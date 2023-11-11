@@ -114,6 +114,9 @@ import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Theme from "assets/theme";
 import Customers from "layouts/uService/Customers";
+import Ubreach from "layouts/ubreach";
+import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 
 const routes = [
   // {
@@ -151,6 +154,49 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Home />,
     noCollapse: true,
+  },
+  {
+    type: "collapse",
+    name: "uBreach",
+    key: "ubreach",
+    route: "/ubreach",
+    icon: <Office size="12px" />,
+    component: <Ubreach />,
+    noCollapse: true,
+  // {
+  //   type: "collapse",
+  //   name: "uPolicy",
+  //   key: "upolicy",
+  //   route: "/upolicy",
+  //   icon: <Office size="12px" />,
+  //   component: <UPolicy />,
+  //   noCollapse: true,
+  // },
+  },
+  {
+    type: "collapse",
+    name: "uPolicy",
+    key: "upolicy",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Template Library",
+        key: "templatelibrary",
+        route: "/uPolicy/templatelibrary",
+        component: <TemplateLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Template Builder",
+        key: "templatebuilder",
+        route: "/uPolicy/templatebuilder",
+        component: <TemplateBuilder />,
+      },
+    ],
   },
   {
     type: "collapse",
