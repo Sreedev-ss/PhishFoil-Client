@@ -10,6 +10,7 @@ const items = ['a Testh <vedishwaran1@twintechsolution.com', 'g Testj <vedishwar
 const items2 = ['No Group', 'Administration', 'Sample', 'Technical'];
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Link } from "react-router-dom";
 import {
 
     AiOutlineArrowRight,
@@ -236,7 +237,11 @@ const UpdateActionsButton = () => {
                           </Modal>
 
             <MenuItem onClick={handleClose}>Upload Policy Signatures</MenuItem>
-            <MenuItem onClick={handleClose}>Edit Policy</MenuItem>
+            <MenuItem component={Link} to="/editPolicy">Edit Policy</MenuItem>
+            {/* <MenuItem component={Link} to="/editTemplate" style={{background:'#fff'}}>
+                            <EditIcon />
+                            Edit Template
+                          </MenuItem> */}
             <MenuItem onClick={OpenDuplicateTempModal}> <ContentCopyIcon/>Duplicate Policy</MenuItem>
 
             <Modal

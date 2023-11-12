@@ -123,6 +123,7 @@ import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
 import EditTemplate from "layouts/uPolicy/data/editTemplate";
+import EditPolicy from "layouts/uPolicy/data/editPolicy";
 
 
 const routes = [
@@ -642,6 +643,11 @@ const routes = [
   {
     route: "/editTemplate",
     component: <EditTemplate />,
+    noCollapse: true,
+  },
+  {
+    route: "/editPolicy",
+    component: <EditPolicy />,
     noCollapse: true,
   },
 
