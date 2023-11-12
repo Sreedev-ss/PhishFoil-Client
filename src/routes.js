@@ -154,14 +154,14 @@ const routes = [
     noCollapse: true,
   },
   {
-  type: "collapse",
-  name: "Customers",
-  key: "customers",
-  route: "/customers",
-  icon: <Office size="12px" />,
-  component: <Customers />,
-  noCollapse: true,
-},
+    type: "collapse",
+    name: "Customers",
+    key: "customers",
+    route: "/customers",
+    icon: <Office size="12px" />,
+    component: <Customers />,
+    noCollapse: true,
+  },
   {
     type: "collapse",
     name: "Uphish",
@@ -229,15 +229,15 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Ubreach />,
     noCollapse: true,
-  // {
-  //   type: "collapse",
-  //   name: "uPolicy",
-  //   key: "upolicy",
-  //   route: "/upolicy",
-  //   icon: <Office size="12px" />,
-  //   component: <UPolicy />,
-  //   noCollapse: true,
-  // },
+    // {
+    //   type: "collapse",
+    //   name: "uPolicy",
+    //   key: "upolicy",
+    //   route: "/upolicy",
+    //   icon: <Office size="12px" />,
+    //   component: <UPolicy />,
+    //   noCollapse: true,
+    // },
   },
   {
     type: "collapse",
@@ -287,23 +287,6 @@ const routes = [
       },
     ],
   },
-  {
-    type: "collapse",
-    name: "Auto Enrol",
-    key: "autoenrol",
-    icon: <CreditCard size="12px" />,
-    noCollapse: false,
-    subroutes: [
-      // Define subroutes for Uphish
-      {
-        type: "collapse",
-        name: "Course Slide Delay",
-        key: "courseslidedelay",
-        route: "/autoenrol/courseslidedelay",
-        component: <CourseSlideDelay />,
-      },
-    ],
-    },
 
   {
     type: "collapse",
@@ -380,12 +363,7 @@ const routes = [
         route: "/autoenrol/policyReminderEmails",
         component: <PolicyReminderEmails />,
       },
-      {
-        route: "/uPolicy/createTemplate",
-        component: <CreateTemplate />,
-        noCollapse: true,
-      },
-      
+
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -667,7 +645,7 @@ const routes = [
     noCollapse: true,
   },
 
-  
+
 
   //landing Page Routes
   {
@@ -711,25 +689,25 @@ const routes = [
     noCollapse: true,
   },
 
-  { type: "title", title: "Account Pages", key: "account-pages" },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <CustomerSupport size="12px" />,
-    component: <Profile />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
-    component: <SignIn />,
-    noCollapse: true,
-  },
+  // { type: "title", title: "Account Pages", key: "account-pages" },
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   route: "/profile",
+  //   icon: <CustomerSupport size="12px" />,
+  //   component: <Profile />,
+  //   noCollapse: true,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   route: "/authentication/sign-in",
+  //   icon: <Document size="12px" />,
+  //   component: <SignIn />,
+  //   noCollapse: true,
+  // },
   // {
   //   type: "collapse",
   //   name: "Sign Up",

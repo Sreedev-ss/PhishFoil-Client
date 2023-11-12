@@ -199,7 +199,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     {/* {console.log(userData.token)} */}
                     {userData?.token ? "Logout"  : "Login"} 
                   </SoftTypography>
-                  <div style={{display:'flex',flexDirection:'column', backgroundColor:'#D2D6DA'}}>
+                  <div style={{display:'flex',flexDirection:'column', backgroundColor:'#F1F1F1',borderRadius:'15px',marginLeft:'10px', padding:'7px'}}>
                   <SoftTypography
                     variant="button"
                     fontWeight="medium"
@@ -212,7 +212,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                     fontWeight="medium"
                     color={light ? "white" : "dark"}
                   >
-                    {userData?.role} 
+                    {userData?.role.toUpperCase()} 
                   </SoftTypography>
                   </div>
                 </IconButton>
@@ -234,17 +234,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 // onClick={handleConfiguratorOpen}
               >
                 <Icon>settings</Icon>
-              </IconButton>
-              <IconButton
-                size="small"
-                color="inherit"
-                sx={navbarIconButton}
-                aria-controls="notification-menu"
-                aria-haspopup="true"
-                variant="contained"
-                // onClick={handleOpenMenu}
-              >
-                <Icon className={light ? "text-white" : "text-dark"}>notifications</Icon>
               </IconButton>
               {renderMenu()}
             </SoftBox>
