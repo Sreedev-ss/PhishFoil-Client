@@ -9,6 +9,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 const items = ['a Testh <vedishwaran1@twintechsolution.com', 'g Testj <vedishwaran1@twintechsolution.com', 'Vedishwaran R <vedishwaran1@twintechsolution.com', 'harri loganathan <harri@twintechsolution.com', 'Kalaiyarasi V <kalai@twintechsolution.com'];
 const items2 = ['No Group', 'Administration', 'Sample', 'Technical'];
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {
 
     AiOutlineArrowRight,
@@ -33,6 +34,15 @@ const UpdateActionsButton = () => {
     const [addLangModalOpen, setAddLangModalOpen] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
+    const [duplicateTemp, setDuplicateTemp] = useState(false);
+
+    const OpenDuplicateTempModal = () => {
+      setDuplicateTemp(true);
+    };
+    const closeDuplicateTempModal = () => {
+      setDuplicateTemp(false);
+    };
+
 
     const openAddLangModal = () => {
       setAddLangModalOpen(true);
@@ -113,11 +123,6 @@ const UpdateActionsButton = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-           {/* <MenuItem  onClick= style={{ background: "#fff" }}>
-                                <DeleteIcon />
-                                Delete User
-                              </MenuItem> */}
-            {/* <MenuItem onClick={handleClose}>Send Policy</MenuItem> */}
 
             <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
                             <MailOutlineIcon style={{fontSize:'small'}} />
@@ -232,7 +237,65 @@ const UpdateActionsButton = () => {
 
             <MenuItem onClick={handleClose}>Upload Policy Signatures</MenuItem>
             <MenuItem onClick={handleClose}>Edit Policy</MenuItem>
-            <MenuItem onClick={handleClose}>Duplicate Policy</MenuItem>
+            <MenuItem onClick={OpenDuplicateTempModal}> <ContentCopyIcon/>Duplicate Policy</MenuItem>
+
+            <Modal
+                open={duplicateTemp}
+                onClose={closeDuplicateTempModal}
+                aria-labelledby="send-test-email-modal-title"
+                aria-describedby="send-test-email-modal-description"
+                >
+
+                <Box sx={style}>
+                    <Typography
+                    id="send-test-email-modal-title"
+                    variant="h6"
+                    component="h2"
+                    >
+                   Duplicate Password Construction Guidelines
+                    </Typography>
+                    <Box style={{marginTop:'30px'}}>
+                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                    Policy Title:
+                    </label>
+                    </Box>
+                    <TextField
+                    fullWidth
+                    defaultValue="(copy)"
+                    type="text"
+                    sx={{ gridColumn: "span 2" , color:'gray'}}
+                    />
+
+                    <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        mt: 2,
+                        gap: 2,
+                        marginTop:'25px'
+                    }}
+                    >
+                    <Button
+                        variant="contained"
+                        onClick={closeDuplicateTempModal}
+                        style={{ color: "#fff" }}
+                    >
+                        No
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        // onClick={() => deleteUserModal(item.detailsid)}
+                        onClick={closeDuplicateTempModal}
+                        border="rgb(30, 123, 228)"
+                        style={{ marginRight: "5px", color: "rgb(30, 123, 228)" }}
+                    >
+                        Save Duplicate
+                    </Button>
+                    </Box>
+                </Box>
+                </Modal>
+
+
             <MenuItem onClick={OpendeleteUserModal}> <DeleteIcon />Delete Policy</MenuItem>
             <Modal
                 open={deleteUser}
