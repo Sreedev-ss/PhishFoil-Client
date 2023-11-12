@@ -177,48 +177,6 @@ import AddIcon from '@mui/icons-material/Add';
                 <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
                 <h6 style={{ fontWeight: 400 }}>Policies with recipients - 6</h6>
               </div>
-
-              
-  
-              {/* <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: 300,
-                  height: 290,
-                  padding: 10,
-                  backgroundColor: "white",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: 25,
-                }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    paddingLeft: 15,
-                    paddingRight: 15,
-                  }}
-                >
-                  <h5 style={{ margin: "0px" }}>Started</h5>
-                  <span>
-                    <AiFillInfoCircle />
-                  </span>
-                </div>
-  
-                <div style={{ width: 150, height: "100%" }}>
-                  <ReviewsBar score={37} report={report} />
-                </div>
-                <div>
-                  <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
-                    of courses have been started
-                  </h5>
-                </div>
-                <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
-                <h6 style={{ fontWeight: 400 }}>Total - 3</h6>
-              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -292,116 +250,9 @@ import AddIcon from '@mui/icons-material/Add';
                 <h6 style={{ fontWeight: 400 }}>Total - 7</h6>
               </div>
             </div>
-  
-            {/* <Grid container spacing={2}>
-              <Grid item xs={6} md={8}>
-                <React.Fragment>
-                  <Card sx={{ marginTop: 3 }}>
-                    <SoftBox
-                      display="flex"
-                      flexDirection="row"
-                      justifyContent="end"
-                      alignItems="flex-end"
-                      p={3}
-                    ></SoftBox>
-                    <SoftBox
-                      sx={{
-                        "& .MuiTableRow-root:not(:last-child)": {
-                          "& td": {
-                            borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                              `${borderWidth[1]} solid ${borderColor}`,
-                          },
-                        },
-                      }}
-                    >
-                      <div
-                        style={{
-                          gap: "5px",
-                          padding: "15px",
-                          backgroundColor: "white",
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontSize: "large",
-                            color: "black",
-                            fontWeight: "bold",
-                            margin: "0px",
-                          }}
-                        >
-                          Number of completed courses vs Score
-                        </Typography>
-                        <div
-                          style={{
-                            width: "100%",
-                            height: 700,
-                          }}
-                        >
-                          <ChartBar uPolicyChartBar={uPolicyChartBar} />
-                        </div>
-                      </div>
-                    </SoftBox>
-                  </Card>
-                </React.Fragment>
-              </Grid>
-  
-              <Grid item xs={6} md={4}>
-                <React.Fragment>
-                  <div>
-                    <Card sx={{ marginTop: 3 }}>
-                      <SoftBox
-                        display="flex"
-                        flexDirection="row"
-                        justifyContent="end"
-                        alignItems="flex-end"
-                        p={3}
-                      ></SoftBox>
-                      <SoftBox
-                        sx={{
-                          "& .MuiTableRow-root:not(:last-child)": {
-                            "& td": {
-                              borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                                `${borderWidth[1]} solid ${borderColor}`,
-                            },
-                          },
-                        }}
-                      >
-                        <div
-                          style={{
-                            gap: "5px",
-                            padding: "15px",
-                            backgroundColor: "white",
-                          }}
-                        >
-                          <Typography
-                            sx={{
-                              fontSize: "large",
-                              color: "black",
-                              fontWeight: "bold",
-                              margin: "0px",
-                            }}
-                          >
-                            Course Participation
-                          </Typography>
-                          <div
-                            style={{
-                              display: "flex",
-                              alignItems: "Center",
-                              width: "100%",
-                              height: 700,
-                            }}
-                          >
-                            <PieChartWithCenterLabel uPolicyReport={uPolicyReport} />
-                          </div>
-                        </div>
-                      </SoftBox>
-                    </Card>
-                  </div>
-                </React.Fragment>
-              </Grid>
-            </Grid> */}
 
-<SoftBox py={3}>
+
+              <SoftBox py={3}>
                 <SoftBox mb={3}>
                     <div 
                         style=
@@ -415,17 +266,6 @@ import AddIcon from '@mui/icons-material/Add';
                             backgroundColor: 'white' 
                             }}
                     >
-                        {/* <Typography 
-                            sx=
-                            {{ 
-                                fontSize: "large", 
-                                color: "black", 
-                                fontWeight: "bold" 
-                            }}
-                        >
-                        uPolicy - Template Builder
-                        </Typography> */}
-                    
                         <Button
                                 style={{
                                     border: '0.5px solid rgb(30, 123, 228)',
@@ -551,40 +391,6 @@ import AddIcon from '@mui/icons-material/Add';
                     </Card>
                 </SoftBox>
             </SoftBox>
-  
-            {/* <Card sx={{ marginTop: 3 }}>
-              <SoftBox
-                display="flex"
-                flexDirection="row"
-                justifyContent="end"
-                alignItems="flex-end"
-                p={3}
-              ></SoftBox>
-              <SoftBox
-                sx={{
-                  "& .MuiTableRow-root:not(:last-child)": {
-                    "& td": {
-                      borderBottom: ({ borders: { borderWidth, borderColor } }) =>
-                        `${borderWidth[1]} solid ${borderColor}`,
-                    },
-                  },
-                }}
-              >
-                <div>
-                  <div
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-between",
-                      marginLeft: 30,
-                      marginRight: 30,
-                    }}
-                  >
-                    <ReportTableDisplay />
-                  </div>
-                </div>
-              </SoftBox>
-            </Card> */}
           </SoftBox>
         </SoftBox>
       </DashboardLayout>
