@@ -34,6 +34,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import TemplateBuilderData from '../uPolicy/ReportTableData/viewPolicyData';
 import DownloadIcon from '@mui/icons-material/Download';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from "react-router-dom";
   
   const style = {
     position: "absolute",
@@ -342,7 +343,20 @@ import AddIcon from '@mui/icons-material/Add';
                                         >
                                         Action
                                     </Button>
+                                    <Link to="/uPolicy/createPolicy">
                                     <Button
+                                      variant="outline"
+                                      style={{
+                                        border: "0.5px solid #1C7AE4",
+                                        color: "white",
+                                        backgroundColor: "#1b7ae4",
+                                        fontWeight:'lighter'
+                                      }}
+                                    >
+                                      + Create Policy 
+                                    </Button>
+                                    </Link>
+                                    {/* <Button
                                         style={{
                                             border: '0.5px solid rgb(30, 123, 228)',
                                             color: '#fff',
@@ -357,7 +371,7 @@ import AddIcon from '@mui/icons-material/Add';
                                     >
                                         <AddIcon style={{ fontSize: "15px", color:'#fff' }} />
                                         Create Policy
-                                    </Button>                                                                       
+                                    </Button>                                                                        */}
                                 </Stack>
                                 </Stack>
                         </SoftBox>

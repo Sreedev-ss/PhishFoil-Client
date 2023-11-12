@@ -1,9 +1,14 @@
 import React, {useState} from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { TableContainer, Table, TableHead, TableBody, Paper, Modal, Typography, TextField, Button, MenuItem, Menu } from "@mui/material";
+import { TableContainer, Table, TableHead, TableBody,IconButton, Paper, Modal, Typography, TextField, Button, MenuItem, Menu, ListItemText, Checkbox, Chip, Select, FormControl } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import HighlightOffOutlinedIcon from '@material-ui/icons/HighlightOffOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'; 
+const items = ['a Testh <vedishwaran1@twintechsolution.com', 'g Testj <vedishwaran1@twintechsolution.com', 'Vedishwaran R <vedishwaran1@twintechsolution.com', 'harri loganathan <harri@twintechsolution.com', 'Kalaiyarasi V <kalai@twintechsolution.com'];
+const items2 = ['No Group', 'Administration', 'Sample', 'Technical'];
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {
 
     AiOutlineArrowRight,
@@ -25,6 +30,27 @@ import {
 const UpdateActionsButton = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [deleteUser, setDeleteUser] = useState(false);
+    const [addLangModalOpen, setAddLangModalOpen] = useState(false);
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems2, setSelectedItems2] = useState([]);
+
+    const openAddLangModal = () => {
+      setAddLangModalOpen(true);
+    };
+  
+    const closeAddLangModal = () => {
+      setAddLangModalOpen(false);
+    };
+  
+    const addLang = () => {
+      closeAddLangModal();
+    };
+    const handleChangeItems = (event) => {
+      setSelectedItems(event.target.value);
+    };
+    const handleChangeItems2 = (event) => {
+      setSelectedItems2(event.target.value);
+    };
   
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -56,6 +82,20 @@ const UpdateActionsButton = () => {
           });
     
       };
+
+      const handleDelete = (itemToDelete) => (event) => {
+        console.log(itemToDelete);
+        event.preventDefault();
+        const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+        setSelectedItems(updatedSelection);
+    };
+
+      const handleDelete2 = (itemToDelete) => (event) => {
+        console.log(itemToDelete);
+        event.preventDefault();
+        const updatedSelection = selectedItems.filter((item) => item !== itemToDelete);
+        setSelectedItems2(updatedSelection);
+    };
     
       return (
         <div>
@@ -77,7 +117,119 @@ const UpdateActionsButton = () => {
                                 <DeleteIcon />
                                 Delete User
                               </MenuItem> */}
-            <MenuItem onClick={handleClose}>Send Policy</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Send Policy</MenuItem> */}
+
+            <MenuItem onClick={openAddLangModal} style={{background:'#fff'}}>
+                            <MailOutlineIcon style={{fontSize:'small'}} />
+                            Send Policy
+                          </MenuItem>
+
+                          <Modal
+                            open={addLangModalOpen}
+                            onClose={closeAddLangModal}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={style}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeAddLangModal}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Send Policy - Password Construction Guidelines
+                              </Typography>     
+                              <hr/>                         
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Select Recipient(s):</Typography>
+                                  <Typography sx={{ fontSize: '10px', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Select Your Users:</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems}
+                                      onChange={handleChangeItems}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '15px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>
+                              <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '10px', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Select Your Groups:</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems2}
+                                      onChange={handleChangeItems2}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete2(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items2.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>                                                            
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" onClick={addLang} style={{color:'#fff'}} >
+                                  
+                                  Send Policy
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
             <MenuItem onClick={handleClose}>Upload Policy Signatures</MenuItem>
             <MenuItem onClick={handleClose}>Edit Policy</MenuItem>
             <MenuItem onClick={handleClose}>Duplicate Policy</MenuItem>
@@ -153,7 +305,6 @@ const UpdateActionsButton = () => {
         </div>
       );
     };
-
 
 const columns = [
   { field: "id", headerName: "id", width: 80 },
