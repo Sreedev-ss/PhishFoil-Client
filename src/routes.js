@@ -121,6 +121,8 @@ import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+import EditTemplate from "layouts/uPolicy/data/editTemplate";
+
 
 
 const routes = [
@@ -392,6 +394,7 @@ const routes = [
         component: <CreateTemplate />,
         noCollapse: true,
       },
+      
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -666,6 +669,12 @@ const routes = [
         component: <CourseBuilder />,
       },
     ],
+  },
+
+  {
+    route: "/editTemplate",
+    component: <EditTemplate />,
+    noCollapse: true,
   },
 
   

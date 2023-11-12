@@ -4,6 +4,7 @@ import { TableContainer, Table, TableHead, TableBody, Paper, Modal, Typography, 
 import Pagination from "@mui/material/Pagination";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
 import {
 
     AiOutlineArrowRight,
@@ -83,8 +84,11 @@ const UpdateActionsButton = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Edit Template</MenuItem>
-
+            <MenuItem component={Link} to="/editTemplate" style={{background:'#fff'}}>
+                            {/* <EditIcon /> */}
+                            Edit Template
+                          </MenuItem>
+           
             <MenuItem onClick={OpenDuplicateTempModal}>Duplicate Template</MenuItem>
 
             <Modal
