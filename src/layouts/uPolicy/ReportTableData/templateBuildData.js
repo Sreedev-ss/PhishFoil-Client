@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { TableContainer, Table, TableHead, TableBody, Paper, Modal, Typography, TextField, Button } from "@mui/material";
+import { TableContainer, Table, TableBody, Paper, Modal, Typography, Button } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { Box } from "@mui/system";
-
 
 const columns = [
   { field: "id", headerName: "id", width: 80 },
@@ -72,9 +71,6 @@ export default function ReportTableData() {
               columns={columns}
               components={{
                 Pagination: () => <div/>,
-                // Root: (props) => <div {...props} style={customStyles.root} />,
-
-                // Pagination: CustomPagination,
               }}
               checkboxSelection
               onSelectionModelChange={handleSelectionChange}
@@ -82,7 +78,6 @@ export default function ReportTableData() {
           </TableBody>
         </Table>
       </TableContainer>
-
       <Modal open={isModalOpen} onClose={handleCloseModal}>
         <Box sx={{ width: 300, padding: 2 }}>
           <Typography variant="h6">Are you sure you want to open?</Typography>
@@ -94,7 +89,6 @@ export default function ReportTableData() {
           </Button>
         </Box>
       </Modal>
-
     </div>
   );
 }
