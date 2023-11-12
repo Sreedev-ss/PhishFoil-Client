@@ -69,7 +69,7 @@ const languageOptions = [
 import SoftButton from "components/SoftButton";
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
+  const items = ['English', 'Dutch', 'Czech', 'Danish', 'Spanish'];
 import createEmailTemplate from "layouts/createEmailTemplate";
 import { ToastContainer,toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';

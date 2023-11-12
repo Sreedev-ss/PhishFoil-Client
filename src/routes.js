@@ -110,12 +110,20 @@ import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/Google
 import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
+import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
+import DefaultPolicySignatureSettings from "layouts/autoenrol/components/uPolicyComponents/DefaultPolicySignatureSettings";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
+import Theme from "assets/theme";
+import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 import AutoEnrolSettings from "layouts/autoenrol/components";
+import ViewPolicies from "layouts/uPolicy/ViewPolicies";
+import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+import EditTemplate from "layouts/uPolicy/data/editTemplate";
+
 
 const routes = [
   // {
@@ -145,6 +153,15 @@ const routes = [
     component: <Users />,
     noCollapse: true,
   },
+  {
+  type: "collapse",
+  name: "Customers",
+  key: "customers",
+  route: "/customers",
+  icon: <Office size="12px" />,
+  component: <Customers />,
+  noCollapse: true,
+},
   {
     type: "collapse",
     name: "Uphish",
@@ -244,6 +261,13 @@ const routes = [
         route: "/uPolicy/templatebuilder",
         component: <TemplateBuilder />,
       },
+      {
+        type: "collapse",
+        name: "View Policies",
+        key: "viewpolicies",
+        route: "/uPolicy/viewpolicies",
+        component: <ViewPolicies />,
+      },
     ],
   },
   {
@@ -268,6 +292,25 @@ const routes = [
     name: "Auto Enrol",
     key: "autoenrol",
     icon: <CreditCard size="12px" />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Course Slide Delay",
+        key: "courseslidedelay",
+        route: "/autoenrol/courseslidedelay",
+        component: <CourseSlideDelay />,
+      },
+    ],
+    },
+
+  {
+    type: "collapse",
+    name: "Auto Enrol",
+    key: "autoenrol",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
     noCollapse: false,
     subroutes: [
       // Define subroutes for Uphish
@@ -337,6 +380,12 @@ const routes = [
         route: "/autoenrol/policyReminderEmails",
         component: <PolicyReminderEmails />,
       },
+      {
+        route: "/uPolicy/createTemplate",
+        component: <CreateTemplate />,
+        noCollapse: true,
+      },
+      
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -494,6 +543,13 @@ const routes = [
       },
       {
         type: "collapse",
+        name: "Theme",
+        key: "theme",
+        route: "/autoenrol/theme",
+        component: <Theme />,
+      },
+      {
+        type: "collapse",
         name: "Weekly Summary",
         key: "weeklySummary",
         route: "/autoenrol/weeklySummary",
@@ -540,6 +596,20 @@ const routes = [
         key: "reportsettings",
         route: "/autoenrol/reportsettings",
         component: <ReportSettings />,
+      },
+      {
+        type: "collapse",
+        name: "External Policy Access",
+        key: "externalpolicyaccess",
+        route: "/autoenrol/externalpolicyaccess",
+        component: <ExternalPolicyAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Default Policy Signature Settings",
+        key: "defaultpolicysignaturesettings",
+        route: "/autoenrol/defaultpolicysignaturesettings",
+        component: <DefaultPolicySignatureSettings />,
       },
     ],
   },
@@ -590,6 +660,14 @@ const routes = [
       },
     ],
   },
+
+  {
+    route: "/editTemplate",
+    component: <EditTemplate />,
+    noCollapse: true,
+  },
+
+  
 
   //landing Page Routes
   {
