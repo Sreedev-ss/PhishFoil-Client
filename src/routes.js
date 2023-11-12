@@ -114,6 +114,7 @@ import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import ReportHub from "layouts/Report/ReportHub";
 
 const routes = [
   // {
@@ -151,15 +152,15 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Ubreach />,
     noCollapse: true,
-  // {
-  //   type: "collapse",
-  //   name: "uPolicy",
-  //   key: "upolicy",
-  //   route: "/upolicy",
-  //   icon: <Office size="12px" />,
-  //   component: <UPolicy />,
-  //   noCollapse: true,
-  // },
+    // {
+    //   type: "collapse",
+    //   name: "uPolicy",
+    //   key: "upolicy",
+    //   route: "/upolicy",
+    //   icon: <Office size="12px" />,
+    //   component: <UPolicy />,
+    //   noCollapse: true,
+    // },
   },
   {
     type: "collapse",
@@ -194,6 +195,13 @@ const routes = [
         key: "gapanalysisreport",
         route: "/Report/GapAnalysisReport",
         component: <GapAnalysisReport />,
+      },
+      {
+        type: "collapse",
+        name: "Report Hub",
+        key: "reporthub",
+        route: "/Report/ReportHub",
+        component: <ReportHub />,
       },
     ],
   },
@@ -564,9 +572,9 @@ const routes = [
       {
         type: "collapse",
         name: "Gap Analysis Report",
-        key: "gapAnalysisReport",
-        route: "/ulearn/gap-analysis-report",
-        component: <Simulation />,
+        key: "gapanalysisreport",
+        route: "/Report/GapAnalysisReport",
+        component: <GapAnalysisReport />,
       },
       {
         type: "collapse",

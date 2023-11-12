@@ -23,7 +23,7 @@ import { useRef, useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
 
 import PieChartWithCenterLabel from "layouts/uLearn/CourseReport/PieChart";
-import ReportTableDisplay from "../ReportTableDisplay";
+import ReportTableDisplay from "./ReportTableDisplay";
 
 const style = {
   position: "absolute",
@@ -36,7 +36,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 const languageOptions = ["English", "Spanish", "French", "German"];
 
