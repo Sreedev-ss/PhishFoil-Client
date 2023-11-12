@@ -20,6 +20,7 @@ function collapseItem(theme, ownerState) {
   const { xxl } = boxShadows;
   const { borderRadius } = borders;
   const { pxToRem } = functions;
+  
 
   return {
     background: active && transparentSidenav ? white.main : transparent.main,

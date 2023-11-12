@@ -36,25 +36,59 @@ import {
 
 // Soft UI Dashboard React context
 import { useSoftUIController } from "context";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
+import theme from "assets/theme";
 
-function SidenavCollapse({ color, icon, name, children, active, noCollapse, subroutes, ...rest }) {
+
+
+function SidenavCollapse({ color, icon, name, indexArr, children, active, noCollapse, subroutes, ...rest }) {
   const [controller] = useSoftUIController();
   const { miniSidenav, transparentSidenav } = controller;
   const [openCollpase, setOpenCollapse] = useState(false)
+  const [selectedCollapse, setSelectedCollapse] = useState(null)
+  const [hoveredStyles, setHoveredStyles] = useState({
+    transition: 'color 0.8s',
+  })
+  const [clickedStyles, setClickedStyles] = useState({ color: '#18c1e8' })
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [clickedIndex, setClickedIndex] = useState(null);
 
-  function handleSubroute() {
+
+  const handleHover = (index) => {
+    setHoveredStyles({
+      ...hoveredStyles,
+      color: '#18c1e8',
+    });
+    setHoveredIndex(index);
+  };
+
+  const handleLeave = () => {
+    setHoveredStyles({
+      transition: 'color 0.3s',
+    });
+    setHoveredIndex(null);
+  };
+
+
+  function handleSubroute(index) {
     if (subroutes && subroutes.length > 0) {
       setOpenCollapse(!openCollpase)
+      setSelectedCollapse(index)
     } else {
       setOpenCollapse(false)
+      setSelectedCollapse(null)
     }
   }
+
+  const handleClick = (index) => {
+    setClickedIndex(index);
+  };
+
   return (
     <>
-      <ListItem component="li" onClick={handleSubroute}>
+      <ListItem component="li" onClick={() => handleSubroute(indexArr)}>
         <SoftBox {...rest} sx={(theme) => collapseItem(theme, { active, transparentSidenav })} >
           <ListItemIcon
             sx={(theme) => collapseIconBox(theme, { active, transparentSidenav, color })}
@@ -73,17 +107,27 @@ function SidenavCollapse({ color, icon, name, children, active, noCollapse, subr
           {!openCollpase ? subroutes && subroutes.length > 0 && <AiOutlineArrowDown fontSize='12px' /> : <AiOutlineArrowUp fontSize='12px' />}
         </SoftBox>
       </ListItem>
-      {openCollpase && (
+      {indexArr == selectedCollapse && openCollpase && (
         <Collapse in={openCollpase} unmountOnExit>
           {subroutes.map((subroute, index) => (
-            <NavLink to={subroute.route} key={index}>
-              <ListItem component="li" key={index} sx={{ display: 'flex', justifyContent: 'start', fontSize: '10px', padding: '5px' }}>
-                <div style={{ backgroundColor: 'white', marginLeft: "53px", padding: '5px', borderRadius: '5px', minWidth: "175px" }}>
+            <NavLink to={subroute.route} key={index} onClick={() => handleClick(index)} onMouseEnter={() => handleHover(index)} onMouseLeave={handleLeave}>
+              <SoftBox {...rest} sx={(theme) => collapseItem(theme, { transparentSidenav })} >
+                <ListItem component="li" key={index}
+                  sx={(theme) => collapseIconBox(theme, { transparentSidenav, color })}
+                >
                   <ListItemText
-                    secondary={subroute.name}
+                    key={index}
+                    style={index === clickedIndex
+                      ? clickedStyles
+                      : index === hoveredIndex
+                        ? hoveredStyles
+                        : {}
+                    }
+                    sx={(theme) => collapseText(theme, { active, miniSidenav, transparentSidenav })}
+                    primary={subroute.name}
                   />
-                </div>
-              </ListItem>
+                </ListItem>
+              </SoftBox>
             </NavLink>
           ))}
         </Collapse>
@@ -111,6 +155,7 @@ SidenavCollapse.propTypes = {
   name: PropTypes.string.isRequired,
   children: PropTypes.node,
   active: PropTypes.bool,
+  indexArr: PropTypes.number,
   noCollapse: PropTypes.bool,
   open: PropTypes.bool,
   subroutes: PropTypes.node
