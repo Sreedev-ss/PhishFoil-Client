@@ -238,6 +238,7 @@ const TemplateBuilder = () => {
                                         >
                                         Action
                                     </Button>
+                                    <Link to="/uPolicy/createTemplate">
                                     <Button
                                         style={{
                                             border: '0.5px solid rgb(30, 123, 228)',
@@ -253,7 +254,8 @@ const TemplateBuilder = () => {
                                     >
                                         <AddIcon style={{ fontSize: "15px", color:'#fff' }} />
                                         Create Template
-                                    </Button>                                                                       
+                                    </Button> 
+                                    </Link>
                                 </Stack>
                                 </Stack>
                         </SoftBox>

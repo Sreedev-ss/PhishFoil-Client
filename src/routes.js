@@ -120,6 +120,8 @@ import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
+import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+
 
 const routes = [
   // {
@@ -384,6 +386,11 @@ const routes = [
         key: "policyReminderEmails",
         route: "/autoenrol/policyReminderEmails",
         component: <PolicyReminderEmails />,
+      },
+      {
+        route: "/uPolicy/createTemplate",
+        component: <CreateTemplate />,
+        noCollapse: true,
       },
       // {
       //   type: "collapse",
@@ -660,6 +667,8 @@ const routes = [
       },
     ],
   },
+
+  
 
   //landing Page Routes
   {
