@@ -4,6 +4,7 @@ import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React, { useState } from "react";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 const style = {
   marginLeft: "20px",
   fontSize: "15px",
@@ -39,6 +40,7 @@ const Microsoft365 = () => {
 
   return (
     <DashboardLayout>
+      <DashboardNavbar/>
       <Typography
         variant="h4"
         sx={{

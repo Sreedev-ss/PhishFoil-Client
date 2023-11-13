@@ -12,6 +12,7 @@ import {
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React, { useState } from "react";
 import SaveIcon from '@mui/icons-material/Save';
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const items = [ "Phishing(Beginner)", "Law 25 - Quebec (Beginner)", "Mobile Device Security (Beginner)"];
 
@@ -28,6 +29,7 @@ const CompulsoryCourses = () => {
 
     return (
         <DashboardLayout>
+            <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

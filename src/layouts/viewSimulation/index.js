@@ -205,7 +205,7 @@ const ViewSimulation = () => {
 
     return (
         <DashboardLayout>
-            {/* <DashboardNavbar /> */}
+            <DashboardNavbar />
             <SoftBox py={3}>
                 <SoftBox mb={3}>
                     <div style={{ display: "flex", gap: "5px", alignItems: "center", justifyContent: 'space-between', padding: '50px', height: '5rem', backgroundColor: 'white' }}>
