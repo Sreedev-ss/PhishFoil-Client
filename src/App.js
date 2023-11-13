@@ -111,6 +111,7 @@ import InvoicesCustomer from "layouts/uService/InvoicesCustomer";
 import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 
 
 export default function App() {
@@ -315,6 +316,7 @@ export default function App() {
         <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
         <Route exact path="/uPolicy/viewpolicies" element={<ViewPolicies />} />;
         <Route exact path="/uPolicy/createTemplate" element={<CreateTemplate />} />;
+        <Route exact path="/uPolicy/createPolicy" element={<CreatePolicy />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

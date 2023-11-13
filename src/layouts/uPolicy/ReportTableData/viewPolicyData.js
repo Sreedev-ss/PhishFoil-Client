@@ -14,6 +14,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import UploadTableData from 'layouts/uPolicy/components/uPolicyUploadTableData';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import EditIcon from '@mui/icons-material/Edit';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
 
 import { Link } from "react-router-dom";
 import {
@@ -441,7 +443,7 @@ const UpdateActionsButton = () => {
                           </Modal>
 
 
-            <MenuItem component={Link} to="/editPolicy">Edit Policy</MenuItem>
+            <MenuItem component={Link} to="/editPolicy"><EditIcon/>Edit Policy</MenuItem>
             {/* <MenuItem component={Link} to="/editTemplate" style={{background:'#fff'}}>
                             <EditIcon />
                             Edit Template
@@ -572,7 +574,7 @@ const UpdateActionsButton = () => {
                 </Box>
                 </Modal>
 
-            <MenuItem onClick={handleClose}>Export Policy Data</MenuItem>
+            <MenuItem onClick={handleClose}><ImportExportIcon/>Export Policy Data</MenuItem>
           </Menu>
         </div>
       );

@@ -6,6 +6,8 @@ import {
     Divider,
     FormControlLabel,
     FormGroup,
+    Menu,
+    MenuItem,
     Switch,
     Typography,
   } from "@mui/material";
@@ -57,10 +59,19 @@ import { Link } from "react-router-dom";
     const [uPolicyChartBar, setUPolicyChartBar] = useState(false);
 
     const [isUserFormOpen, setUserFormOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
 
-    const openUserForm = () => {
-        setUserFormOpen(true);
+    const handleClose = () => {
+      setAnchorEl(null);
     };
+    
+    const openUserForm = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+
+    // const openUserForm = () => {
+    //     setUserFormOpen(true);
+    // };
 
     const closeUserForm = () => {
         setUserFormOpen(false);
@@ -343,7 +354,34 @@ import { Link } from "react-router-dom";
                                         >
                                         Action
                                     </Button>
-                                    <Link to="/uPolicy/createPolicy">
+                                    
+                                    <Button
+                                        style={{
+                                            border: '0.5px solid rgb(30, 123, 228)',
+                                            color: '#fff',
+                                            fontSize: "10px",
+                                            marginTop: '1px',
+                                            background:'rgb(30, 123, 228)',
+                                            fontWeight:'lighter'
+                                        }}
+                                        variant="contained"
+                                        size="small"
+                                        onClick={openUserForm}
+                                    >
+                                        <AddIcon style={{ fontSize: "15px", color:'#fff' }} />
+                                        Create Policy
+                                    </Button> 
+                                    <Menu
+                                      anchorEl={anchorEl}
+                                      open={Boolean(anchorEl)}
+                                      onClose={handleClose}
+                                    >
+                                      <MenuItem onClick={handleClose}>Temp</MenuItem>
+                                      <Link to="/uPolicy/createPolicy"><MenuItem onClick={handleClose}>Scratch</MenuItem></Link>
+                                    </Menu>
+                                    {/* </Link> */}
+                                    
+                                    {/* <Link to="/uPolicy/createPolicy">
                                     <Button
                                       variant="outline"
                                       style={{
@@ -352,10 +390,11 @@ import { Link } from "react-router-dom";
                                         backgroundColor: "#1b7ae4",
                                         fontWeight:'lighter'
                                       }}
+                                      onClick={openUserForm}
                                     >
                                       + Create Policy 
                                     </Button>
-                                    </Link>
+                                    </Link> */}
                                     {/* <Button
                                         style={{
                                             border: '0.5px solid rgb(30, 123, 228)',

@@ -129,6 +129,7 @@ import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
 import EditTemplate from "layouts/uPolicy/data/editTemplate";
 import EditPolicy from "layouts/uPolicy/data/editPolicy";
+import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 
 
 const routes = [
@@ -728,6 +729,11 @@ const routes = [
   {
     route: "/editPolicy",
     component: <EditPolicy />,
+    noCollapse: true,
+  },
+  {
+    route: "/createPolicy",
+    component: <CreatePolicy />,
     noCollapse: true,
   },
 

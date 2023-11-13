@@ -339,12 +339,12 @@ const EditPolicy = () => {
                     }
                     >
                     <MenuItem value={'Editor'}>Editor</MenuItem>
-                    <MenuItem value={'Compliance'}>Compliance</MenuItem>
-                    <MenuItem value={'Essential'}>Essential</MenuItem>
+                    <MenuItem value={'Compliance'}>PDF Uoload</MenuItem>
+                    {/* <MenuItem value={'Essential'}>Essential</MenuItem>
                     <MenuItem value={'Encryption'}>Encryption</MenuItem>
                     <MenuItem value={'Mobile Devices'}>Mobile Devices</MenuItem>
                     <MenuItem value={'Server'}>Server</MenuItem>
-                    <MenuItem value={'Other'}>Other</MenuItem>
+                    <MenuItem value={'Other'}>Other</MenuItem> */}
                     </Select>
                 </FormControl>
             </Box>       
