@@ -238,7 +238,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   onMouseLeave={() => setIsAccountHovered(false)}>
                   <NavLink to='/account'><p style={{ fontSize: 'medium' }}>Account Settings</p></NavLink>
                   <hr style={{ opacity: 0.1 }} />
-                  <NavLink to='/settings/domain'><p style={{ fontSize: 'medium' }}>Payment Settings</p></NavLink>
+                  <NavLink to='/settings/paymentSettings'><p style={{ fontSize: 'medium' }}>Payment Settings</p></NavLink>
                   <hr style={{ opacity: 0.1 }} />
                   <NavLink to="/authentication/sign-in"><p onClick={logout} style={{ fontSize: 'medium' }}>Logout</p></NavLink>
                 </div>
