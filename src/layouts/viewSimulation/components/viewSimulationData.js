@@ -27,6 +27,8 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import SoftButton from "components/SoftButton";
 import SoftBox from "components/SoftBox";
 
+import ChartBar from "./chartBar";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -40,8 +42,19 @@ const style = {
   p: 4,
 };
 
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Legend, Tooltip } from 'recharts';
+
+
+  const data = [
+    { name: "08/11/2021", Opens: 0, Visits: 0, Comprises:0, Reports:0},
+    { name: "an hour", Opens: 1, Visits: 1.2, Comprises:0.8, Reports:0 },
+    { name: "2 hours", Opens: 0, Visits: 0, Comprises:0, Reports:0 },
+];
+
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
+
 
   return (
     <div
@@ -76,6 +89,7 @@ function a11yProps(index) {
 const ViewSimulationData = () => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [uPolicyChartBar, setUPolicyChartBar] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -377,7 +391,162 @@ const ViewSimulationData = () => {
             </SoftBox>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
-            Item Three
+            
+          <div style={{ height: "54vh", overflowY: "scroll", paddingBottom: 30 }}>
+          <Box>
+                <div style={{ display: "flex", gap: 100 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                      <BarChart width={600} height={400} data={data} >
+                        <CartesianGrid />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="Comprises" stackId="a" fill="rgb(246, 66, 52)" />
+                        <Bar dataKey="Reports" stackId="a" fill="green" />
+                        <Bar dataKey="Visits" stackId="a" fill="rgb(253, 170, 13)" />
+                        <Bar dataKey="Opens" stackId="a" fill="rgb(30, 123, 228)" />
+                      </BarChart>
+                      <p style={{fontSize:'13px', marginLeft:'250px'}}>Time Since Simulation Starts</p>
+                    </Box>
+                </div>
+            </Box>
+            
+
+            <Box style={{marginTop:'40px'}}>
+            <div style={{ display: "flex", gap: "30px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: 300,
+                height: 290,
+                padding: 10,
+                backgroundColor: "white",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 25,
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "0px" }}
+                >
+                  Open Rate
+                </Typography>
+                <span>
+                  {/* <AiFillInfoCircle /> */}
+                </span>
+              </div>
+
+              <div>
+                <h1><strong style={{color:'rgb(30, 123, 228)'}}>100</strong>%</h1>
+              </div>
+              <div>
+                <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}></h5>
+              </div>
+              <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
+              <h6 style={{ fontWeight: 400 }}>of users opened an email</h6>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: 300,
+                height: 290,
+                padding: 10,
+                backgroundColor: "white",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 25,
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}
+              >
+                <Typography
+                  sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "0px" }}
+                >
+                  Compromise Rate
+                </Typography>
+                <span>
+                  {/* <AiFillInfoCircle /> */}
+                </span>
+              </div>
+
+              <div>
+                <h1><strong style={{color:'rgb(246, 66, 52)'}}>100</strong>%</h1>
+              </div>
+              <div>
+                <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}></h5>
+              </div>
+              <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
+              <h6 style={{ fontWeight: 400 }}>of users revealed information</h6>
+            </div>
+           
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: 300,
+                height: 290,
+                padding: 10,
+                backgroundColor: "white",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 25,
+                marginTop:'35px'
+              }}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  paddingLeft: 15,
+                  paddingRight: 15,
+                }}
+              >
+                <h5 style={{ margin: "0px" }}>Trends</h5>
+                <span>
+                  {/* <AiFillInfoCircle /> */}
+                </span>
+              </div>
+              <div style={{ width: 150, height: "100%" }}>
+              
+              </div>
+              {/* <h5 style={{ paddingRight: "15px", paddingLeft: "15px" }}>
+                is the average score for all courses
+              </h5>
+              <div style={{ width: "70%", height: "1px", backgroundColor: "#f4f5f5" }} />
+              <h6 style={{ fontWeight: 400 }}>Total Courses Enrolled - 8</h6> */}
+              <div
+                        style={{
+                          width: "100%",
+                          height: 700,
+                        }}
+                      >
+                        <ChartBar uPolicyChartBar={uPolicyChartBar} />
+                      </div>
+            </div>
+          </div>
+            </Box>
+            </div>
           </CustomTabPanel>
         </Box>
       </div>
