@@ -1112,7 +1112,7 @@ function Users() {
                               <TableCell>Name</TableCell>
                               <TableCell>Email ID</TableCell>
                               <TableCell>Restore</TableCell>
-                            </TableRow>
+                            </TableRow> 
                           </TableHead>
                           <TableBody>
                             {allUserData
