@@ -48,7 +48,6 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const location = useLocation();
   const { pathname } = location;
   const collapseName = pathname.split("/").slice(1)[0];
-
   const closeSidenav = () => setMiniSidenav(dispatch, true);
 
   useEffect(() => {
@@ -70,7 +69,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   }, [dispatch, location]);
 
   // Render all the routes from the routes.js (All the visible items on the Sidenav)
-  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, subroutes, key, route, href }) => {
+  const renderRoutes = routes.map(({ type, name, icon, title, noCollapse, subroutes, key, route, href }, index) => {
     let returnValue;
     if (type === "collapse") {
       returnValue = href ? (
@@ -85,7 +84,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             color={color}
             name={name}
             icon={icon}
-            active={key === collapseName}
+            active={key.toLowerCase() === collapseName.toLowerCase()}
             noCollapse={noCollapse}
             subroutes={subroutes}
           />
@@ -93,6 +92,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
       ) : (
         <NavLink to={route} key={key}>
           <SidenavCollapse
+            indexArr={index}
             color={color}
             key={key}
             name={name}
@@ -131,7 +131,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
 
   return (
     <SidenavRoot {...rest} variant="permanent" ownerState={{ transparentSidenav, miniSidenav }}>
-      <SoftBox pt={3} pb={1} px={4} textAlign="center">
+      <SoftBox pt={3} pb={1} px={4} textAlign="center" >
         <SoftBox
           display={{ xs: "block", xl: "none" }}
           position="absolute"

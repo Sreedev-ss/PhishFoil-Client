@@ -1,0 +1,14 @@
+.inner-div:hover{
+    scale: 1.1;
+    transition: 0.6s;
+    background-color: #09809b;
+}
+
+.inner-div{
+    width: 200px;
+    background-color: #18C1E8;
+    height: 80px;
+    display:flex; 
+    justify-content:center;
+    align-items:center;
+}

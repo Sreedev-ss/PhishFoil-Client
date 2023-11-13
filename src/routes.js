@@ -110,11 +110,22 @@ import GoogleWorkspace from "layouts/autoenrol/components/googleWorkspace/Google
 import ReportSettings from "layouts/autoenrol/components/reportSettings/ReportSettings";
 import Reports from "layouts/autoenrol/components/emailComponents/Reports";
 import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport";
+import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
+import DefaultPolicySignatureSettings from "layouts/autoenrol/components/uPolicyComponents/DefaultPolicySignatureSettings";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
+import Theme from "assets/theme";
+import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import ReportHub from "layouts/Report/ReportHub";
+import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
+import AutoEnrolSettings from "layouts/autoenrol/components";
+import ViewPolicies from "layouts/uPolicy/ViewPolicies";
+import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+import EditTemplate from "layouts/uPolicy/data/editTemplate";
+import EditPolicy from "layouts/uPolicy/data/editPolicy";
+
 
 const routes = [
   // {
@@ -128,15 +139,6 @@ const routes = [
   // },
   {
     type: "collapse",
-    name: "Users",
-    key: "users",
-    route: "/users",
-    icon: <Office size="12px" />,
-    component: <Users />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
     name: "Home",
     key: "home",
     route: "/home",
@@ -146,11 +148,11 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "uBreach",
-    key: "ubreach",
-    route: "/ubreach",
+    name: "Users",
+    key: "users",
+    route: "/users",
     icon: <Office size="12px" />,
-    component: <Ubreach />,
+    component: <Users />,
     noCollapse: true,
     // {
     //   type: "collapse",
@@ -161,24 +163,6 @@ const routes = [
     //   component: <UPolicy />,
     //   noCollapse: true,
     // },
-  },
-  {
-    type: "collapse",
-    name: "uPolicy",
-    key: "upolicy",
-    icon: <CreditCard size="12px" />,
-    component: <Billing />,
-    noCollapse: false,
-    subroutes: [
-      // Define subroutes for Uphish
-      {
-        type: "collapse",
-        name: "Template Library",
-        key: "templatelibrary",
-        route: "/uPolicy/templatelibrary",
-        component: <TemplateLibrary />,
-      },
-    ],
   },
   {
     type: "collapse",
@@ -204,13 +188,23 @@ const routes = [
         component: <ReportHub />,
       },
     ],
+
+  },
+  {
+    type: "collapse",
+    name: "Customers",
+    key: "customers",
+    route: "/customers",
+    icon: <Office size="12px" />,
+    component: <Customers />,
+    noCollapse: true,
+
   },
   {
     type: "collapse",
     name: "Uphish",
     key: "uphish",
     icon: <CreditCard size="12px" />,
-    component: <Billing />,
     noCollapse: false,
     subroutes: [
       // Define subroutes for Uphish
@@ -242,13 +236,6 @@ const routes = [
         route: "/uphish/landingPageBuilder",
         component: <LandingPageBuilder />,
       },
-      // {
-      //   type: "collapse",
-      //   name: "Email Template Library",
-      //   key: "emailbuilder",
-      //   route: "",
-      //   component: <EmailTable />,
-      // },
       {
         type: "collapse",
         name: "Email Template Library",
@@ -263,8 +250,82 @@ const routes = [
         route: "/uphish/email-template-builder",
         component: <EmailTable />,
       },
+      // {
+      //   type: "collapse",
+      //   name: "Email Template Library",
+      //   key: "emailbuilder",
+      //   route: "",
+      //   component: <EmailTable />,
+      // },
     ],
   },
+  {
+    type: "collapse",
+    name: "uBreach",
+    key: "ubreach",
+    route: "/ubreach",
+    icon: <Office size="12px" />,
+    component: <Ubreach />,
+    noCollapse: true,
+    // {
+    //   type: "collapse",
+    //   name: "uPolicy",
+    //   key: "upolicy",
+    //   route: "/upolicy",
+    //   icon: <Office size="12px" />,
+    //   component: <UPolicy />,
+    //   noCollapse: true,
+    // },
+  },
+  {
+    type: "collapse",
+    name: "uPolicy",
+    key: "uPolicy",
+    icon: <CreditCard size="12px" />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Template Library",
+        key: "templatelibrary",
+        route: "/uPolicy/templatelibrary",
+        component: <TemplateLibrary />,
+      },
+      {
+        type: "collapse",
+        name: "Template Builder",
+        key: "templatebuilder",
+        route: "/uPolicy/templatebuilder",
+        component: <TemplateBuilder />,
+      },
+      {
+        type: "collapse",
+        name: "View Policies",
+        key: "viewpolicies",
+        route: "/uPolicy/viewpolicies",
+        component: <ViewPolicies />,
+      },
+    ],
+  },
+  {
+    type: "collapse",
+    name: "Report",
+    key: "Report",
+    icon: <CreditCard size="12px" />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Gap Analysis Report",
+        key: "gapanalysisreport",
+        route: "/Report/GapAnalysisReport",
+        component: <GapAnalysisReport />,
+      },
+    ],
+  },
+
   {
     type: "collapse",
     name: "Auto Enrol",
@@ -283,13 +344,13 @@ const routes = [
       },
       {
         type: "collapse",
-
         name: "Auto Phish",
         key: "courseslidedelay",
         route: "/autoenrol/autoPhish",
         component: <AutoPhish />,
       },
       {
+        type: "collapse",
         name: "Course Reminder Emails",
         key: "coursereminderemails",
         route: "/autoenrol/coursereminderemails",
@@ -297,7 +358,6 @@ const routes = [
       },
       {
         type: "collapse",
-
         name: "Working Hours",
         key: "workingHours",
         route: "/autoenrol/workingHours",
@@ -312,7 +372,6 @@ const routes = [
       },
       {
         type: "collapse",
-
         name: "Compromise Message",
         key: "compromiseMessage",
         route: "/autoenrol/compromiseMessage",
@@ -320,7 +379,6 @@ const routes = [
       },
       {
         type: "collapse",
-
         name: " Message Injection",
         key: "messageInjection",
         route: "/autoenrol/messageInjection",
@@ -328,7 +386,6 @@ const routes = [
       },
       {
         type: "collapse",
-
         name: "Phish Alert Button",
         key: "phishAlertButton",
         route: "/autoenrol/phishAlertButton",
@@ -339,12 +396,12 @@ const routes = [
 
       {
         type: "collapse",
-
         name: "Policy Reminder Emails",
         key: "policyReminderEmails",
         route: "/autoenrol/policyReminderEmails",
         component: <PolicyReminderEmails />,
       },
+
       // {
       //   type: "collapse",
       //   name: "Course Reminder Emails",
@@ -502,6 +559,13 @@ const routes = [
       },
       {
         type: "collapse",
+        name: "Theme",
+        key: "theme",
+        route: "/autoenrol/theme",
+        component: <Theme />,
+      },
+      {
+        type: "collapse",
         name: "Weekly Summary",
         key: "weeklySummary",
         route: "/autoenrol/weeklySummary",
@@ -549,6 +613,20 @@ const routes = [
         route: "/autoenrol/reportsettings",
         component: <ReportSettings />,
       },
+      {
+        type: "collapse",
+        name: "External Policy Access",
+        key: "externalpolicyaccess",
+        route: "/autoenrol/externalpolicyaccess",
+        component: <ExternalPolicyAccess />,
+      },
+      {
+        type: "collapse",
+        name: "Default Policy Signature Settings",
+        key: "defaultpolicysignaturesettings",
+        route: "/autoenrol/defaultpolicysignaturesettings",
+        component: <DefaultPolicySignatureSettings />,
+      },
     ],
   },
 
@@ -558,7 +636,6 @@ const routes = [
     name: "uLearn",
     key: "ulearn",
     icon: <CreditCard size="12px" />,
-    component: <Billing />,
     noCollapse: false,
     subroutes: [
       // Define subroutes for Ulearn
@@ -581,7 +658,7 @@ const routes = [
         name: "Auto Enrol",
         key: "autoEnrol",
         route: "/ulearn/auto-enrol",
-        component: <LandingPageLibrary />,
+        component: <AutoEnrolSettings />,
       },
       {
         type: "collapse",
@@ -599,6 +676,19 @@ const routes = [
       },
     ],
   },
+
+  {
+    route: "/editTemplate",
+    component: <EditTemplate />,
+    noCollapse: true,
+  },
+  {
+    route: "/editPolicy",
+    component: <EditPolicy />,
+    noCollapse: true,
+  },
+
+
 
   //landing Page Routes
   {
@@ -642,25 +732,25 @@ const routes = [
     noCollapse: true,
   },
 
-  { type: "title", title: "Account Pages", key: "account-pages" },
-  {
-    type: "collapse",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <CustomerSupport size="12px" />,
-    component: <Profile />,
-    noCollapse: true,
-  },
-  {
-    type: "collapse",
-    name: "Sign In",
-    key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: <Document size="12px" />,
-    component: <SignIn />,
-    noCollapse: true,
-  },
+  // { type: "title", title: "Account Pages", key: "account-pages" },
+  // {
+  //   type: "collapse",
+  //   name: "Profile",
+  //   key: "profile",
+  //   route: "/profile",
+  //   icon: <CustomerSupport size="12px" />,
+  //   component: <Profile />,
+  //   noCollapse: true,
+  // },
+  // {
+  //   type: "collapse",
+  //   name: "Sign In",
+  //   key: "sign-in",
+  //   route: "/authentication/sign-in",
+  //   icon: <Document size="12px" />,
+  //   component: <SignIn />,
+  //   noCollapse: true,
+  // },
   // {
   //   type: "collapse",
   //   name: "Sign Up",
