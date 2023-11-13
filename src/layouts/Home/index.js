@@ -1,4 +1,4 @@
-import { Divider, FormControlLabel, FormGroup, Switch, Typography } from "@mui/material";
+import { Card, Divider, FormControlLabel, FormGroup, Switch, Typography } from "@mui/material";
 import SoftBox from "components/SoftBox";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React from "react";
@@ -9,6 +9,7 @@ import ChartBar from "layouts/uLearn/CourseReport/ChartBar";
 
 import { useRef, useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import PieChartWithCenterLabel from "./PieChart";
 
 const Home = () => {
@@ -16,9 +17,10 @@ const Home = () => {
 
   return (
     <DashboardLayout>
-      {/* <DashboardNavbar /> */}
+      <DashboardNavbar />
       <SoftBox py={3}>
         <SoftBox mb={3}>
+        {/* <Card sx={{ minHeight: '80vh', padding: 3 }}> */}
           {/* <div
             style={{
               display: "flex",
@@ -89,12 +91,13 @@ const Home = () => {
             </div>
           </div> */}
           <div
-            style={{ display: "flex", height: "100%", padding: "40px", flexDirection: "column" }}
+            style={{ display: "flex", height: "100%", padding: "40px", flexDirection: "column", padding: '50px', backgroundColor: 'white' }}
           >
             <div
               style={{
                 display: "flex",
                 height: "100%",
+                backgroundColor: 'white',
                 flexDirection: "row",
                 justifyItems: "space-between",
                 alignItems: "center",
@@ -292,8 +295,7 @@ const Home = () => {
                 style={{
                   width: "100%",
                   display: "flex",
-                  paddingLeft: 15,
-                  paddingRight: 15,
+                  justifyContent:'center'
                 }}
               >
                 <h4 style={{ fontWeight: 400 }}>of policies signed</h4>
@@ -345,6 +347,7 @@ const Home = () => {
               <h6 style={{ fontWeight: 400 }}>Users Breached - 0 / 8</h6>
             </div>
           </div>
+          {/* </Card> */}
         </SoftBox>
       </SoftBox>
     </DashboardLayout>

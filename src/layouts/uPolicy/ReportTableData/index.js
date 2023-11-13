@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, {useState} from "react"; 
 import { DataGrid } from "@mui/x-data-grid";
-import { TableContainer, Table, TableHead, TableBody, Paper, Modal, Typography, TextField, Button } from "@mui/material";
+import { TableContainer, Table, TableBody, Paper, Modal } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
-import { Box } from "@mui/system";
-
+import TemplateLibraryData from "../components/templateLibraryData";
 
 const columns = [
   { field: "id", headerName: "id", width: 80 },
@@ -55,28 +54,17 @@ const CustomPagination = () => {
     </div>
   );
 };
+
 export default function ReportTableData() {
-    const [selectedRow, setSelectedRow] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [viewSimulationsModalOpen, setViewSimulationModalOpen] = useState(false);
 
-    const handleSelectionChange = (selection) => {
-        console.log("Selection changed:", selection);
-        if (selection.selectionModel.length > 0) {
-            const selectedRowIndex = selection.selectionModel[0];
-            setSelectedRow(rows[selectedRowIndex]);
-            setIsModalOpen(true);
-        }
-    };
-    
-    const handleCloseModal = () => {
-        setSelectedRow(null);
-        setIsModalOpen(false);
-    };
+      const openViewSimulationsModal = () => {
+        setViewSimulationModalOpen(true)
+    }
 
-    const handleYesButtonClick = () => {
-        alert("Opening...");
-        handleCloseModal();
-      };
+    const closeViewSimulationsModal = () => {
+        setViewSimulationModalOpen(false)
+    }
 
   return (
     <div>
@@ -89,29 +77,20 @@ export default function ReportTableData() {
               columns={columns}
               components={{
                 Pagination: () => <div/>,
-                // Root: (props) => <div {...props} style={customStyles.root} />,
-
-                // Pagination: CustomPagination,
               }}
               checkboxSelection
-              onSelectionModelChange={handleSelectionChange}
+              onRowClick={openViewSimulationsModal}
             />
+            <Modal
+                open={viewSimulationsModalOpen}
+                onClose={closeViewSimulationsModal}
+                >
+                  
+                <TemplateLibraryData/>
+            </Modal>
           </TableBody>
         </Table>
       </TableContainer>
-
-      <Modal open={isModalOpen} onClose={handleCloseModal}>
-        <Box sx={{ width: 300, padding: 2 }}>
-          <Typography variant="h6">Are you sure you want to open?</Typography>
-          <Button variant="contained" color="primary" onClick={handleYesButtonClick}>
-            Yes
-          </Button>
-          <Button variant="contained" color="secondary" onClick={handleCloseModal}>
-            No
-          </Button>
-        </Box>
-      </Modal>
-
     </div>
   );
 }
