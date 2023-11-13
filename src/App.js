@@ -111,6 +111,7 @@ import InvoicesCustomer from "layouts/uService/InvoicesCustomer";
 import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+import RiskReportSignup from "layouts/uService/RiskReportSignup";
 import AdminUsers from "layouts/Settings/AdminUsers";
 import Accounts from "layouts/account";
 import CreatePolicy from "layouts/uPolicy/CreatePolicy";
@@ -236,6 +237,7 @@ export default function App() {
         <Route exact path="/uService/customers" element={<Customers />} />;
         <Route exact path="/uService/prospects" element={<Prospects />} />;
         <Route exact path="/uService/invoicesCustomer" element={<InvoicesCustomer />} />;
+        <Route exact path="/uService/riskReportSignup" element={<RiskReportSignup />} />;
   
 
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

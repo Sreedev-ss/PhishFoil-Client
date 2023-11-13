@@ -157,7 +157,9 @@ const TemplateBuilder = () => {
                             {{ 
                                 fontSize: "large", 
                                 color: "black", 
-                                fontWeight: "bold" 
+                                fontWeight: "bold",
+                                marginLeft:"100px",
+                                marginTop:"30px"
                             }}
                         >
                         uPolicy - Template Builder
