@@ -103,6 +103,9 @@ import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
+import Prospects from "layouts/uService/Prospects";
+import InvoicesCustomer from "layouts/uService/InvoicesCustomer";
+
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -225,6 +228,9 @@ export default function App() {
 
          {/* USERVICE */}
         <Route exact path="/uService/customers" element={<Customers />} />;
+        <Route exact path="/uService/prospects" element={<Prospects />} />;
+        <Route exact path="/uService/invoicesCustomer" element={<InvoicesCustomer />} />;
+  
 
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}

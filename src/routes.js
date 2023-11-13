@@ -84,6 +84,8 @@ import CourseBuilder from "layouts/uLearn/CourseBuilder";
 
 import CourseReport from "layouts/uLearn/CourseReport";
 
+import Customers from "layouts/uService/Customers";
+
 import AutoPhish from "layouts/autoenrol/components/uPhishComponents/AutoPhish";
 import WorkingHours from "layouts/autoenrol/components/uPhishComponents/WorkingHours";
 import PreferedTopLevelDomain from "layouts/autoenrol/components/uPhishComponents/PreferedTopLevelDomains";
@@ -113,10 +115,13 @@ import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport"
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
 import Home from "layouts/Home";
 import Theme from "assets/theme";
-import Customers from "layouts/uService/Customers";
+
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
+import Prospects from "layouts/uService/Prospects";
+import InvoicesCustomer from "layouts/uService/InvoicesCustomer";
+
 
 const routes = [
   // {
@@ -137,15 +142,15 @@ const routes = [
     component: <Users />,
     noCollapse: true,
   },
-  {
-  type: "collapse",
-  name: "Customers",
-  key: "customers",
-  route: "/customers",
-  icon: <Office size="12px" />,
-  component: <Customers />,
-  noCollapse: true,
-},
+//   {
+//   type: "collapse",
+//   name: "Customers",
+//   key: "customers",
+//   route: "/customers",
+//   icon: <Office size="12px" />,
+//   component: <Customers />,
+//   noCollapse: true,
+// },
   {
     type: "collapse",
     name: "Home",
@@ -636,6 +641,46 @@ const routes = [
       },
     ],
   },
+
+
+
+
+ //UService Routes
+ {
+  type: "collapse",
+  name: "uService",
+  key: "uService",
+  icon: <CreditCard size="12px" />,
+  component: <Billing />,
+  noCollapse: false,
+  subroutes: [
+    // Define subroutes for UService
+    {
+      type: "collapse",
+      name: "Customers",
+      key: "Customers",
+      route: "/uService/Customers",
+      component: <Customers />,
+    },
+    {
+      type: "collapse",
+      name: "Prospects",
+      key: "prospects",
+      route: "/uService/prospects",
+      component: <Prospects />,
+    },
+    {
+      type: "collapse",
+      name: "InvoicesCustomer",
+      key: "invoicesCustomer",
+      route: "/uService/invoicesCustomer",
+      component: <InvoicesCustomer />,
+    },
+   
+   
+  ],
+},
+
 
   //landing Page Routes
   {

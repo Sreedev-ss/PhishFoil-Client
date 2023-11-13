@@ -272,13 +272,13 @@ const ViewSimulationData = () => {
                                 <Table sx={{ width: "100%" }} aria-label="simple table">
                                     <TableHead sx={{ display: "table-header-group" }}>
                                         <TableRow sx={{ width: "20px" }}>
-                                            <TableCell sx={{textAlign:'center'}} ></TableCell>
+                                            <TableCell sx={{ textAlign: 'center' }} ></TableCell>
                                             <TableCell >Recipients</TableCell>
-                                            <TableCell sx={{textAlign:'center'}} >Scheduled / Send At</TableCell>
-                                            <TableCell sx={{textAlign:'center'}} >Status</TableCell>
-                                            <TableCell sx={{textAlign:'center'}} >Reported</TableCell>
-                                            <TableCell sx={{textAlign:'center'}} >Delivery Method</TableCell>
-                                    
+                                            <TableCell sx={{ textAlign: 'center' }} >Scheduled / Send At</TableCell>
+                                            <TableCell sx={{ textAlign: 'center' }} >Status</TableCell>
+                                            <TableCell sx={{ textAlign: 'center' }} >Reported</TableCell>
+                                            <TableCell sx={{ textAlign: 'center' }} >Delivery Method</TableCell>
+
                                             <TableCell ></TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -287,11 +287,11 @@ const ViewSimulationData = () => {
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 }, }}
                                         >
                                             <TableCell><Checkbox {...label} /></TableCell>
-                                            <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>Vedieshwaran R<br/><p style={{color:'grey'}}>vedieshwaran@twintechsolution.com</p></TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center'}}>01/11/2023 05:31</TableCell>
-                                            <TableCell style={{ fontSize: "13px", textAlign:'center' , textAlign:'center'}}>Not Sent</TableCell>
-                                            <TableCell style={{ fontSize: "13px" , textAlign:'center'}}>N/A</TableCell>
-                                            <TableCell style={{ fontSize: "13px" , textAlign:'center'}}></TableCell>
+                                            <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>Vedieshwaran R<br /><p style={{ color: 'grey' }}>vedieshwaran@twintechsolution.com</p></TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>01/11/2023 05:31</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center', textAlign: 'center' }}>Not Sent</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}>N/A</TableCell>
+                                            <TableCell style={{ fontSize: "13px", textAlign: 'center' }}></TableCell>
                                             <TableCell>
                                                 <SoftButton
                                                     onClick={handleClick}
