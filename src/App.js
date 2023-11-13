@@ -113,6 +113,7 @@ import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
 import AdminUsers from "layouts/Settings/AdminUsers";
 import Accounts from "layouts/account";
+import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 
 
 export default function App() {
@@ -315,6 +316,7 @@ export default function App() {
         <Route exact path="/uPolicy/createTemplate" element={<CreateTemplate />} />;
         <Route exact path="/settings/team" element={<AdminUsers />} />;
         <Route exact path="/account" element={<Accounts />} />;
+        <Route exact path="/uPolicy/createPolicy" element={<CreatePolicy />} />;
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
