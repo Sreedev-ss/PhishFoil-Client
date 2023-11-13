@@ -16,7 +16,7 @@ Coded by www.creative-tim.com
 import { useState, useEffect } from "react";
 
 // react-router components
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, NavLink } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -58,6 +58,7 @@ import {
 // Images
 import team2 from "assets/images/team-2.jpg";
 import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
+import { Divider } from "@mui/material";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -67,54 +68,47 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const route = useLocation().pathname.split("/").slice(1);
   const navigate = useNavigate();
 
-  const [userData , setUserData] = useState()
+  const [userData, setUserData] = useState()
+  const [isSettingsHovered, setIsSettingsHovered] = useState(false);
+  const [isAccountHovered, setIsAccountHovered] = useState(false);
+
+  function handleAccountsHover(){
+    setIsAccountHovered(!isAccountHovered)
+    setIsSettingsHovered(false)
+  }
+  function handleSettingsHover(){
+    setIsSettingsHovered(!isSettingsHovered)
+    setIsAccountHovered(false)
+  }
 
   useEffect(() => {
     const user = localStorage.getItem("loginData");
     const parsedObject = JSON.parse(user);
-  setUserData(parsedObject)
-   
-  },[])
+    setUserData(parsedObject)
 
-  // let logout = () => {
-  //   localStorage.clear();
-  //   navigate("/login");
-  //   window.location.reload();
-  // };
+  }, [])
+
+
   const logout = () => {
     localStorage.removeItem("loginData");
-  
-    // Redirect to the login page
     navigate("/login");
-    
-    // Reloading the window is usually not necessary unless you have specific requirements for it.
-    // window.location.reload();
   };
- 
+
 
   useEffect(() => {
-    // Setting the navbar type
     if (fixedNavbar) {
       setNavbarType("sticky");
     } else {
       setNavbarType("static");
     }
 
-    // A function that sets the transparent state of the navbar.
     function handleTransparentNavbar() {
       setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
     }
-
-    /** 
-     The event listener that's calling the handleTransparentNavbar function when 
-     scrolling the window.
-    */
     window.addEventListener("scroll", handleTransparentNavbar);
 
-    // Call the handleTransparentNavbar function to set the state with the initial value.
     handleTransparentNavbar();
 
-    // Remove event listener on cleanup
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
@@ -123,7 +117,6 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
   const handleCloseMenu = () => setOpenMenu(false);
 
-  // Render the notifications menu
   const renderMenu = () => (
     <Menu
       anchorEl={openMenu}
@@ -181,8 +174,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
               />
             </SoftBox>
             <SoftBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in">
-                <IconButton sx={navbarIconButton} size="small">
+              <IconButton style={{ position: 'relative' }} sx={navbarIconButton} size="small">
+                <div onClick={handleAccountsHover} style={{ display: 'flex', backgroundColor: '#F1F1F1', borderRadius: '15px', alignItems: 'center', marginLeft: '10px', padding: '7px' }}>
                   <Icon
                     sx={({ palette: { dark, white } }) => ({
                       color: light ? white.main : dark.main,
@@ -190,33 +183,67 @@ function DashboardNavbar({ absolute, light, isMini }) {
                   >
                     account_circle
                   </Icon>
-                  <SoftTypography
-                    variant="button"
-                    fontWeight="medium"
-                    color={light ? "white" : "dark"}
-                    onClick={logout}
-                  >
-                    {/* {console.log(userData.token)} */}
-                    {userData?.token ? "Logout"  : "Login"} 
-                  </SoftTypography>
-                  <div style={{display:'flex',flexDirection:'column', backgroundColor:'#F1F1F1',borderRadius:'15px',marginLeft:'10px', padding:'7px'}}>
-                  <SoftTypography
-                    variant="button"
-                    fontWeight="medium"
-                    color={light ? "white" : "dark"}
-                  >
-                     {userData?.username}
-                  </SoftTypography>
-                  <SoftTypography
-                    variant="button"
-                    fontWeight="medium"
-                    color={light ? "white" : "dark"}
-                  >
-                    {userData?.role.toUpperCase()} 
-                  </SoftTypography>
+                  <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <SoftTypography
+                      variant="button"
+                      fontWeight="medium"
+                      color={light ? "white" : "dark"}
+                    >
+                      {userData?.username}
+                    </SoftTypography>
+                    <SoftTypography
+                      variant="button"
+                      fontWeight="medium"
+                      color={light ? "white" : "dark"}
+                    >
+                      {userData?.role.toUpperCase()}
+                    </SoftTypography>
                   </div>
-                </IconButton>
-              </Link>
+                </div>
+              </IconButton>
+              {isSettingsHovered &&
+                <div className="settingsDiv" style={{
+                  position: "absolute",
+                  display: 'flex',
+                  gap: 5,
+                  flexDirection: 'column',
+                  right: '2.5%',
+                  border: '0.5px solid grey',
+                  borderRadius: 4,
+                  width: '210px',
+                  padding: 8,
+                  backgroundColor: '#F1F1F1'
+                }}
+                  onMouseLeave={() => setIsSettingsHovered(false)}>
+                  <NavLink to='/settings/team'><p style={{ fontSize: 'medium' }}>Admin Users</p></NavLink>
+                  <hr style={{ opacity: 0.1 }} />
+                  <NavLink to='/settings/domain'><p style={{ fontSize: 'medium' }}>NFR Settings</p></NavLink>
+                  <hr style={{ opacity: 0.1 }} />
+                  <p style={{ fontSize: 'medium' }}>Default Customer Settings</p>
+                </div>
+              }
+              {isAccountHovered &&
+                <div className="settingsDiv" style={{
+                  position: "absolute",
+                  display: 'flex',
+                  gap: 5,
+                  flexDirection: 'column',
+                  right: '4.5%',
+                  border: '0.5px solid grey',
+                  borderRadius: 4,
+                  width: '210px',
+                  padding: 8,
+                  backgroundColor: '#F1F1F1'
+                }}
+                  onMouseLeave={() => setIsAccountHovered(false)}>
+                  <NavLink to='/account'><p style={{ fontSize: 'medium' }}>Account Settings</p></NavLink>
+                  <hr style={{ opacity: 0.1 }} />
+                  <NavLink to='/settings/paymentSettings'><p style={{ fontSize: 'medium' }}>Payment Settings</p></NavLink>
+                  <hr style={{ opacity: 0.1 }} />
+                  <NavLink to="/authentication/sign-in"><p onClick={logout} style={{ fontSize: 'medium' }}>Logout</p></NavLink>
+                </div>
+              }
+
               <IconButton
                 size="small"
                 color="inherit"
@@ -232,15 +259,16 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 color="inherit"
                 sx={navbarIconButton}
                 // onClick={handleConfiguratorOpen}
+                onClick={handleSettingsHover}
+
               >
                 <Icon>settings</Icon>
               </IconButton>
-              {renderMenu()}
             </SoftBox>
           </SoftBox>
         )}
       </Toolbar>
-    </AppBar>
+    </AppBar >
   );
 }
 

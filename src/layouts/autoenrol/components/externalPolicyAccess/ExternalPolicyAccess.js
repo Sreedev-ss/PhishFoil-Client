@@ -13,6 +13,7 @@ import { Box } from "@mui/system";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import CloseIcon from "@mui/icons-material/Close";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const link = 'https://app.usecure.io/portal/bfa982ab-6356-47af-8b0f-d2867667cc75';
   
@@ -43,6 +44,7 @@ const ExternalPolicyAccess = () => {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

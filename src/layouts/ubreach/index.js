@@ -46,7 +46,7 @@ const Ubreach = () => {
 
   return (
     <DashboardLayout>
-      {/* <DashboardNavbar /> */}
+      <DashboardNavbar />
       <SoftBox py={3}>
         <SoftBox mb={3}>
           <div

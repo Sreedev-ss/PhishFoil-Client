@@ -46,7 +46,7 @@ function SignIn() {
   
   useEffect(() => {
     if (localStorage.getItem("loginData")) {
-      navigate("/users");
+      navigate("/home");
     }
   }, []);
 

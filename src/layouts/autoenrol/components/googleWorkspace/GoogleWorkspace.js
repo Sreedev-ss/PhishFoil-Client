@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import { Box } from "@mui/system";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
 import GoogleIcon from '@mui/icons-material/Google';
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const style = {
     position: "absolute",
@@ -42,6 +43,7 @@ const GoogleWorkspace = () => {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

@@ -22,6 +22,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import IconButton from "@mui/material/IconButton";
 import { useState } from "react";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const items = ["Administration", "Technical", "Sample"];
 const domainItem = ["Amzwon.net", "billing.net", "asistenciahoy"];
@@ -104,6 +105,7 @@ const AutoPhish = () => {
 
   return (
     <DashboardLayout>
+      <DashboardNavbar/>
       <Typography
         variant="h4"
         sx={{

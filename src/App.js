@@ -112,6 +112,10 @@ import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
 import RiskReportSignup from "layouts/uService/RiskReportSignup";
+import AdminUsers from "layouts/Settings/AdminUsers";
+import Accounts from "layouts/account";
+import CreatePolicy from "layouts/uPolicy/CreatePolicy";
+import PaymentSettings from "layouts/Settings/PaymentSettings";
 
 
 export default function App() {
@@ -211,11 +215,8 @@ export default function App() {
             onMouseEnter={handleOnMouseEnter}
             onMouseLeave={handleOnMouseLeave}
           />
-          <Configurator />
-          {configsButton}
         </>
       )}
-      {layout === "vr" && <Configurator />}
       <Routes>
         <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
         <Route exact path="/uphish/create-simulation" element={<CreateSimulation />} />;
@@ -225,10 +226,9 @@ export default function App() {
         <Route exact path="/uphish/landingPagelibrary" element={<LandingPageLibrary />} />;
         <Route exact path="/ulearn/course-library" element={<CourseLibrary />} />;
         <Route exact path="/ulearn/course-builder" element={<CourseBuilder />} />;
-        <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;{getRoutes(routes)}
+        <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;
         <Route exact path="layouts/home" element={<Home />} />;
         <Route exact path="layouts/ubreach" element={<Ubreach />} />;
-        <Route path="*" element={<Navigate to="/dashboard" />} />
 
         
         <Route exact path="/autoenrol/coursereminderemails" element={<CourseReminderEmails />} />
@@ -317,6 +317,11 @@ export default function App() {
         <Route exact path="/uPolicy/templatebuilder" element={<TemplateBuilder />} />;
         <Route exact path="/uPolicy/viewpolicies" element={<ViewPolicies />} />;
         <Route exact path="/uPolicy/createTemplate" element={<CreateTemplate />} />;
+        <Route exact path="/settings/team" element={<AdminUsers />} />;
+        <Route exact path="/account" element={<Accounts />} />;
+        <Route exact path="/uPolicy/createPolicy" element={<CreatePolicy />} />;
+        <Route exact path="/settings/paymentSettings" element={<PaymentSettings />} />;
+
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

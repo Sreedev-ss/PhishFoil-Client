@@ -15,6 +15,7 @@ import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { Box } from "@mui/system";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const link = 'https://app.usecure.io/portal/bfa982ab-6356-47af-8b0f-d2867667cc75';
 const style = {
@@ -55,6 +56,7 @@ const EndUserPortal = () => {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

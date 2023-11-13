@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { TableContainer, Table, TableHead, TableBody,IconButton, Paper, Modal, Typography, TextField, Button, MenuItem, Menu, ListItemText, Checkbox, Chip, Select, FormControl } from "@mui/material";
+import { TableContainer, Table, TableHead, TableBody,IconButton, Paper, Modal, Typography, TextField, Button, MenuItem, Menu, ListItemText, Checkbox, Chip, Select, FormControl, Dialog } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -10,6 +10,13 @@ const items = ['a Testh <vedishwaran1@twintechsolution.com', 'g Testj <vedishwar
 const items2 = ['No Group', 'Administration', 'Sample', 'Technical'];
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import SearchIcon from '@mui/icons-material/Search';
+import UploadTableData from 'layouts/uPolicy/components/uPolicyUploadTableData';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import EditIcon from '@mui/icons-material/Edit';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+
 import { Link } from "react-router-dom";
 import {
 
@@ -29,6 +36,19 @@ import {
     maxHeight: "400px",
   };
 
+  const styleUpload = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "70%",
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+    maxHeight: "800px",
+  };
+
 const UpdateActionsButton = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [deleteUser, setDeleteUser] = useState(false);
@@ -36,6 +56,12 @@ const UpdateActionsButton = () => {
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedItems2, setSelectedItems2] = useState([]);
     const [duplicateTemp, setDuplicateTemp] = useState(false);
+    const [addLangModalOpenUpload, setAddLangModalOpenUload] = useState(false);
+    const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabClick = (index) => {
+    setActiveTab(index);
+  };
 
     const OpenDuplicateTempModal = () => {
       setDuplicateTemp(true);
@@ -56,6 +82,19 @@ const UpdateActionsButton = () => {
     const addLang = () => {
       closeAddLangModal();
     };
+
+    const openAddLangModalUpload = () => {
+      setAddLangModalOpenUload(true);
+    };
+  
+    const closeAddLangModalUpload = () => {
+      setAddLangModalOpenUload(false);
+    };
+  
+    const addLangUpload = () => {
+      closeAddLangModalUpload();
+    };
+
     const handleChangeItems = (event) => {
       setSelectedItems(event.target.value);
     };
@@ -236,8 +275,175 @@ const UpdateActionsButton = () => {
                             </Box>
                           </Modal>
 
-            <MenuItem onClick={handleClose}>Upload Policy Signatures</MenuItem>
-            <MenuItem component={Link} to="/editPolicy">Edit Policy</MenuItem>
+            {/* <MenuItem onClick={handleClose}>Upload Policy Signatures</MenuItem> */}
+            <MenuItem onClick={openAddLangModalUpload} style={{background:'#fff'}}>
+                            <UploadFileIcon style={{fontSize:'small'}} />
+                            Upload Policy Signatures
+                          </MenuItem>
+
+                          <Modal
+                            open={addLangModalOpenUpload}
+                            onClose={closeAddLangModalUpload}
+                            aria-labelledby="send-test-email-modal-title"
+                            aria-describedby="send-test-email-modal-description"
+                          >
+                            {/* Content for the "Send Test Email" modal */}
+                            
+                            <Box sx={styleUpload}>
+                            <IconButton
+                              aria-label="Close"
+                              sx={{
+                                position: 'absolute',
+                                top: 0,
+                                right: 0,
+                              }}
+                              onClick={closeAddLangModalUpload}
+                            >
+                              <HighlightOffOutlinedIcon style={{fontSize:'medium'}} />
+                            </IconButton>
+                              <Typography id="send-test-email-modal-title" variant="h6" component="h2">
+                              Upload Policy Signatures - Password Construction Guidelines
+                              </Typography>     
+                              <hr/>  
+                              <div>
+
+                              <div 
+                                style=
+                                {{ 
+                                    display: 'flex', 
+                                    gap: 100, 
+                                    marginTop: 18 
+                                }}
+                                >
+                                <Box 
+                                    sx=
+                                    {{ 
+                                        display: 'flex', 
+                                        flexDirection: 'column', 
+                                        gap: 2 
+                                    }}
+                                    >
+                                    <p style={{ fontSize: 15 }}> Add Users via CSV Upload:</p>
+        
+                                    <input
+                                type="file"
+                                name="csvfile"
+                                accept=".csv"
+                              />
+                                </Box>                                
+                                <Box >
+                                    <Box>
+                                      <label
+                                        htmlFor="name"
+                                        style={{ fontSize: "13px" }}
+                                      >
+                                        Add Users:
+                                      </label>
+                                    </Box>
+                                    <TextField
+                                      fullWidth
+                                      type="text"
+                                      name="sendername"
+                                      sx={{ gridColumn: "span 2" }}
+                                    />
+                                </Box>
+                                <Box>
+                                <Button
+                                        style={{
+                                            border: "0.5px solid grey",
+                                            color: "gray" ,
+                                            fontSize: "10px",
+                                            marginTop:'35px',
+                                            fontWeight:'lighter',
+                                            marginLeft:'165px'
+                                        }}
+                                        variant="outlined"
+                                        size="small"
+                                        // onClick={openUserForm}
+                                    >
+                                        
+                                        Search for a user<SearchIcon style={{ color: 'grey', fontSize: "15px", marginLeft:'5px' }} />
+                                    </Button> 
+                                    <Dialog
+                                        // open={isUserFormOpen}
+                                        // onClose={closeUserForm}
+                                    >                                        
+                                    </Dialog> 
+                                </Box>
+                                </div>    
+                                <p style={{fontSize:'12px', color:'gray'}}>You can download a template here: <Link>Download Template</Link></p>
+                                <Box>
+                                </Box>
+                                
+                              </div> 
+                              <div style={{ display: "flex", alignItems: "center", marginTop:'20px' }}>
+                                <div className="tab-content" style={{ margin: "0 auto", width: "fit-content" }}>
+                                  {/* <div className={tab-pane ${activeTab === 0 ? "active" : ""}}>
+                                    <UpolicyTableData />
+                                  </div> */}
+                                  <div className={`tab-pane ${activeTab === 0 ? "active" : ""}`}>
+                                    <UploadTableData />
+                                  </div>
+                                  <div className={`tab-pane ${activeTab === 1 ? "active" : ""}`}>
+                                    <UploadTableData />
+                                  </div>
+
+                                </div>
+                              </div>
+                                                                                                                     
+                              
+                              {/* <div>
+                                <FormControl sx={{ width: "330px", height: 'auto' }}>
+                                  <Typography sx={{ fontSize: '10px', marginBottom: "5px", marginLeft: "2px", marginTop:'15px' }}>Select Your Groups:</Typography>
+                                  <Select
+                                      labelId="multiple-select-label"
+                                      id="multiple-select"
+                                      multiple
+                                      label='Select languages'
+                                      value={selectedItems2}
+                                      onChange={handleChangeItems2}
+                                      MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                      renderValue={(selected) => (
+                                          <div>
+                                              {selected.map((item) => (
+                                                  <Chip
+                                                      key={item}
+                                                      label={item}
+                                                      onDelete={handleDelete2(item)}
+                                                      sx={{
+                                                          marginRight: '5px',
+                                                          height: '20px', 
+                                                      }}
+                                                  />
+                                              ))}
+                                          </div>
+                                      )}
+                                  >
+                                      {items2.map((item) => (
+                                          <MenuItem key={item} value={item}>
+                                              <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                              <ListItemText secondary={item} />
+                                          </MenuItem>
+                                      ))}
+                                  </Select>
+                                </FormControl>
+                              </div>                                                             */}
+                              <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2}}>
+                                <Button variant="contained" disabled onClick={addLang} style={{color:'gray'}} >
+                                  <DeleteOutlineIcon />
+                                  
+                                  Reset User List
+                                </Button>
+                                <Button variant="contained" disabled onClick={addLang} style={{color:'#gray', marginLeft:'5px'}} >
+                                  <UploadFileIcon />
+                                  Upload Signatures
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Modal>
+
+
+            <MenuItem component={Link} to="/editPolicy"><EditIcon/>Edit Policy</MenuItem>
             {/* <MenuItem component={Link} to="/editTemplate" style={{background:'#fff'}}>
                             <EditIcon />
                             Edit Template
@@ -368,7 +574,7 @@ const UpdateActionsButton = () => {
                 </Box>
                 </Modal>
 
-            <MenuItem onClick={handleClose}>Export Policy Data</MenuItem>
+            <MenuItem onClick={handleClose}><ImportExportIcon/>Export Policy Data</MenuItem>
           </Menu>
         </div>
       );
@@ -501,5 +707,3 @@ export default function ReportTableData() {
     </div>
   );
 }
-
-

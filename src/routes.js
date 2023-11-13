@@ -131,6 +131,7 @@ import EditTemplate from "layouts/uPolicy/data/editTemplate";
 import EditPolicy from "layouts/uPolicy/data/editPolicy";
 import RiskReportSignup from "layouts/uService/RiskReportSignup";
 import RiskReports from "layouts/riskReports/RiskReports";
+import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 
 
 const routes = [
@@ -182,7 +183,7 @@ const routes = [
   {
     type: "collapse",
     name: "Report",
-    key: "report",
+    key: "Report",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
@@ -315,24 +316,6 @@ const routes = [
       },
     ],
   },
-  {
-    type: "collapse",
-    name: "Report",
-    key: "Report",
-    icon: <CreditCard size="12px" />,
-    noCollapse: false,
-    subroutes: [
-      // Define subroutes for Uphish
-      {
-        type: "collapse",
-        name: "Gap Analysis Report",
-        key: "gapanalysisreport",
-        route: "/Report/GapAnalysisReport",
-        component: <GapAnalysisReport />,
-      },
-    ],
-  },
-
   {
     type: "collapse",
     name: "Auto Enrol",
@@ -739,6 +722,11 @@ const routes = [
   {
     route: "/editPolicy",
     component: <EditPolicy />,
+    noCollapse: true,
+  },
+  {
+    route: "/createPolicy",
+    component: <CreatePolicy />,
     noCollapse: true,
   },
 

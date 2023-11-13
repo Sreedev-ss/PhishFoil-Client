@@ -16,6 +16,7 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import React, { useState } from "react";
 import SaveIcon from '@mui/icons-material/Save';
 import { Box } from "@mui/system";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const TimeZone = () => {
 
@@ -27,6 +28,7 @@ const TimeZone = () => {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=
