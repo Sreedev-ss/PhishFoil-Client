@@ -118,6 +118,7 @@ import Theme from "assets/theme";
 import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import ReportHub from "layouts/Report/ReportHub";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
@@ -153,6 +154,41 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Users />,
     noCollapse: true,
+    // {
+    //   type: "collapse",
+    //   name: "uPolicy",
+    //   key: "upolicy",
+    //   route: "/upolicy",
+    //   icon: <Office size="12px" />,
+    //   component: <UPolicy />,
+    //   noCollapse: true,
+    // },
+  },
+  {
+    type: "collapse",
+    name: "Report",
+    key: "report",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for Uphish
+      {
+        type: "collapse",
+        name: "Gap Analysis Report",
+        key: "gapanalysisreport",
+        route: "/Report/GapAnalysisReport",
+        component: <GapAnalysisReport />,
+      },
+      {
+        type: "collapse",
+        name: "Report Hub",
+        key: "reporthub",
+        route: "/Report/ReportHub",
+        component: <ReportHub />,
+      },
+    ],
+
   },
   {
     type: "collapse",
@@ -162,6 +198,7 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Customers />,
     noCollapse: true,
+
   },
   {
     type: "collapse",
@@ -612,9 +649,9 @@ const routes = [
       {
         type: "collapse",
         name: "Gap Analysis Report",
-        key: "gapAnalysisReport",
-        route: "/ulearn/gap-analysis-report",
-        component: <Simulation />,
+        key: "gapanalysisreport",
+        route: "/Report/GapAnalysisReport",
+        component: <GapAnalysisReport />,
       },
       {
         type: "collapse",

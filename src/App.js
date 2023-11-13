@@ -104,10 +104,12 @@ import Theme from "layouts/autoenrol/components/Theme/Theme";
 import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
 import TemplateLibrary from "layouts/uPolicy/TemplateLibrary";
+import ReportHub from "layouts/Report/ReportHub";
 import TemplateBuilder from "layouts/uPolicy/TemplateBuilder";
 import AutoEnrolSettings from "layouts/autoenrol/components";
 import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
+
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -300,6 +302,8 @@ export default function App() {
         <Route exact path="/autoenrol/googleworkspace" element={<GoogleWorkspace />} />;
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
+        <Route exact path="/Report/ReportHub" element={<ReportHub />} />
+        <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
         <Route exact path="/ulearn/auto-enrol" element={<AutoEnrolSettings />} />
         <Route exact path="/autoenrol/theme" element={<Theme />} />
         <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
