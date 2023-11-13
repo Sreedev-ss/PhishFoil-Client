@@ -117,7 +117,7 @@ function a11yProps(index) {
   };
 }
 
-const ViewSimulationData = () => {
+const ReportSimulationData = () => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isUserFormOpen, setUserFormOpen] = useState(false);
@@ -386,7 +386,7 @@ const ViewSimulationData = () => {
 
   return (
     <div>
-      <Tabs value={value} onChange={handleChange} indicatorColor="primary">
+      {/* <Tabs value={value} onChange={handleChange} indicatorColor="primary">
         <Tab
           label="Performance Report"
           {...a11yProps(0)}
@@ -402,21 +402,31 @@ const ViewSimulationData = () => {
           {...a11yProps(2)}
           style={{ color: setValue === 2 ? "blue" : "inherit" }}
         />
-      </Tabs>
+      </Tabs> */}
 
-      <CustomTabPanel value={value} index={0}>
-        <PerformanceReport />
-      </CustomTabPanel>
+      <Box sx={{ width: "100%", padding: 1 }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+            <Tab label="Performance Report" {...a11yProps(0)} />
+            <Tab label="Schedule Report" {...a11yProps(1)} />
+            <Tab label="Excel Report" {...a11yProps(2)} />
+          </Tabs>
+        </Box>
 
-      <CustomTabPanel value={value} index={1}>
-        <ScheduleReport />
-      </CustomTabPanel>
+        <CustomTabPanel value={value} index={0}>
+          <PerformanceReport />
+        </CustomTabPanel>
 
-      <CustomTabPanel value={value} index={2}>
-        <ExcelReport />
-      </CustomTabPanel>
+        <CustomTabPanel value={value} index={1}>
+          <ScheduleReport />
+        </CustomTabPanel>
+
+        <CustomTabPanel value={value} index={2}>
+          <ExcelReport />
+        </CustomTabPanel>
+      </Box>
     </div>
   );
 };
 
-export default ViewSimulationData;
+export default ReportSimulationData;

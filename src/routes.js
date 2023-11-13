@@ -132,7 +132,7 @@ import EditPolicy from "layouts/uPolicy/data/editPolicy";
 import RiskReportSignup from "layouts/uService/RiskReportSignup";
 import RiskReports from "layouts/riskReports/RiskReports";
 import CreatePolicy from "layouts/uPolicy/CreatePolicy";
-
+import SimulationPerformance from "layouts/Report/SimulationPerformance";
 
 const routes = [
   // {
@@ -144,15 +144,15 @@ const routes = [
   //   component: <Dashboard />,
   //   noCollapse: true,
   // },
-//   {
-//   type: "collapse",
-//   name: "Customers",
-//   key: "customers",
-//   route: "/customers",
-//   icon: <Office size="12px" />,
-//   component: <Customers />,
-//   noCollapse: true,
-// },
+  //   {
+  //   type: "collapse",
+  //   name: "Customers",
+  //   key: "customers",
+  //   route: "/customers",
+  //   icon: <Office size="12px" />,
+  //   component: <Customers />,
+  //   noCollapse: true,
+  // },
   {
     type: "collapse",
     name: "Home",
@@ -203,8 +203,14 @@ const routes = [
         route: "/Report/ReportHub",
         component: <ReportHub />,
       },
+      {
+        type: "collapse",
+        name: "Simulation Performance",
+        key: "simulationperformance",
+        route: "/Report/SimulationPerformance",
+        component: <SimulationPerformance />,
+      },
     ],
-
   },
   {
     type: "collapse",
@@ -273,7 +279,6 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Ubreach />,
     noCollapse: true,
-  
   },
   {
     type: "collapse",
@@ -281,9 +286,8 @@ const routes = [
     key: "riskReports",
     route: "/riskReports",
     icon: <Office size="12px" />,
-    component: <RiskReports/>,
+    component: <RiskReports />,
     noCollapse: true,
-  
   },
   {
     type: "collapse",
@@ -667,52 +671,46 @@ const routes = [
     ],
   },
 
-
-
-
- //UService Routes
- {
-  type: "collapse",
-  name: "uService",
-  key: "uService",
-  icon: <CreditCard size="12px" />,
-  component: <Billing />,
-  noCollapse: false,
-  subroutes: [
-    // Define subroutes for UService
-    {
-      type: "collapse",
-      name: "Customers",
-      key: "Customers",
-      route: "/uService/Customers",
-      component: <Customers />,
-    },
-    {
-      type: "collapse",
-      name: "Prospects",
-      key: "prospects",
-      route: "/uService/prospects",
-      component: <Prospects />,
-    },
-    {
-      type: "collapse",
-      name: "InvoicesCustomer",
-      key: "invoicesCustomer",
-      route: "/uService/invoicesCustomer",
-      component: <InvoicesCustomer />,
-    },
-    {
-      type: "collapse",
-      name: "Risk Report Signup",
-      key: "riskReportSignup",
-      route: "/uService/riskReportSignup",
-      component: <RiskReportSignup />,
-    },
-   
-   
-  ],
-},
-
+  //UService Routes
+  {
+    type: "collapse",
+    name: "uService",
+    key: "uService",
+    icon: <CreditCard size="12px" />,
+    component: <Billing />,
+    noCollapse: false,
+    subroutes: [
+      // Define subroutes for UService
+      {
+        type: "collapse",
+        name: "Customers",
+        key: "Customers",
+        route: "/uService/Customers",
+        component: <Customers />,
+      },
+      {
+        type: "collapse",
+        name: "Prospects",
+        key: "prospects",
+        route: "/uService/prospects",
+        component: <Prospects />,
+      },
+      {
+        type: "collapse",
+        name: "InvoicesCustomer",
+        key: "invoicesCustomer",
+        route: "/uService/invoicesCustomer",
+        component: <InvoicesCustomer />,
+      },
+      {
+        type: "collapse",
+        name: "Risk Report Signup",
+        key: "riskReportSignup",
+        route: "/uService/riskReportSignup",
+        component: <RiskReportSignup />,
+      },
+    ],
+  },
 
   {
     route: "/editTemplate",
@@ -729,8 +727,6 @@ const routes = [
     component: <CreatePolicy />,
     noCollapse: true,
   },
-
-
 
   //landing Page Routes
   {

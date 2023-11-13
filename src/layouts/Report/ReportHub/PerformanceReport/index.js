@@ -72,7 +72,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 700,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
@@ -99,6 +99,7 @@ const PerformanceReport = () => {
   const [tableData, setTableData] = useState([]);
   const [recipientEmails, setRecipientEmails] = useState("");
   const [selectedReport, setSelectedReport] = useState(null);
+  const [viewPerfomReportOpen, setViewPerformReportOpen] = useState(false);
 
   //Schedule report
 
@@ -108,6 +109,14 @@ const PerformanceReport = () => {
   const [viewReport, setViewReport] = React.useState("");
   const handlesetViewChange = (event) => {
     setViewReport(event.target.value);
+  };
+
+  const handleViewPerformReportOpen = () => {
+    setViewPerformReportOpen(true);
+  };
+
+  const handleViewPerformReportClose = () => {
+    setViewPerformReportOpen(false);
   };
 
   const handleOpenModal = (report) => {
@@ -512,6 +521,7 @@ const PerformanceReport = () => {
                 </div>
 
                 <Button
+                  onClick={handleViewPerformReportOpen}
                   variant="outline"
                   style={{
                     border: "0.5px solid #1C7AE4",
@@ -523,6 +533,129 @@ const PerformanceReport = () => {
                   <RemoveRedEyeOutlinedIcon style={{ marginRight: "5px" }} />
                   View Report
                 </Button>
+                <Modal
+                  open={viewPerfomReportOpen}
+                  onClose={handleViewPerformReportClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box sx={style}>
+                    <Typography
+                      id="send-test-email-modal-title"
+                      variant="h6"
+                      component="h2"
+                      style={{ margin: "16px" }}
+                    >
+                      View Performance Report for Date Range
+                    </Typography>
+
+                    <TextField
+                      fullWidth
+                      variant="filled"
+                      type="text"
+                      sx={{ gridColumn: "span 2" }}
+                    />
+                    <Typography
+                      id="transition-modal-description"
+                      sx={{ mt: 2 }}
+                      color="textSecondary"
+                    >
+                      Report Period:
+                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <TextField
+                        style={{ marginRight: "16px" }}
+                        type="date"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        sx={{ mt: 2 }}
+                        fullWidth
+                        placeholder="Start Date"
+                        value={startDate}
+                        onChange={(e) => setStartDate(e.target.value)}
+                      />
+
+                      <TextField
+                        style={{ marginRight: "16px" }}
+                        type="date"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        sx={{ mt: 2 }}
+                        fullWidth
+                        placeholder="End Date"
+                        value={endDate}
+                        onChange={(e) => setEndDate(e.target.value)}
+                      />
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      <Button
+                        variant="outline"
+                        onClick={handleCreateReport}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          border: "0.5px solid #d4d4d4",
+                          color: "#d4d4d4",
+
+                          margin: "16px",
+                          fontWeight: "lighter",
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                      {/* <Link>
+                        <Button
+                          variant="outline"
+                          onClick={handleCreateReport}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            border: "0.5px solid #d4d4d4",
+                            color: "#d4d4d4",
+                            backgroundColor: " #1C7AE4",
+
+                            margin: "16px",
+                            fontWeight: "lighter",
+                          }}
+                        >
+                          View Report
+                        </Button>
+                      </Link> */}
+                      <Link to="/Report/ReportHub/PerformanceReport/ViewReport">
+                        <Button
+                          variant="outline"
+                          onClick={handleCreateReport}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            border: "0.5px solid #d4d4d4",
+                            color: "#d4d4d4",
+                            backgroundColor: " #1C7AE4",
+
+                            margin: "16px",
+                            fontWeight: "lighter",
+                          }}
+                        >
+                          View Report
+                        </Button>
+                      </Link>
+                    </div>
+                  </Box>
+                </Modal>
                 {/* <Popper
                     sx={{
                       zIndex: 1,
