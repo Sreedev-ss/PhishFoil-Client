@@ -15,6 +15,8 @@ import { ChromePicker } from "react-color";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Email } from "@mui/icons-material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import FileOpenIcon from '@mui/icons-material/FileOpen';
+
 import {
     Box,
     Button,
@@ -93,6 +95,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ResetTv } from "@mui/icons-material";
 import RefreshIcon from '@mui/icons-material/Refresh';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 
 
 // const style = {
@@ -123,15 +126,16 @@ function Prospects() {
     const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
     const [emailTemplateData, setAllEmailTemplateData] = useState([])
 
-    // const [sendAllEmailsModalOpen, setSendAllEmailsModalOpen] = useState(false);
-    //   const [sendEmailSimulationModalOpen, setSendEmailSimulationModalOpen] = useState(false);
-    //   const [deleteSimulationModalOpen, setDeleteSimulationModalOpen] = useState(false);
+
     const [viewSimulationsModalOpen, setViewSimulationModalOpen] = useState(false);
 
-    // const [addLangModalOpen, setAddLangModalOpen] = useState(false);
-
+    //create Prospects
     const [createCustomerModalOpen, setCreateCustomerModalOpen] = useState(false);
     const [selectedValue, setSelectedValue] = React.useState('a');
+    //edit prospects
+    const [editCustomerModalOpen, setEditCustomerModalOpen] = useState(false);
+    const [editValue, setEditValue] = React.useState('a');
+
     const [selectedTab, setSelectedTab] = useState(0);
     const [reminder, setReminder] = useState("(GMT+00:00) Europe/Isle_of_Man");
     const [selectedItems, setSelectedItems] = useState(["English(UK)"]);
@@ -169,6 +173,8 @@ function Prospects() {
         setSelectedTab(newValue);
     };
 
+    //Create Prospects
+
     const handleChangeCustomer = (event) => {
         setSelectedValue(event.target.value);
     };
@@ -180,6 +186,19 @@ function Prospects() {
     const closeCraeteCustomerModal = () => {
         setCreateCustomerModalOpen(false);
     };
+    //Edit Prospects
+    const handleChangeEditCustomer = (event) => {
+        setEditValue(event.target.value);
+    };
+
+    const openEditCustomerModal = () => {
+        setEditCustomerModalOpen(true);
+    };
+
+    const closeEditCustomerModal = () => {
+        setEditCustomerModalOpen(false);
+    };
+
 
 
 
@@ -202,24 +221,6 @@ function Prospects() {
     };
 
 
-    // const openSendTestEmailModal = () => {
-    //     setSendTestEmailModalOpen(true);
-    // };
-
-    // const closeSendTestEmailModal = () => {
-    //     setSendTestEmailModalOpen(false);
-    // };
-
-    // const sendTestEmail = () => {
-    //     closeSendTestEmailModal();
-    // };
-
-    // const openAddLangModal = () => {
-    //     setAddLangModalOpen(true);
-    // };
-    // const openSendTestEmailModal = () => {
-    //   setSendTestEmailModalOpen(true);
-    // };
 
 
     const data = localStorage.getItem('loginData')
@@ -810,6 +811,7 @@ function Prospects() {
                                                                 marginRight: "10px"
                                                             }}
                                                             size="small"
+                                                            onClick={openEditCustomerModal}
                                                         >
                                                             Edit
 
@@ -817,6 +819,754 @@ function Prospects() {
 
                                                                 style={{ color: 'black', fontSize: "15px" }} />
                                                         </Button>
+
+                                                        {/*Edit Modal */}
+                                                        <Dialog
+                                                            fullWidth
+
+                                                            maxWidth={"lg"}
+                                                            open={editCustomerModalOpen}
+                                                            onClose={closeEditCustomerModal}
+                                                        >
+                                                            <DialogTitle> Edit Prospects</DialogTitle>
+                                                            <DialogContent>
+
+                                                                <Tabs
+                                                                    style={tabStyle}
+                                                                    aria-label="wrapped label tabs example"
+                                                                    centered
+                                                                    textColor="secondary"
+                                                                    disableRipple
+                                                                    defaultValue={1}>
+                                                                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+
+                                                                        <TabsList >
+                                                                            <Tab
+                                                                                value={1}
+                                                                                style={{
+                                                                                    backgroundColor: 'your-color',
+                                                                                    border: 'none',
+                                                                                    marginRight: '60px',
+                                                                                }}
+                                                                            >
+
+                                                                                Details
+                                                                            </Tab>
+                                                                            <Tab
+                                                                                value={2}
+                                                                                style={{
+                                                                                    backgroundColor: 'your-color',
+                                                                                    border: 'none',
+                                                                                    marginRight: '60px',
+                                                                                }}
+                                                                            >
+                                                                                Plan</Tab>
+
+                                                                            <Tab
+                                                                                value={3}
+                                                                                style={{
+                                                                                    backgroundColor: 'your-color',
+                                                                                    border: 'none',
+                                                                                    marginRight: '60px',
+                                                                                }}
+                                                                            >
+                                                                                Feature</Tab>
+
+                                                                            <Tab
+                                                                                value={4}
+                                                                                style={{
+                                                                                    backgroundColor: 'your-color',
+                                                                                    border: 'none',
+                                                                                    marginRight: '60px',
+                                                                                }}
+                                                                            >
+                                                                                Emails</Tab>
+                                                                            <Tab
+                                                                                value={5}
+                                                                                style={{
+                                                                                    backgroundColor: 'your-color',
+                                                                                    border: 'none',
+                                                                                    marginRight: '60px',
+                                                                                }}
+                                                                            >
+                                                                                Theme</Tab>
+                                                                        </TabsList>
+                                                                    </Box>
+                                                                    <TabPanel value={1}>
+
+                                                                        <Box>
+                                                                            <label
+                                                                                htmlFor="name"
+                                                                                style={{ fontSize: "13px" }}
+                                                                            >
+                                                                                Company Name
+                                                                            </label>
+                                                                        </Box>
+                                                                        <TextField
+
+
+                                                                            type="text"
+                                                                            sx={{
+                                                                                gridColumn: "span 2",
+                                                                                backgroundColor: "#ffff",
+                                                                                marginTop: '9px',
+                                                                                width: "500px"
+                                                                            }}
+
+                                                                        >
+                                                                        </TextField>
+
+                                                                        <div style={{ marginTop: '17px' }}>
+                                                                            <Box>
+                                                                                <label
+                                                                                    htmlFor="name"
+                                                                                    style={{ fontSize: "13px" }}
+                                                                                >
+                                                                                    Preferred Language:
+                                                                                </label>
+                                                                            </Box>
+                                                                            <TextField
+                                                                                select
+                                                                                value={reminder}
+                                                                                onChange={handleChangedReminders}
+                                                                                type="text"
+                                                                                sx={{
+                                                                                    gridColumn: "span 2",
+                                                                                    backgroundColor: "#ffff",
+                                                                                    marginTop: '9px',
+                                                                                    width: "500px"
+                                                                                }}
+                                                                                SelectProps={{
+                                                                                    IconComponent: () => <ExpandMoreIcon />,
+                                                                                }}
+                                                                            >
+                                                                                <MenuItem value="English(Australia)">English(Australia)</MenuItem>
+                                                                                <MenuItem value="English(China)">English(China)</MenuItem>
+                                                                                <MenuItem value="English(UK)">English(UK)</MenuItem>
+                                                                                <MenuItem value="German">German</MenuItem>
+                                                                            </TextField>
+                                                                        </div>
+                                                                        <div style={{ marginTop: '25px' }}>
+
+                                                                            <Box>
+                                                                                <label
+                                                                                    htmlFor="name"
+                                                                                    style={{ fontSize: "13px" }}
+                                                                                >
+                                                                                    Preferred Timezone:
+                                                                                </label>
+                                                                            </Box>
+                                                                            <TextField
+                                                                                select
+                                                                                value={reminder}
+                                                                                onChange={handleChangedReminders}
+                                                                                type="text"
+                                                                                sx={{
+                                                                                    gridColumn: "span 2",
+                                                                                    backgroundColor: "#ffff",
+                                                                                    marginTop: '9px',
+                                                                                    width: "500px"
+                                                                                }}
+                                                                                SelectProps={{
+                                                                                    IconComponent: () => <ExpandMoreIcon />,
+                                                                                }}
+                                                                            >
+                                                                                <MenuItem value="(GMT+00:00) Europe/Isle_of_Man">(GMT+00:00) Europe/Isle_of_Man</MenuItem>
+                                                                                <MenuItem value="(GMT+00:00) Europe/Jersy">(GMT+00:00) Europe/Jersy</MenuItem>
+                                                                                <MenuItem value="(GMT+00:00) Europe/London">(GMT+00:00) Europe/London</MenuItem>
+                                                                                <MenuItem value="(GMT+00:00) Europe/Lisbon">(GMT+00:00) Europe/Lisbon</MenuItem>
+                                                                            </TextField>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Button
+                                                                                variant="outlined"
+                                                                                style=
+                                                                                {{
+                                                                                    color: 'black',
+                                                                                    fontWeight: 'lighter',
+                                                                                    marginTop: '15px',
+                                                                                    borderColor: 'gray'
+                                                                                }}
+                                                                            >
+                                                                                Detect Timezone
+                                                                            </Button>
+                                                                        </div>
+                                                                        <div style={{ marginTop: '5px' }}>
+                                                                            <FormControl
+                                                                                sx={{
+                                                                                    width: "90%",
+                                                                                    height: 'auto'
+                                                                                }}
+                                                                            >
+                                                                                <Typography
+                                                                                    sx={{
+                                                                                        fontSize: '',
+                                                                                        marginBottom: "5px",
+                                                                                        marginLeft: "2px",
+                                                                                        marginTop: "10px",
+                                                                                    }}
+                                                                                >
+                                                                                    Preferred Content Language(s) :
+                                                                                </Typography>
+                                                                                <Select
+                                                                                    labelId="multiple-select-label"
+                                                                                    id="multiple-select"
+                                                                                    multiple
+                                                                                    label='Select languages'
+                                                                                    value={selectedItems}
+                                                                                    onChange={handleChange}
+                                                                                    MenuProps={{ PaperProps: { sx: { maxHeight: '35%' } } }}
+                                                                                    renderValue={(selected) => (
+                                                                                        <div>
+                                                                                            {selected.map((item) => (
+                                                                                                <Chip
+                                                                                                    key={item}
+                                                                                                    label={item}
+                                                                                                    onDelete={handleDelete(item)}
+                                                                                                    sx={{
+                                                                                                        marginRight: '5px',
+                                                                                                        height: '20px',
+                                                                                                    }}
+                                                                                                />
+                                                                                            ))}
+                                                                                        </div>
+                                                                                    )}
+                                                                                >
+                                                                                    {items.map((item) => (
+                                                                                        <MenuItem key={item} value={item}>
+                                                                                            <Checkbox checked={selectedItems.indexOf(item) > -1} />
+                                                                                            <ListItemText secondary={item} />
+                                                                                        </MenuItem>
+                                                                                    ))}
+                                                                                </Select>
+                                                                            </FormControl>
+                                                                        </div>
+                                                                        <div>
+                                                                            <p style={{ fontSize: "13px" }}>This controls which language(s) this company will see content for such as email templates for by default.</p>
+                                                                        </div>
+                                                                    </TabPanel>
+                                                                    <TabPanel value={2}>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>Free Trial :</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>Domain Lock :</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <Box>
+                                                                            <label
+                                                                                htmlFor="name"
+                                                                                style={{ fontSize: "13px" }}
+                                                                            >
+                                                                                * Domain :
+                                                                            </label>
+                                                                        </Box>
+                                                                        <TextField
+
+
+                                                                            type="text"
+                                                                            sx={{
+                                                                                gridColumn: "span 2",
+                                                                                backgroundColor: "#ffff",
+                                                                                marginTop: '9px',
+                                                                                width: "500px"
+                                                                            }}
+
+                                                                        >
+                                                                        </TextField>
+                                                                        <Box>
+                                                                            <label
+                                                                                htmlFor="name"
+                                                                                style={{ fontSize: "13px" }}
+                                                                            >
+                                                                                User Limits :
+                                                                            </label>
+                                                                        </Box>
+                                                                        <TextField
+
+
+                                                                            type="text"
+                                                                            sx={{
+                                                                                gridColumn: "span 2",
+                                                                                backgroundColor: "#ffff",
+                                                                                marginTop: '9px',
+                                                                                width: "500px"
+                                                                            }}
+
+                                                                        >
+                                                                        </TextField>
+                                                                    </TabPanel>
+                                                                    <TabPanel value={3}>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>uLearn:</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>uPhish :</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>uBreach :</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>uPolicy :</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px", marginTop: '15px' }}>Enable Risk Score:</Typography>
+                                                                        </div>
+                                                                        <div style={{ marginTop: "5px" }}>
+                                                                            <Switch {...label} defaultChecked />
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </TabPanel>
+                                                                    <TabPanel value={4}>
+                                                                        <div style={{ marginTop: '17px' }}>
+                                                                            <Box>
+                                                                                <label
+                                                                                    htmlFor="name"
+                                                                                    style={{ fontSize: "13px" }}
+                                                                                >
+                                                                                    Set your preferred domain:
+                                                                                </label>
+                                                                            </Box>
+                                                                            <TextField
+                                                                                select
+                                                                                value={reminder}
+                                                                                onChange={handleChangedReminders}
+                                                                                type="text"
+                                                                                sx={{
+                                                                                    gridColumn: "span 2",
+                                                                                    backgroundColor: "#ffff",
+                                                                                    marginTop: '9px',
+                                                                                    width: "500px"
+                                                                                }}
+                                                                                SelectProps={{
+                                                                                    IconComponent: () => <ExpandMoreIcon />,
+                                                                                }}
+                                                                            >
+                                                                                <MenuItem value="user-training.com">user-training.com</MenuItem>
+                                                                                <MenuItem value="usecure.io">usecure.io</MenuItem>
+
+                                                                            </TextField>
+                                                                        </div>
+
+                                                                        <div style={{ marginTop: "20px" }}>
+                                                                            <p>
+                                                                                Header Logo :
+                                                                            </p>
+                                                                        </div>
+
+                                                                        <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                                                                            {!headerChecked && (
+                                                                                <Box>
+                                                                                    <div
+                                                                                        style={{
+                                                                                            width: "370px",
+                                                                                            height: "140px",
+                                                                                            border: "1px solid #ccc",
+                                                                                            position: "relative",
+                                                                                            overflow: "hidden",
+                                                                                        }}
+                                                                                    >
+                                                                                        <label
+                                                                                            htmlFor="imageInput"
+                                                                                            style={{ cursor: "pointer", display: "block", height: "100%" }}
+                                                                                        >
+                                                                                            {image ? (
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        position: "absolute",
+                                                                                                        top: "50%",
+                                                                                                        left: "50%",
+                                                                                                        transform: "translate(-50%, -50%)",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    <img
+                                                                                                        src={image}
+                                                                                                        alt="Preview"
+                                                                                                        style={{
+                                                                                                            maxWidth: "100%",
+                                                                                                            maxHeight: "100%",
+                                                                                                            width: "auto",
+                                                                                                            height: "auto",
+                                                                                                        }}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            ) : (
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        position: "absolute",
+                                                                                                        top: "45%",
+                                                                                                        color: "grey",
+                                                                                                        fontSize: "small",
+                                                                                                        left: "50%",
+                                                                                                        transform: "translate(-50%, -50%)",
+                                                                                                        textAlign: "center",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    + <br /> Upload
+                                                                                                </div>
+                                                                                            )}
+                                                                                        </label>
+                                                                                        <input
+                                                                                            id="imageInput"
+                                                                                            type="file"
+                                                                                            accept="image/*"
+                                                                                            onChange={handleImageChange}
+                                                                                            style={{ display: "none" }}
+                                                                                        />
+                                                                                    </div>
+                                                                                    <Button
+                                                                                        onClick={handleRemoveImage}
+                                                                                        variant="contained"
+                                                                                        disabled={image ? false : true}
+                                                                                        style={{
+                                                                                            marginTop: "10px",
+                                                                                            backgroundColor: "#ff4c4f",
+                                                                                            color: "#ffff",
+                                                                                            marginRight: "115px",
+                                                                                        }}
+                                                                                    >
+                                                                                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                                                                                        Remove Image
+                                                                                    </Button>
+                                                                                    {!image && (
+                                                                                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                                                                                            This is a required field
+                                                                                        </p>
+                                                                                    )}
+                                                                                </Box>
+                                                                            )}
+                                                                            <div className="header-dropdown" style={{ position: "relative" }}>
+                                                                                <div
+                                                                                    className="dropdown-header"
+                                                                                    onClick={toggleHeaderDropdown}
+                                                                                    style={{
+                                                                                        display: "flex",
+                                                                                        marginTop: "20px",
+                                                                                        borderRadius: 5,
+                                                                                        alignItems: "center",
+                                                                                        border: "0.6px solid #d2d6da",
+                                                                                        width: 270,
+                                                                                    }}
+                                                                                >
+                                                                                    <div
+                                                                                        style={{
+                                                                                            marginLeft: "10px",
+                                                                                            marginRight: "8px",
+                                                                                            border: "0.5px solid #d2d6da",
+                                                                                            borderRadius: 3,
+                                                                                            width: "40px",
+                                                                                            height: "20px",
+                                                                                            backgroundColor: selectedHeaderColor,
+                                                                                        }}
+                                                                                    ></div>
+                                                                                    <p
+                                                                                        style={{
+                                                                                            fontSize: "16px",
+                                                                                            display: "flex",
+                                                                                            alignItems: "center",
+                                                                                            gap: "20px",
+                                                                                            fontFamily: "sans-serif",
+                                                                                            float: "inline-end",
+                                                                                        }}
+                                                                                    >
+                                                                                        Primary Colour <IoMdArrowDropdown />{" "}
+                                                                                    </p>
+                                                                                </div>
+
+                                                                                {isOpenHeader && (
+                                                                                    <div className="header-content" style={{ position: "absolute", zIndex: 10 }}>
+                                                                                        <ChromePicker color={selectedHeaderColor} onChange={handleHeaderColorChange} />
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+                                                                            <div className="button-dropdown" style={{ position: "relative" }}>
+                                                                                <div
+                                                                                    className="dropdown-button"
+                                                                                    onClick={toggleButtonDropdown}
+                                                                                    style={{
+                                                                                        display: "flex",
+                                                                                        marginTop: "20px",
+                                                                                        borderRadius: 5,
+                                                                                        alignItems: "center",
+                                                                                        border: "0.6px solid #d2d6da",
+                                                                                        width: 250,
+                                                                                    }}
+                                                                                >
+                                                                                    <div
+                                                                                        style={{
+                                                                                            marginLeft: "10px",
+                                                                                            border: "0.5px solid #d2d6da",
+                                                                                            borderRadius: 3,
+                                                                                            marginRight: "8px",
+                                                                                            width: "40px",
+                                                                                            height: "20px",
+                                                                                            backgroundColor: selectedButtonColor,
+                                                                                        }}
+                                                                                    ></div>
+                                                                                    <p
+                                                                                        style={{
+                                                                                            fontSize: "16px",
+                                                                                            display: "flex",
+                                                                                            alignItems: "center",
+                                                                                            gap: "20px",
+                                                                                            fontFamily: "sans-serif",
+                                                                                            float: "inline-end",
+                                                                                        }}
+                                                                                    >
+                                                                                        Secondary Colour <IoMdArrowDropdown />{" "}
+                                                                                    </p>
+                                                                                </div>
+
+                                                                                {isOpenButton && (
+                                                                                    <div className="button-content" style={{ position: "absolute", zIndex: 10 }}>
+                                                                                        <ChromePicker color={selectedButtonColor} onChange={handleButtonColorChange} />
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+                                                                            <div style={{ marginTop: "30px" }}>
+                                                                                <Switch {...label} defaultChecked />
+                                                                                <span
+                                                                                    style={{
+                                                                                        fontSize: "15px",
+                                                                                        fontWeight: "lighter",
+                                                                                        marginLeft: "20px",
+                                                                                    }}
+                                                                                >
+                                                                                    Omit Email Body Header
+                                                                                </span>
+
+                                                                            </div>
+                                                                        </Box>
+
+                                                                    </TabPanel>
+                                                                    <TabPanel value={5}>
+                                                                        <div style={{ marginTop: "20px" }}>
+                                                                            <p>
+                                                                                Header Logo :
+                                                                            </p>
+                                                                        </div>
+                                                                        <Box sx={{ marginTop: 2, alignItems: "start" }}>
+                                                                            {!headerChecked && (
+                                                                                <Box>
+                                                                                    <div
+                                                                                        style={{
+                                                                                            width: "370px",
+                                                                                            height: "140px",
+                                                                                            border: "1px solid #ccc",
+                                                                                            position: "relative",
+                                                                                            overflow: "hidden",
+                                                                                        }}
+                                                                                    >
+                                                                                        <label
+                                                                                            htmlFor="imageInput"
+                                                                                            style={{ cursor: "pointer", display: "block", height: "100%" }}
+                                                                                        >
+                                                                                            {image ? (
+                                                                                                <div
+                                                                                                    style={{
+                                                                                                        position: "absolute",
+                                                                                                        top: "50%",
+                                                                                                        left: "50%",
+                                                                                                        transform: "translate(-50%, -50%)",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    <img
+                                                                                                        src={image}
+                                                                                                        alt="Preview"
+                                                                                                        style={{
+                                                                                                            maxWidth: "100%",
+                                                                                                            maxHeight: "100%",
+                                                                                                            width: "auto",
+                                                                                                            height: "auto",
+                                                                                                        }}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            ) : (
+                                                                                                <div
+
+                                                                                                    style={{
+                                                                                                        position: "absolute",
+                                                                                                        top: "45%",
+                                                                                                        color: "blue",
+                                                                                                        fontSize: "55px",
+                                                                                                        left: "50%",
+                                                                                                        transform: "translate(-50%, -50%)",
+                                                                                                        textAlign: "center",
+                                                                                                    }}
+                                                                                                >
+
+                                                                                                    <span style={{ color: "blue !important" }}>usecure</span>
+                                                                                                </div>
+                                                                                            )}
+                                                                                        </label>
+                                                                                        <input
+                                                                                            id="imageInput"
+                                                                                            type="file"
+                                                                                            accept="image/*"
+                                                                                            onChange={handleImageChange}
+                                                                                            style={{ display: "none" }}
+                                                                                        />
+                                                                                    </div>
+                                                                                    <Button
+                                                                                        onClick={handleRemoveImage}
+                                                                                        variant="contained"
+                                                                                        disabled={image ? false : true}
+                                                                                        style={{
+                                                                                            marginTop: "10px",
+                                                                                            backgroundColor: "#ff4c4f",
+                                                                                            color: "#ffff",
+                                                                                            marginRight: "115px",
+                                                                                        }}
+                                                                                    >
+                                                                                        <AiOutlineDelete style={{ marginRight: "3px" }} />
+                                                                                        Remove Image
+                                                                                    </Button>
+                                                                                    {!image && (
+                                                                                        <p style={{ fontSize: "13px", color: "red", fontFamily: "sans-serif" }}>
+                                                                                            This is a required field
+                                                                                        </p>
+                                                                                    )}
+                                                                                </Box>
+                                                                            )}
+                                                                            <div className="header-dropdown" style={{ position: "relative" }}>
+                                                                                <div
+                                                                                    className="dropdown-header"
+                                                                                    onClick={toggleHeaderDropdown}
+                                                                                    style={{
+                                                                                        display: "flex",
+                                                                                        marginTop: "20px",
+                                                                                        borderRadius: 5,
+                                                                                        alignItems: "center",
+                                                                                        border: "0.6px solid #d2d6da",
+                                                                                        width: 270,
+                                                                                    }}
+                                                                                >
+                                                                                    <div
+                                                                                        style={{
+                                                                                            marginLeft: "10px",
+                                                                                            marginRight: "8px",
+                                                                                            border: "0.5px solid #d2d6da",
+                                                                                            borderRadius: 3,
+                                                                                            width: "40px",
+                                                                                            height: "20px",
+                                                                                            backgroundColor: selectedHeaderColor,
+                                                                                        }}
+                                                                                    ></div>
+                                                                                    <p
+                                                                                        style={{
+                                                                                            fontSize: "16px",
+                                                                                            display: "flex",
+                                                                                            alignItems: "center",
+                                                                                            gap: "20px",
+                                                                                            fontFamily: "sans-serif",
+                                                                                            float: "inline-end",
+                                                                                        }}
+                                                                                    >
+                                                                                        Primary Colour <IoMdArrowDropdown />{" "}
+                                                                                    </p>
+                                                                                </div>
+
+                                                                                {isOpenHeader && (
+                                                                                    <div className="header-content" style={{ position: "absolute", zIndex: 10 }}>
+                                                                                        <ChromePicker color={selectedHeaderColor} onChange={handleHeaderColorChange} />
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+                                                                            <div className="button-dropdown" style={{ position: "relative" }}>
+                                                                                <div
+                                                                                    className="dropdown-button"
+                                                                                    onClick={toggleButtonDropdown}
+                                                                                    style={{
+                                                                                        display: "flex",
+                                                                                        marginTop: "20px",
+                                                                                        borderRadius: 5,
+                                                                                        alignItems: "center",
+                                                                                        border: "0.6px solid #d2d6da",
+                                                                                        width: 250,
+                                                                                    }}
+                                                                                >
+                                                                                    <div
+                                                                                        style={{
+                                                                                            marginLeft: "10px",
+                                                                                            border: "0.5px solid #d2d6da",
+                                                                                            borderRadius: 3,
+                                                                                            marginRight: "8px",
+                                                                                            width: "40px",
+                                                                                            height: "20px",
+                                                                                            backgroundColor: selectedButtonColor,
+                                                                                        }}
+                                                                                    ></div>
+                                                                                    <p
+                                                                                        style={{
+                                                                                            fontSize: "16px",
+                                                                                            display: "flex",
+                                                                                            alignItems: "center",
+                                                                                            gap: "20px",
+                                                                                            fontFamily: "sans-serif",
+                                                                                            float: "inline-end",
+                                                                                        }}
+                                                                                    >
+                                                                                        Secondary Colour <IoMdArrowDropdown />{" "}
+                                                                                    </p>
+                                                                                </div>
+
+                                                                                {isOpenButton && (
+                                                                                    <div className="button-content" style={{ position: "absolute", zIndex: 10 }}>
+                                                                                        <ChromePicker color={selectedButtonColor} onChange={handleButtonColorChange} />
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+
+                                                                        </Box>
+                                                                    </TabPanel>
+                                                                </Tabs>
+
+
+                                                            </DialogContent>
+                                                            {/* <DialogActions> */}
+                                                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                                                <Button
+                                                                    variant="outlined"
+                                                                    onClick={closeCraeteCustomerModal}
+                                                                    style={{ marginRight: "5px", color: "black" }}
+                                                                >
+                                                                    Create Customer
+                                                                </Button>
+                                                            </div>
+                                                            {/* </DialogActions> */}
+                                                        </Dialog>
+
+
                                                         <Button
                                                             variant="outline"
                                                             style={{
@@ -901,7 +1651,7 @@ function Prospects() {
 
                                                         {/* add-languages */}
                                                         <MenuItem onClick={openAddLangModal} style={{ background: '#fff' }}>
-                                                            <AddCircleOutlineOutlinedIcon style={{ fontSize: 'small' }} />
+                                                            <FileOpenIcon style={{ fontSize: 'small' }} />
                                                             Upgrade to Paid Plan
                                                         </MenuItem>
 
@@ -962,7 +1712,7 @@ function Prospects() {
 
                                                         {/* Remove-languages */}
                                                         <MenuItem onClick={openRemoveLangModal} style={{ background: '#fff' }}>
-                                                            <RemoveCircleOutlineOutlinedIcon style={{ fontSize: 'small' }} />
+                                                            <EventAvailableIcon style={{ fontSize: 'small' }} />
                                                             Start Risk Report
                                                         </MenuItem>
                                                         <Modal

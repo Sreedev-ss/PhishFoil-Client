@@ -43,6 +43,10 @@ const AutoPhish = () => {
   const [isSettingEnabled, setIsSettingEnabled] = useState(true);
 
   const [value, setValue] = useState(0);
+    const [signatureFrequency, setSignatureFrequency] = useState({
+    number: 1,
+    unit: "month",
+  });
 
   const handleIncrement = () => {
     setValue(value + 1);
@@ -167,22 +171,20 @@ const AutoPhish = () => {
                 }}
               >
                 <label>How many weeks between simulations</label>
-                <TextField
-                  variant="outlined"
-                  value={value}
-                  InputProps={{
-                    endAdornment: (
-                      <React.Fragment>
-                        <IconButton onClick={handleIncrement} size="medium">
-                          <ExpandLessIcon />
-                        </IconButton>
-                        <IconButton onClick={handleDecrement} size="medium">
-                          <ExpandMoreIcon />
-                        </IconButton>
-                      </React.Fragment>
-                    ),
-                  }}
-                />
+                <div>
+                                <TextField
+                                  type="number"
+                                  value={signatureFrequency.number}
+                                  onChange={(e) =>
+                                    setSignatureFrequency({
+                                      ...signatureFrequency,
+                                      number: e.target.value,
+                                    })
+                                  }
+                                  sx={{width: "100px"}}
+                                 
+                                />
+                                </div>
               </Box>
               <p style={{ fontSize: "15px", marginTop: "15px" }}>
                 Only send between working hours?
