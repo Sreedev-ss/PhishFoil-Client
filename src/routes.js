@@ -180,7 +180,7 @@ const routes = [
   {
     type: "collapse",
     name: "Report",
-    key: "report",
+    key: "Report",
     icon: <CreditCard size="12px" />,
     component: <Billing />,
     noCollapse: false,
@@ -311,24 +311,6 @@ const routes = [
       },
     ],
   },
-  {
-    type: "collapse",
-    name: "Report",
-    key: "Report",
-    icon: <CreditCard size="12px" />,
-    noCollapse: false,
-    subroutes: [
-      // Define subroutes for Uphish
-      {
-        type: "collapse",
-        name: "Gap Analysis Report",
-        key: "gapanalysisreport",
-        route: "/Report/GapAnalysisReport",
-        component: <GapAnalysisReport />,
-      },
-    ],
-  },
-
   {
     type: "collapse",
     name: "Auto Enrol",

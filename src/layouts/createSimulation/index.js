@@ -80,13 +80,7 @@ const Simulation = () => {
                                             open={openType}
                                             onOpen={() => setOpenType(true)}
                                             onClose={() => setOpenType(false)}
-                                            endAdornment={
-                                                <div
-                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-                                                >
-                                                    {openType ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                                                </div>
-                                            }
+                                        
                                         >
                                             <MenuItem value={'All'} >All</MenuItem>
                                             <MenuItem value={'Default'}>Default</MenuItem>
@@ -105,13 +99,6 @@ const Simulation = () => {
                                             open={openCategory}
                                             onOpen={() => setOpenCategory(true)}
                                             onClose={() => setOpenCategory(false)}
-                                            endAdornment={
-                                                <div
-                                                    style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', cursor: 'pointer' }}
-                                                >
-                                                    {openCategory ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
-                                                </div>
-                                            }
 
                                         >
                                             <MenuItem value={'All'}>All</MenuItem>

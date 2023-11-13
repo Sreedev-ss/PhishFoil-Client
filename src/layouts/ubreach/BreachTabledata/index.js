@@ -10,6 +10,8 @@ import {
   TableCell,
 } from "@mui/material";
 
+import uBreachImage from 'assets/images/ubreach.jpg'
+
 const CustomPagination = () => {
   return (
     // Your custom pagination component JSX here
@@ -101,7 +103,7 @@ export default function BreachTableData() {
                 margin: "16px",
               }}
             >
-              <img src="/src/assets/images/ubreach.jpg" />
+              <img src={uBreachImage} style={{width:"50px",height:"50px"}}/>
             </div>
             <div
               style={{
