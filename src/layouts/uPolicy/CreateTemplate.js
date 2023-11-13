@@ -307,11 +307,6 @@ import 'react-quill/dist/quill.snow.css';
                     onChange={handleCategory}
                     // value={formData.category}
                     // onChange={handleChangeEmailTemplate}
-                    endAdornment={
-                      <InputAdornment sx={{position:'absolute', right:3}}>
-                        <ExpandMoreIcon />
-                      </InputAdornment>
-                    }
                   >
                     <MenuItem value={'No Category'}>No Category</MenuItem>
                     <MenuItem value={'Compliance'}>Compliance</MenuItem>
@@ -337,11 +332,6 @@ import 'react-quill/dist/quill.snow.css';
                     onChange={handleType}
                     // value={formData.category}
                     // onChange={handleChangeEmailTemplate}
-                    endAdornment={
-                        <InputAdornment sx={{position:'absolute', right:3}}>
-                        <ExpandMoreIcon />
-                        </InputAdornment>
-                    }
                     >
                     <MenuItem value={'Editor'}>Editor</MenuItem>
                     <MenuItem value={'Compliance'}>Compliance</MenuItem>
