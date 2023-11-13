@@ -5,8 +5,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import SoftBox from 'components/SoftBox';
+import  { useRef, useState, useEffect } from "react";
 
 const RiskReports = () => {
+    const [reminder, setReminder] = useState("(GMT+00:00) Europe/Isle_of_Man");
+    const [selectedItems, setSelectedItems] = useState(["English(UK)"]);
+
+
+
+    const handleChangedReminders = (event) => {
+        setReminder(event.target.value);
+    };
     return (
         <DashboardLayout>
             <DashboardNavbar />
@@ -135,10 +144,10 @@ const RiskReports = () => {
                                             *  Preferred Language:
                                         </label>
                                     </Box>
-                                    {/* <TextField
+                                    <TextField
                             select
-                            // value={reminder}
-                            // onChange={handleChangedReminders}
+                            value={reminder}
+                            onChange={handleChangedReminders}
                             type="text"
                             sx={{
                                 gridColumn: "span 2",
@@ -154,7 +163,7 @@ const RiskReports = () => {
                             <MenuItem value="English(China)">English(China)</MenuItem>
                             <MenuItem value="English(UK)">English(UK)</MenuItem>
                             <MenuItem value="German">German</MenuItem>
-                        </TextField> */}
+                        </TextField>
                                 </div>
                                 <div style={{ marginTop: '25px' }}>
 
