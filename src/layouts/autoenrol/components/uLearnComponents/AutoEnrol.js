@@ -25,6 +25,7 @@ import { Box, Stack } from "@mui/system";
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const style = {
     position: "absolute",
@@ -94,6 +95,7 @@ const courses = ['Phishing (Beginner)', 'Physical Security (Beginner)', 'Public 
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

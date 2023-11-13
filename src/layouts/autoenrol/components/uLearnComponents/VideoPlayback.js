@@ -7,6 +7,7 @@ import {
   import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
   import React from "react";
   import SaveIcon from '@mui/icons-material/Save';
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
   
   const VideoPlayback = () => {
 
@@ -14,6 +15,7 @@ import {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

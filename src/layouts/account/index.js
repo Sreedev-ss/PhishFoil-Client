@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import ChangeDetails from './ChangeDetails'
 import PasswordDetails from './PasswordDetails'
 import SecurityDetails from './SecurityDetails'
+import LanguageDetails from './LanguageDetails'
 
 
 function a11yProps(index) {
@@ -77,7 +78,7 @@ const Accounts = () => {
                             <SecurityDetails/>
                         </CustomTabPanel>
                         <CustomTabPanel value={value} index={3}>
-                            Item Four
+                            <LanguageDetails/>
                         </CustomTabPanel>
                     </Box>
                 </Card>

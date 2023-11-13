@@ -8,6 +8,7 @@ import {
   import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
   import React, { useState } from "react";
   import SaveIcon from '@mui/icons-material/Save';
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
   
   const MinimumPassCore = () => {
 
@@ -20,6 +21,7 @@ import {
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=

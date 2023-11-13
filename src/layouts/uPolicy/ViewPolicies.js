@@ -83,7 +83,7 @@ import { Link } from "react-router-dom";
   
     return (
       <DashboardLayout>
-        {/* <DashboardNavbar /> */}
+        <DashboardNavbar />
         <SoftBox py={3}>
           <SoftBox mb={3}>
             <div

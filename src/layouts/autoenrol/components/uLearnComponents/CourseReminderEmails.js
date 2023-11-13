@@ -8,6 +8,7 @@ import SaveIcon from "@mui/icons-material/Save";
 import { Box } from "@mui/system";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
 const style = {
   position: "absolute",
@@ -39,6 +40,7 @@ const CourseReminderEmails = () => {
 
   return (
     <DashboardLayout>
+      <DashboardNavbar/>
       <Typography
         variant="h4"
         sx={{

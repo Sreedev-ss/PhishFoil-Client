@@ -14,6 +14,7 @@ import { ChromePicker } from "react-color";
 import { IoMdArrowDropdown } from 'react-icons/io'
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { AiOutlineDelete  } from 'react-icons/ai'
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 
   
   const ReportSettings = () => {
@@ -52,6 +53,7 @@ import { AiOutlineDelete  } from 'react-icons/ai'
 
     return (
       <DashboardLayout>
+        <DashboardNavbar/>
         <Typography 
             variant="h4" 
             sx=
