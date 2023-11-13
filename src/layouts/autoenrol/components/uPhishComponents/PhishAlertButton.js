@@ -41,6 +41,10 @@ const PhishAlertButton = () => {
   const [image, setImage] = useState(null);
 
   const [headerChecked, setHeaderChecked] = useState(false);
+  const [signatureFrequency, setSignatureFrequency] = useState({
+    number: 1,
+    unit: "month",
+  });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -141,7 +145,7 @@ const PhishAlertButton = () => {
 
               <Box>
                 <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
-                  * Action Label :
+                  * Add-in Display Name :
                 </p>
                 <div style={{ display: "flex", gap: 5 }}>
                   <TextField fullWidth />
@@ -165,8 +169,57 @@ const PhishAlertButton = () => {
                 <p style={{ fontSize: "14px", marginTop: "20px", marginBottom: "10px" }}>
                   * Add-in Version Number :
                 </p>
-                <div style={{ display: "flex", gap: 5 }}>
-                  <TextField fullWidth />
+                <div style={{ marginRight:"10px", display: "flex", gap: 10 }}>
+                
+                                <TextField
+                                  type="number"
+                                  value={signatureFrequency.number}
+                                  onChange={(e) =>
+                                    setSignatureFrequency({
+                                      ...signatureFrequency,
+                                      number: e.target.value,
+                                    })
+                                  }
+                                  sx={{width: "100px"}}
+                                 
+                                />
+                                  <TextField
+                                  type="number"
+                                  value={signatureFrequency.number}
+                                  onChange={(e) =>
+                                    setSignatureFrequency({
+                                      ...signatureFrequency,
+                                      number: e.target.value,
+                                    })
+                                  }
+                                  sx={{width: "100px"}}
+                                 
+                                />
+                                  <TextField
+                                  type="number"
+                                  value={signatureFrequency.number}
+                                  onChange={(e) =>
+                                    setSignatureFrequency({
+                                      ...signatureFrequency,
+                                      number: e.target.value,
+                                    })
+                                  }
+                                  sx={{width: "100px"}}
+                                 
+                                />
+                                  <TextField
+                                  type="number"
+                                  value={signatureFrequency.number}
+                                  onChange={(e) =>
+                                    setSignatureFrequency({
+                                      ...signatureFrequency,
+                                      number: e.target.value,
+                                    })
+                                  }
+                                  sx={{width: "100px"}}
+                                 
+                                />
+                               
                   <Button
                     variant="contained"
                     style={{

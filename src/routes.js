@@ -129,6 +129,8 @@ import ViewPolicies from "layouts/uPolicy/ViewPolicies";
 import CreateTemplate from "layouts/uPolicy/CreateTemplate";
 import EditTemplate from "layouts/uPolicy/data/editTemplate";
 import EditPolicy from "layouts/uPolicy/data/editPolicy";
+import RiskReportSignup from "layouts/uService/RiskReportSignup";
+import RiskReports from "layouts/riskReports/RiskReports";
 import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 
 
@@ -271,15 +273,17 @@ const routes = [
     icon: <Office size="12px" />,
     component: <Ubreach />,
     noCollapse: true,
-    // {
-    //   type: "collapse",
-    //   name: "uPolicy",
-    //   key: "upolicy",
-    //   route: "/upolicy",
-    //   icon: <Office size="12px" />,
-    //   component: <UPolicy />,
-    //   noCollapse: true,
-    // },
+  
+  },
+  {
+    type: "collapse",
+    name: "Risk Report",
+    key: "riskReports",
+    route: "/riskReports",
+    icon: <Office size="12px" />,
+    component: <RiskReports/>,
+    noCollapse: true,
+  
   },
   {
     type: "collapse",
@@ -696,6 +700,13 @@ const routes = [
       key: "invoicesCustomer",
       route: "/uService/invoicesCustomer",
       component: <InvoicesCustomer />,
+    },
+    {
+      type: "collapse",
+      name: "Risk Report Signup",
+      key: "riskReportSignup",
+      route: "/uService/riskReportSignup",
+      component: <RiskReportSignup />,
     },
    
    
