@@ -656,6 +656,16 @@ const ViewReport = () => {
             </Box>
           </Stack>
           <Divider />
+          <Card style={{ margin: "16px", padding: "20px" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
+              <Typography
+                sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
+              >
+                User Report
+              </Typography>
+            </div>
+          </Card>
+          <Divider />
           <Stack>
             <Box>
               <Card style={{ margin: "16px", padding: "20px" }}>
@@ -665,7 +675,7 @@ const ViewReport = () => {
                   <Typography
                     sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
                   >
-                    Simulated Phishing
+                    Users
                   </Typography>
                   <Typography
                     sx={{
@@ -675,7 +685,7 @@ const ViewReport = () => {
                       marginRight: "35%",
                     }}
                   >
-                    Overall Compromise Rate
+                    Users
                   </Typography>
                 </div>
                 <div
@@ -690,47 +700,131 @@ const ViewReport = () => {
                     <Typography
                       sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
                     >
-                      This section shows the overall compromise rate of your users in phishing
-                      simulations they have been sent. The figure takes into account all simulations
-                      and compromises since the inception of your account. The graph shows change in
-                      the overall compromise rate over the reporting period.
+                      This section provides a summary of user management activity. Total Users and
+                      Total Groups include all users and groups present on your account at the end
+                      of the reporting period. New Users and Removed Users include users who were
+                      added or removed during the reporting period.
                     </Typography>
-                    <Box
-                      sx={{
-                        border: "1px solid #ccc",
-                        padding: "4px",
-                        borderRadius: "4px",
-                        padding: "16px",
-                        margin: "16px",
-                        width: "50%",
-                        position: "relative", // Add this line
+                    <div
+                      style={{
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "space-between",
                       }}
                     >
-                      {/* Position the ThumbDownOffAltSharpIcon */}
-                      <ThumbDownOffAltSharpIcon
+                      <Box
                         sx={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          color: "red", // You can set the color you want
-                          fontSize: "large",
-                          // You can set the color you want
+                          border: "1px solid #ccc",
+                          padding: "4px",
+                          borderRadius: "4px",
+                          padding: "16px",
+                          margin: "16px",
+                          width: "50%",
+                          position: "relative", // Add this line
                         }}
-                      />
-
-                      <Typography
-                        variant="h6"
-                        sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                       >
-                        Overall Compromise Rate
-                      </Typography>
-                      <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                        {overallCompromiseRate}%
-                      </Typography>
-                      <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                        Previous: {previousCompromiseRate}%
-                      </Typography>
-                    </Box>
+                        {/* Position the ThumbDownOffAltSharpIcon */}
+
+                        <Typography
+                          variant="h6"
+                          sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                        >
+                          Average Score
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                          {overallCompromiseRate}%
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                          Previous: {previousCompromiseRate}%
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          border: "1px solid #ccc",
+                          padding: "4px",
+                          borderRadius: "4px",
+                          padding: "16px",
+                          margin: "16px",
+                          width: "50%",
+                          position: "relative", // Add this line
+                        }}
+                      >
+                        {/* Position the ThumbDownOffAltSharpIcon */}
+
+                        <Typography
+                          variant="h6"
+                          sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                        >
+                          Overall Completion rate
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                          {overallCompromiseRate}%
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                          Previous: {previousCompromiseRate}%
+                        </Typography>
+                      </Box>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignContent: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          border: "1px solid #ccc",
+                          padding: "4px",
+                          borderRadius: "4px",
+                          padding: "16px",
+                          margin: "16px",
+                          width: "50%",
+                          position: "relative", // Add this line
+                        }}
+                      >
+                        {/* Position the ThumbDownOffAltSharpIcon */}
+
+                        <Typography
+                          variant="h6"
+                          sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                        >
+                          Average Score
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                          {overallCompromiseRate}%
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                          Previous: {previousCompromiseRate}%
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          border: "1px solid #ccc",
+                          padding: "4px",
+                          borderRadius: "4px",
+                          padding: "16px",
+                          margin: "16px",
+                          width: "50%",
+                          position: "relative", // Add this line
+                        }}
+                      >
+                        {/* Position the ThumbDownOffAltSharpIcon */}
+
+                        <Typography
+                          variant="h6"
+                          sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                        >
+                          Overall Completion rate
+                        </Typography>
+                        <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                          {overallCompromiseRate}%
+                        </Typography>
+                        <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                          Previous: {previousCompromiseRate}%
+                        </Typography>
+                      </Box>
+                    </div>
                   </div>
 
                   <div>
@@ -738,8 +832,759 @@ const ViewReport = () => {
                   </div>
                 </div>
               </Card>
+              <Divider />
+              <Stack>
+                <Box>
+                  <Card style={{ margin: "16px", padding: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "large",
+                          color: "black",
+                          fontWeight: "bold",
+                          margin: "16px",
+                        }}
+                      >
+                        Managers
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "small",
+                          color: "black",
+                          fontWeight: "bold",
+                          marginRight: "35%",
+                        }}
+                      >
+                        Groups With/Without Managers 3
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "16px",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          sx={{
+                            fontSize: "large",
+                            color: "black",
+                            fontWeight: "bold",
+                            margin: "16px",
+                          }}
+                        >
+                          This section summarises the direct and group managers set up on your
+                          account at the end of the reporting period.
+                        </Typography>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </div>
+
+                      <div>
+                        <SimpleLineChart />
+                      </div>
+                    </div>
+                  </Card>
+                </Box>
+              </Stack>
+              <Divider />
+              <Stack>
+                <Box>
+                  <Card style={{ margin: "16px", padding: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "large",
+                          color: "black",
+                          fontWeight: "bold",
+                          margin: "16px",
+                        }}
+                      >
+                        Managers
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "small",
+                          color: "black",
+                          fontWeight: "bold",
+                          marginRight: "35%",
+                        }}
+                      >
+                        Groups With/Without Managers 3
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "16px",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          sx={{
+                            fontSize: "large",
+                            color: "black",
+                            fontWeight: "bold",
+                            margin: "16px",
+                          }}
+                        >
+                          This section summarises the direct and group managers set up on your
+                          account at the end of the reporting period.
+                        </Typography>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </div>
+
+                      <div>
+                        <SimpleLineChart />
+                      </div>
+                    </div>
+                  </Card>
+                </Box>
+              </Stack>
+              <Card style={{ margin: "16px", padding: "20px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}
+                >
+                  <Typography
+                    sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
+                  >
+                    Breaches Report
+                  </Typography>
+                </div>
+              </Card>
+              <Divider />
+              <Stack>
+                <Box>
+                  <Card style={{ margin: "16px", padding: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "large",
+                          color: "black",
+                          fontWeight: "bold",
+                          margin: "16px",
+                        }}
+                      >
+                        Managers
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "small",
+                          color: "black",
+                          fontWeight: "bold",
+                          marginRight: "35%",
+                        }}
+                      >
+                        Groups With/Without Managers 3
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "16px",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          sx={{
+                            fontSize: "large",
+                            color: "black",
+                            fontWeight: "bold",
+                            margin: "16px",
+                          }}
+                        >
+                          This section summarises the direct and group managers set up on your
+                          account at the end of the reporting period.
+                        </Typography>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </div>
+
+                      <div>
+                        <SimpleLineChart />
+                      </div>
+                    </div>
+                  </Card>
+                </Box>
+              </Stack>{" "}
+              <Divider />
+              <Stack>
+                <Box>
+                  <Card style={{ margin: "16px", padding: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "large",
+                          color: "black",
+                          fontWeight: "bold",
+                          margin: "16px",
+                        }}
+                      >
+                        Managers
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "small",
+                          color: "black",
+                          fontWeight: "bold",
+                          marginRight: "35%",
+                        }}
+                      >
+                        Groups With/Without Managers 3
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "16px",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          sx={{
+                            fontSize: "large",
+                            color: "black",
+                            fontWeight: "bold",
+                            margin: "16px",
+                          }}
+                        >
+                          This section summarises the direct and group managers set up on your
+                          account at the end of the reporting period.
+                        </Typography>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </div>
+
+                      <div>
+                        <SimpleLineChart />
+                      </div>
+                    </div>
+                  </Card>
+                </Box>
+              </Stack>
+              <Card style={{ margin: "16px", padding: "20px" }}>
+                <div
+                  style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}
+                >
+                  <Typography
+                    sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
+                  >
+                    Breaches Report
+                  </Typography>
+                </div>
+              </Card>
+              <Divider />
+              <Stack>
+                <Box>
+                  <Card style={{ margin: "16px", padding: "20px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "large",
+                          color: "black",
+                          fontWeight: "bold",
+                          margin: "16px",
+                        }}
+                      >
+                        Simulations
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: "small",
+                          color: "black",
+                          fontWeight: "bold",
+                          marginRight: "35%",
+                        }}
+                      >
+                        Simulations This Month
+                      </Typography>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        margin: "16px",
+                      }}
+                    >
+                      <div>
+                        <Typography
+                          sx={{
+                            fontSize: "large",
+                            color: "black",
+                            fontWeight: "bold",
+                            margin: "16px",
+                          }}
+                        >
+                          This section summarises policy activity. The number figures take into
+                          account policies created and updated, and policy requests sent and signed
+                          during the reporting period. The graph shows the signature rate of all
+                          policy requests sent since the inception of your account.
+                        </Typography>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignContent: "center",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Average Score
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              border: "1px solid #ccc",
+                              padding: "4px",
+                              borderRadius: "4px",
+                              padding: "16px",
+                              margin: "16px",
+                              width: "50%",
+                              position: "relative", // Add this line
+                            }}
+                          >
+                            {/* Position the ThumbDownOffAltSharpIcon */}
+
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              Overall Completion rate
+                            </Typography>
+                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                              {overallCompromiseRate}%
+                            </Typography>
+                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
+                              Previous: {previousCompromiseRate}%
+                            </Typography>
+                          </Box>
+                        </div>
+                      </div>
+
+                      <div>
+                        <SimpleLineChart />
+                      </div>
+                    </div>
+                  </Card>
+                </Box>
+              </Stack>
             </Box>
           </Stack>
+
+          <Card style={{ margin: "16px", padding: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "large",
+                color: "black",
+                fontWeight: "bold",
+                margin: "16px",
+              }}
+            >
+              Policies
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "large",
+                color: "black",
+
+                margin: "16px",
+              }}
+            >
+              This section summarises policy activity. The number figures take into account policies
+              created and updated, and policy requests sent and signed during the reporting period.
+              The graph shows the signature rate of all policy requests sent since the inception of
+              your account.
+            </Typography>
+
+            <SoftBox
+              sx={{
+                "& .MuiTableRow-root:not(:last-child)": {
+                  "& td": {
+                    borderBottom: ({ borders: { borderWidth, borderColor } }) =>
+                      `${borderWidth[1]} solid ${borderColor}`,
+                  },
+                },
+              }}
+            >
+              <TableContainer component={Paper}>
+                <Table sx={{ width: "100%" }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow style={{ width: "100px" }}>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>
+                        Policy Name
+                      </TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>
+                        Signed Request Rate
+                      </TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Sent</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Signed</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow style={{ width: "100px" }}>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Policy</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Signed</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Sent</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Signed</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </SoftBox>
+          </Card>
         </SoftBox>
       </DashboardLayout>
     </div>
