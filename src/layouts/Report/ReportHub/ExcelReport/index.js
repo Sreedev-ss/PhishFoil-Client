@@ -92,8 +92,6 @@ const ExcelReport = () => {
 
   const label = { inputProps: { "aria-label": "Size switch demo" } };
 
-  // const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

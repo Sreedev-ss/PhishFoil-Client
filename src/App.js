@@ -100,6 +100,7 @@ import RiskReport from "layouts/autoenrol/components/emailComponents/RiskReport"
 import ExternalPolicyAccess from "layouts/autoenrol/components/externalPolicyAccess/ExternalPolicyAccess";
 import DefaultPolicySignatureSettings from "layouts/autoenrol/components/uPolicyComponents/DefaultPolicySignatureSettings";
 import GapAnalysisReport from "layouts/Report/GapAnalysisReport";
+import SimulationPerformance from "layouts/Report/SimulationPerformance";
 import Theme from "layouts/autoenrol/components/Theme/Theme";
 import Customers from "layouts/uService/Customers";
 import Ubreach from "layouts/ubreach";
@@ -116,7 +117,7 @@ import AdminUsers from "layouts/Settings/AdminUsers";
 import Accounts from "layouts/account";
 import CreatePolicy from "layouts/uPolicy/CreatePolicy";
 import PaymentSettings from "layouts/Settings/PaymentSettings";
-
+import ViewReport from "layouts/Report/ReportHub/PerformanceReport/ViewReport";
 
 export default function App() {
   const [controller, dispatch] = useSoftUIController();
@@ -229,17 +230,12 @@ export default function App() {
         <Route exact path="/ulearn/courses-report" element={<CourseReport />} />;
         <Route exact path="layouts/home" element={<Home />} />;
         <Route exact path="layouts/ubreach" element={<Ubreach />} />;
-
-        
         <Route exact path="/autoenrol/coursereminderemails" element={<CourseReminderEmails />} />
-
-         {/* USERVICE */}
+        {/* USERVICE */}
         <Route exact path="/uService/customers" element={<Customers />} />;
         <Route exact path="/uService/prospects" element={<Prospects />} />;
         <Route exact path="/uService/invoicesCustomer" element={<InvoicesCustomer />} />;
         <Route exact path="/uService/riskReportSignup" element={<RiskReportSignup />} />;
-  
-
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}
         {/* <Route path="/uphish/email-template-builder/edit-email-template" element={<UpdateEmailTemplate />} /> */}
         <Route exact path="/uphish/simulations" element={<ViewSimulation />} />;
@@ -277,7 +273,12 @@ export default function App() {
         <Route exact path="/autoenrol/autoPhish" element={<AutoPhish />} />;
         <Route exact path="/autoenrol/workingHours" element={<WorkingHours />} />;
         <Route exact path="/autoenrol/externalpolicyaccess" element={<ExternalPolicyAccess />} />;
-        <Route exact path="/autoenrol/defaultpolicysignaturesettings" element={<DefaultPolicySignatureSettings />} />;
+        <Route
+          exact
+          path="/autoenrol/defaultpolicysignaturesettings"
+          element={<DefaultPolicySignatureSettings />}
+        />
+        ;
         <Route
           exact
           path="/autoenrol/preferedTopLevelDomain"
@@ -309,7 +310,13 @@ export default function App() {
         <Route exact path="/autoenrol/googleworkspace" element={<GoogleWorkspace />} />;
         <Route exact path="/autoenrol/reportsettings" element={<ReportSettings />} />;
         <Route exact path="/Report/GapAnalysisReport" element={<GapAnalysisReport />} />
+        <Route exact path="/Report/SimulationPerformance" element={<SimulationPerformance />} />
         <Route exact path="/Report/ReportHub" element={<ReportHub />} />
+        <Route
+          exact
+          path="/Report/ReportHub/PerformanceReport/ViewReport"
+          element={<ViewReport />}
+        />
         <Route exact path="/uPolicy/templatelibrary" element={<TemplateLibrary />} />;
         <Route exact path="/ulearn/auto-enrol" element={<AutoEnrolSettings />} />
         <Route exact path="/autoenrol/theme" element={<Theme />} />
@@ -321,7 +328,6 @@ export default function App() {
         <Route exact path="/account" element={<Accounts />} />;
         <Route exact path="/uPolicy/createPolicy" element={<CreatePolicy />} />;
         <Route exact path="/settings/paymentSettings" element={<PaymentSettings />} />;
-
         {getRoutes(routes)}
         <Route path="*" element={<Navigate to="/home" />} />;
         {/* <Route path="/uphish/email-template-builder/create-email-template" element={<CreateEmailTemplate />} /> */}

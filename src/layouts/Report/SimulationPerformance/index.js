@@ -58,11 +58,12 @@ import {
   SendOutlined,
   ViewDayOutlined,
 } from "@mui/icons-material";
-import ViewSimulationData from "./ReportSimulationData";
+// import ViewSimulationData from "./ReportSimulationData";
 import InputLabel from "@mui/material/InputLabel";
 
 import FormHelperText from "@mui/material/FormHelperText";
-import ReportSimulationData from "./ReportSimulationData";
+import SimpleLineChart from "./LineChart";
+// import ReportSimulationData from "./ReportSimulationData";
 
 const style = {
   position: "absolute",
@@ -78,24 +79,13 @@ const style = {
 
 const languageOptions = ["English", "Spanish", "French", "German"];
 
-const ReportHub = () => {
+const SimulationPerformance = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isUserFormOpen, setUserFormOpen] = useState(false);
-  const [isGroupFormOpen, setGroupFormOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
-  const [addLangModalOpen, setAddLangModalOpen] = useState(false);
-  const [removeLangModalOpen, setRemoveLangModalOpen] = useState(false);
-  const [deleteEmailTempModalOpen, setDeleteEmailTempModalOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
-  const [sendAllEmailsModalOpen, setSendAllEmailsModalOpen] = useState(false);
-  const [sendEmailSimulationModalOpen, setSendEmailSimulationModalOpen] = useState(false);
-  const [deleteSimulationModalOpen, setDeleteSimulationModalOpen] = useState(false);
-  const [viewSimulationsModalOpen, setViewSimulationModalOpen] = useState(false);
-  const [nfrAccount, setNfrAccount] = React.useState("");
+  const [landingPage, setLandingPage] = useState("");
 
   const handleChange = (event) => {
-    setNfrAccount(event.target.value);
+    setLandingPage(event.target.value);
   };
 
   const openViewSimulationsModal = () => {
@@ -223,43 +213,112 @@ const ReportHub = () => {
 
   return (
     <DashboardLayout>
-      <DashboardNavbar />
-      <SoftBox py={3}>
-        <SoftBox mb={3}>
+      {/* <DashboardNavbar /> */}
+      <SoftBox>
+        <SoftBox>
+          <div>
+            <Typography sx={{ fontSize: "large", color: "black", fontWeight: "bold" }}>
+              uPhish - Simulation Performance
+            </Typography>
+          </div>
           <div
             style={{
               display: "flex",
-              gap: "5px",
               alignItems: "center",
               justifyContent: "flex-end",
-              padding: "50px",
-              height: "5rem",
-              backgroundColor: "white",
             }}
           >
-            {/* <Typography sx={{ fontSize: "large", color: "black", fontWeight: "bold" }}>
-              uPhish - Simulations
-            </Typography> */}
-            <FormControl sx={{ m: 3, minWidth: 200 }}>
+            <Typography sx={{ fontSize: "small", color: "black", m: 1, minWidth: 200 }}>
+              Landing Page
+            </Typography>
+            <Typography sx={{ fontSize: "small", color: "black", m: 1, minWidth: 200 }}>
+              Email Templates
+            </Typography>
+            <Typography sx={{ fontSize: "small", color: "black", m: 1, minWidth: 200 }}>
+              Groups
+            </Typography>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
               <Select
-                value={nfrAccount}
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={landingPage}
                 onChange={handleChange}
-                displayEmpty
-                inputProps={{ "aria-label": "Without label" }}
-                id="demo-simple-select-autowidth"
               >
                 <MenuItem value="">
-                  <em>Your NFR Account</em>
+                  <em>Any</em>
                 </MenuItem>
-                <MenuItem value={10}>Dastute</MenuItem>
-                <MenuItem value={20}>IBM.com</MenuItem>
-                <MenuItem value={30}>Test New PVT.LTD</MenuItem>
+
+                <MenuItem value={20}>ANZ | Halaxy</MenuItem>
+                <MenuItem value={30}>ANZ | Microsoft</MenuItem>
+                <MenuItem value={30}>Bit Warden</MenuItem>
+                <MenuItem value={30}>Hub Spot</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+                <MenuItem value={30}>Newzealanad | Google</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={landingPage}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>Any</em>
+                </MenuItem>
+
+                <MenuItem value={20}>ANZ | Halaxy</MenuItem>
+                <MenuItem value={30}>ANZ | Microsoft</MenuItem>
+                <MenuItem value={30}>Bit Warden</MenuItem>
+                <MenuItem value={30}>Hub Spot</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+                <MenuItem value={30}>Newzealanad | Google</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+                <MenuItem value={30}>Inter Parcel</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+              <Select
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={landingPage}
+                onChange={handleChange}
+              >
+                <MenuItem value="">
+                  <em>All</em>
+                </MenuItem>
+                <TextField />
+
+                <MenuItem value={20}>Administration</MenuItem>
+                <MenuItem value={30}>Sample</MenuItem>
+                <Select
+                  labelId="demo-select-small-label"
+                  id="demo-select-small"
+                  value={landingPage}
+                  onChange={handleChange}
+                >
+                  <MenuItem>test</MenuItem>
+                </Select>
+
+                <MenuItem value={30}>Technical</MenuItem>
               </Select>
             </FormControl>
           </div>
-          <Divider />
-          <div style={{ display: "flex", alignItems: "center", padding: "15px" }}>
-            <ReportSimulationData />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "32px",
+            }}
+          >
+            <SimpleLineChart />
           </div>
         </SoftBox>
       </SoftBox>
@@ -267,4 +326,4 @@ const ReportHub = () => {
   );
 };
 
-export default ReportHub;
+export default SimulationPerformance;
