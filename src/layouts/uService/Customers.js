@@ -2458,14 +2458,14 @@ function Customers() {
                                 <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2, gap: 2 }}>
                                   <Button
                                     variant="contained"
-                                    onClick={closeDeleteEmailTempModal}
+                                    // onClick={closeDeleteEmailTempModal}
                                     style={{ color: '#fff' }}
                                   >
                                     No
                                   </Button>
                                   <Button
                                     variant="outlined"
-                                    onClick={() => deleteEmailTemp(t.templateid)}
+                                    // onClick={() => deleteEmailTemp(t.templateid)}
                                     style={{ marginRight: '5px', color: 'black' }}
                                   >
                                     Yes
