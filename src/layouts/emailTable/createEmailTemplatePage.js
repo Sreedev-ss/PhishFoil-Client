@@ -506,9 +506,9 @@ const createEmailTemplatePage = () => {
                     </Typography>
                   </Grid>
                   <Grid item xs={7}>
-                    <Box>
-                      <label htmlFor="dropdown" style={{ fontSize: "13px" }}>
-                        Recipient:
+                    <Box style={{marginTop:'25px'}}>
+                      <label htmlFor="dropdown" style={{ fontSize: "13px" , }}>
+                        {/* Recipient: */}
                       </label>
                     </Box>
                     <TextField
