@@ -2,13 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
   Dialog,
   Divider,
   FormControl,
   FormControlLabel,
   FormGroup,
   IconButton,
+  ListItemText,
   MenuItem,
+  Modal,
   Paper,
   Popover,
   Select,
@@ -19,8 +22,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  InputAdornment,
+  TextField,
 } from "@mui/material";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { AiOutlineArrowRight, AiOutlineMail, AiOutlineReload } from "react-icons/ai";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
@@ -31,6 +37,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import SoftButton from "components/SoftButton";
 import SoftBox from "components/SoftBox";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import ChartBar from "./chartBar";
 
@@ -46,12 +53,24 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const styleCourse = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "100%",
+  height: "50%",
+  bgcolor: "background.paper",
+  border: "1px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Legend, Tooltip } from 'recharts';
 import { Stack } from "@mui/system";
 import { AiOutlineSearch } from "react-icons/ai";
-
+import SendIcon from "@mui/icons-material/Send";
 
   const data = [
     { name: "08/11/2021", Opens: 0, Visits: 0, Comprises:0, Reports:0},
@@ -80,6 +99,7 @@ function CustomTabPanel(props) {
   );
 }
 
+
 CustomTabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
@@ -99,6 +119,54 @@ const ViewSimulationData = () => {
   const [uPolicyChartBar, setUPolicyChartBar] = useState(false);
   const [status, setStatus] = useState("All Users");
   const [isUserFormOpen, setUserFormOpen] = useState(false);
+  const [sendTestEmailModalOpen, setSendTestEmailModalOpen] = useState(false);
+  const [enrolCoursesModalOpen, setEnrolCoursesModalOpen] = useState(false);
+  const [subject, setSubject] = useState("All");
+  const [selectedCourses, setSelectedCourses] = useState([
+    "Home Network Security Awareness: Robes Routine(Beginner)",
+    
+  ]);
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+
+  // const handleClose = () => {
+  //     setAnchorEl(null);
+  //   };
+
+  const courses = [
+    "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
+    "Home Network Security Awareness: Robs Router Routine(Beginner)",
+    "Security Email Use",
+  ];
+
+  const handleDeleteCourses = (itemToDelete) => (event) => {
+    console.log(itemToDelete);
+    event.preventDefault();
+    const updatedSelection = selectedCourses.filter((item) => item !== itemToDelete);
+    setSelectedCourses(updatedSelection);
+  };
+
+  const handleChangeCourses = (event) => {
+    setSelectedCourses(event.target.value);
+  };
+
+  const handleSubject = (event) => {
+    setSubject(event.target.value);
+  };
+
+  const openEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(true);
+  };
+
+  const closeEnrolCoursesModal = () => {
+    setEnrolCoursesModalOpen(false);
+  };
+
+  const enrolCourses = () => {
+    closeEnrolCoursesModal();
+  };
+
 
   const openUserForm = () => {
     setUserFormOpen(true);
@@ -126,6 +194,24 @@ const ViewSimulationData = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const [popover, setPopover] = useState({ index: '', bool: false })
+  const handleClickPopOver = (index) => {
+    setPopover({ index: index, bool: !popover.bool })
+    console.log(popover, 'popover')
+  };
+
+  const openSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(true);
+  };
+
+  const closeSendTestEmailModal = () => {
+    setSendTestEmailModalOpen(false);
+  };
+
+  const sendTestEmail = () => {
+    closeSendTestEmailModal();
   };
 
   const openAnchor = Boolean(anchorEl);
@@ -463,7 +549,7 @@ const ViewSimulationData = () => {
                       <TableCell sx={{ textAlign: "center" }}>Status</TableCell>
                       <TableCell sx={{ textAlign: "center" }}>Reported</TableCell>
                       <TableCell sx={{ textAlign: "center" }}>Delivery Method</TableCell>
-
+                      <TableCell sx={{ textAlign: "center" }}>Updates</TableCell>
                       <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
@@ -486,7 +572,7 @@ const ViewSimulationData = () => {
                       </TableCell>
                       <TableCell style={{ fontSize: "13px", textAlign: "center" }}>N/A</TableCell>
                       <TableCell style={{ fontSize: "13px", textAlign: "center" }}></TableCell>
-                      <TableCell>
+                      {/* <TableCell>
                         <SoftButton onClick={handleClick} variant="outlined" color="info">
                           <AiOutlineArrowRight />
                         </SoftButton>
@@ -504,7 +590,154 @@ const ViewSimulationData = () => {
                             horizontal: "left",
                           }}
                         ></Popover>
+                      </TableCell> */}
+
+                      <TableCell>
+                        <SoftButton
+                         aria-controls="simple-menu"
+                         aria-haspopup="true"
+                         onClick={handleClick}
+                        >
+                          <AiOutlineArrowRight />
+                        </SoftButton>
+                        {/* {index == popover.index && popover.bool &&  */}
+                        <div style={{ position: 'absolute', backgroundColor: 'white', zIndex: 100 }}   
+                          >
+
+                          <MenuItem
+                                    onClick={openEnrolCoursesModal}
+                                    style={{ background: "#fff" }}
+                                  >
+                                    <SendIcon />
+                                    Enrol on Course
+                                  </MenuItem>
+
+                                  <Modal
+                                    open={enrolCoursesModalOpen}
+                                    onClose={closeEnrolCoursesModal}
+                                    aria-labelledby="send-test-email-modal-title"
+                                    aria-describedby="send-test-email-modal-description"
+                                  >
+                                
+
+                                    <Box sx={styleCourse} style={{ width: "500px" }}>
+                                      <Typography
+                                        id="send-test-email-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                      >
+                                        Enrol Vedieshwaran R on Course(s)
+                                      </Typography>
+                                      <FormControl sx={{ width: "350px" }}>
+                                        <Typography
+                                          sx={{
+                                            fontSize: "",
+                                            marginBottom: "5px",
+                                            marginLeft: "2px",
+                                            marginTop: "15px",
+                                          }}
+                                        >
+                                          Subject:
+                                        </Typography>
+                                        <Select
+                                          labelId="subject-label"
+                                          id="subject-label"
+                                          value={subject}
+                                          label="Status"
+                                          MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                          onChange={handleSubject}
+                                          endAdornment={
+                                            <InputAdornment position="end">
+                                              <ExpandMoreIcon />
+                                            </InputAdornment>
+                                          }
+                                        >
+                                          <MenuItem value={"All"}>All</MenuItem>
+                                          <MenuItem value={"InfoSec"}>InfoSec</MenuItem>
+                                          <MenuItem value={"Video"}>Video</MenuItem>
+                                          <MenuItem value={"Compliance"}>Compliance</MenuItem>
+                                          <MenuItem value={"Custom"}>Custom</MenuItem>
+                                        </Select>
+                                      </FormControl>
+                                      <FormControl sx={{ width: "350px", height: "auto" }}>
+                                        <Typography
+                                          sx={{
+                                            fontSize: "",
+                                            marginBottom: "5px",
+                                            marginLeft: "2px",
+                                            marginTop: "15px",
+                                          }}
+                                        >
+                                          Course(s)
+                                        </Typography>
+                                        <Select
+                                          labelId="multiple-select-label"
+                                          id="multiple-select"
+                                          multiple
+                                          label="Select courses"
+                                          value={selectedCourses}
+                                          onChange={handleChangeCourses}
+                                          MenuProps={{ PaperProps: { sx: { maxHeight: "35%" } } }}
+                                          renderValue={(selected) => (
+                                            <div>
+                                              {selected.map((item) => (
+                                                <Chip
+                                                  key={item}
+                                                  label={item}
+                                                  onDelete={handleDeleteCourses(item)}
+                                                  sx={{
+                                                    marginRight: "5px",
+                                                    height: "20px",
+                                                  }}
+                                                />
+                                              ))}
+                                            </div>
+                                          )}
+                                        >
+                                          {courses.map((item) => (
+                                            <MenuItem key={item} value={item}>
+                                              <Checkbox
+                                                checked={selectedCourses.indexOf(item) > -1}
+                                              />
+                                              <ListItemText secondary={item} />
+                                            </MenuItem>
+                                          ))}
+                                        </Select>
+                                      </FormControl>
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          justifyContent: "flex-end",
+                                          mt: 2,
+                                          gap: 2,
+                                        }}
+                                      >
+                                        <Button
+                                          variant="contained"
+                                          onClick={enrolCourses}
+                                          style={{ color: "#fff" }}
+                                        >
+                                          Enrol
+                                        </Button>
+                                        <Button
+                                          variant="outlined"
+                                          onClick={closeEnrolCoursesModal}
+                                          style={{ marginRight: "5px", color: "black" }}
+                                        >
+                                          Cancel
+                                        </Button>
+                                      </Box>
+                                    </Box>
+                                  </Modal>
+
+                                  <MenuItem  style={{background:'#fff'}}>
+                                    {/* <EditIcon /> */}
+                                    EXport Simulation Data
+                                  </MenuItem>
+
+                        </div>
                       </TableCell>
+                      
                     </TableRow>
                   </TableBody>
                 </Table>

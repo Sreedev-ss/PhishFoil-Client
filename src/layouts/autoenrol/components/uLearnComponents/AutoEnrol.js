@@ -26,6 +26,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import TimePickerViewRenderers from "./TimePickerViewRenders";
 
 const style = {
     position: "absolute",
@@ -231,6 +232,9 @@ const courses = ['Phishing (Beginner)', 'Physical Security (Beginner)', 'Public 
                     </FormControl>
                     <FormControl sx={{ minWidth: 230, maxWidth: 300, height: 'auto' }}>
                         <Typography sx={{ fontSize: '', marginBottom: "5px", marginLeft: "2px" }}>starting at</Typography>
+                        <div>
+        <TimePickerViewRenderers />
+      </div>
                         {/* <Select
                             labelId="multiple-select-label"
                             id="multiple-select"

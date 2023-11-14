@@ -370,14 +370,14 @@ function emailTable() {
                           {/* edit-email-template */}
                           <MenuItem component={Link} to="/edit-email-template" style={{background:'#fff'}}>
                             <EditIcon />
-                            Edit Email Template
+                            Enrol on Course
                           </MenuItem>
 
 
                            {/* send-test-email-template */}
                           <MenuItem onClick={openSendTestEmailModal} style={{background:'#fff'}}>
                             <SendIcon />
-                            send Test Email
+                            Export Simulation Data
                           </MenuItem>
 
                           <Modal
