@@ -15,6 +15,7 @@ import { ChromePicker } from "react-color";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Email } from "@mui/icons-material";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import {
     Box,
     Button,
@@ -41,7 +42,8 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
-    DialogContentText
+    DialogContentText,
+    Snackbar
 } from '@mui/material'
 
 import Table from '@mui/material/Table';
@@ -82,6 +84,8 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 
 
 function RiskReportSignup() {
+    const [showLinkAndButton, setShowLinkAndButton] = useState(true);
+    const [isCopied, setIsCopied] = useState(false);
 
 
     const [value, setValue] = React.useState('1');
@@ -98,6 +102,15 @@ function RiskReportSignup() {
     });
 
 
+    const handleCopyClick = () => {
+        navigator.clipboard.writeText(link);
+        setIsCopied(true);
+        setTimeout(() => {
+            setIsCopied(false);
+        }, 1000);
+    };
+
+
     const handleHeaderChecked = () => setHeaderChecked(!headerChecked);
 
     const toggleHeaderDropdown = () => setIsOpenHeader(!isOpenHeader);
@@ -107,6 +120,24 @@ function RiskReportSignup() {
     const handleHeaderColorChange = (color) => setSelectedHeaderColor(color.hex);
 
     const handleButtonColorChange = (color) => setSelectedButtonColor(color.hex);
+
+
+
+
+    const handleGenerateURLClick = () => {
+        // Your logic to generate the URL goes here
+
+        // After generating the URL, hide the link and button, and show the lines of code
+        setShowLinkAndButton(false);
+    };
+
+    const handleRegenerateLinkClick = () => {
+        // Your logic to regenerate the URL goes here
+
+        // After regenerating the URL, show the link and button again
+        setShowLinkAndButton(true);
+    };
+
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -169,7 +200,7 @@ function RiskReportSignup() {
                                             </div>
                                         </div>
 
-                                        <Button
+                                        {/* <Button
                                             variant="contained"
                                             style=
                                             {{
@@ -179,9 +210,146 @@ function RiskReportSignup() {
                                             }}
                                         > <LinkIcon style={{ color: '#fff' }} />
                                             Generate URL
-                                        </Button>
+                                        </Button> */}
 
 
+
+
+                                        <div>
+                                            {showLinkAndButton ? (
+                                                // Display the link and button
+                                                <Button
+                                                    variant="contained"
+                                                    style={{
+                                                        color: '#fff',
+                                                        background: 'rgb(30, 123, 228)',
+                                                        width: '250px'
+                                                    }}
+                                                    onClick={handleGenerateURLClick}
+                                                >
+                                                    <LinkIcon style={{ color: '#fff' }} />
+                                                    Generate URL
+                                                </Button>
+                                            ) : (
+                                                // Display the lines of code with link and button to regenerate
+                                                <div>
+                                                    <p
+                                                        style={{
+                                                            marginTop: "5px",
+                                                            color: "gray",
+                                                            fontSize: "13px",
+                                                            marginLeft: "15px",
+                                                        }}
+                                                    >You can use this URL to embed the risk report sign up widget on your website. Alternatively you can use the iframe HTML provided to get started.</p>
+                                                    
+                                                    {/* Display the generated URL here */}
+                                                    <p style={{
+                                                        marginTop: "10px",
+                                                        color:"rgb(30, 123, 228)",
+
+                                                        fontSize: "13px"
+                                                    }}>https://app.user-training.com/risk-report-sign-up/dc9c55ca-b67f-4874-bff4-02d00945e0d8</p>
+                                                    <Button
+                                                        // onClick={handleCopyClick} 
+                                                        sx={{
+                                                            marginLeft: '3px',
+                                                            marginTop: '20px',
+                                                            background: 'rgb(30, 123, 228)',
+                                                            color: '#fff',
+                                                            fontWeight: 'lighter'
+                                                        }}
+                                                    >
+                                                        Copy to clipboard
+                                                        <FileCopyIcon style={{ color: '#fff' }} />
+                                                        {/* {isCopied ? 'Link Copied' : 'Copy to Clipboard'} */}
+                                                    </Button>
+                         
+                                                    <div
+                                                        style={{
+                                                            backgroundColor: "rgb(244, 244, 244)",
+                                                            marginTop: "40px",
+                                                            padding: "10px",
+                                                            border: "0 solid #91d5ff",
+                                                            fontSize: "15px",
+                                                            fontWeight: "lighter",
+                                                            color: "gray",
+                                                            fontFamily: "sans-serif",
+                                                        }}
+
+                                                    >
+                                                            <Button
+                                                        // onClick={handleCopyClick} 
+                                                        sx={{
+                                                           marginLeft:"0px",
+                                                            mt: '20px',
+                                                            background: 'rgb(30, 123, 228)',
+                                                            color: '#fff',
+                                                            fontWeight: 'lighter'
+                                                        }}
+                                                    >
+                                                       
+                                                        <FileCopyIcon style={{ color: '#fff' }} />
+                                                        {/* {isCopied ? 'Link Copied' : 'Copy to Clipboard'} */}
+                                                    </Button>
+                                                        <p><iframe
+                                                            src="https://app.user-training.com/risk-report-sign-up/dc9c55ca-b67f-4874-bff4-02d00945e0d8"
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "100px",
+                                                                border: "none",
+                                                              }}
+                                                        ></iframe></p>
+                                                      
+
+
+
+                                                    </div>
+
+
+                                                    {/* Button to regenerate the link */}
+
+                                                    <p
+                                                        style={{
+                                                            marginTop: "5px",
+                                                            color: "gray",
+                                                            fontSize: "13px",
+                                                            marginLeft: "15px",
+                                                        }}>
+                                                        If you wish to change the widgets URL you can regenerate it using the button. You will need to update your website accordingly.
+                                                    </p>
+                                                    <Button
+                                                        variant="contained"
+                                                        style={{
+                                                            color: '#fff',
+                                                            background: 'rgb(30, 123, 228)',
+                                                            width: '250px',
+                                                            marginTop: '10px'
+                                                        }}
+                                                        onClick={handleRegenerateLinkClick}
+                                                    >
+                                                        <LinkIcon style={{ color: '#fff' }} />
+                                                        Regenerate URL
+                                                    </Button>
+                                                    <p
+                                                        style={{
+                                                            marginTop: "5px",
+                                                            color: "gray",
+                                                            fontSize: "13px",
+                                                            marginLeft: "15px",
+                                                        }}
+                                                    >The widgets test mode that can be activated by adding ?mode=test to the end of the URL. This allow you to try out your widget without saving any data. You can also see additional debugging output by using ?mode=debug instead.</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: "20px", alignItems: 'center' }}>
+                                            <Button
+                                                variant="outlined"
+
+                                                style={{ marginRight: "5px", color: "black" }}
+                                            >
+                                                Save
+                                            </Button>
+                                        </div>
 
                                     </TabPanel>
                                     <TabPanel value="2">
@@ -382,17 +550,17 @@ function RiskReportSignup() {
                                         </Box>
 
                                         <TextField
-                                  type="number"
-                                  value={signatureFrequency.number}
-                                  onChange={(e) =>
-                                    setSignatureFrequency({
-                                      ...signatureFrequency,
-                                      number: e.target.value,
-                                    })
-                                  }
-                                  sx={{width: "100px"}}
-                                 
-                                />
+                                            type="number"
+                                            value={signatureFrequency.number}
+                                            onChange={(e) =>
+                                                setSignatureFrequency({
+                                                    ...signatureFrequency,
+                                                    number: e.target.value,
+                                                })
+                                            }
+                                            sx={{ width: "100px" }}
+
+                                        />
                                         <Box style={{ margintop: "40px" }}>
                                             <label
                                                 htmlFor="name"
@@ -471,17 +639,17 @@ function RiskReportSignup() {
                                         </Box>
 
                                         <TextField
-                                  type="number"
-                                  value={signatureFrequency.number}
-                                  onChange={(e) =>
-                                    setSignatureFrequency({
-                                      ...signatureFrequency,
-                                      number: e.target.value,
-                                    })
-                                  }
-                                  sx={{width: "100px"}}
-                                 
-                                />
+                                            type="number"
+                                            value={signatureFrequency.number}
+                                            onChange={(e) =>
+                                                setSignatureFrequency({
+                                                    ...signatureFrequency,
+                                                    number: e.target.value,
+                                                })
+                                            }
+                                            sx={{ width: "100px" }}
+
+                                        />
                                         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                             <Button
                                                 variant="outlined"
