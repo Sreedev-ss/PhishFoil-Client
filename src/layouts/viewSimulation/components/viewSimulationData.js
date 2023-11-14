@@ -2,11 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  Dialog,
+  Divider,
+  FormControl,
   FormControlLabel,
   FormGroup,
   IconButton,
+  MenuItem,
   Paper,
   Popover,
+  Select,
   Switch,
   Table,
   TableBody,
@@ -44,6 +49,8 @@ const style = {
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Legend, Tooltip } from 'recharts';
+import { Stack } from "@mui/system";
+import { AiOutlineSearch } from "react-icons/ai";
 
 
   const data = [
@@ -90,6 +97,24 @@ const ViewSimulationData = () => {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
   const [uPolicyChartBar, setUPolicyChartBar] = useState(false);
+  const [status, setStatus] = useState("All Users");
+  const [isUserFormOpen, setUserFormOpen] = useState(false);
+
+  const openUserForm = () => {
+    setUserFormOpen(true);
+  };
+
+  const closeUserForm = () => {
+    setUserFormOpen(false);
+  };
+
+  const closeGroupForm = () => {
+    setGroupFormOpen(false);
+  };
+
+  const handleStatusChange = (event) => {
+    setStatus(event.target.value);
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -332,6 +357,102 @@ const ViewSimulationData = () => {
                 },
               }}
             >
+
+              <div style={{ display: "flex", gap: 200 }}>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* <h5 style={{ marginBottom: 5 }}>Configuration</h5> */}
+                  <p style={{ fontSize: 15, color:'green' }}>Send</p>
+                  <p style={{ fontSize: 15 }}><strong style={{fontSize:'25px', color:'green' }}>1</strong>/1</p>
+                 
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* <h5 style={{ marginBottom: 5 }}>&nbsp;&nbsp;</h5> */}
+                  <p style={{ fontSize: 15, color:'rgb(30, 123, 228)' }}>Opened</p>
+                  <p style={{ fontSize: 15 }}><strong style={{fontSize:'25px', color:'rgb(30, 123, 228)' }}>1</strong>/1</p>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* <h5 style={{ marginBottom: 5 }}>&nbsp;&nbsp;</h5> */}
+                  <p style={{ fontSize: 15, color:'rgb(253, 170, 13)' }}>Visited</p>
+                  <p style={{ fontSize: 15 }}><strong style={{fontSize:'25px', color:'rgb(253, 170, 13)' }}>1</strong>/1</p>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* <h5 style={{ marginBottom: 5 }}>&nbsp;&nbsp;</h5> */}
+                  <p style={{ fontSize: 15, color:'rgb(246, 66, 52)' }}>Compromised</p>
+                  <p style={{ fontSize: 15 }}><strong style={{fontSize:'25px', color:'rgb(246, 66, 52)'}}>1</strong>/1</p>
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                  {/* <h5 style={{ marginBottom: 5 }}>&nbsp;&nbsp;</h5> */}
+                  <p style={{ fontSize: 15, color:'rgb(55, 123, 89' }}>Reported</p>
+                  <p style={{ fontSize: 15 }}><strong style={{fontSize:'25px', color:'rgb(55, 123, 89'}}>1</strong>/1</p>
+                </Box>
+              </div>
+              <Divider />
+                <div style={{ display: "flex", alignItems: "end", gap: 5 }}>
+                  <Typography sx={{ fontSize: "medium" }}>Status:</Typography>
+                  <FormControl sx={{ minWidth: 150 }}>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={status}
+                      label="Status"
+                      onChange={handleStatusChange}
+                    >
+                      <MenuItem value={"Active"}>Active</MenuItem>
+                      <MenuItem value={"Inactive"}>Inactive</MenuItem>
+                      <MenuItem value={"Managers"}>Managers</MenuItem>
+                      <MenuItem value={"Group Managers"}>Group Managers</MenuItem>
+                      <MenuItem value={"All Users"}>All Users</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <div style={{marginTop:'30px', marginLeft:'10px'}}>
+                    <Switch {...label} />
+                    <span 
+                        style=
+                        {{
+                            fontSize:"15px", fontWeight:'lighter', marginLeft:'20px'
+                        }}
+                        >
+                            Show Engaged Users
+                    </span>
+                    </div>
+                    <div>
+                    <Stack>
+                    <Stack spacing={2} direction="row" justifyContent="flex-end">
+                      <Button
+                        style={{
+                          border: "0.5px solid grey",
+                          color: "#d4d4d4",
+                          fontSize: "10px",
+                          marginTop: "1px",
+                          marginLeft:'380px'
+                          
+                        }}
+                        size="medium"
+                        onClick={openUserForm}
+                      >
+                        Search for a user
+                        <AiOutlineSearch style={{ color: "gray", fontSize: "15px" }} />
+                      </Button>
+                      <Dialog open={isUserFormOpen} onClose={closeUserForm}></Dialog>
+                    </Stack>
+                  </Stack>
+                    </div>
+                    <div>
+                      <Stack>
+                      <Button
+                      variant="outline"
+                      style={{ border: "0.5px solid grey", color: "#585958", marginLeft:'30px' }}
+                      size="small"
+                      disabled
+                    >
+                      Actions
+                    </Button>
+                      </Stack>
+                    </div>
+                  </div>
+                
+
+            <div style={{marginTop:'30px'}}>
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead sx={{ display: "table-header-group" }}>
@@ -388,6 +509,7 @@ const ViewSimulationData = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+              </div>
             </SoftBox>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
