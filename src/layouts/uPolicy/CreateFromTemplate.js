@@ -27,6 +27,7 @@ const style = {
     border: "1px solid #000",
     boxShadow: 24,
     p: 4,
+    overflowY: "scroll",
 };
 
 
@@ -101,6 +102,7 @@ export default function CreateFromTemplate() {
                 Choose a policy template
             </Typography>
             <p style={{ fontSize: '14px', color: 'gray', marginTop: '10px', marginBottom: '10px', fontFamily: "sans-serif" }}>You can use one of our pre-made policies as a template to create your own.</p>
+            <div style={{overflowY: "scroll",}}>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>
@@ -115,6 +117,7 @@ export default function CreateFromTemplate() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </div>
             <div style={{ border: "0.5px solid #d2d6da", width: '30%', borderRadius: '4px', height: '15rem', marginTop: '1.2rem' }}>
                 <Link to="/uPolicy/createPolicy"><div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <img src={addImage} alt="name" />
