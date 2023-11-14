@@ -100,6 +100,7 @@ const PerformanceReport = () => {
   const [recipientEmails, setRecipientEmails] = useState("");
   const [selectedReport, setSelectedReport] = useState(null);
   const [viewPerfomReportOpen, setViewPerformReportOpen] = useState(false);
+  const [sendTestEmailOpen, setSendTestEmailOpen] = useState(false);
 
   //Schedule report
 
@@ -241,12 +242,12 @@ const PerformanceReport = () => {
     setSendTestEmailModalOpen(true);
   };
 
-  const closeSendTestEmailModal = () => {
-    setSendTestEmailModalOpen(false);
+  const handleSendTestEmailOpen = () => {
+    setSendTestEmailOpen(true);
   };
 
-  const sendTestEmail = () => {
-    closeSendTestEmailModal();
+  const handleSendTestEmailClose = () => {
+    setSendTestEmailOpen(false);
   };
 
   const openAddLangModal = () => {
@@ -688,321 +689,307 @@ const PerformanceReport = () => {
                 },
               }}
             >
-              <Stack
-                spacing={2}
-                margin={2}
-                direction="row"
-                justifyContent="flex-end"
-                style={{ padding: "26px" }}
-              >
-                <TableContainer component={Paper}>
-                  <Table sx={{ width: "100%" }} aria-label="simple table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell style={{ fontSize: "16px", width: "80px" }}>Name</TableCell>
-                        <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                          Period Type
-                        </TableCell>
-                        <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                          Period Start
-                        </TableCell>
-                        <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                          Period End
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                        {tableData.map((report, index) => (
-                          <TableRow key={index}>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              {report.name}
-                            </TableCell>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              {report.reportType}
-                            </TableCell>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              {report.startDate}
-                            </TableCell>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              {report.endDate}
-                            </TableCell>
+              <TableContainer component={Paper}>
+                <Table sx={{ width: "100%" }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ fontSize: "16px", width: "80px" }}>Name</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "80px" }}>Period Type</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                        Period Start
+                      </TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "80px" }}>Period End</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      {tableData.map((report, index) => (
+                        <TableRow key={index}>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            {report.name}
+                          </TableCell>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            {report.reportType}
+                          </TableCell>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            {report.startDate}
+                          </TableCell>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            {report.endDate}
+                          </TableCell>
 
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              <Button
-                                variant="outline"
-                                style={{
-                                  border: "0.5px solid #d4d4d4",
-                                  color: "#d4d4d4",
-                                  fontWeight: "400",
-                                  fontSize: "medium",
-                                }}
-                              >
-                                <RemoveRedEyeOutlinedIcon style={{ marginRight: "5px" }} />
-                                View
-                              </Button>
-                            </TableCell>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              <Button
-                                variant="outline"
-                                style={{
-                                  border: "0.5px solid #d4d4d4",
-                                  color: "#d4d4d4",
-                                  fontWeight: "400",
-                                  fontSize: "large",
-                                }}
-                              >
-                                <FileDownloadOutlinedIcon style={{ marginRight: "5px" }} />
-                                Download
-                              </Button>
-                            </TableCell>
-                            <TableCell style={{ fontSize: "16px", width: "80px" }}>
-                              <Button
-                                onClick={handleSendOpen}
-                                variant="outline"
-                                style={{
-                                  border: "0.5px solid #d4d4d4",
-                                  color: "#d4d4d4",
-                                  fontWeight: "400",
-                                  fontSize: "large",
-                                }}
-                              >
-                                <MailOutlinedIcon style={{ marginRight: "5px" }} />
-                                Send
-                              </Button>
-                              <Modal
-                                open={sendOpen}
-                                onClose={handleSendClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                              >
-                                <Box>
-                                  <form style={{ width: "800px" }}>
-                                    <Box sx={style}>
-                                      <Typography
-                                        id="transition-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                      >
-                                        Send -{report.name}
-                                      </Typography>
-                                      <Box>
-                                        <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                          Recipients:
-                                        </label>
-                                      </Box>
-                                      <div
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            <Button
+                              variant="outline"
+                              style={{
+                                border: "0.5px solid #d4d4d4",
+                                color: "#d4d4d4",
+                                fontWeight: "400",
+                                fontSize: "medium",
+                              }}
+                            >
+                              <RemoveRedEyeOutlinedIcon style={{ marginRight: "5px" }} />
+                              View
+                            </Button>
+                          </TableCell>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            <Button
+                              variant="outline"
+                              style={{
+                                border: "0.5px solid #d4d4d4",
+                                color: "#d4d4d4",
+                                fontWeight: "400",
+                                fontSize: "large",
+                              }}
+                            >
+                              <FileDownloadOutlinedIcon style={{ marginRight: "5px" }} />
+                              Download
+                            </Button>
+                          </TableCell>
+                          <TableCell style={{ fontSize: "16px", width: "80px" }}>
+                            <Button
+                              onClick={handleSendOpen}
+                              variant="outline"
+                              style={{
+                                border: "0.5px solid #d4d4d4",
+                                color: "#d4d4d4",
+                                fontWeight: "400",
+                                fontSize: "large",
+                              }}
+                            >
+                              <MailOutlinedIcon style={{ marginRight: "5px" }} />
+                              Send
+                            </Button>
+                            <Modal
+                              open={sendOpen}
+                              onClose={handleSendClose}
+                              aria-labelledby="modal-modal-title"
+                              aria-describedby="modal-modal-description"
+                            >
+                              <Box>
+                                <form style={{ width: "800px" }}>
+                                  <Box sx={style}>
+                                    <Typography
+                                      id="transition-modal-title"
+                                      variant="h6"
+                                      component="h2"
+                                    >
+                                      Send -{report.name}
+                                    </Typography>
+                                    <Box>
+                                      <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                        Recipients:
+                                      </label>
+                                    </Box>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItem: "center",
+                                        justifyContent: "space-between",
+                                      }}
+                                    >
+                                      <TextField
+                                        fullWidth
+                                        type="email"
                                         style={{
                                           display: "flex",
-                                          alignItem: "center",
-                                          justifyContent: "space-between",
+                                          alignItems: "center",
+                                          justifyContent: "center",
+                                          backgroundColor: "blue",
+                                          color: "white",
+                                          margin: "8px",
                                         }}
-                                      >
-                                        <TextField
-                                          fullWidth
-                                          type="email"
-                                          style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            backgroundColor: "blue",
-                                            color: "white",
-                                            margin: "8px",
-                                          }}
-                                        />
-                                        <Button
-                                          // onClick={handleOpen}
-                                          style={{
-                                            border: "0.5px solid #1C7AE4",
-                                            color: "white",
-                                            backgroundColor: "#1b7ae4",
-                                            fontWeight: "lighter",
-                                            marginTop: "10px",
-                                          }}
-                                          size="small"
-                                        >
-                                          + Add
-                                        </Button>
-                                      </div>
-
+                                      />
                                       <Button
                                         // onClick={handleOpen}
                                         style={{
-                                          border: "0.5px solid #d4d4d4",
-                                          color: "#d4d4d4",
-
+                                          border: "0.5px solid #1C7AE4",
+                                          color: "white",
+                                          backgroundColor: "#1b7ae4",
                                           fontWeight: "lighter",
                                           marginTop: "10px",
                                         }}
                                         size="small"
                                       >
-                                        Send Report
+                                        + Add
                                       </Button>
-                                    </Box>
-                                  </form>
-                                </Box>
-                              </Modal>
-                            </TableCell>
-                            <TableCell>
-                              <SoftButton onClick={handleClick} variant="outlined" color="info">
-                                <AiOutlineArrowRight />
-                              </SoftButton>
-                              <Popover
-                                id={id}
-                                open={openAnchor}
-                                anchorEl={anchorEl}
-                                anchorOrigin={{
-                                  vertical: "bottom",
-                                  horizontal: "left",
-                                }}
-                                transformOrigin={{
-                                  vertical: "top",
-                                  horizontal: "left",
-                                }}
-                                onClose={handleClose}
-                              >
-                                {/* edit-email-template */}
-                                <MenuItem onClick={handleEditOpen} style={{ background: "#fff" }}>
-                                  Edit Report
-                                </MenuItem>
-
-                                <Modal
-                                  open={editOpen}
-                                  onClose={handleEditClose}
-                                  aria-labelledby="modal-modal-title"
-                                  aria-describedby="modal-modal-description"
-                                >
-                                  <Box sx={style}>
-                                    <Typography
-                                      id="send-test-email-modal-title"
-                                      variant="h6"
-                                      component="h2"
-                                    >
-                                      Edit Performance Report - {report.name}
-                                    </Typography>
-                                    <Box>
-                                      <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                        Report Name
-                                      </label>
-                                    </Box>
-                                    <TextField
-                                      fullWidth
-                                      variant="filled"
-                                      type="text"
-                                      sx={{ gridColumn: "span 2" }}
-                                    />
-                                    <Typography
-                                      id="transition-modal-description"
-                                      sx={{ mt: 2 }}
-                                      color="textSecondary"
-                                    >
-                                      Report Period:
-                                    </Typography>
-                                    <TextField
-                                      type="date"
-                                      InputLabelProps={{
-                                        shrink: true,
-                                      }}
-                                      fullWidth
-                                      placeholder="Start Date"
-                                      value={startDate}
-                                      onChange={(e) => setStartDate(e.target.value)}
-                                    />
-
-                                    <TextField
-                                      type="date"
-                                      InputLabelProps={{
-                                        shrink: true,
-                                      }}
-                                      sx={{ mt: 2 }}
-                                      fullWidth
-                                      placeholder="End Date"
-                                      value={endDate}
-                                      onChange={(e) => setEndDate(e.target.value)}
-                                    />
+                                    </div>
 
                                     <Button
-                                      variant="outline"
-                                      onClick={handleCreateReport}
+                                      // onClick={handleOpen}
                                       style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "flex-end",
-                                        border: "0.5px solid blue",
-                                        color: "blue",
-                                        margin: "16px",
+                                        border: "0.5px solid #d4d4d4",
+                                        color: "#d4d4d4",
+
                                         fontWeight: "lighter",
-                                        fontSize: "medium",
+                                        marginTop: "10px",
                                       }}
+                                      size="small"
                                     >
-                                      Update
+                                      Send Report
                                     </Button>
                                   </Box>
-                                </Modal>
-                                <MenuItem onClick={handleDeleteOpen} style={{ background: "#fff" }}>
-                                  Delete Report
-                                </MenuItem>
+                                </form>
+                              </Box>
+                            </Modal>
+                          </TableCell>
+                          <TableCell>
+                            <SoftButton onClick={handleClick} variant="outlined" color="info">
+                              <AiOutlineArrowRight />
+                            </SoftButton>
+                            <Popover
+                              id={id}
+                              open={openAnchor}
+                              anchorEl={anchorEl}
+                              anchorOrigin={{
+                                vertical: "bottom",
+                                horizontal: "left",
+                              }}
+                              transformOrigin={{
+                                vertical: "top",
+                                horizontal: "left",
+                              }}
+                              onClose={handleClose}
+                            >
+                              {/* edit-email-template */}
+                              <MenuItem onClick={handleEditOpen} style={{ background: "#fff" }}>
+                                Edit Report
+                              </MenuItem>
 
-                                <Modal open={deleteOpen} onClose={handleDeleteClose}>
-                                  <Box sx={style}>
-                                    <Typography
-                                      id="send-test-email-modal-title"
-                                      variant="h6"
-                                      component="h2"
-                                    >
-                                      Are you sure you want to delete the selected report?
-                                    </Typography>
-                                    <Box>
-                                      <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                        Number of Reports to delete:
-                                      </label>
-                                    </Box>
-                                    <TextField
-                                      fullWidth
-                                      variant="filled"
-                                      type="text"
-                                      sx={{ gridColumn: "span 2" }}
-                                      placeholder="1"
-                                    />
-
-                                    <Box
-                                      sx={{
-                                        display: "flex",
-                                        justifyContent: "flex-end",
-                                        mt: 2,
-                                        gap: 2,
-                                      }}
-                                    >
-                                      <Button
-                                        variant="contained"
-                                        onClick={sendTestEmail}
-                                        style={{ color: "#fff" }}
-                                      >
-                                        <MailOutlineIcon
-                                          sx={{ marginRight: "5px", color: "#fff" }}
-                                        />
-                                        Yes
-                                      </Button>
-                                      <Button
-                                        variant="outlined"
-                                        onClick={closeSendTestEmailModal}
-                                        style={{ marginRight: "5px", color: "black" }}
-                                      >
-                                        No
-                                      </Button>
-                                    </Box>
+                              <Modal
+                                open={editOpen}
+                                onClose={handleEditClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                              >
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Edit Performance Report - {report.name}
+                                  </Typography>
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Report Name
+                                    </label>
                                   </Box>
-                                </Modal>
-                              </Popover>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                  <Menu></Menu>
-                </TableContainer>
-              </Stack>
+                                  <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                  />
+                                  <Typography
+                                    id="transition-modal-description"
+                                    sx={{ mt: 2 }}
+                                    color="textSecondary"
+                                  >
+                                    Report Period:
+                                  </Typography>
+                                  <TextField
+                                    type="date"
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    fullWidth
+                                    placeholder="Start Date"
+                                    value={startDate}
+                                    onChange={(e) => setStartDate(e.target.value)}
+                                  />
+
+                                  <TextField
+                                    type="date"
+                                    InputLabelProps={{
+                                      shrink: true,
+                                    }}
+                                    sx={{ mt: 2 }}
+                                    fullWidth
+                                    placeholder="End Date"
+                                    value={endDate}
+                                    onChange={(e) => setEndDate(e.target.value)}
+                                  />
+
+                                  <Button
+                                    variant="outline"
+                                    onClick={handleCreateReport}
+                                    style={{
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "flex-end",
+                                      border: "0.5px solid blue",
+                                      color: "blue",
+                                      margin: "16px",
+                                      fontWeight: "lighter",
+                                      fontSize: "medium",
+                                    }}
+                                  >
+                                    Update
+                                  </Button>
+                                </Box>
+                              </Modal>
+                              <MenuItem onClick={handleDeleteOpen} style={{ background: "#fff" }}>
+                                Delete Report
+                              </MenuItem>
+
+                              <Modal open={deleteOpen} onClose={handleDeleteClose}>
+                                <Box sx={style}>
+                                  <Typography
+                                    id="send-test-email-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                  >
+                                    Are you sure you want to delete the selected report?
+                                  </Typography>
+                                  <Box>
+                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                      Number of Reports to delete:
+                                    </label>
+                                  </Box>
+                                  <TextField
+                                    fullWidth
+                                    variant="filled"
+                                    type="text"
+                                    sx={{ gridColumn: "span 2" }}
+                                    placeholder="1"
+                                  />
+
+                                  <Box
+                                    sx={{
+                                      display: "flex",
+                                      justifyContent: "flex-end",
+                                      mt: 2,
+                                      gap: 2,
+                                    }}
+                                  >
+                                    <Button
+                                      variant="contained"
+                                      onClick={handleSendTestEmailOpen}
+                                      style={{ color: "#fff" }}
+                                    >
+                                      <MailOutlineIcon sx={{ marginRight: "5px", color: "#fff" }} />
+                                      Yes
+                                    </Button>
+                                    <Button
+                                      variant="outlined"
+                                      onClick={handleSendTestEmailClose}
+                                      style={{ marginRight: "5px", color: "black" }}
+                                    >
+                                      No
+                                    </Button>
+                                  </Box>
+                                </Box>
+                              </Modal>
+                            </Popover>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                <Menu></Menu>
+              </TableContainer>
             </SoftBox>
           </Card>
         </div>
