@@ -268,7 +268,7 @@ function RiskReportSignup() {
                                                         style={{
                                                             backgroundColor: "rgb(244, 244, 244)",
                                                             marginTop: "40px",
-                                                            padding: "10px",
+                                                            padding: "20px",
                                                             border: "0 solid #91d5ff",
                                                             fontSize: "15px",
                                                             fontWeight: "lighter",
@@ -280,8 +280,8 @@ function RiskReportSignup() {
                                                             <Button
                                                         // onClick={handleCopyClick} 
                                                         sx={{
-                                                           marginLeft:"0px",
-                                                            mt: '20px',
+                                                            ml: '700px',
+                                                            mt: '5px',
                                                             background: 'rgb(30, 123, 228)',
                                                             color: '#fff',
                                                             fontWeight: 'lighter'
@@ -289,20 +289,13 @@ function RiskReportSignup() {
                                                     >
                                                        
                                                         <FileCopyIcon style={{ color: '#fff' }} />
-                                                        {/* {isCopied ? 'Link Copied' : 'Copy to Clipboard'} */}
+                                                    
                                                     </Button>
-                                                        <p><iframe
-                                                            src="https://app.user-training.com/risk-report-sign-up/dc9c55ca-b67f-4874-bff4-02d00945e0d8"
-                                                            style={{
-                                                                width: "100%",
-                                                                height: "100px",
-                                                                border: "none",
-                                                              }}
-                                                        ></iframe></p>
-                                                      
-
-
-
+                                                        <p>
+                                                            iframe
+                                                            https://app.user-training.com/risk-report-sign-up/dc9c55ca-b67f-4874-bff4-02d00945e0d8
+                                                        
+                                                        </p>
                                                     </div>
 
 
