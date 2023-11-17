@@ -63,6 +63,7 @@ import Fade from "@mui/material/Fade";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import NativeSelect from "@mui/material/NativeSelect";
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 
 const style = {
   position: "absolute",
@@ -94,8 +95,6 @@ const ScheduleReport = () => {
   const [reportType, setReportType] = useState("");
   const [tableData, setTableData] = useState([]);
 
-  //Schedule report
-
   const handleDeleteOpen = () => {
     setDeleteOpen(true);
   };
@@ -103,6 +102,15 @@ const ScheduleReport = () => {
   const handleDeleteClose = () => {
     setDeleteOpen(false);
   };
+
+  const handleDeleteReport = () => {
+    // Implement your logic for deleting the report
+    // This is where you would make an API call or update your state to delete the report
+    console.log("Report deleted!");
+    handleDeleteClose(); // Close the modal after deleting
+  };
+
+  //Schedule report
 
   const handleSendOpen = () => {
     setSendOpen(true);
@@ -487,10 +495,487 @@ const ScheduleReport = () => {
                             01/11/2023
                           </TableCell>
                           <TableCell>
-                            <SoftButton onClick={handleClick} variant="outlined" color="info">
-                              <AiOutlineArrowRight />
-                            </SoftButton>
-                            <Popover
+                            <PopupState variant="popover" popupId="demo-popup-popover">
+                              {(popupState) => (
+                                <div>
+                                  <Button variant="outlined" {...bindTrigger(popupState)}>
+                                    <AiOutlineArrowRight />
+                                  </Button>
+                                  <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "center",
+                                    }}
+                                    transformOrigin={{
+                                      vertical: "top",
+                                      horizontal: "center",
+                                    }}
+                                  >
+                                    <MenuItem
+                                      onClick={handleViewReportChangeOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      View report
+                                    </MenuItem>
+
+                                    <Modal
+                                      open={viewReportOpen}
+                                      onClose={handleViewReportChangeClose}
+                                      aria-labelledby="modal-modal-title"
+                                      aria-describedby="modal-modal-description"
+                                    >
+                                      <Box sx={style}>
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          View Scheduled Report: john
+                                        </Typography>
+
+                                        <Typography
+                                          id="transition-modal-description"
+                                          sx={{ mt: 5 }}
+                                          color="textSecondary"
+                                        >
+                                          Reporting Period:
+                                        </Typography>
+                                        <FormControl sx={{ m: 1 }} variant="standard">
+                                          <NativeSelect
+                                            id="demo-customized-select-native"
+                                            input={<BootstrapInput />}
+                                            defaultValue={10}
+                                          >
+                                            <option
+                                              aria-label="None"
+                                              value=""
+                                              style={{ width: "100%" }}
+                                            />
+                                            <option value={10}>October 2023</option>
+                                            <option value={20}>September 2023</option>
+                                            <option value={20}>August 2023</option>
+                                            <option value={20}>July 2023</option>
+                                            <option value={20}>June 2023</option>
+                                            <option value={20}>April 2023</option>
+                                            <option value={20}>March 2023</option>
+                                            <option value={30}>Febrauary 2023</option>
+                                          </NativeSelect>
+                                        </FormControl>
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "20%",
+                                            marginTop: "10%",
+
+                                            textAlign: "center",
+                                            border: "0.5px solid #1C7AE4",
+                                            color: "#1C7AE4",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          View Report
+                                        </Button>
+                                      </Box>
+                                    </Modal>
+                                    <MenuItem
+                                      onClick={handleDownloadOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      Download Report
+                                    </MenuItem>
+
+                                    <Modal
+                                      open={downloadOpen}
+                                      onClose={handleDownloadClose}
+                                      aria-labelledby="modal-modal-title"
+                                      aria-describedby="modal-modal-description"
+                                    >
+                                      <Box sx={style}>
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          Download Scheduled Report: john
+                                        </Typography>
+
+                                        <Typography
+                                          id="transition-modal-description"
+                                          sx={{ mt: 2 }}
+                                          color="textSecondary"
+                                        >
+                                          Reporting Period:
+                                        </Typography>
+                                        <FormControl sx={{ m: 1 }} variant="standard">
+                                          <NativeSelect
+                                            id="demo-customized-select-native"
+                                            input={<BootstrapInput />}
+                                            defaultValue={10}
+                                          >
+                                            <option
+                                              aria-label="None"
+                                              value=""
+                                              style={{ width: "100%" }}
+                                            />
+                                            <option value={10}>October 2023</option>
+                                            <option value={20}>September 2023</option>
+                                            <option value={20}>August 2023</option>
+                                            <option value={20}>July 2023</option>
+                                            <option value={20}>June 2023</option>
+                                            <option value={20}>April 2023</option>
+                                            <option value={20}>March 2023</option>
+                                            <option value={30}>Febrauary 2023</option>
+                                          </NativeSelect>
+                                        </FormControl>
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "20%",
+                                            marginTop: "10%",
+
+                                            textAlign: "center",
+                                            border: "0.5px solid #1C7AE4",
+                                            color: "#1C7AE4",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          Download Report
+                                        </Button>
+                                      </Box>
+                                    </Modal>
+
+                                    <MenuItem
+                                      onClick={handleSendOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      Edit Report
+                                    </MenuItem>
+
+                                    <Modal
+                                      open={sendOpen}
+                                      onClose={handleSendClose}
+                                      aria-labelledby="modal-modal-title"
+                                      aria-describedby="modal-modal-description"
+                                    >
+                                      <Box sx={style}>
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          Send Scheduled Report: vijay
+                                        </Typography>
+
+                                        <Typography
+                                          id="transition-modal-description"
+                                          sx={{ mt: 2 }}
+                                          color="textSecondary"
+                                        >
+                                          Reporting Period:
+                                        </Typography>
+                                        <FormControl sx={{ m: 1 }} variant="standard">
+                                          <NativeSelect
+                                            id="demo-customized-select-native"
+                                            input={<BootstrapInput />}
+                                            defaultValue={10}
+                                          >
+                                            <option
+                                              aria-label="None"
+                                              value=""
+                                              style={{ width: "100%" }}
+                                            />
+                                            <option value={10}>October 2023</option>
+                                            <option value={20}>September 2023</option>
+                                            <option value={20}>August 2023</option>
+                                            <option value={20}>July 2023</option>
+                                            <option value={20}>June 2023</option>
+                                            <option value={20}>April 2023</option>
+                                            <option value={20}>March 2023</option>
+                                            <option value={30}>Febrauary 2023</option>
+                                          </NativeSelect>
+                                        </FormControl>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Recipients:
+                                          </label>
+                                        </Box>
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            alignItem: "center",
+                                            justifyContent: "space-between",
+                                          }}
+                                        >
+                                          <TextField
+                                            fullWidth
+                                            type="email"
+                                            variant="filled"
+                                            sx={{ gridColumn: "span 2" }}
+                                            style={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              marginRight: "26px",
+
+                                              color: "white",
+                                              margin: "8px",
+                                            }}
+                                          />
+                                          <Button
+                                            style={{
+                                              border: "0.5px solid #1C7AE4",
+                                              color: "white",
+                                              backgroundColor: "#1b7ae4",
+                                              fontWeight: "lighter",
+                                              marginTop: "10px",
+                                            }}
+                                            size="medium"
+                                          >
+                                            + Add
+                                          </Button>
+                                        </div>
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "20%",
+                                            marginTop: "10%",
+
+                                            textAlign: "center",
+                                            color: "white",
+                                            backgroundColor: "red",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          Remove All
+                                        </Button>
+
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "20%",
+                                            marginTop: "10%",
+
+                                            textAlign: "center",
+                                            border: "0.5px solid #1C7AE4",
+                                            color: "#1C7AE4",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          Edit Report
+                                        </Button>
+                                      </Box>
+                                    </Modal>
+
+                                    <MenuItem
+                                      onClick={handleEditOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      Send Report
+                                    </MenuItem>
+
+                                    <Modal open={editOpen} onClose={handleEditClose}>
+                                      <Box sx={style}>
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          Edit Scheduled Report
+                                        </Typography>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Report Name:
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                        />
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Report Type:
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                        />
+
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Frequency:
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                          placeholder="Montly"
+                                        />
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h6"
+                                        >
+                                          Enabled
+                                        </Typography>
+                                        <Switch {...label} defaultChecked />
+
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          When enabled this report will be sent to its recipients on
+                                          the 1st of the month at 7:00am UTC.
+                                        </Typography>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Recipients:
+                                          </label>
+                                        </Box>
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            alignItem: "center",
+                                            justifyContent: "space-between",
+                                          }}
+                                        >
+                                          <TextField
+                                            fullWidth
+                                            type="email"
+                                            variant="filled"
+                                            sx={{ gridColumn: "span 2" }}
+                                            style={{
+                                              display: "flex",
+                                              alignItems: "center",
+                                              justifyContent: "center",
+                                              marginRight: "26px",
+
+                                              color: "white",
+                                              margin: "8px",
+                                            }}
+                                          />
+                                          <Button
+                                            style={{
+                                              border: "0.5px solid #1C7AE4",
+                                              color: "white",
+                                              backgroundColor: "#1b7ae4",
+                                              fontWeight: "lighter",
+                                              marginTop: "10px",
+                                            }}
+                                            size="medium"
+                                          >
+                                            + Add
+                                          </Button>
+                                        </div>
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "20%",
+                                            marginTop: "10%",
+
+                                            textAlign: "center",
+                                            color: "white",
+                                            backgroundColor: "red",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          Remove All
+                                        </Button>
+                                        <Button
+                                          variant="outline"
+                                          style={{
+                                            display: "flex",
+                                            marginLeft: "30%",
+                                            marginTop: "16px",
+
+                                            textAlign: "center",
+                                            border: "0.5px solid #d4d4d4",
+                                            color: "#d4d4d4",
+                                            fontWeight: "400",
+                                            fontSize: "large",
+                                          }}
+                                        >
+                                          Save
+                                        </Button>
+                                      </Box>
+                                    </Modal>
+
+                                    <MenuItem
+                                      onClick={handleDeleteOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      Delete Report
+                                    </MenuItem>
+
+                                    <Modal open={deleteOpen} onClose={handleDeleteClose}>
+                                      <Box sx={style}>
+                                        <Typography variant="h6" component="h2">
+                                          Are you sure you want to delete the selected report?
+                                        </Typography>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Number of Reports to delete:
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                          placeholder="1"
+                                        />
+
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                            mt: 2,
+                                            gap: 2,
+                                          }}
+                                        >
+                                          <Button
+                                            variant="contained"
+                                            onClick={handleDeleteReport}
+                                            style={{ color: "#fff" }}
+                                          >
+                                            <MailOutlineIcon
+                                              sx={{ marginRight: "5px", color: "#fff" }}
+                                            />
+                                            Yes
+                                          </Button>
+                                          <Button
+                                            variant="outlined"
+                                            onClick={handleDeleteClose}
+                                            style={{ marginRight: "5px", color: "black" }}
+                                          >
+                                            No
+                                          </Button>
+                                        </Box>
+                                      </Box>
+                                    </Modal>
+                                  </Popover>
+                                </div>
+                              )}
+                            </PopupState>
+                            {/* <Popover
                               id={id}
                               open={openAnchor}
                               anchorEl={anchorEl}
@@ -504,7 +989,6 @@ const ScheduleReport = () => {
                               }}
                               onClose={handleClose}
                             >
-                              {/* edit-email-template */}
                               <MenuItem
                                 onClick={handleViewReportChangeOpen}
                                 style={{ background: "#fff" }}
@@ -535,13 +1019,8 @@ const ScheduleReport = () => {
                                     Reporting Period:
                                   </Typography>
                                   <FormControl sx={{ m: 1 }} variant="standard">
-                                    {/* <InputLabel htmlFor="demo-customized-select-native">
-                                        Age
-                                      </InputLabel> */}
                                     <NativeSelect
                                       id="demo-customized-select-native"
-                                      //   value={viewReport}
-                                      //   onChange={handlesetViewChange}
                                       input={<BootstrapInput />}
                                       defaultValue={10}
                                     >
@@ -605,13 +1084,8 @@ const ScheduleReport = () => {
                                     Reporting Period:
                                   </Typography>
                                   <FormControl sx={{ m: 1 }} variant="standard">
-                                    {/* <InputLabel htmlFor="demo-customized-select-native">
-                                        Age
-                                      </InputLabel> */}
                                     <NativeSelect
                                       id="demo-customized-select-native"
-                                      //   value={viewReport}
-                                      //   onChange={handlesetViewChange}
                                       input={<BootstrapInput />}
                                       defaultValue={10}
                                     >
@@ -676,13 +1150,8 @@ const ScheduleReport = () => {
                                     Reporting Period:
                                   </Typography>
                                   <FormControl sx={{ m: 1 }} variant="standard">
-                                    {/* <InputLabel htmlFor="demo-customized-select-native">
-                                        Age
-                                      </InputLabel> */}
                                     <NativeSelect
                                       id="demo-customized-select-native"
-                                      //   value={viewReport}
-                                      //   onChange={handlesetViewChange}
                                       input={<BootstrapInput />}
                                       defaultValue={10}
                                     >
@@ -729,7 +1198,6 @@ const ScheduleReport = () => {
                                       }}
                                     />
                                     <Button
-                                      // onClick={handleOpen}
                                       style={{
                                         border: "0.5px solid #1C7AE4",
                                         color: "white",
@@ -773,7 +1241,7 @@ const ScheduleReport = () => {
                                       fontSize: "large",
                                     }}
                                   >
-                                    Send Report
+                                    Edit Report
                                   </Button>
                                 </Box>
                               </Modal>
@@ -871,7 +1339,6 @@ const ScheduleReport = () => {
                                       }}
                                     />
                                     <Button
-                                      // onClick={handleOpen}
                                       style={{
                                         border: "0.5px solid #1C7AE4",
                                         color: "white",
@@ -953,17 +1420,12 @@ const ScheduleReport = () => {
                                       gap: 2,
                                     }}
                                   >
-                                    <Button
-                                      variant="contained"
-                                      //   onClick={sendTestEmail}
-                                      style={{ color: "#fff" }}
-                                    >
+                                    <Button variant="contained" style={{ color: "#fff" }}>
                                       <MailOutlineIcon sx={{ marginRight: "5px", color: "#fff" }} />
                                       Yes
                                     </Button>
                                     <Button
                                       variant="outlined"
-                                      //   onClick={closeSendTestEmailModal}
                                       style={{ marginRight: "5px", color: "black" }}
                                     >
                                       No
@@ -971,7 +1433,7 @@ const ScheduleReport = () => {
                                   </Box>
                                 </Box>
                               </Modal>
-                            </Popover>
+                            </Popover> */}
                           </TableCell>
                         </TableRow>
                       </TableBody>

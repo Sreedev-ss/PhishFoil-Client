@@ -65,7 +65,8 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import Fade from "@mui/material/Fade";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
-import NativeSelect from "@mui/material/NativeSelect";
+
+import PopupState, { bindTrigger, bindPopover } from "material-ui-popup-state";
 
 const style = {
   position: "absolute",
@@ -90,7 +91,7 @@ const PerformanceReport = () => {
   const [open, setOpen] = useState(false);
   const [sendOpen, setSendOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+
   const [addOpen, setAddOpen] = useState(false);
   const [reportName, setReportName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -101,6 +102,7 @@ const PerformanceReport = () => {
   const [selectedReport, setSelectedReport] = useState(null);
   const [viewPerfomReportOpen, setViewPerformReportOpen] = useState(false);
   const [sendTestEmailOpen, setSendTestEmailOpen] = useState(false);
+  const [PopOpen, setPopOpen] = useState(false);
 
   //Schedule report
 
@@ -108,10 +110,34 @@ const PerformanceReport = () => {
   const [scheduleReportType, setScheduleReportType] = useState("");
   const [scheduleFrequency, setScheduleFrequency] = useState("");
   const [viewReport, setViewReport] = React.useState("");
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
+
+  const handleDeleteReport = () => {
+    // Implement your logic for deleting the report
+    // This is where you would make an API call or update your state to delete the report
+    console.log("Report deleted!");
+    handleDeleteClose(); // Close the modal after deleting
+  };
   const handlesetViewChange = (event) => {
     setViewReport(event.target.value);
   };
 
+  const handleClosePop = () => {
+    setPopOpen(false);
+  };
+
+  const handleOpenPop = () => {
+    setPopOpen(true);
+  };
   const handleViewPerformReportOpen = () => {
     setViewPerformReportOpen(true);
   };
@@ -143,14 +169,6 @@ const PerformanceReport = () => {
 
   const handleEditClose = () => {
     setEditOpen(false);
-  };
-
-  const handleDeleteOpen = () => {
-    setDeleteOpen(true);
-  };
-
-  const handleDeleteClose = () => {
-    setDeleteOpen(false);
   };
 
   const handleSendOpen = () => {
@@ -834,154 +852,160 @@ const PerformanceReport = () => {
                             </Modal>
                           </TableCell>
                           <TableCell>
-                            <SoftButton onClick={handleClick} variant="outlined" color="info">
-                              <AiOutlineArrowRight />
-                            </SoftButton>
-                            <Popover
-                              id={id}
-                              open={openAnchor}
-                              anchorEl={anchorEl}
-                              anchorOrigin={{
-                                vertical: "bottom",
-                                horizontal: "left",
-                              }}
-                              transformOrigin={{
-                                vertical: "top",
-                                horizontal: "left",
-                              }}
-                              onClose={handleClose}
-                            >
-                              {/* edit-email-template */}
-                              <MenuItem onClick={handleEditOpen} style={{ background: "#fff" }}>
-                                Edit Report
-                              </MenuItem>
-
-                              <Modal
-                                open={editOpen}
-                                onClose={handleEditClose}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                              >
-                                <Box sx={style}>
-                                  <Typography
-                                    id="send-test-email-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                  >
-                                    Edit Performance Report - {report.name}
-                                  </Typography>
-                                  <Box>
-                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                      Report Name
-                                    </label>
-                                  </Box>
-                                  <TextField
-                                    fullWidth
-                                    variant="filled"
-                                    type="text"
-                                    sx={{ gridColumn: "span 2" }}
-                                  />
-                                  <Typography
-                                    id="transition-modal-description"
-                                    sx={{ mt: 2 }}
-                                    color="textSecondary"
-                                  >
-                                    Report Period:
-                                  </Typography>
-                                  <TextField
-                                    type="date"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                    }}
-                                    fullWidth
-                                    placeholder="Start Date"
-                                    value={startDate}
-                                    onChange={(e) => setStartDate(e.target.value)}
-                                  />
-
-                                  <TextField
-                                    type="date"
-                                    InputLabelProps={{
-                                      shrink: true,
-                                    }}
-                                    sx={{ mt: 2 }}
-                                    fullWidth
-                                    placeholder="End Date"
-                                    value={endDate}
-                                    onChange={(e) => setEndDate(e.target.value)}
-                                  />
-
-                                  <Button
-                                    variant="outline"
-                                    onClick={handleCreateReport}
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "flex-end",
-                                      border: "0.5px solid blue",
-                                      color: "blue",
-                                      margin: "16px",
-                                      fontWeight: "lighter",
-                                      fontSize: "medium",
-                                    }}
-                                  >
-                                    Update
+                            <PopupState variant="popover" popupId="demo-popup-popover">
+                              {(popupState) => (
+                                <div>
+                                  <Button variant="outlined" {...bindTrigger(popupState)}>
+                                    <AiOutlineArrowRight />
                                   </Button>
-                                </Box>
-                              </Modal>
-                              <MenuItem onClick={handleDeleteOpen} style={{ background: "#fff" }}>
-                                Delete Report
-                              </MenuItem>
-
-                              <Modal open={deleteOpen} onClose={handleDeleteClose}>
-                                <Box sx={style}>
-                                  <Typography
-                                    id="send-test-email-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                  >
-                                    Are you sure you want to delete the selected report?
-                                  </Typography>
-                                  <Box>
-                                    <label htmlFor="name" style={{ fontSize: "13px" }}>
-                                      Number of Reports to delete:
-                                    </label>
-                                  </Box>
-                                  <TextField
-                                    fullWidth
-                                    variant="filled"
-                                    type="text"
-                                    sx={{ gridColumn: "span 2" }}
-                                    placeholder="1"
-                                  />
-
-                                  <Box
-                                    sx={{
-                                      display: "flex",
-                                      justifyContent: "flex-end",
-                                      mt: 2,
-                                      gap: 2,
+                                  <Popover
+                                    {...bindPopover(popupState)}
+                                    anchorOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "center",
+                                    }}
+                                    transformOrigin={{
+                                      vertical: "bottom",
+                                      horizontal: "bottom",
                                     }}
                                   >
-                                    <Button
-                                      variant="contained"
-                                      onClick={handleSendTestEmailOpen}
-                                      style={{ color: "#fff" }}
+                                    <MenuItem
+                                      onClick={handleEditOpen}
+                                      style={{ background: "#fff" }}
                                     >
-                                      <MailOutlineIcon sx={{ marginRight: "5px", color: "#fff" }} />
-                                      Yes
-                                    </Button>
-                                    <Button
-                                      variant="outlined"
-                                      onClick={handleSendTestEmailClose}
-                                      style={{ marginRight: "5px", color: "black" }}
+                                      Edit Report
+                                    </MenuItem>
+
+                                    <Modal
+                                      open={editOpen}
+                                      onClose={handleEditClose}
+                                      aria-labelledby="modal-modal-title"
+                                      aria-describedby="modal-modal-description"
                                     >
-                                      No
-                                    </Button>
-                                  </Box>
-                                </Box>
-                              </Modal>
-                            </Popover>
+                                      <Box sx={style}>
+                                        <Typography
+                                          id="send-test-email-modal-title"
+                                          variant="h6"
+                                          component="h2"
+                                        >
+                                          Edit Performance Report - {report.name}
+                                        </Typography>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Report Name
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                        />
+                                        <Typography
+                                          id="transition-modal-description"
+                                          sx={{ mt: 2 }}
+                                          color="textSecondary"
+                                        >
+                                          Report Period:
+                                        </Typography>
+                                        <TextField
+                                          type="date"
+                                          InputLabelProps={{
+                                            shrink: true,
+                                          }}
+                                          fullWidth
+                                          placeholder="Start Date"
+                                          value={startDate}
+                                          onChange={(e) => setStartDate(e.target.value)}
+                                        />
+
+                                        <TextField
+                                          type="date"
+                                          InputLabelProps={{
+                                            shrink: true,
+                                          }}
+                                          sx={{ mt: 2 }}
+                                          fullWidth
+                                          placeholder="End Date"
+                                          value={endDate}
+                                          onChange={(e) => setEndDate(e.target.value)}
+                                        />
+
+                                        <Button
+                                          variant="outline"
+                                          onClick={handleCreateReport}
+                                          style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "flex-end",
+                                            border: "0.5px solid blue",
+                                            color: "blue",
+                                            margin: "16px",
+                                            fontWeight: "lighter",
+                                            fontSize: "medium",
+                                          }}
+                                        >
+                                          Update
+                                        </Button>
+                                      </Box>
+                                    </Modal>
+                                    <MenuItem
+                                      onClick={handleDeleteOpen}
+                                      style={{ background: "#fff" }}
+                                    >
+                                      Delete Report
+                                    </MenuItem>
+
+                                    <Modal open={deleteOpen} onClose={handleDeleteClose}>
+                                      <Box sx={style}>
+                                        <Typography variant="h6" component="h2">
+                                          Are you sure you want to delete the selected report?
+                                        </Typography>
+                                        <Box>
+                                          <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                            Number of Reports to delete:
+                                          </label>
+                                        </Box>
+                                        <TextField
+                                          fullWidth
+                                          variant="filled"
+                                          type="text"
+                                          sx={{ gridColumn: "span 2" }}
+                                          placeholder="1"
+                                        />
+
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            justifyContent: "flex-end",
+                                            mt: 2,
+                                            gap: 2,
+                                          }}
+                                        >
+                                          <Button
+                                            variant="contained"
+                                            onClick={handleDeleteReport}
+                                            style={{ color: "#fff" }}
+                                          >
+                                            <MailOutlineIcon
+                                              sx={{ marginRight: "5px", color: "#fff" }}
+                                            />
+                                            Yes
+                                          </Button>
+                                          <Button
+                                            variant="outlined"
+                                            onClick={handleDeleteClose}
+                                            style={{ marginRight: "5px", color: "black" }}
+                                          >
+                                            No
+                                          </Button>
+                                        </Box>
+                                      </Box>
+                                    </Modal>
+                                  </Popover>
+                                </div>
+                              )}
+                            </PopupState>
                           </TableCell>
                         </TableRow>
                       ))}

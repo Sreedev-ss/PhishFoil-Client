@@ -13,6 +13,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import InputLabel from "@mui/material/InputLabel";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
+import PieChart from "./PieChart";
 
 import {
   Box,
@@ -66,8 +67,12 @@ import Fade from "@mui/material/Fade";
 import TextField from "@mui/material/TextField";
 import Switch from "@mui/material/Switch";
 import NativeSelect from "@mui/material/NativeSelect";
-import BasicLineChart from "./ViewChart";
+
 import SimpleLineChart from "./ViewChart";
+import TwoSimplePieChart from "./PieChart";
+import PieChartWithCenterLabel from "./PieChart";
+import PieChartWithPaddingAngle from "./PieChart";
+import CustomizedPieChart from "./PieChart";
 
 const style = {
   position: "absolute",
@@ -163,9 +168,7 @@ const ViewReport = () => {
               </div>
 
               <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
-                <Typography
-                  sx={{ fontSize: "small", color: "black", fontWeight: "bold", marginLeft: "16px" }}
-                >
+                <Typography sx={{ fontSize: "small", color: "black", marginLeft: "16px" }}>
                   01/10/2023 - 31/10/2023
                 </Typography>
               </div>
@@ -174,16 +177,13 @@ const ViewReport = () => {
           <Divider />
           <Card style={{ margin: "16px", padding: "20px" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}>
-              <Typography
-                sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-              >
+              <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                 Executive Summary
               </Typography>
             </div>
           </Card>
           <Divider />
 
-          <Divider />
           <Stack>
             <Box>
               <Card style={{ margin: "16px", padding: "20px" }}>
@@ -191,13 +191,18 @@ const ViewReport = () => {
                   style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
                 >
                   <Typography
-                    sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
+                    sx={{
+                      fontSize: "large",
+                      color: "black",
+                      fontWeight: "bold",
+                      margin: "16px",
+                    }}
                   >
                     Simulated Phishing
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "small",
+                      fontSize: "large",
                       color: "black",
                       fontWeight: "bold",
                       marginRight: "35%",
@@ -215,9 +220,7 @@ const ViewReport = () => {
                   }}
                 >
                   <div>
-                    <Typography
-                      sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                    >
+                    <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                       This section shows the overall compromise rate of your users in phishing
                       simulations they have been sent. The figure takes into account all simulations
                       and compromises since the inception of your account. The graph shows change in
@@ -234,18 +237,6 @@ const ViewReport = () => {
                         position: "relative", // Add this line
                       }}
                     >
-                      {/* Position the ThumbDownOffAltSharpIcon */}
-                      <ThumbDownOffAltSharpIcon
-                        sx={{
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          color: "red", // You can set the color you want
-                          fontSize: "large",
-                          // You can set the color you want
-                        }}
-                      />
-
                       <Typography
                         variant="h6"
                         sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
@@ -260,7 +251,6 @@ const ViewReport = () => {
                       </Typography>
                     </Box>
                   </div>
-
                   <div>
                     <SimpleLineChart />
                   </div>
@@ -281,7 +271,7 @@ const ViewReport = () => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "small",
+                      fontSize: "large",
                       color: "black",
                       fontWeight: "bold",
                       marginRight: "35%",
@@ -299,9 +289,7 @@ const ViewReport = () => {
                   }}
                 >
                   <div>
-                    <Typography
-                      sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                    >
+                    <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                       This section summarises the participation and performance of your users in
                       their training courses. The Average Score and Overall Completion Rate take
                       into account all course completions from the beginning of your training
@@ -344,7 +332,6 @@ const ViewReport = () => {
                       <Box
                         sx={{
                           border: "1px solid #ccc",
-                          padding: "4px",
                           borderRadius: "4px",
                           padding: "16px",
                           margin: "16px",
@@ -391,7 +378,7 @@ const ViewReport = () => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "small",
+                      fontSize: "large",
                       color: "black",
                       fontWeight: "bold",
                       marginRight: "35%",
@@ -409,9 +396,7 @@ const ViewReport = () => {
                   }}
                 >
                   <div>
-                    <Typography
-                      sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                    >
+                    <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                       This section summarises policy activity. The number figures take into account
                       policies created and updated, and policy requests sent and signed during the
                       reporting period. The graph shows the signature rate of all policy requests
@@ -461,8 +446,6 @@ const ViewReport = () => {
                           position: "relative", // Add this line
                         }}
                       >
-                        {/* Position the ThumbDownOffAltSharpIcon */}
-
                         <Typography
                           variant="h6"
                           sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
@@ -560,7 +543,7 @@ const ViewReport = () => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "small",
+                      fontSize: "large",
                       color: "black",
                       fontWeight: "bold",
                       marginRight: "35%",
@@ -578,9 +561,7 @@ const ViewReport = () => {
                   }}
                 >
                   <div>
-                    <Typography
-                      sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                    >
+                    <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                       This section shows the overall number of user breaches detected as well as new
                       ones detected within the reporting period. User breaches represent each unique
                       user and breached service combination within the breach scans performed on
@@ -679,7 +660,7 @@ const ViewReport = () => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: "small",
+                      fontSize: "large",
                       color: "black",
                       fontWeight: "bold",
                       marginRight: "35%",
@@ -697,9 +678,7 @@ const ViewReport = () => {
                   }}
                 >
                   <div>
-                    <Typography
-                      sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                    >
+                    <Typography sx={{ fontSize: "large", color: "black", margin: "16px" }}>
                       This section provides a summary of user management activity. Total Users and
                       Total Groups include all users and groups present on your account at the end
                       of the reporting period. New Users and Removed Users include users who were
@@ -749,8 +728,6 @@ const ViewReport = () => {
                           position: "relative", // Add this line
                         }}
                       >
-                        {/* Position the ThumbDownOffAltSharpIcon */}
-
                         <Typography
                           variant="h6"
                           sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
@@ -855,13 +832,13 @@ const ViewReport = () => {
                       </Typography>
                       <Typography
                         sx={{
-                          fontSize: "small",
+                          fontSize: "large",
                           color: "black",
                           fontWeight: "bold",
                           marginRight: "35%",
                         }}
                       >
-                        Groups With/Without Managers 3
+                        Groups With/Without Managers
                       </Typography>
                     </div>
                     <div
@@ -877,7 +854,6 @@ const ViewReport = () => {
                           sx={{
                             fontSize: "large",
                             color: "black",
-                            fontWeight: "bold",
                             margin: "16px",
                           }}
                         >
@@ -908,13 +884,19 @@ const ViewReport = () => {
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Average Score
+                              Group Managers
                             </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              3
+                            </Typography>
+                            {/* <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
                               {overallCompromiseRate}%
-                            </Typography>
+                            </Typography> */}
                             <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
+                              Previous: 3
                             </Typography>
                           </Box>
                           <Box
@@ -934,20 +916,24 @@ const ViewReport = () => {
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Overall Completion rate
+                              Direct Managers
                             </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              4
                             </Typography>
+
                             <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
+                              Previous: 4
                             </Typography>
                           </Box>
                         </div>
                       </div>
 
                       <div>
-                        <SimpleLineChart />
+                        <PieChartWithPaddingAngle />
                       </div>
                     </div>
                   </Card>
@@ -972,17 +958,17 @@ const ViewReport = () => {
                           margin: "16px",
                         }}
                       >
-                        Managers
+                        Active & Inactive Users
                       </Typography>
                       <Typography
                         sx={{
-                          fontSize: "small",
+                          fontSize: "large",
                           color: "black",
                           fontWeight: "bold",
                           marginRight: "35%",
                         }}
                       >
-                        Groups With/Without Managers 3
+                        Active vs Inactive Users
                       </Typography>
                     </div>
                     <div
@@ -998,12 +984,11 @@ const ViewReport = () => {
                           sx={{
                             fontSize: "large",
                             color: "black",
-                            fontWeight: "bold",
                             margin: "16px",
                           }}
                         >
-                          This section summarises the direct and group managers set up on your
-                          account at the end of the reporting period.
+                          This section shows the number of active and inactive users on your account
+                          at the end of the reporting period.
                         </Typography>
                         <div
                           style={{
@@ -1023,19 +1008,21 @@ const ViewReport = () => {
                               position: "relative", // Add this line
                             }}
                           >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
                             <Typography
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Average Score
+                              Group Managers
                             </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              3
                             </Typography>
+
                             <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
+                              Previous: 3
                             </Typography>
                           </Box>
                           <Box
@@ -1049,31 +1036,34 @@ const ViewReport = () => {
                               position: "relative", // Add this line
                             }}
                           >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
                             <Typography
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Overall Completion rate
+                              Direct Managers
                             </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
+                            <Typography
+                              variant="h6"
+                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
+                            >
+                              4
                             </Typography>
+
                             <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
+                              Previous: 4
                             </Typography>
                           </Box>
                         </div>
                       </div>
 
                       <div>
-                        <SimpleLineChart />
+                        <PieChartWithPaddingAngle />
                       </div>
                     </div>
                   </Card>
                 </Box>
               </Stack>
+              <Divider />
               <Card style={{ margin: "16px", padding: "20px" }}>
                 <div
                   style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}
@@ -1104,7 +1094,7 @@ const ViewReport = () => {
                           margin: "16px",
                         }}
                       >
-                        Managers
+                        Breaches
                       </Typography>
                       <Typography
                         sx={{
@@ -1114,7 +1104,7 @@ const ViewReport = () => {
                           marginRight: "35%",
                         }}
                       >
-                        Groups With/Without Managers 3
+                        Users Breached
                       </Typography>
                     </div>
                     <div
@@ -1130,12 +1120,13 @@ const ViewReport = () => {
                           sx={{
                             fontSize: "large",
                             color: "black",
-                            fontWeight: "bold",
                             margin: "16px",
                           }}
                         >
-                          This section summarises the direct and group managers set up on your
-                          account at the end of the reporting period.
+                          This section shows the overall number of user breaches as well as those
+                          detected within the reporting period. User breaches represent each unique
+                          user and breached service combination within the breach scans performed on
+                          your account.
                         </Typography>
                         <div
                           style={{
@@ -1152,16 +1143,14 @@ const ViewReport = () => {
                               padding: "16px",
                               margin: "16px",
                               width: "50%",
-                              position: "relative", // Add this line
+                              position: "relative",
                             }}
                           >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
                             <Typography
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Average Score
+                              Total User Breaches
                             </Typography>
                             <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
                               {overallCompromiseRate}%
@@ -1181,13 +1170,11 @@ const ViewReport = () => {
                               position: "relative", // Add this line
                             }}
                           >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
                             <Typography
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Overall Completion rate
+                              New User Breaches
                             </Typography>
                             <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
                               {overallCompromiseRate}%
@@ -1197,127 +1184,13 @@ const ViewReport = () => {
                             </Typography>
                           </Box>
                         </div>
-                      </div>
-
-                      <div>
-                        <SimpleLineChart />
-                      </div>
-                    </div>
-                  </Card>
-                </Box>
-              </Stack>{" "}
-              <Divider />
-              <Stack>
-                <Box>
-                  <Card style={{ margin: "16px", padding: "20px" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          fontSize: "large",
-                          color: "black",
-                          fontWeight: "bold",
-                          margin: "16px",
-                        }}
-                      >
-                        Managers
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontSize: "small",
-                          color: "black",
-                          fontWeight: "bold",
-                          marginRight: "35%",
-                        }}
-                      >
-                        Groups With/Without Managers 3
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        margin: "16px",
-                      }}
-                    >
-                      <div>
-                        <Typography
-                          sx={{
-                            fontSize: "large",
-                            color: "black",
-                            fontWeight: "bold",
-                            margin: "16px",
-                          }}
-                        >
-                          This section summarises the direct and group managers set up on your
-                          account at the end of the reporting period.
-                        </Typography>
                         <div
                           style={{
                             display: "flex",
                             alignContent: "center",
                             justifyContent: "space-between",
                           }}
-                        >
-                          <Box
-                            sx={{
-                              border: "1px solid #ccc",
-                              padding: "4px",
-                              borderRadius: "4px",
-                              padding: "16px",
-                              margin: "16px",
-                              width: "50%",
-                              position: "relative", // Add this line
-                            }}
-                          >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
-                            <Typography
-                              variant="h6"
-                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
-                            >
-                              Average Score
-                            </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
-                            </Typography>
-                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              border: "1px solid #ccc",
-                              padding: "4px",
-                              borderRadius: "4px",
-                              padding: "16px",
-                              margin: "16px",
-                              width: "50%",
-                              position: "relative", // Add this line
-                            }}
-                          >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
-                            <Typography
-                              variant="h6"
-                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
-                            >
-                              Overall Completion rate
-                            </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
-                            </Typography>
-                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
-                            </Typography>
-                          </Box>
-                        </div>
+                        ></div>
                       </div>
 
                       <div>
@@ -1327,17 +1200,6 @@ const ViewReport = () => {
                   </Card>
                 </Box>
               </Stack>
-              <Card style={{ margin: "16px", padding: "20px" }}>
-                <div
-                  style={{ display: "flex", alignItems: "center", justifyContent: "flex-start" }}
-                >
-                  <Typography
-                    sx={{ fontSize: "large", color: "black", fontWeight: "bold", margin: "16px" }}
-                  >
-                    Breaches Report
-                  </Typography>
-                </div>
-              </Card>
               <Divider />
               <Stack>
                 <Box>
@@ -1357,17 +1219,17 @@ const ViewReport = () => {
                           margin: "16px",
                         }}
                       >
-                        Simulations
+                        Users Breached
                       </Typography>
                       <Typography
                         sx={{
-                          fontSize: "small",
+                          fontSize: "large",
                           color: "black",
                           fontWeight: "bold",
                           marginRight: "35%",
                         }}
                       >
-                        Simulations This Month
+                        Users Breached
                       </Typography>
                     </div>
                     <div
@@ -1383,14 +1245,13 @@ const ViewReport = () => {
                           sx={{
                             fontSize: "large",
                             color: "black",
-                            fontWeight: "bold",
                             margin: "16px",
                           }}
                         >
-                          This section summarises policy activity. The number figures take into
-                          account policies created and updated, and policy requests sent and signed
-                          during the reporting period. The graph shows the signature rate of all
-                          policy requests sent since the inception of your account.
+                          This section shows the number of users that have appeared in at least one
+                          data breach detected by our dark web monitoring from the inception of your
+                          account. The graph shows the change in the total number of users breached
+                          during the reporting period.
                         </Typography>
                         <div
                           style={{
@@ -1410,39 +1271,11 @@ const ViewReport = () => {
                               position: "relative", // Add this line
                             }}
                           >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
                             <Typography
                               variant="h6"
                               sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
                             >
-                              Average Score
-                            </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
-                            </Typography>
-                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              border: "1px solid #ccc",
-                              padding: "4px",
-                              borderRadius: "4px",
-                              padding: "16px",
-                              margin: "16px",
-                              width: "50%",
-                              position: "relative", // Add this line
-                            }}
-                          >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
-                            <Typography
-                              variant="h6"
-                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
-                            >
-                              Overall Completion rate
+                              Total Users Breached
                             </Typography>
                             <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
                               {overallCompromiseRate}%
@@ -1458,60 +1291,7 @@ const ViewReport = () => {
                             alignContent: "center",
                             justifyContent: "space-between",
                           }}
-                        >
-                          <Box
-                            sx={{
-                              border: "1px solid #ccc",
-                              padding: "4px",
-                              borderRadius: "4px",
-                              padding: "16px",
-                              margin: "16px",
-                              width: "50%",
-                              position: "relative", // Add this line
-                            }}
-                          >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
-                            <Typography
-                              variant="h6"
-                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
-                            >
-                              Average Score
-                            </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
-                            </Typography>
-                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              border: "1px solid #ccc",
-                              padding: "4px",
-                              borderRadius: "4px",
-                              padding: "16px",
-                              margin: "16px",
-                              width: "50%",
-                              position: "relative", // Add this line
-                            }}
-                          >
-                            {/* Position the ThumbDownOffAltSharpIcon */}
-
-                            <Typography
-                              variant="h6"
-                              sx={{ color: "black", fontWeight: "bold", paddingBottom: "16px" }}
-                            >
-                              Overall Completion rate
-                            </Typography>
-                            <Typography variant="h4" sx={{ color: "black", fontWeight: "bold" }}>
-                              {overallCompromiseRate}%
-                            </Typography>
-                            <Typography variant="subtitle2" sx={{ color: "grey" }}>
-                              Previous: {previousCompromiseRate}%
-                            </Typography>
-                          </Box>
-                        </div>
+                        ></div>
                       </div>
 
                       <div>
@@ -1562,11 +1342,11 @@ const ViewReport = () => {
               <TableContainer component={Paper}>
                 <Table sx={{ width: "100%" }} aria-label="simple table">
                   <TableHead>
-                    <TableRow style={{ width: "100px" }}>
+                    <TableRow style={{ width: "100%" }}>
                       <TableCell style={{ fontSize: "16px", width: "100px" }}>
                         Policy Name
                       </TableCell>
-                      <TableCell style={{ fontSize: "16px", width: "100px" }}>
+                      <TableCell style={{ fontSize: "16px", width: "200px" }}>
                         Signed Request Rate
                       </TableCell>
                       <TableCell style={{ fontSize: "16px", width: "100px" }}>Sent</TableCell>
@@ -1576,7 +1356,7 @@ const ViewReport = () => {
                   <TableBody>
                     <TableRow style={{ width: "100px" }}>
                       <TableCell style={{ fontSize: "16px", width: "100px" }}>Policy</TableCell>
-                      <TableCell style={{ fontSize: "16px", width: "100px" }}>Signed</TableCell>
+                      <TableCell style={{ fontSize: "16px", width: "200px" }}>Signed</TableCell>
                       <TableCell style={{ fontSize: "16px", width: "100px" }}>Sent</TableCell>
                       <TableCell style={{ fontSize: "16px", width: "100px" }}>Signed</TableCell>
                     </TableRow>
