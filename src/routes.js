@@ -647,13 +647,13 @@ const routes = [
         route: "/Report/GapAnalysisReport",
         component: <GapAnalysisReport />,
       },
-      {
-        type: "collapse",
-        name: "Auto Enrol",
-        key: "autoEnrol",
-        route: "/ulearn/auto-enrol",
-        component: <AutoEnrolSettings />,
-      },
+      // {
+      //   type: "collapse",
+      //   name: "Auto Enrol",
+      //   key: "autoEnrol",
+      //   route: "/ulearn/auto-enrol",
+      //   component: <AutoEnrolSettings />,
+      // },
       {
         type: "collapse",
         name: "Course Library",
