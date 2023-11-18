@@ -1,0 +1,4 @@
+/* Custom CSS */
+.custom-data-grid .MuiDataGrid-footer {
+  display: none; /* Hide the default pagination */
+}
