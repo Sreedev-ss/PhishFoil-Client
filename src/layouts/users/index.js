@@ -146,7 +146,7 @@ const item1 = [
 const item2 = ["Administration", "Sample", "Technical"];
 const groupManagers = ["Vino", "Vijay", "Velayutham"];
 
-const host = "http://localhost:8081";
+const host = "http://ec2-65-0-19-93.ap-south-1.compute.amazonaws.com:8081/phishfoil";
 
 function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -1279,6 +1279,24 @@ function Users() {
                               value={formData.lastname}
                               onChange={handleChangeAddUser}
                             />
+
+                            <Box style={{ marginTop: "15px" }}>
+                              <label htmlFor="name" style={{ fontSize: "13px" }}>
+                              Add user via Email or User ID?:
+                              </label>
+                            </Box>
+                            <TextField
+                              select
+                              name="manager"
+                              value={formData.manager}
+                              onChange={handleChangeAddUser}
+                              fullWidth
+                              type="text"
+                              sx={{ gridColumn: "span 2" }}
+                            >
+                              <MenuItem value="Email">Email</MenuItem>
+                              <MenuItem value="User ID">User ID</MenuItem>
+                            </TextField>
 
                             <Box style={{ marginTop: "15px" }}>
                               <label htmlFor="name" style={{ fontSize: "13px" }}>
