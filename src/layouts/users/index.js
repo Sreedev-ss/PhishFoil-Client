@@ -102,6 +102,19 @@ const style = {
   maxHeight: "400px",
   overflowY: "scroll",
 };
+const styleImport = {
+  position: "absolute",
+  top: "40%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "60%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  height: "500px",
+  // overflowY: "scroll",
+};
 
 const styleTable = {
   position: "absolute",
@@ -114,6 +127,20 @@ const styleTable = {
   boxShadow: 24,
   p: 4,
   maxHeight: "500px",
+  overflowY: "scroll",
+};
+
+const styleCSVTable = {
+  position: "absolute",
+  top: "40%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 1000,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  height: "800px",
   overflowY: "scroll",
 };
 
@@ -1454,7 +1481,7 @@ function Users() {
                       aria-labelledby="modal-modal-title"
                       aria-describedby="modal-modal-description"
                     >
-                      <Box sx={style}>
+                      <Box sx={styleImport}>
                         <IconButton
                           edge="end"
                           color="inherit"
@@ -1489,7 +1516,6 @@ function Users() {
                             {modalCSVOpen && (
                               <div className="modal">
                                 <div className="modal-content">
-                                  {/* Your modal content goes here */}
                                   <Box sx={styleCSV}>
                                     <label htmlFor="name" style={{ fontSize: "16px" }}>
                                       Import Users & Groups via CSV
@@ -1499,31 +1525,45 @@ function Users() {
 
                                     {csvContents && csvContents.length > 0 ? (
                                       <div>
-                                        <table style={{ marginBottom: "20px" }}>
-                                          <thead style={{ background: "grey" }}>
-                                            <tr>
-                                              {Object.keys(csvContents[0]).map((header) => (
-                                                <th key={header}>{header}</th>
-                                              ))}
-                                              <th>Actions</th>
-                                            </tr>
-                                          </thead>
-                                          <tbody>
+                                    <SoftBox
+                                      style={{styleCSVTable}}
+                          
+                                    >
+                                     
+                                        <TableContainer component={Paper} style={{ marginTop: "20px" }}>
+                                          <Table sx={{ width: "100%" }} aria-label="simple table">
+                                            <TableHead sx={{ display: "table-header-group", background:'gray' }}>
+                                              <TableRow sx={{ width: "20px" }}>
+                                                <TableCell>First Name</TableCell>
+                                                <TableCell>Last Name</TableCell>
+                                                <TableCell>Email</TableCell>
+                                                <TableCell>Preferred Language</TableCell>
+                                                <TableCell>Groups</TableCell>
+                                                <TableCell>Manager Email</TableCell>
+                                                <TableCell>Exclude From Autoenrol</TableCell>
+                                                <TableCell>Manager</TableCell>
+                                              </TableRow> 
+                                            </TableHead>
+                                            <TableBody>
                                             {csvContents.map((entry, index) => (
-                                              <tr key={index}>
+                                              <TableRow key={index}>
                                                 {Object.values(entry).map((value, index) => (
-                                                  <td key={index}>{value}</td>
+                                                  <TableCell key={index}>{value}</TableCell>
                                                 ))}
-                                                <td>
+                                                <TableCell>
                                                   <button onClick={() => handleDeleteCSV(index)}>
                                                     <DeleteIcon style={{ color: "red" }} />
-                                                    {/* <span role="img" aria-label="Delete">🗑️</span> */}
+                                                    
                                                   </button>
-                                                </td>
-                                              </tr>
+                                                </TableCell>
+                                              </TableRow>
                                             ))}
-                                          </tbody>
-                                        </table>
+                           
+                                          </TableBody>
+                                        </Table>
+                                      </TableContainer>                                       
+                                    
+                                      </SoftBox>
                                         <button onClick={closeCSVModal}>Close</button>
                                       </div>
                                     ) : (
