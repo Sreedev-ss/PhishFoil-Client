@@ -336,3 +336,7 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+export function Host(){
+  return "http://ec2-65-0-19-93.ap-south-1.compute.amazonaws.com:8081/phishfoil"
+}
