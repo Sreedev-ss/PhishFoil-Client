@@ -35,7 +35,10 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const host = 'http://localhost:8081';
+// const host = 'http://localhost:8081';
+import { Host } from "App";
+
+const host = Host()
 
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
@@ -59,14 +62,14 @@ function SignIn() {
       return toast.error("Password is required")
     }
 
-    axios.post(`${host}/login/authenticate`,{username, password}).then((res)=>{
+    axios.post(`${host}/auth/login`,{username, password}).then((res)=>{
       if(res.data){
         console.log(res.data)
         let data = {
           token : res.data?.token,
           role: res.data?.role,
-          detailsid: res.data?.detailsid,
-          clientid:res.data?.clientid,
+          // detailsid: res.data?.detailsid,
+          // clientid:res.data?.clientid,
           username:res.data?.username
 
         }
