@@ -1745,6 +1745,24 @@ function Users() {
 
                                       <Box style={{ marginTop: "15px" }}>
                                         <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                        Add user via Email or User ID?:
+                                        </label>
+                                      </Box>
+                                      <TextField
+                                        select
+                                        name="idOrEmail"
+                                        value={formData.idOrEmail}
+                                        onChange={handleEditChange}
+                                        fullWidth
+                                        type="text"
+                                        sx={{ gridColumn: "span 2" }}
+                                      >
+                                        <MenuItem value="Email">Email</MenuItem>
+                                        <MenuItem value="User ID">User ID</MenuItem>
+                                      </TextField>
+
+                                      <Box style={{ marginTop: "15px" }}>
+                                        <label htmlFor="name" style={{ fontSize: "13px" }}>
                                           Email:
                                         </label>
                                       </Box>
