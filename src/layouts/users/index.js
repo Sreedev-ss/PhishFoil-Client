@@ -262,7 +262,7 @@ function Users() {
       .get(`${host}/users`)
       .then((res) => {
         console.log(res);
-        if (res.data) {
+        if (res.data.status == "SUCCESS") {
           // if (status == "Active") {
           //   setAllUserData(res.data.filter((i) => i.enableordisable == true));
           // } else if (status == "Inactive") {
@@ -277,6 +277,7 @@ function Users() {
           //   );
           //   setAllUserData(groupManagers);
           // }
+          setAllUserData(res.data.data)
         } else {
           toast.error("Failed fetching users");
         }
@@ -1152,10 +1153,10 @@ function Users() {
                                   >
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>
-                                      {item.name}
+                                      {item.firstName} {item.lastName}
                                     </TableCell>
                                     <TableCell style={{ fontSize: "13px" }}>
-                                      {item.emailid}
+                                      {item.userId}
                                     </TableCell>
                                     <TableCell>
                                       <button
@@ -1642,13 +1643,13 @@ function Users() {
                           }}
                         >
                           <TableCell>{index + 1}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell>{item.emailid}</TableCell>
+                          <TableCell>{item.firstName} {item.lastName}</TableCell>
+                          <TableCell>{item.userId}</TableCell>
 
                           <TableCell>
-                            {item.managername}
+                            {item.manager?.managerName}
                             <div style={{ fontSize: "12px", color: "gray" }}>
-                              {item.manageremailid}
+                              {item.manager?.managerId}
                             </div>
                           </TableCell>
                           <TableCell>
