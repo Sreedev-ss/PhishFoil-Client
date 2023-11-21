@@ -204,6 +204,7 @@ function Users() {
   const [selectedCourses, setSelectedCourses] = useState([
     "Home Network Security Awareness: Robes Routine(Beginner)",
   ]);
+  const [idOrEmail, setIdOrEmail] = useState("");
   const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
   const [activeModalOpen, setActiveModalOpen] = useState(false);
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
@@ -229,6 +230,7 @@ function Users() {
     firstname: "",
     lastname: "",
     email: "",
+    idOrEmail:"",
     manageremail: "",
     manager: "",
     preferredlanguage: [],
@@ -1312,8 +1314,8 @@ function Users() {
                             </Box>
                             <TextField
                               select
-                              name="manager"
-                              value={formData.manager}
+                              name="idOrEmail"
+                              value={formData.idOrEmail}
                               onChange={handleChangeAddUser}
                               fullWidth
                               type="text"
