@@ -336,3 +336,7 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+export function Host() {
+  return "http://65.0.19.93:8081/phishfoil";
+}
