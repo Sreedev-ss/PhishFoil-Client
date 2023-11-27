@@ -35,7 +35,10 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import curved9 from "assets/images/curved-images/curved-6.jpg";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const host = 'http://localhost:8081';
+// const host = 'http://localhost:8081';
+import { Host } from "App";
+
+const host = Host()
 
 function SignIn() {
   const [rememberMe, setRememberMe] = useState(true);
@@ -43,7 +46,7 @@ function SignIn() {
   const [password, setPassword] = useState('')
   const navigate = useNavigate();
 
-  
+
   useEffect(() => {
     if (localStorage.getItem("loginData")) {
       navigate("/home");
@@ -52,36 +55,48 @@ function SignIn() {
 
   const handleLogin = () => {
 
-    if(username == ""){
+    if (username == "") {
       return toast.error("Email is required")
     }
-    if(password == ""){
+    if (password == "") {
       return toast.error("Password is required")
     }
 
-    axios.post(`${host}/login/authenticate`,{username, password}).then((res)=>{
-      if(res.data){
-        console.log(res.data)
-        let data = {
-          token : res.data?.token,
-          role: res.data?.role,
-          detailsid: res.data?.detailsid,
-          clientid:res.data?.clientid,
-          username:res.data?.username
+    fetch(`${host}/auth/login`, {
+      method: 'POST',
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: { userName: username, password: password }
+    }).then((res) => res.json()).then((res) => console.log(res)).catch(e => console.log(e))
 
-        }
-        const userData = JSON.stringify(data);
+    // axios.post(`${host}/auth/login`, { userName: username, password }, {
+    //   headers: {
+    //     "Origin": 'http://localhost:3000',
+    //     "Content-Type": "application/json"
+    //   }
+    // }).then((res) => {
+    //   if (res.data) {
+    //     console.log(res.data)
+    //     let data = {
+    //       token: res.data?.data.accessToken,
+    //       role: res.data?.data.role,
+    //       username: res.data?.data.userName,
+    //       roleAccess: res.data?.data.roleAccess
 
-        localStorage.setItem("loginData",userData)
-        toast.success('Login Success')
-        console.log(data)
-        navigate("/users")
-      }else {
-        toast.error("Login failed")
-      }
-    }).catch(e=>{
-      toast.error(`404 : Login failed`)
-    })
+    //     }
+    //     const userData = JSON.stringify(data);
+
+    //     localStorage.setItem("loginData", userData)
+    //     toast.success('Login Success')
+    //     console.log(data)
+    //     navigate("/users")
+    //   } else {
+    //     toast.error("Login failed")
+    //   }
+    // }).catch(e => {
+    //   toast.error(`404 : Login failed`)
+    // })
   }
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
@@ -108,7 +123,7 @@ function SignIn() {
               Password
             </SoftTypography>
           </SoftBox>
-          <SoftInput type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)}/>
+          <SoftInput type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
         </SoftBox>
         {/* <SoftBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />

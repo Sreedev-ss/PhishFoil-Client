@@ -81,6 +81,7 @@ import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Host } from "App";
 const items = ["Technical", "Administration", "Sample"];
 const courses = [
   "Mobile Device Security Awareness: Terrys Tech Tragedy(Beginner)",
@@ -173,7 +174,7 @@ const item1 = [
 const item2 = ["Administration", "Sample", "Technical"];
 const groupManagers = ["Vino", "Vijay", "Velayutham"];
 
-const host = "http://ec2-65-0-19-93.ap-south-1.compute.amazonaws.com:8081/phishfoil";
+const host = Host()
 
 function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -203,6 +204,7 @@ function Users() {
   const [selectedCourses, setSelectedCourses] = useState([
     "Home Network Security Awareness: Robes Routine(Beginner)",
   ]);
+  const [idOrEmail, setIdOrEmail] = useState("");
   const [unenrolCoursesModalOpen, setUnenrolCoursesModalOpen] = useState(false);
   const [activeModalOpen, setActiveModalOpen] = useState(false);
   const [inactiveModalOpen, setInactiveModalOpen] = useState(false);
@@ -228,6 +230,7 @@ function Users() {
     firstname: "",
     lastname: "",
     email: "",
+    idOrEmail:"",
     manageremail: "",
     manager: "",
     preferredlanguage: [],
@@ -236,42 +239,45 @@ function Users() {
   });
 
   const data = localStorage.getItem("loginData");
-  const { clientid, detailid } = JSON.parse(data);
-  useEffect(() => {
-    axios
-      .get(`${host}/user/group/all/${clientid}`)
-      .then((res) => {
-        if (res.data) {
-          setAllGroups(res.data);
-          console.log(res.data, "all");
-        } else {
-          toast.error("Failed fetching users");
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, []);
+  if(data){
+    const { clientid, detailid } = JSON.parse(data);
+  }
+  // useEffect(() => {
+  //   axios
+  //     .get(`${host}/user/group/all/${clientid}`)
+  //     .then((res) => {
+  //       if (res.data) {
+  //         setAllGroups(res.data);
+  //       } else {
+  //         toast.error("Failed fetching users");
+  //       }
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }, []);
 
   useEffect(() => {
     axios
-      .get(`${host}/user/users/all/${clientid}`)
+      .get(`${host}/users`)
       .then((res) => {
-        if (res.data) {
-          if (status == "Active") {
-            setAllUserData(res.data.filter((i) => i.enableordisable == true));
-          } else if (status == "Inactive") {
-            setAllUserData(res.data.filter((i) => i.enableordisable == false));
-          } else if (status == "All Users") {
-            setAllUserData(res.data);
-          } else if (status == "Managers") {
-            setAllUserData(res.data.filter((i) => i.ismanager == true));
-          } else if (status == "Group Managers") {
-            const groupManagers = res.data.filter((user) =>
-              allGroups.some((group) => group["groupmanager"] == user.detailsid)
-            );
-            setAllUserData(groupManagers);
-          }
+        console.log(res);
+        if (res.data.status == "SUCCESS") {
+          // if (status == "Active") {
+          //   setAllUserData(res.data.filter((i) => i.enableordisable == true));
+          // } else if (status == "Inactive") {
+          //   setAllUserData(res.data.filter((i) => i.enableordisable == false));
+          // } else if (status == "All Users") {
+          //   setAllUserData(res.data);
+          // } else if (status == "Managers") {
+          //   setAllUserData(res.data.filter((i) => i.ismanager == true));
+          // } else if (status == "Group Managers") {
+          //   const groupManagers = res.data.filter((user) =>
+          //     allGroups.some((group) => group["groupmanager"] == user.detailsid)
+          //   );
+          //   setAllUserData(groupManagers);
+          // }
+          setAllUserData(res.data.data)
         } else {
           toast.error("Failed fetching users");
         }
@@ -311,7 +317,6 @@ function Users() {
           data.push(entry);
         }
       }
-
       setCsvContents(data);
     };
 
@@ -324,10 +329,6 @@ function Users() {
     setCsvContents(updatedCsvContents);
   };
 
-  // const handleUpload = () => {
-  //   setAllUserData([...usersData, ...csvContents]);
-  //   closeCSVModal();
-  // }
 
   const handleUpload = (event) => {
     setUploadedData(csvContents);
@@ -1152,10 +1153,10 @@ function Users() {
                                   >
                                     <TableCell>{index + 1}</TableCell>
                                     <TableCell style={{ fontSize: "13px", color: "#209ce8" }}>
-                                      {item.name}
+                                      {item.firstName} {item.lastName}
                                     </TableCell>
                                     <TableCell style={{ fontSize: "13px" }}>
-                                      {item.emailid}
+                                      {item.userId}
                                     </TableCell>
                                     <TableCell>
                                       <button
@@ -1314,8 +1315,8 @@ function Users() {
                             </Box>
                             <TextField
                               select
-                              name="manager"
-                              value={formData.manager}
+                              name="idOrEmail"
+                              value={formData.idOrEmail}
                               onChange={handleChangeAddUser}
                               fullWidth
                               type="text"
@@ -1642,13 +1643,13 @@ function Users() {
                           }}
                         >
                           <TableCell>{index + 1}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell>{item.emailid}</TableCell>
+                          <TableCell>{item.firstName} {item.lastName}</TableCell>
+                          <TableCell>{item.userId}</TableCell>
 
                           <TableCell>
-                            {item.managername}
+                            {item.manager?.managerName}
                             <div style={{ fontSize: "12px", color: "gray" }}>
-                              {item.manageremailid}
+                              {item.manager?.managerId}
                             </div>
                           </TableCell>
                           <TableCell>
@@ -1742,6 +1743,24 @@ function Users() {
                                         name="lastname"
                                         sx={{ gridColumn: "span 2" }}
                                       />
+
+                                      <Box style={{ marginTop: "15px" }}>
+                                        <label htmlFor="name" style={{ fontSize: "13px" }}>
+                                        Add user via Email or User ID?:
+                                        </label>
+                                      </Box>
+                                      <TextField
+                                        select
+                                        name="idOrEmail"
+                                        value={formData.idOrEmail}
+                                        onChange={handleEditChange}
+                                        fullWidth
+                                        type="text"
+                                        sx={{ gridColumn: "span 2" }}
+                                      >
+                                        <MenuItem value="Email">Email</MenuItem>
+                                        <MenuItem value="User ID">User ID</MenuItem>
+                                      </TextField>
 
                                       <Box style={{ marginTop: "15px" }}>
                                         <label htmlFor="name" style={{ fontSize: "13px" }}>
