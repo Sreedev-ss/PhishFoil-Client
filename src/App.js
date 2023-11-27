@@ -337,6 +337,7 @@ export default function App() {
   );
 }
 
-export function Host(){
-  return "http://65.0.19.93:8081/phishfoil"
+export function Host() {
+  return "http://65.0.19.93:8081/phishfoil";
 }
+
